@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="6dp"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/vazirmatn_medium"
+            android:text="@string/Station_1"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlHardcoded" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_title_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/vazirmatn_regular"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintRight_toLeftOf="@+id/txt_title"
+            app:layout_constraintTop_toTopOf="@+id/txt_title"
+            tools:ignore="RtlHardcoded"
+            tools:text="ایستگاه کنترلی" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_control_station_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/vazirmatn_medium"
+            android:text="@string/Quality_1"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintRight_toRightOf="@+id/txt_title"
+            app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_control_station_name_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/vazirmatn_regular"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintRight_toLeftOf="@+id/txt_control_station_name"
+            app:layout_constraintTop_toTopOf="@+id/txt_control_station_name"
+            tools:ignore="RtlHardcoded"
+            tools:text="طرح کیفیت" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/time1"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/icon_time"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_first_time"
+            app:layout_constraintRight_toRightOf="@+id/txt_title"
+            app:layout_constraintTop_toBottomOf="@+id/txt_control_station_name" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_first_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:fontFamily="@font/vazirmatn_medium"
+            android:text="@string/Time_Create_Info"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintRight_toLeftOf="@+id/time1"
+            app:layout_constraintTop_toBottomOf="@+id/txt_control_station_name"
+            tools:ignore="RtlHardcoded" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_first_time_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:ellipsize="start"
+            android:fontFamily="@font/vazirmatn_fd_regular"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintRight_toLeftOf="@+id/txt_first_time"
+            app:layout_constraintTop_toTopOf="@+id/txt_first_time"
+            tools:ignore="RtlHardcoded"
+            tools:text="زمان ایجاد گزارش:" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/time"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/icon_time"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_last_time"
+            app:layout_constraintRight_toRightOf="@+id/txt_title"
+            app:layout_constraintTop_toBottomOf="@+id/txt_first_time" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_last_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:fontFamily="@font/vazirmatn_medium"
+            android:text="@string/Time_Save_Last_Info"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintRight_toLeftOf="@+id/time"
+            app:layout_constraintTop_toBottomOf="@+id/txt_first_time"
+            tools:ignore="RtlHardcoded" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_last_time_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:ellipsize="start"
+            android:fontFamily="@font/vazirmatn_fd_regular"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintRight_toLeftOf="@+id/txt_last_time"
+            app:layout_constraintTop_toTopOf="@+id/txt_last_time"
+            tools:ignore="RtlHardcoded"
+            tools:text="زمان ثبت نهایی گزارش:" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/status"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/icon_status"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_status"
+            app:layout_constraintRight_toRightOf="@+id/txt_title"
+            app:layout_constraintTop_toBottomOf="@+id/txt_last_time" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:fontFamily="@font/vazirmatn_medium"
+            android:text="@string/Status_1"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintRight_toLeftOf="@+id/status"
+            app:layout_constraintTop_toBottomOf="@+id/txt_last_time"
+            tools:ignore="RtlHardcoded" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_status_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/vazirmatn_regular"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintRight_toLeftOf="@+id/txt_status"
+            app:layout_constraintTop_toTopOf="@+id/txt_status"
+            tools:ignore="RtlHardcoded"
+            tools:text="وضعیت" />
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="208dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

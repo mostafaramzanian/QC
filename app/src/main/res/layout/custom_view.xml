@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupTabLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="counter1,fabCounter1" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/fabCounter1"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="17dp"
+        android:src="@drawable/circle"
+        app:layout_constraintBottom_toTopOf="@+id/text_tab_1"
+        app:layout_constraintLeft_toRightOf="@+id/text_tab_1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/counter1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/vazirmatn_fd_regular"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/fabCounter1"
+        app:layout_constraintLeft_toLeftOf="@+id/fabCounter1"
+        app:layout_constraintRight_toRightOf="@+id/fabCounter1"
+        app:layout_constraintTop_toTopOf="@+id/fabCounter1" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_tab_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:fontFamily="@font/vazirmatn_medium"
+        android:gravity="center_horizontal"
+        android:text="@string/other_report"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineLeft"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineRight"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlHardcoded" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

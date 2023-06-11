@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ShapeAppearance.Capsule" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+        <item name="color">@color/white</item>
+    </style>
+    <style name="ThemeOverlay.AppTheme.TextInputEditText.Outlined" parent="">
+        <item name="colorControlActivated">@color/alert</item>
+    </style>
+    <style name="Button" parent="Base.TextAppearance.AppCompat.Button" >
+        <item name="backgroundTint">@color/bottom_nav</item>
+    </style>
+    <style name="TextInputLayoutHintText">
+
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
+    </style>
+
+    <style name="MyCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:fontFamily">@font/vazirmatn_medium</item>
+        <item name="android:textSize">15sp</item>
+
+    </style>
+    <style name="Base.TextAppearance.MaterialComponents.Badge" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="my_dialog" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="windowMinWidthMajor">70%</item>
+        <item name="windowMinWidthMinor">70%</item>
+    </style>
+
+
+</resources>
+

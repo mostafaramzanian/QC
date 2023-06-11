@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="UnusedResources">
+    <item>
+        <shape android:shape="oval">
+            <size
+                android:width="36dp"
+                android:height="36dp" />
+            <solid android:color="#03A9F4" />
+            <stroke
+                android:width="2dp"
+                android:color="#03A9F4"
+                />
+
+        </shape>
+    </item>
+    <item
+        android:drawable="@drawable/alertinfo"
+        android:gravity="center" />
+</layer-list>

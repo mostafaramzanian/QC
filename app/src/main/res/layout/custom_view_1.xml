@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupTabLayout_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="counter,fabCounter" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/fabCounter"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="17dp"
+        android:src="@drawable/circle"
+        app:layout_constraintBottom_toTopOf="@+id/icon_tab"
+        app:layout_constraintLeft_toRightOf="@+id/icon_tab"
+        app:layout_constraintTop_toBottomOf="@+id/guidelineTop" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/vazirmatn_fd_regular"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/fabCounter"
+        app:layout_constraintLeft_toLeftOf="@+id/fabCounter"
+        app:layout_constraintRight_toRightOf="@+id/fabCounter"
+        app:layout_constraintTop_toTopOf="@+id/fabCounter" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icon_tab"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.43"
+        app:layout_constraintHeight_percent="0.43"
+        android:src="@drawable/result"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineLeft"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineRight"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/text_tab_report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/vazirmatn_medium"
+        android:gravity="center"
+        android:text='@string/report_save'
+        android:textSize="15sp"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineLeft1"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineRight1"
+        app:layout_constraintTop_toBottomOf="@+id/guidelineView" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.52" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.35" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.67" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineLeft1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.35" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineRight1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.62" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
