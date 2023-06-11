@@ -83,7 +83,7 @@ class ReportNotRegisterRecycler(
         model.sum(data.sum.toString())
 
         FragmentReplacer(fragmentManager).replaceFragments(
-            ShowReportNotRegistered(),
+            ShowReportNotRegisteredFragment(),
             ShowMoreFormFragment(),
             R.id.fragmentContainer
         )

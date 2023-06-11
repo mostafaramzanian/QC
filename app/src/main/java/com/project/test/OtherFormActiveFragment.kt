@@ -14,7 +14,7 @@ import com.project.test.databinding.OtherFormActiveBinding
 
 class OtherFormActiveFragment : Fragment() {
     private lateinit var binding: OtherFormActiveBinding
-    private lateinit var adapter: OtherRecycler
+    private lateinit var adapter: OtherRecyclerView
 
 
     override fun onCreateView(
@@ -31,7 +31,7 @@ class OtherFormActiveFragment : Fragment() {
         model.message1.observe(viewLifecycleOwner, Observer {
             val data = GetData(requireActivity()).otherReports("notShowAllReports")
             //data.sortByDescending { it.lastChangeTime }
-            adapter = OtherRecycler(
+            adapter = OtherRecyclerView(
                 requireActivity(),
                 requireActivity(),
                 requireActivity(),

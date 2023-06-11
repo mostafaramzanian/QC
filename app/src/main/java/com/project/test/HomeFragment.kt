@@ -12,11 +12,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.project.test.databinding.HomeFragmentBinding
 
 
@@ -57,7 +54,7 @@ class HomeFragment : Fragment() {
         binding.viewActiveReports.setOnClickListener {
             FragmentReplacer(parentFragmentManager).replaceFragments(
                 HomeFragment(),
-                ShowReportNotRegistered(),
+                ShowReportNotRegisteredFragment(),
                 R.id.fragmentContainer
             )
         }

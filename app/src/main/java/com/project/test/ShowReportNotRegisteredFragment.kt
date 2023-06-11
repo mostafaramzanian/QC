@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.project.test.databinding.ShowReportRegisteredBinding
 
-class ShowReportNotRegistered: Fragment()  {
+class ShowReportNotRegisteredFragment: Fragment()  {
 
     private lateinit var binding : ShowReportRegisteredBinding
     private lateinit var adapter: ReportNotRegisterRecycler
