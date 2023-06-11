@@ -17,5 +17,4 @@ data class DataInfo(
     val sampleUnit: String,
     val samplingInterval: Int,
     val isLab: Int,
-
 )
