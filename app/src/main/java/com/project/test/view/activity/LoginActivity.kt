@@ -1,7 +1,6 @@
 package com.project.test.view.activity
 
 
-
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -20,29 +19,30 @@ import androidx.core.view.marginLeft
 import androidx.core.view.marginRight
 import androidx.core.view.marginTop
 import androidx.core.widget.addTextChangedListener
+import com.project.test.R
+import com.project.test.databinding.LoginBinding
+import com.project.test.model.Query
 import com.project.test.utils.CustomToast
 import com.project.test.utils.GoToOtherActivity
 import com.project.test.utils.MyService
-import com.project.test.R
 import com.project.test.utils.SharedPreferences
-import com.project.test.databinding.LogingBinding
-import com.project.test.model.Query
 import java.util.Locale
 
 
 class LoginActivity : AppCompatActivity() {
-    private lateinit var binding: LogingBinding
+    private lateinit var binding: LoginBinding
 
     override fun onBackPressed() {
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       // Query(this).deleteAll("cp_reports")
-       // Query(this).deleteAll("cp_reports_parameters")
-       // Query(this).deleteAll("cp_reports_info")
+        // Query(this).deleteAll("cp_reports")
+        // Query(this).deleteAll("cp_reports_parameters")
+        // Query(this).deleteAll("cp_reports_info")
 
-       stopService(Intent(this, MyService::class.java))
-        binding = LogingBinding.inflate(layoutInflater)
+        stopService(Intent(this, MyService::class.java))
+        binding = LoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val colorStateListAlertDisable =
             ColorStateList.valueOf(ContextCompat.getColor(binding.root.context, R.color.alert))
@@ -66,21 +66,21 @@ class LoginActivity : AppCompatActivity() {
                 binding.passwordIcon.setMargins(0, 0, 280, 44)
                 binding.hintPassword.setMargins(0, 0, 10, 44)
                 binding.showPassword.setMargins(0, 85, 240, 0)
-                if(binding.alertPass.visibility == View.GONE) {
+                if (binding.alertPass.visibility == View.GONE) {
                     binding.rememberMe.setMargins(0, 87, 240, 0)
-                }else{
+                } else {
                     binding.rememberMe.setMargins(0, 157, 240, 0)
                 }
                 binding.passwordIcon.size(30, 30)
                 binding.hintPassword.textSize = 16f
             }
             if (!hasFocus && binding.edtInputPassword.text.toString().trim().isEmpty()) {
-                binding.passwordIcon.setMargins(0, 0,280 , 0)
+                binding.passwordIcon.setMargins(0, 0, 280, 0)
                 binding.hintPassword.setMargins(0, 0, 10, 0)
                 binding.passwordIcon.size(40, 40)
-                if(binding.alertPass.visibility == View.GONE) {
+                if (binding.alertPass.visibility == View.GONE) {
                     binding.rememberMe.setMargins(0, 60, 240, 0)
-                }else{
+                } else {
                     binding.rememberMe.setMargins(0, 130, 240, 0)
                 }
 
@@ -139,20 +139,20 @@ class LoginActivity : AppCompatActivity() {
         val sharedPreferences = SharedPreferences(this)
         val rememberMe = sharedPreferences.getBoolean("rememberMe", false)
         if (rememberMe) {
-          GoToOtherActivity(this).mainActivity()
+            GoToOtherActivity(this).mainActivity()
         }
         binding.login.setOnClickListener {
             var user = binding.edtInputUsername.text.toString()
             val password = binding.password.editText?.text.toString()
-             user = user.toCharArray().joinToString("") {
+            user = user.toCharArray().joinToString("") {
                 if (it.isDigit()) {
                     it.toString().lowercase(Locale.ENGLISH)
                 } else {
                     it.lowercaseChar().toString()
                 }
             }
-            val tableLogin= Query(this).login(user)
-            if(validation(user, password)) {
+            val tableLogin = Query(this).login(user)
+            if (validation(user, password)) {
                 if (tableLogin.moveToFirst()) {
                     val userId = tableLogin.getInt(tableLogin.getColumnIndexOrThrow("id"))
                     val name = tableLogin.getString(tableLogin.getColumnIndexOrThrow("firstname"))
@@ -191,34 +191,55 @@ class LoginActivity : AppCompatActivity() {
 
                         GoToOtherActivity(this).mainActivity()
                     } else {
-                        val userType1= Query(this).userTypes(userType)
-                        var userType2=""
+                        val userType1 = Query(this).userTypes(userType)
+                        var userType2 = ""
                         if (userType1.moveToFirst()) {
                             userType2 =
                                 userType1.getString(userType1.getColumnIndexOrThrow("title"))
                         }
                         val fullName = "$name $lastName"
-                        val text1 ="کاربر گرامی $fullName از آن جا که کاربری شما در سیستم $userType2 تعریف شده است امکان ورود به برنامه را ندارید! فقط کاربرانی که کاربری آن ها بازرس می باشد اجازه ورود دارند."
+                        val text1 =
+                            "کاربر گرامی $fullName از آن جا که کاربری شما در سیستم $userType2 تعریف شده است امکان ورود به برنامه را ندارید! فقط کاربرانی که کاربری آن ها بازرس می باشد اجازه ورود دارند."
                         val spannableString: SpannableString?
                         val spannableString1: SpannableString?
                         val spannableString2: SpannableString?
                         var spannableString3: SpannableString? = null
                         if (text1.length >= fullName.length) {
-                             spannableString = SpannableString(text1)
-                           val start= fullName.length+45
-                            val end= userType2.length+start
-                            spannableString.setSpan(ForegroundColorSpan(Color.BLACK), 12, fullName.length+12, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                            spannableString1=spannableString
-                            spannableString1.setSpan(ForegroundColorSpan(Color.BLACK), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                            spannableString = SpannableString(text1)
+                            val start = fullName.length + 45
+                            val end = userType2.length + start
+                            spannableString.setSpan(
+                                ForegroundColorSpan(Color.BLACK),
+                                12,
+                                fullName.length + 12,
+                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                            )
+                            spannableString1 = spannableString
+                            spannableString1.setSpan(
+                                ForegroundColorSpan(Color.BLACK),
+                                start,
+                                end,
+                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                            )
                             spannableString2 = SpannableString(spannableString1)
                             val startIndex1 = spannableString2.indexOf("ندارید!")
                             val endIndex1 = startIndex1 + "ندارید!".length
-                            spannableString2.setSpan(ForegroundColorSpan(Color.BLACK), startIndex1, endIndex1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                            spannableString2.setSpan(
+                                ForegroundColorSpan(Color.BLACK),
+                                startIndex1,
+                                endIndex1,
+                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                            )
 
-                             spannableString3 = SpannableString(spannableString2)
+                            spannableString3 = SpannableString(spannableString2)
                             val startIndex = spannableString3.indexOf("بازرس")
                             val endIndex = startIndex + "بازرس".length
-                            spannableString3.setSpan(ForegroundColorSpan(Color.BLACK), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                            spannableString3.setSpan(
+                                ForegroundColorSpan(Color.BLACK),
+                                startIndex,
+                                endIndex,
+                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                            )
                         }
                         for (i in 1..8) {
                             CustomToast(this).toastAlert(spannableString3, null)
@@ -227,12 +248,12 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
 
-                tableLogin.close()
-
+            tableLogin.close()
 
 
         }
     }
+
     override fun onResume() {
         super.onResume()
 
@@ -241,28 +262,28 @@ class LoginActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
     }
+
     override fun onStop() {
         super.onStop()
     }
+
     override fun onDestroy() {
         super.onDestroy()
     }
 
 
+    /*
+        private fun customToast(spannableString:SpannableString){
+            val inflater = layoutInflater
+            val layout: View = inflater.inflate(R.layout.toast, null)
+            val textView = layout.findViewById<TextView>(R.id.textToast)
+            textView.text = spannableString
+            val toast = Toast(applicationContext)
+            toast.view = layout
+            toast.show()
+        }
 
-
-/*
-    private fun customToast(spannableString:SpannableString){
-        val inflater = layoutInflater
-        val layout: View = inflater.inflate(R.layout.toast, null)
-        val textView = layout.findViewById<TextView>(R.id.textToast)
-        textView.text = spannableString
-        val toast = Toast(applicationContext)
-        toast.view = layout
-        toast.show()
-    }
-
- */
+     */
 
 
     private fun View.setMargins(
@@ -283,15 +304,15 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-   // private val alert = Alert(this)
+    // private val alert = Alert(this)
     // این متد مسئول اعتبار سنجی ورودی های کاربر است
     private fun validation(user: String, pass: String): Boolean {
 
-       val tableLogin= Query(this).login(user)
+        val tableLogin = Query(this).login(user)
 
         val colorStateListAlertEnable =
             ColorStateList.valueOf(ContextCompat.getColor(binding.root.context, R.color.red))
-       var validUserPass=false
+        var validUserPass = false
 
         val isEmptyUser = when {
             user.isEmpty() -> {
@@ -303,60 +324,62 @@ class LoginActivity : AppCompatActivity() {
                 binding.alertUser.visibility = View.VISIBLE
                 false
             }
+
             else -> {
                 true
             }
         }
-       val isEmptyPassword = when {
-           pass.isEmpty() -> {
-               binding.edtInputPassword.setBackgroundResource(R.drawable.alert_edit_text)
-               binding.password.defaultHintTextColor = colorStateListAlertEnable
-               binding.hintPassword.setTextColor(Color.RED)
-               binding.passwordIcon.setImageResource(R.drawable.password_icon_red);
-               binding.alertPass.visibility = View.VISIBLE
-               false
-           }
-           else -> {
-               true
-           }
-       }
+        val isEmptyPassword = when {
+            pass.isEmpty() -> {
+                binding.edtInputPassword.setBackgroundResource(R.drawable.alert_edit_text)
+                binding.password.defaultHintTextColor = colorStateListAlertEnable
+                binding.hintPassword.setTextColor(Color.RED)
+                binding.passwordIcon.setImageResource(R.drawable.password_icon_red);
+                binding.alertPass.visibility = View.VISIBLE
+                false
+            }
+
+            else -> {
+                true
+            }
+        }
 
 
-       if(isEmptyUser&&isEmptyPassword) {
+        if (isEmptyUser && isEmptyPassword) {
             validUserPass = when {
-               tableLogin.count == 0 -> {
-                   val text = "نام کاربری اشتباه است!"
-                   val spannableString = SpannableString(text)
-                   spannableString.setSpan(
-                       ForegroundColorSpan(ContextCompat.getColor(this, R.color.white)),
-                       0,
-                       text.length,
-                       Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                   )
-                   CustomToast(this).toastAlert(spannableString, null)
-                   false
-               }
+                tableLogin.count == 0 -> {
+                    val text = "نام کاربری اشتباه است!"
+                    val spannableString = SpannableString(text)
+                    spannableString.setSpan(
+                        ForegroundColorSpan(ContextCompat.getColor(this, R.color.white)),
+                        0,
+                        text.length,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                    CustomToast(this).toastAlert(spannableString, null)
+                    false
+                }
 
-               pass != "1" -> {
+                pass != "1" -> {
 
-                   val text = "رمز عبور اشتباه است!"
-                   val spannableString = SpannableString(text)
-                   spannableString.setSpan(
-                       ForegroundColorSpan(ContextCompat.getColor(this, R.color.white)),
-                       0,
-                       text.length,
-                       Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                   )
-                   CustomToast(this).toastAlert(spannableString, null)
-                   false
-               }
+                    val text = "رمز عبور اشتباه است!"
+                    val spannableString = SpannableString(text)
+                    spannableString.setSpan(
+                        ForegroundColorSpan(ContextCompat.getColor(this, R.color.white)),
+                        0,
+                        text.length,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                    CustomToast(this).toastAlert(spannableString, null)
+                    false
+                }
 
-               else -> {
-                   true
-               }
+                else -> {
+                    true
+                }
 
-           }
-       }
+            }
+        }
         return isEmptyUser && isEmptyPassword && validUserPass
     }
 

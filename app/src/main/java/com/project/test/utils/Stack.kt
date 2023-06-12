@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager
 import com.project.test.view.fragment.HomeFragment
 
 
-class Stack() {
+class Stack {
     companion object {
         private val fragmentList = ArrayList<Fragment>()
     }
@@ -44,13 +44,14 @@ class Stack() {
         return fragmentList.size
     }
 
-    fun getLastFragment():Fragment{
-        var fragment:Fragment= HomeFragment()
-        if (fragmentList.size>0) {
-            fragment= fragmentList[fragmentList.size - 1]
+    fun getLastFragment(): Fragment {
+        var fragment: Fragment = HomeFragment()
+        if (fragmentList.size > 0) {
+            fragment = fragmentList[fragmentList.size - 1]
         }
         return fragment
     }
+
     fun size(): Int {
         return fragmentList.size
     }

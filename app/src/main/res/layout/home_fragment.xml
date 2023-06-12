@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
@@ -13,36 +14,39 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/inner2_constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="8dp"
         android:background="@drawable/border_report"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/icon_alert_no_report">
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_no_report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           android:lineSpacingExtra="8sp"
-            android:layout_marginBottom="20dp"
             android:layout_marginTop="20dp"
-            android:paddingRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/vazirmatn_medium"
+            android:lineSpacingExtra="8sp"
             android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:textColor="@color/black"
             android:textSize="16sp"
-            android:fontFamily="@font/vazirmatn_medium"
+            app:layout_constraintBottom_toBottomOf="@id/inner2_constraint_layout"
+            app:layout_constraintLeft_toLeftOf="@id/inner2_constraint_layout"
             app:layout_constraintRight_toRightOf="@id/inner2_constraint_layout"
             app:layout_constraintTop_toTopOf="@id/inner2_constraint_layout"
-            app:layout_constraintLeft_toLeftOf="@id/inner2_constraint_layout"
-            app:layout_constraintBottom_toBottomOf="@id/inner2_constraint_layout"
             tools:ignore="RtlHardcoded,RtlSymmetry" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/icon_alert_no_report"
         android:layout_width="55dp"
@@ -52,9 +56,9 @@
         android:paddingLeft="1dp"
         android:paddingRight="1dp"
         android:src="@drawable/alert_no_report"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlHardcoded" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -74,8 +78,8 @@
         android:background="@drawable/border_report"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@id/inner1_constraint_layout"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -84,6 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
+            android:fontFamily="@font/vazirmatn_medium"
             android:text="@string/Total_Reports"
             app:layout_constraintRight_toRightOf="@id/inner_constraint_layout"
             app:layout_constraintTop_toTopOf="@id/inner_constraint_layout"
@@ -105,10 +110,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginRight="30dp"
+            android:fontFamily="@font/vazirmatn_medium"
             android:text="@string/The_Title_of_the_Last_Report"
             app:layout_constraintRight_toRightOf="@id/inner_constraint_layout"
             app:layout_constraintTop_toBottomOf="@id/count_report"
             tools:ignore="RtlHardcoded" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/title_last_report_text"
             android:layout_width="wrap_content"
@@ -125,10 +132,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginRight="30dp"
+            android:fontFamily="@font/vazirmatn_medium"
             android:text="آخرین گزارش فعال برای طرح کیفیت: "
             app:layout_constraintRight_toRightOf="@id/inner_constraint_layout"
             app:layout_constraintTop_toBottomOf="@id/title_last_report_text"
             tools:ignore="RtlHardcoded" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/title_last_report_cp_text"
             android:layout_width="wrap_content"
@@ -138,16 +147,19 @@
             app:layout_constraintRight_toLeftOf="@id/title_last_report_cp"
             app:layout_constraintTop_toBottomOf="@id/title_last_report_text"
             tools:ignore="RtlHardcoded" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/time_last_report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginRight="30dp"
+            android:fontFamily="@font/vazirmatn_medium"
             android:text="@string/The_Time"
             app:layout_constraintRight_toRightOf="@id/inner_constraint_layout"
             app:layout_constraintTop_toBottomOf="@id/title_last_report_cp"
             tools:ignore="RtlHardcoded" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/time_last_report_text"
             android:layout_width="wrap_content"
@@ -165,13 +177,14 @@
             android:layout_marginTop="30dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/btn"
+            android:fontFamily="@font/vazirmatn_medium"
             android:text="@string/Btn_Show_Active_Report"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintRight_toRightOf="@id/inner_constraint_layout"
-            app:layout_constraintLeft_toLeftOf="@id/inner_constraint_layout"
             app:layout_constraintBottom_toBottomOf="@id/inner_constraint_layout"
+            app:layout_constraintLeft_toLeftOf="@id/inner_constraint_layout"
+            app:layout_constraintRight_toRightOf="@id/inner_constraint_layout"
             app:layout_constraintTop_toBottomOf="@id/time_last_report" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -205,8 +218,8 @@
         android:layout_marginBottom="50dp"
         android:background="@drawable/border_report"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inner_constraint_layout">
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -215,6 +228,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
+            android:fontFamily="@font/vazirmatn_medium"
             android:text="تعداد کل گزارشات غیر فعال:"
             app:layout_constraintRight_toRightOf="@id/inner1_constraint_layout"
             app:layout_constraintTop_toTopOf="@id/inner1_constraint_layout"
@@ -236,6 +250,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginRight="30dp"
+            android:fontFamily="@font/vazirmatn_medium"
             android:text="آخرین گزارش غیر فعال برای ایستگاه:"
             app:layout_constraintRight_toRightOf="@id/inner1_constraint_layout"
             app:layout_constraintTop_toBottomOf="@id/count_report_no_active"
@@ -257,6 +272,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginRight="30dp"
+            android:fontFamily="@font/vazirmatn_medium"
             android:text="آخرین گزارش غیر فعال برای طرح کیفیت: "
             app:layout_constraintRight_toRightOf="@id/inner1_constraint_layout"
             app:layout_constraintTop_toBottomOf="@id/title_last_report_no_active"
@@ -278,10 +294,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginRight="30dp"
+            android:fontFamily="@font/vazirmatn_medium"
             android:text="زمان ثبت آخرین گزارش غیر فعال: "
             app:layout_constraintRight_toRightOf="@id/inner1_constraint_layout"
             app:layout_constraintTop_toBottomOf="@id/last_Cp_Not_Active"
             tools:ignore="RtlHardcoded" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/time_last_report_no_active_text"
             android:layout_width="wrap_content"
@@ -299,13 +317,14 @@
             android:layout_marginTop="30dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/btn"
+            android:fontFamily="@font/vazirmatn_medium"
             android:text="@string/Show_Reports_Saved"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintRight_toRightOf="@id/inner1_constraint_layout"
-            app:layout_constraintLeft_toLeftOf="@id/inner1_constraint_layout"
             app:layout_constraintBottom_toBottomOf="@id/inner1_constraint_layout"
+            app:layout_constraintLeft_toLeftOf="@id/inner1_constraint_layout"
+            app:layout_constraintRight_toRightOf="@id/inner1_constraint_layout"
             app:layout_constraintTop_toBottomOf="@id/time_last_report_no_active_text" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

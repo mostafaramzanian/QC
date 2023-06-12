@@ -10,5 +10,4 @@ class Database(context: Context?) :
         private const val DATABASE_NAME = "QC.db"
         private const val DATABASE_VERSION = 1
     }
-
 }
