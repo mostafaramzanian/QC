@@ -49,68 +49,75 @@ class LoginActivity : AppCompatActivity() {
 
         binding.edtInputUsername.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
-                binding.usernameIcon.setMargins(0, 0, 280, 44)
-                binding.hintUsername.setMargins(0, 0, 10, 44)
-                binding.usernameIcon.size(30, 30)
-                binding.hintUsername.textSize = 16f
+             //   binding.usernameIcon.setMargins(0, 0, 280, 44)
+              //  binding.hintUsername.setMargins(0, 0, 10, 44)
+              //  binding.usernameIcon.size(30, 30)
+               // binding.hintUsername.textSize = 16f
             }
             if (!hasFocus && binding.edtInputUsername.text.toString().trim().isEmpty()) {
-                binding.usernameIcon.setMargins(0, 0, 280, 0)
-                binding.hintUsername.setMargins(0, 0, 10, 0)
-                binding.usernameIcon.size(50, 50)
-                binding.hintUsername.textSize = 20f
+             //   binding.usernameIcon.setMargins(0, 0, 280, 0)
+             //   binding.hintUsername.setMargins(0, 0, 10, 0)
+            //    binding.usernameIcon.size(50, 50)
+            //    binding.hintUsername.textSize = 20f
             }
         }
         binding.edtInputPassword.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
-                binding.passwordIcon.setMargins(0, 0, 280, 44)
-                binding.hintPassword.setMargins(0, 0, 10, 44)
+             //   binding.passwordIcon.setMargins(0, 0, 280, 44)
+             //   binding.hintPassword.setMargins(0, 0, 10, 44)
                 binding.showPassword.setMargins(0, 85, 240, 0)
                 if (binding.alertPass.visibility == View.GONE) {
                     binding.rememberMe.setMargins(0, 87, 240, 0)
                 } else {
                     binding.rememberMe.setMargins(0, 157, 240, 0)
                 }
-                binding.passwordIcon.size(30, 30)
-                binding.hintPassword.textSize = 16f
+             //   binding.passwordIcon.size(30, 30)
+            //    binding.hintPassword.textSize = 16f
             }
             if (!hasFocus && binding.edtInputPassword.text.toString().trim().isEmpty()) {
-                binding.passwordIcon.setMargins(0, 0, 280, 0)
-                binding.hintPassword.setMargins(0, 0, 10, 0)
-                binding.passwordIcon.size(40, 40)
+             //   binding.passwordIcon.setMargins(0, 0, 280, 0)
+             //   binding.hintPassword.setMargins(0, 0, 10, 0)
+            //    binding.passwordIcon.size(40, 40)
                 if (binding.alertPass.visibility == View.GONE) {
                     binding.rememberMe.setMargins(0, 60, 240, 0)
                 } else {
                     binding.rememberMe.setMargins(0, 130, 240, 0)
                 }
 
-                binding.hintPassword.textSize = 20f
+               // binding.hintPassword.textSize = 20f
             }
         }
 
         binding.edtInputUsername.addTextChangedListener {
             binding.edtInputUsername.setBackgroundResource(R.drawable.edit_text_bg)
             binding.username.defaultHintTextColor = colorStateListAlertDisable;
+            /*
             binding.hintUsername.setTextColor(
                 ContextCompat.getColor(
                     this,
                     R.color.alert
                 )
+
             );
-            binding.usernameIcon.setImageResource(R.drawable.user_icon_blue);
+
+             */
+          //  binding.usernameIcon.setImageResource(R.drawable.user_icon_blue);
             binding.alertUser.visibility = View.GONE
         }
 
         binding.edtInputPassword.addTextChangedListener {
             binding.edtInputPassword.setBackgroundResource(R.drawable.edit_text_bg)
             binding.password.defaultHintTextColor = colorStateListAlertDisable;
+            /*
             binding.hintPassword.setTextColor(
                 ContextCompat.getColor(
                     this,
                     R.color.alert
                 )
             )
-            binding.passwordIcon.setImageResource(R.drawable.password_icon_blue);
+
+             */
+          //  binding.passwordIcon.setImageResource(R.drawable.password_icon_blue);
             if (binding.edtInputPassword.text.toString().trim().isEmpty()) {
                 binding.showPassword.visibility = View.GONE
                 binding.showPassword.isChecked = false
@@ -319,8 +326,8 @@ class LoginActivity : AppCompatActivity() {
 
                 binding.edtInputUsername.setBackgroundResource(R.drawable.alert_edit_text)
                 binding.username.defaultHintTextColor = colorStateListAlertEnable
-                binding.hintUsername.setTextColor(Color.RED)
-                binding.usernameIcon.setImageResource(R.drawable.user_ico_red);
+             //   binding.hintUsername.setTextColor(Color.RED)
+              //  binding.usernameIcon.setImageResource(R.drawable.user_ico_red);
                 binding.alertUser.visibility = View.VISIBLE
                 false
             }
@@ -333,8 +340,8 @@ class LoginActivity : AppCompatActivity() {
             pass.isEmpty() -> {
                 binding.edtInputPassword.setBackgroundResource(R.drawable.alert_edit_text)
                 binding.password.defaultHintTextColor = colorStateListAlertEnable
-                binding.hintPassword.setTextColor(Color.RED)
-                binding.passwordIcon.setImageResource(R.drawable.password_icon_red);
+             //   binding.hintPassword.setTextColor(Color.RED)
+               // binding.passwordIcon.setImageResource(R.drawable.password_icon_red);
                 binding.alertPass.visibility = View.VISIBLE
                 false
             }

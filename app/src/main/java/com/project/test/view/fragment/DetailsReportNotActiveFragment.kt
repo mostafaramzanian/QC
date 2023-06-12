@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -49,10 +50,13 @@ class DetailsReportNotActiveFragment : Fragment() {
         val fragmentList = Stack()
         fragmentList.push(requireActivity(), R.id.fragmentContainer)
         model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
+        /*
         model.message1.observe(viewLifecycleOwner, Observer {
             binding.viewPager.setCurrentItem(4, false)
         })
 
+
+         */
         val fontSize = Size(requireContext()).fontSize(0.029f)
         val fontSize1 = Size(requireContext()).fontSize(0.030f)
         val width1 = Size(requireContext()).calWidth(0.04f)
@@ -157,7 +161,6 @@ class DetailsReportNotActiveFragment : Fragment() {
 
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
-
 
         view.post {
             val wMeasureSpec =

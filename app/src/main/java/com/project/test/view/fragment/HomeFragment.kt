@@ -45,8 +45,8 @@ class HomeFragment : Fragment() {
             binding.iconAlertNoReport.visibility=View.VISIBLE
         }
         val countReportActive = GetData(requireActivity()).reportActive()
-        val countReportActive1 =countReportActive[0]
         if(countReportActive.size>0){
+            val countReportActive1 =countReportActive[0]
             binding.innerConstraintLayout.visibility=View.VISIBLE
             binding.countReportText.text=countReportActive1.count.toString()
             binding.titleLastReportText.text=countReportActive1.csName
@@ -66,8 +66,8 @@ class HomeFragment : Fragment() {
 
 
         val countReportNotActive = GetData(requireActivity()).reportNotActive()
-        val countReportNotActive1 =countReportNotActive[0]
         if(countReportNotActive.size>0){
+            val countReportNotActive1 =countReportNotActive[0]
             binding.inner1ConstraintLayout.visibility=View.VISIBLE
             binding.countReportNoActiveText.text=countReportNotActive1.count.toString()
             binding.titleLastReportNoActiveText.text=countReportNotActive1.csName

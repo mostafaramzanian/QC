@@ -19,6 +19,10 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.marginBottom
+import androidx.core.view.marginLeft
+import androidx.core.view.marginRight
+import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -54,6 +58,13 @@ class FinalRegistrationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val width1 = Size(requireContext()).calWidth(0.048f)
         val height1 = Size(requireContext()).calHeight(0.032f)
+        val editTextList = mutableListOf<EditText>()
+        val buttonDeleteList = mutableListOf<Button>()
+        val textViewList = mutableListOf<TextView>()
+
+        val editTextList1 = mutableListOf<EditText>()
+        val buttonDeleteList1 = mutableListOf<Button>()
+        val textViewList1 = mutableListOf<TextView>()
 
         val view1 = view.findViewById<View>(R.id.add_layout)
         val layoutParams = view1.layoutParams
@@ -100,6 +111,33 @@ class FinalRegistrationFragment : Fragment() {
                     binding.editText3Final.text = Editable.Factory.getInstance()
                         .newEditable(data[0].production_count.toString())
                 }
+
+                val count = data.count { dataFinalRegister1 -> dataFinalRegister1.parameter_type == "inbound_tracking_code" }
+                val count1 = data.count { dataFinalRegister1 -> dataFinalRegister1.parameter_type == "non_conformity_code" }
+
+
+                if (count==0) {
+                    binding.editText4Final.text =
+                        Editable.Factory.getInstance().newEditable("کد ردیابی ورودی ثبت نشده است!")
+                    binding.editText4Final.layoutParams.width = 550
+
+                } else {
+                    binding.editText4Final.text = Editable.Factory.getInstance()
+                        .newEditable(data[0].parameter_value.toString())
+                }
+                if (count1==0) {
+                    binding.editText5Final.text =
+                        Editable.Factory.getInstance().newEditable("کد عدم انطباق ثبت نشده است!")
+                    binding.editText5Final.layoutParams.width = 550
+
+                } else {
+                    binding.editText5Final.text = Editable.Factory.getInstance()
+                        .newEditable(data[0].parameter_value.toString())
+                }
+                binding.editText4Final.visibility=View.INVISIBLE
+                binding.productionTrackingCode.visibility=View.INVISIBLE
+                binding.editText5Final.visibility=View.INVISIBLE
+                binding.nonComplianceCode.visibility=View.INVISIBLE
                 when (data[0].shift) {
                     1 -> {
                         binding.radioShiftFirst.isChecked = true
@@ -111,6 +149,47 @@ class FinalRegistrationFragment : Fragment() {
                         binding.radioShiftThird.isChecked = true
                     }
                 }
+                var sum=0
+                var sum1=0
+                data.forEachIndexed { index, item ->
+                    if (item.parameter_type == "inbound_tracking_code") {
+                        entryTrackingCode(
+                            "add",
+                            requireContext(),
+                            binding,
+                            editTextList,
+                            buttonDeleteList,
+                            textViewList
+                        )
+                    }
+                    if (item.parameter_type == "non_conformity_code") {
+                        nonComplianceCode(
+                            "add",
+                            requireContext(),
+                            binding,
+                            editTextList1,
+                            buttonDeleteList1,
+                            textViewList1
+                        )
+
+                    }
+                    if (item.parameter_type == "inbound_tracking_code") {
+                        editTextList[sum].text =
+                            Editable.Factory.getInstance().newEditable(item.parameter_value)
+                        editTextList[sum].isEnabled = false
+                        buttonDeleteList[0].visibility = View.GONE
+                        buttonDeleteList[sum].visibility = View.GONE
+                        sum += 1
+                    } else if (item.parameter_type == "non_conformity_code") {
+                        buttonDeleteList1[0].visibility = View.GONE
+                        buttonDeleteList1[sum1].visibility = View.GONE
+                        editTextList1[sum1].text =
+                            Editable.Factory.getInstance().newEditable(item.parameter_value)
+                        editTextList1[sum1].isEnabled = false
+                        sum1 += 1
+                    }
+                }
+
 
                 binding.editText1Final.isFocusable = false
                 binding.editText2Final.isFocusable = false
@@ -118,22 +197,17 @@ class FinalRegistrationFragment : Fragment() {
                 binding.radioShiftFirst.isClickable = false
                 binding.radioShiftSecond.isClickable = false
                 binding.radioShiftThird.isClickable = false
+                binding.editText4Final.isEnabled = false;
+                binding.editText5Final.isEnabled = false;
 
-                for (item in data) {
-                }
-                binding.btnFinal.visibility=View.GONE
+                binding.addLayout.visibility=View.INVISIBLE
+                binding.addLayout1.visibility=View.INVISIBLE
+                binding.btnFinal.visibility=View.INVISIBLE
+
+                binding.btnFinal.setMargins(0, 0, 0, 0)
             } else {
-
                 val model1 = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
                 model1.message1.observe(viewLifecycleOwner, Observer {
-                    val editTextList = mutableListOf<EditText>()
-                    val buttonDeleteList = mutableListOf<Button>()
-                    val textViewList = mutableListOf<TextView>()
-
-                    val editTextList1 = mutableListOf<EditText>()
-                    val buttonDeleteList1 = mutableListOf<Button>()
-                    val textViewList1 = mutableListOf<TextView>()
-
                     binding.addLayout.setOnClickListener {
                         entryTrackingCode(
                             "add",
@@ -144,7 +218,6 @@ class FinalRegistrationFragment : Fragment() {
                             textViewList
                         )
                     }
-
                     binding.addLayout1.setOnClickListener {
                         nonComplianceCode(
                             "add",
@@ -157,8 +230,6 @@ class FinalRegistrationFragment : Fragment() {
                     }
 
                     binding.btnFinal.setOnClickListener {
-
-
                         val listInboundTrackingCode1 = mutableListOf<String>()
                         val listNonConformityCode1 = mutableListOf<String>()
                         val productTrackingCode = binding.editText1Final.text.toString()
@@ -200,7 +271,6 @@ class FinalRegistrationFragment : Fragment() {
                                 listNonConformityCode1.add(editTextList1[i].text.toString())
                             }
                         }
-
                         val sharedPreferences = SharedPreferences(requireContext())
                         val station = sharedPreferences.getString("csValueSelected", "")
                         val quality = sharedPreferences.getString("cpValueSelected", "")
@@ -901,4 +971,15 @@ private fun nonComplianceCode(
     }
     set.applyTo(binding.constraintLayoutInnerFinal)
 
+}
+
+private fun View.setMargins(
+    left: Int = this.marginLeft,
+    top: Int = this.marginTop,
+    right: Int = this.marginRight,
+    bottom: Int = this.marginBottom
+) {
+    layoutParams = (layoutParams as ViewGroup.MarginLayoutParams).apply {
+        setMargins(left, top, right, bottom)
+    }
 }

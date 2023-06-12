@@ -101,7 +101,7 @@ class SetData(private val context: Activity) {
                 values1.put("cp_report_id", reportId)
                 values1.put("parameter_type", "non_conformity_code")
                 values1.put("parameter_value", item)
-                if(Query(context).insertCpReportsInfo(values) == -1L) {
+                if(Query(context).insertCpReportsInfo(values1) == -1L) {
                     return -1
                 }
             }
