@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toastValid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/toastValid"
-        android:visibility="gone"
-        android:background="@drawable/agree_toast">
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textToastValid"
-        android:fontFamily="@font/vazirmatn_bold"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        />
+        android:background="@drawable/agree_toast"
+        android:visibility="gone">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textToastValid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/vazirmatn_bold"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toastAlert"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/toastAlert"
-        android:visibility="gone"
-        android:background="@drawable/alert_toast">
+        android:background="@drawable/alert_toast"
+        android:visibility="gone">
+
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textToastAlert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textToastAlert"
             android:fontFamily="@font/vazirmatn_bold"
+            android:padding="10dp"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

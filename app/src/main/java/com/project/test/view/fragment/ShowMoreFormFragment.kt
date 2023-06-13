@@ -15,10 +15,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.project.test.R
-import com.project.test.utils.SharedViewModel
-import com.project.test.view.adapter.ShowMoreFormAdapter
-import com.project.test.utils.Size
 import com.project.test.databinding.ShowMoreFormBinding
+import com.project.test.utils.SharedViewModel
+import com.project.test.utils.Size
+import com.project.test.view.adapter.ShowMoreFormAdapter
 
 
 class ShowMoreFormFragment : Fragment() {
@@ -53,9 +53,9 @@ class ShowMoreFormFragment : Fragment() {
         val fontSize = Size(requireContext()).fontSize(0.036f)
         val fontSize1 = Size(requireContext()).fontSize(0.030f)
         val width1 = Size(requireContext()).calWidth(0.045f)
-        val height1= Size(requireContext()).calHeight(0.03f)
+        val height1 = Size(requireContext()).calHeight(0.03f)
         val width2 = Size(requireContext()).calWidth(0.05f)
-        val height2= Size(requireContext()).calHeight(0.03f)
+        val height2 = Size(requireContext()).calHeight(0.03f)
         TabLayoutMediator(binding.tabLayoutMore, binding.viewPagerMore) { tab, position ->
             when (position) {
                 0 -> {
@@ -66,11 +66,13 @@ class ShowMoreFormFragment : Fragment() {
                     val counter1 = tab.customView!!.findViewById<TextView>(R.id.counter1)
                     counter1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize1)
                     if (count1 < 100) {
-                        tab.customView?.findViewById<ImageView>(R.id.fabCounter1)?.size(width1, height1)
+                        tab.customView?.findViewById<ImageView>(R.id.fabCounter1)
+                            ?.size(width1, height1)
                         tab.customView?.findViewById<TextView>(R.id.counter1)?.text =
                             count1.toString()
                     } else {
-                        tab.customView?.findViewById<ImageView>(R.id.fabCounter1)?.size(width2, height2)
+                        tab.customView?.findViewById<ImageView>(R.id.fabCounter1)
+                            ?.size(width2, height2)
                         tab.customView?.findViewById<TextView>(R.id.counter1)?.text = "99+"
                     }
                 }
@@ -89,11 +91,11 @@ class ShowMoreFormFragment : Fragment() {
 
                 when (tab?.position) {
                     0 -> {
-/*
-                        tab.customView?.findViewById<Group>(R.id.groupTabLayout)?.visibility =
-                            View.GONE
+                        /*
+                                                tab.customView?.findViewById<Group>(R.id.groupTabLayout)?.visibility =
+                                                    View.GONE
 
- */
+                         */
                         tab.customView?.findViewById<TextView>(R.id.text_tab_1)?.setTextColor(
                             ContextCompat.getColor(requireContext(), R.color.TabActive)
                         )
@@ -101,7 +103,8 @@ class ShowMoreFormFragment : Fragment() {
 
                     1 -> {
                         tab.customView?.findViewById<TextView>(R.id.text_tab_2)?.setTextColor(
-                            ContextCompat.getColor(requireContext(), R.color.TabActive))
+                            ContextCompat.getColor(requireContext(), R.color.TabActive)
+                        )
                     }
                 }
             }
@@ -113,9 +116,11 @@ class ShowMoreFormFragment : Fragment() {
                             ContextCompat.getColor(requireContext(), R.color.TabNonActive)
                         )
                     }
+
                     1 -> {
                         tab.customView?.findViewById<TextView>(R.id.text_tab_2)?.setTextColor(
-                            ContextCompat.getColor(requireContext(), R.color.TabNonActive))
+                            ContextCompat.getColor(requireContext(), R.color.TabNonActive)
+                        )
                     }
                 }
 

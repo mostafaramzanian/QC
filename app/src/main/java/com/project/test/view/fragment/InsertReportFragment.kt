@@ -186,6 +186,7 @@ class InsertReportFragment : Fragment() {
 
         }
             binding.spinnerViewQuality.setOnClickListener {
+
                 if (cpValue!=null) {
                     if (binding.spinnerViewQuality.isShowing) {
                         binding.spinnerViewQuality.dismiss()

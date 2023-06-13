@@ -2,11 +2,9 @@ package com.project.test.model
 
 import android.app.Activity
 import android.database.Cursor
-import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
-import com.project.test.utils.CurrentTime
 import com.project.test.dataclass.DataCpReports
 import com.project.test.dataclass.DataDocument
 import com.project.test.dataclass.DataFinalRegister1
@@ -15,6 +13,7 @@ import com.project.test.dataclass.DataInfoRegister
 import com.project.test.dataclass.DataReport
 import com.project.test.dataclass.DataReportActive
 import com.project.test.dataclass.DataReportNotActive
+import com.project.test.utils.CurrentTime
 import com.project.test.utils.SharedPreferences
 import com.project.test.utils.SharedViewModel
 
@@ -78,21 +77,26 @@ class GetData(private val context: Activity) {
                                 )
                             )
                     }
-                    val data = DataInfoRegister(
-                        id1,
-                        name!!,
-                        reportId,
-                        parameterId,
-                        toolId,
-                        reportValue,
-                        attachment,
-                        description,
-                        status,
-                        createdDatetime,
-                        reportOrder,
-                        labRequestCode,
-                    )
-                    dataInfoRegister.add(data)
+                    try {
+                        val data = DataInfoRegister(
+                            id1,
+                            name!!,
+                            reportId,
+                            parameterId,
+                            toolId,
+                            reportValue,
+                            attachment,
+                            description,
+                            status,
+                            createdDatetime,
+                            reportOrder,
+                            labRequestCode,
+                        )
+                        dataInfoRegister.add(data)
+                    } catch (ex: Exception) {
+                        ex.printStackTrace()
+                    }
+
 
                 } while (cpReportsParameters.moveToNext())
             }

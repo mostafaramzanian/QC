@@ -16,4 +16,12 @@
         android:id="@+id/insertFromFragment"
         android:name="com.project.test.view.fragment.InsertReportFragment"
         android:label="InsertFromFragment" />
+    <fragment
+        android:id="@+id/testFragment"
+        android:name="com.project.test.utils.TestFragment"
+        android:label="TestFragment" >
+        <action
+            android:id="@+id/action_testFragment_to_insertFromFragment"
+            app:destination="@id/insertFromFragment" />
+    </fragment>
 </navigation>

@@ -7,19 +7,19 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:paddingBottom="20dp">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/inner_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="18dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/background_info"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/title_info"
-       >
+        app:layout_constraintTop_toTopOf="@id/title_info">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txt_title_doc"
@@ -95,10 +95,10 @@
             android:dropDownVerticalOffset="60dp"
             android:fontFamily="@font/vazirmatn_medium"
             android:hint="@string/Select"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp"
             android:paddingLeft="6dp"
+            android:paddingTop="6dp"
             android:paddingRight="40dp"
+            android:paddingBottom="6dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:textSize="14.5sp"
@@ -138,6 +138,7 @@
             android:textSize="15sp"
             app:layout_constraintRight_toRightOf="@+id/control_tools"
             app:layout_constraintTop_toBottomOf="@+id/control_tools" />
+
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edit_text_8"
             android:layout_width="0dp"
@@ -146,17 +147,18 @@
             android:background="@drawable/edit_text_info"
             android:fontFamily="@font/vazirmatn_medium"
             android:layoutDirection="ltr"
-            android:maxLines="1"
             android:maxLength="31"
-            android:visibility="gone"
+            android:maxLines="1"
             android:paddingLeft="6dp"
             android:textColor="@color/black"
             android:textCursorDrawable="@drawable/crusor_valid"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/observed_value"
             app:layout_constraintLeft_toLeftOf="@+id/spinnerView_info"
             app:layout_constraintRight_toLeftOf="@+id/observed_value"
             app:layout_constraintTop_toTopOf="@+id/observed_value"
-            app:layout_constraintBottom_toBottomOf="@+id/observed_value"
             tools:ignore="RtlHardcoded,RtlSymmetry" />
+
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edit_text_1"
             android:layout_width="0dp"
@@ -165,20 +167,19 @@
             android:background="@drawable/edit_text_info"
             android:fontFamily="@font/vazirmatn_medium"
             android:layoutDirection="ltr"
-            android:maxLines="1"
             android:maxLength="31"
+            android:maxLines="1"
             android:paddingLeft="6dp"
             android:textColor="@color/black"
             android:textCursorDrawable="@drawable/cursordrawablered"
+            app:layout_constraintBottom_toBottomOf="@+id/observed_value"
             app:layout_constraintLeft_toLeftOf="@+id/spinnerView_info"
             app:layout_constraintRight_toLeftOf="@+id/observed_value"
             app:layout_constraintTop_toTopOf="@+id/observed_value"
-            app:layout_constraintBottom_toBottomOf="@+id/observed_value"
             tools:ignore="RtlHardcoded,RtlSymmetry" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/edit_text_5"
-            android:visibility="gone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
@@ -189,10 +190,11 @@
             android:paddingLeft="6dp"
             android:textColor="@color/black"
             android:textCursorDrawable="@drawable/cursordrawablered"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/observed_value"
             app:layout_constraintLeft_toLeftOf="@+id/spinnerView_info"
             app:layout_constraintRight_toLeftOf="@+id/observed_value"
             app:layout_constraintTop_toTopOf="@+id/observed_value"
-            app:layout_constraintBottom_toBottomOf="@+id/observed_value"
             tools:ignore="RtlHardcoded,RtlSymmetry" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -204,19 +206,19 @@
             android:text="مقدار مشاهده شده پس از اعمال ضریب تصحیح: "
             android:textColor="@color/black"
             app:layout_constraintRight_toRightOf="@+id/observed_value"
-            app:layout_constraintTop_toBottomOf="@+id/observed_value"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/observed_value" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/edit_text_3_observed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/vazirmatn_medium"
-            android:textColor="@color/red"
             android:text="-"
-            app:layout_constraintRight_toLeftOf="@+id/observed_value_change"
-            app:layout_constraintTop_toTopOf="@+id/observed_value_change"
+            android:textColor="@color/red"
             app:layout_constraintBottom_toBottomOf="@+id/observed_value_change"
-            />
+            app:layout_constraintRight_toLeftOf="@+id/observed_value_change"
+            app:layout_constraintTop_toTopOf="@+id/observed_value_change" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/description"
             android:layout_width="wrap_content"
@@ -228,6 +230,7 @@
             android:textSize="15sp"
             app:layout_constraintRight_toRightOf="@+id/observed_value"
             app:layout_constraintTop_toBottomOf="@+id/observed_value_change" />
+
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edit_text_2"
             android:layout_width="0dp"
@@ -236,16 +239,17 @@
             android:background="@drawable/edit_text_info"
             android:fontFamily="@font/vazirmatn_medium"
             android:inputType="textMultiLine"
-            android:paddingRight="6dp"
-            android:paddingLeft="6dp"
             android:lineSpacingExtra="6dp"
             android:maxLength="2047"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
             android:textColor="@color/black"
             android:textDirection="rtl"
             app:layout_constraintLeft_toLeftOf="@+id/spinnerView_info"
             app:layout_constraintRight_toLeftOf="@+id/description"
             app:layout_constraintTop_toTopOf="@+id/description"
             tools:ignore="RtlHardcoded,RtlSymmetry" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/status_info"
             android:layout_width="wrap_content"
@@ -257,6 +261,7 @@
             android:textSize="15sp"
             app:layout_constraintRight_toRightOf="@+id/description"
             app:layout_constraintTop_toBottomOf="@+id/edit_text_2" />
+
         <RadioGroup
             android:id="@+id/RadioGroup"
             android:layout_width="wrap_content"
@@ -265,45 +270,46 @@
             app:layout_constraintBottom_toBottomOf="@+id/status_info"
             app:layout_constraintRight_toLeftOf="@+id/status_info"
             app:layout_constraintTop_toTopOf="@+id/status_info">
-        <RadioButton
-            android:id="@+id/radio_confirmation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:buttonTint="@color/green"
-            android:enabled="true"
-            android:fontFamily="@font/vazirmatn_medium"
-            android:layoutDirection="ltr"
-            android:text="@string/Confirmation"
-            android:textColor="@color/green"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="@+id/status_info"
-            app:layout_constraintRight_toLeftOf="@+id/status_info"
-            app:layout_constraintTop_toTopOf="@+id/status_info"
-            tools:ignore="RtlHardcoded" />
 
-        <RadioButton
-            android:id="@+id/radio_rejection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:buttonTint="@color/red"
-            android:enabled="true"
-            android:fontFamily="@font/vazirmatn_medium"
-            android:layoutDirection="ltr"
-            android:text="@string/Rejection"
-            android:textColor="@color/red"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="@+id/status_info"
-            app:layout_constraintRight_toLeftOf="@+id/radio_confirmation"
-            app:layout_constraintTop_toTopOf="@+id/status_info"
-            tools:ignore="RtlHardcoded" />
+            <RadioButton
+                android:id="@+id/radio_confirmation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:buttonTint="@color/green"
+                android:enabled="true"
+                android:fontFamily="@font/vazirmatn_medium"
+                android:layoutDirection="ltr"
+                android:text="@string/Confirmation"
+                android:textColor="@color/green"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/status_info"
+                app:layout_constraintRight_toLeftOf="@+id/status_info"
+                app:layout_constraintTop_toTopOf="@+id/status_info"
+                tools:ignore="RtlHardcoded" />
+
+            <RadioButton
+                android:id="@+id/radio_rejection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:buttonTint="@color/red"
+                android:enabled="true"
+                android:fontFamily="@font/vazirmatn_medium"
+                android:layoutDirection="ltr"
+                android:text="@string/Rejection"
+                android:textColor="@color/red"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/status_info"
+                app:layout_constraintRight_toLeftOf="@+id/radio_confirmation"
+                app:layout_constraintTop_toTopOf="@+id/status_info"
+                tools:ignore="RtlHardcoded" />
         </RadioGroup>
+
         <Button
             android:id="@+id/btn_info"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.16"
             android:layout_marginBottom="10dp"
             android:background="@drawable/btn_info"
             android:fontFamily="@font/vazirmatn_bold"
@@ -311,6 +317,7 @@
             android:text="@string/Btn_Save_info"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.16"
             app:layout_constraintLeft_toLeftOf="@+id/edit_text_2"
             app:layout_constraintTop_toTopOf="@+id/status_info" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -319,15 +326,15 @@
         android:id="@+id/title_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="185dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
+        android:layout_marginBottom="185dp"
+        android:background="@drawable/background_title_info"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:background="@drawable/background_title_info"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/inner_info"
-        app:layout_constraintRight_toRightOf="@+id/inner_info">
+        app:layout_constraintRight_toRightOf="@+id/inner_info"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/title_info1"
@@ -344,6 +351,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="RtlHardcoded" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/title_info2"
             android:layout_width="wrap_content"

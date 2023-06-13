@@ -4,13 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout_1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.13" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/top_guideline3"
         android:layout_width="wrap_content"
@@ -48,8 +51,8 @@
         android:background="@drawable/background_add_form"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/top_guideline3"
-       >
+        app:layout_constraintTop_toTopOf="@+id/top_guideline3">
+
         <androidx.appcompat.widget.AppCompatCheckedTextView
             android:id="@+id/text_help"
             android:layout_width="wrap_content"
@@ -74,28 +77,28 @@
         android:id="@+id/icon_help"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintWidth_percent="0.07"
-        app:layout_constraintHeight_percent="0.07"
-        android:layout_marginRight="20dp"
         android:background="@color/white"
         android:src="@drawable/help"
+        app:layout_constraintHeight_percent="0.07"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline"
+        app:layout_constraintWidth_percent="0.07"
         tools:ignore="RtlHardcoded" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/inner3_constraint"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-android:layout_marginBottom="50dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/background_add_form"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/top_guideline4">
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
@@ -117,10 +120,10 @@ android:layout_marginBottom="50dp"
             android:dropDownVerticalOffset="60dp"
             android:fontFamily="@font/vazirmatn_medium"
             android:hint="@string/Select"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:paddingLeft="10dp"
+            android:paddingTop="10dp"
             android:paddingRight="40dp"
+            android:paddingBottom="10dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:textSize="14.5sp"
@@ -169,10 +172,10 @@ android:layout_marginBottom="50dp"
             android:dropDownVerticalOffset="60dp"
             android:fontFamily="@font/vazirmatn_medium"
             android:hint="@string/Select"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:paddingLeft="10dp"
+            android:paddingTop="10dp"
             android:paddingRight="40dp"
+            android:paddingBottom="10dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:textSize="14.5sp"
@@ -204,13 +207,13 @@ android:layout_marginBottom="50dp"
             android:id="@+id/btn_add"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="30dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/button_bg"
+            android:fontFamily="@font/vazirmatn_medium"
             android:text="@string/Btn_Create_Rport"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:fontFamily="@font/vazirmatn_medium"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/inner3_constraint"
             app:layout_constraintLeft_toLeftOf="@+id/inner3_constraint"
@@ -224,16 +227,14 @@ android:layout_marginBottom="50dp"
         android:id="@+id/icon_form"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintWidth_percent="0.07"
-        app:layout_constraintHeight_percent="0.07"
         android:background="@color/white"
-        android:fontFamily="@font/vazirmatn_medium"
         android:src="@drawable/icon_form"
-        app:layout_constraintTop_toTopOf="@+id/top_guideline2"
         app:layout_constraintBottom_toTopOf="@+id/top_guideline5"
+        app:layout_constraintHeight_percent="0.07"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-       />
+        app:layout_constraintTop_toTopOf="@+id/top_guideline2"
+        app:layout_constraintWidth_percent="0.07" />
 
 
     <androidx.constraintlayout.widget.Guideline

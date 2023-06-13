@@ -21,18 +21,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.shape.MaterialShapeDrawable
+import com.project.test.R
+import com.project.test.databinding.ActivityMainBinding
+import com.project.test.model.GetData
 import com.project.test.utils.FragmentReplacer
 import com.project.test.utils.GoToOtherActivity
-import com.project.test.view.fragment.HomeFragment
-import com.project.test.view.fragment.InsertReportFragment
 import com.project.test.utils.MyService
-import com.project.test.R
 import com.project.test.utils.SharedPreferences
 import com.project.test.utils.SharedViewModel
 import com.project.test.utils.Size
 import com.project.test.utils.Stack
-import com.project.test.databinding.ActivityMainBinding
-import com.project.test.model.GetData
+import com.project.test.view.fragment.HomeFragment
+import com.project.test.view.fragment.InsertReportFragment
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper
 
 
@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
 
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val db = SQLiteAssetHelper(this, "QC.db", null, 1).writableDatabase
@@ -75,11 +76,11 @@ class MainActivity : AppCompatActivity() {
             val size = fragmentList.pop(supportFragmentManager, R.id.fragmentContainer)
         }
 
-        val count= GetData(this).homePage()
-        if(count>0){
+        val count = GetData(this).homePage()
+        if (count > 0) {
             binding.arrow.clearAnimation()
             binding.arrow.visibility = View.GONE
-        }else{
+        } else {
             val anim = AnimationUtils.loadAnimation(this, R.anim.arrow_anim)
             binding.arrow.startAnimation(anim)
         }
@@ -146,22 +147,22 @@ class MainActivity : AppCompatActivity() {
         click(binding.homeMenu1, this, binding, supportFragmentManager, fragmentList)
         click(binding.titleHome1, this, binding, supportFragmentManager, fragmentList)
 
-        home(binding.background, binding,this)
-        home(binding.homeMenu, binding,this)
-        home(binding.titleHome, binding,this)
+        home(binding.background, binding, this)
+        home(binding.homeMenu, binding, this)
+        home(binding.titleHome, binding, this)
 
-        clickMore(binding.backgroundMore, binding, this, this,this)
-        clickMore(binding.more, binding, this, this,this)
-        clickMore(binding.titleMore, binding, this, this,this)
+        clickMore(binding.backgroundMore, binding, this, this, this)
+        clickMore(binding.more, binding, this, this, this)
+        clickMore(binding.titleMore, binding, this, this, this)
 
-        clickMore1(binding.backgroundMore1, binding,this,this)
-        clickMore1(binding.more1, binding,this,this)
-        clickMore1(binding.titleMore1, binding,this,this)
+        clickMore1(binding.backgroundMore1, binding, this, this)
+        clickMore1(binding.more1, binding, this, this)
+        clickMore1(binding.titleMore1, binding, this, this)
         binding.image1.setOnClickListener {
             binding.groupMore.visibility = View.GONE
             binding.groupMore1.visibility = View.VISIBLE
             binding.showMore.slideDown()
-            SharedPreferences(this).putBoolean("menuExit",false)
+            SharedPreferences(this).putBoolean("menuExit", false)
         }
         binding.image2.setOnClickListener {
 
@@ -181,19 +182,22 @@ class MainActivity : AppCompatActivity() {
         exit(binding.textExit, this)
 
     }
+
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         if (event?.action == MotionEvent.ACTION_DOWN) {
-           // stopService(Intent(this, MyService::class.java))
+            // stopService(Intent(this, MyService::class.java))
         }
         if (event?.action == MotionEvent.ACTION_UP) {
-         //   startService(Intent(this, MyService::class.java))
+            //   startService(Intent(this, MyService::class.java))
         }
         return super.onTouchEvent(event)
     }
+
     override fun onResume() {
+        stopService(Intent(this, MyService::class.java))
         super.onResume()
-          stopService(Intent(this, MyService::class.java))
     }
+
     override fun onPause() {
         super.onPause()
         startService(this)
@@ -204,7 +208,7 @@ class MainActivity : AppCompatActivity() {
         val rememberMe = SharedPreferences(this).getBoolean("rememberMe", false)
         if (rememberMe) {
             startService(this)
-        }else{
+        } else {
             stopService(Intent(this, MyService::class.java))
         }
 
@@ -212,7 +216,8 @@ class MainActivity : AppCompatActivity() {
 
 
 }
-fun startService(context: Activity){
+
+fun startService(context: Activity) {
     context.startService(Intent(context, MyService::class.java))
 }
 
@@ -221,7 +226,7 @@ fun exit(
     context: Activity
 ) {
     view.setOnClickListener {
-       SharedPreferences(context).clear()
+        SharedPreferences(context).clear()
         context.stopService(Intent(context, MyService::class.java))
         GoToOtherActivity(context).login()
     }
@@ -230,11 +235,11 @@ fun exit(
 fun home(
     view: View,
     binding: ActivityMainBinding,
-context:Context
+    context: Context
 ) {
     view.setOnClickListener {
         binding.showMore.slideDown()
-        SharedPreferences(context).putBoolean("menuExit",false)
+        SharedPreferences(context).putBoolean("menuExit", false)
         binding.groupMore.visibility = View.GONE
         binding.groupMore1.visibility = View.VISIBLE
     }
@@ -243,14 +248,14 @@ context:Context
 
 fun click(
     view: View,
-    context:Context,
+    context: Context,
     binding: ActivityMainBinding,
     fragmentManager: FragmentManager,
     fragmentList: Stack
 ) {
     view.setOnClickListener {
         binding.showMore.slideDown()
-        SharedPreferences(context).putBoolean("menuExit",false)
+        SharedPreferences(context).putBoolean("menuExit", false)
         binding.groupNav.visibility = View.VISIBLE
         binding.groupNav1.visibility = View.GONE
         binding.groupMore.visibility = View.GONE
@@ -275,12 +280,12 @@ fun clickMore(
     view.setOnClickListener {
         val model1 = ViewModelProvider(context)[SharedViewModel::class.java]
         model1.statusViewSpinner("show")
-        SharedPreferences(context2).putBoolean("menuExit",false)
-            binding.groupMore.visibility = View.GONE
-            binding.groupMore1.visibility = View.VISIBLE
+        SharedPreferences(context2).putBoolean("menuExit", false)
+        binding.groupMore.visibility = View.GONE
+        binding.groupMore1.visibility = View.VISIBLE
         binding.showMore.slideDown()
         model1.fragment.observe(context1, Observer {
-            if(it=="HomeFragment"){
+            if (it == "HomeFragment") {
                 binding.groupNav.visibility = View.VISIBLE
                 binding.groupNav1.visibility = View.GONE
             }
@@ -298,7 +303,7 @@ fun clickMore1(
     view.setOnClickListener {
         val model1 = ViewModelProvider(context)[SharedViewModel::class.java]
         model1.statusViewSpinner("hidden")
-        SharedPreferences(context1).putBoolean("menuExit",true)
+        SharedPreferences(context1).putBoolean("menuExit", true)
         binding.groupMore.visibility = View.VISIBLE
         binding.groupMore1.visibility = View.GONE
         binding.groupNav.visibility = View.GONE
@@ -306,6 +311,7 @@ fun clickMore1(
         binding.showMore.slideUp()
     }
 }
+
 fun View.slideUp(duration: Int = 500) {
     if (visibility == View.INVISIBLE) {
         visibility = View.VISIBLE
@@ -315,6 +321,7 @@ fun View.slideUp(duration: Int = 500) {
         this.startAnimation(animate)
     }
 }
+
 fun View.slideDown(duration: Int = 500) {
     if (visibility == View.VISIBLE) {
         visibility = View.INVISIBLE
