@@ -9,6 +9,7 @@ import com.project.test.view.fragment.HomeFragment
 
 
 class Stack {
+
     companion object {
         private val fragmentList = ArrayList<Fragment>()
     }
@@ -55,4 +56,6 @@ class Stack {
     fun size(): Int {
         return fragmentList.size
     }
+
+
 }

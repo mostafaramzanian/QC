@@ -48,7 +48,7 @@ class DetailsReportNotActiveFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val fragmentList = Stack()
-        fragmentList.push(requireActivity(), R.id.fragmentContainer)
+       // fragmentList.push(requireActivity(), R.id.fragmentContainer)
         model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         /*
         model.message1.observe(viewLifecycleOwner, Observer {

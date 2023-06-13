@@ -11,7 +11,11 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.TranslateAnimation
+import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentManager
@@ -19,6 +23,9 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.project.test.R
@@ -38,27 +45,27 @@ import com.readystatesoftware.sqliteasset.SQLiteAssetHelper
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    override fun onBackPressed() {
-
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val db = SQLiteAssetHelper(this, "QC.db", null, 1).writableDatabase
-        val cursor = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table'", null)
-        if (cursor.moveToFirst()) {
-            while (!cursor.isAfterLast) {
-                Log.i("Table Name", cursor.getString(0))
-                cursor.moveToNext()
-            }
-        }
-        cursor.close()
         binding = ActivityMainBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
+        onBackPressedDispatcher.addCallback(
+            this,
+            object:OnBackPressedCallback(true){
+                override fun handleOnBackPressed() {
+
+                }
+            }
+        )
+
+        val navHost=
+            supportFragmentManager.findFragmentById(R.id.fragmentContainer)as NavHostFragment
+        val navController = navHost.navController
+     //   binding.bottomNav.setupWithNavController(navHost.findNavController())
 
         binding.groupNav.visibility = View.VISIBLE
         binding.groupNav1.visibility = View.GONE
-
         binding.groupMore.visibility = View.GONE
         binding.groupMore1.visibility = View.VISIBLE
 
@@ -72,9 +79,12 @@ class MainActivity : AppCompatActivity() {
         })
         val fragmentList = Stack()
 
+        /*
         binding.customTitleLayout.backPage.setOnClickListener {
             val size = fragmentList.pop(supportFragmentManager, R.id.fragmentContainer)
         }
+
+         */
 
         val count = GetData(this).homePage()
         if (count > 0) {
@@ -102,20 +112,23 @@ class MainActivity : AppCompatActivity() {
             binding.groupNav1.visibility = View.VISIBLE
             binding.groupMore.visibility = View.GONE
             binding.groupMore1.visibility = View.VISIBLE
-            binding.showMore.slideDown()
+           // binding.showMore.slideDown()
             /*
                 val bundle = Bundle()
                 bundle.putBoolean("hideTextView", true)
                 val myFragment = HomeFragment()
                 myFragment.arguments = bundle
                 supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, myFragment).commit()
-        */
+
+             */
             FragmentReplacer(supportFragmentManager).replaceFragments(
                 HomeFragment(),
                 InsertReportFragment(),
-                R.id.fragmentContainer
+                R.id.fragmentsContainer
             )
+
         }
+
 
         val fontSize = Size(this).fontSize(0.029f)
 
@@ -135,7 +148,7 @@ class MainActivity : AppCompatActivity() {
         binding.customTitleLayout.textTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleApp)
 
 
-        val view = findViewById<ConstraintLayout>(R.id.constraint)
+        val view = findViewById<LinearLayout>(R.id.constraint)
         view.viewTreeObserver.addOnGlobalLayoutListener {
             val height = binding.bottomAppBar.height
             binding.innerViewGroup.layoutParams.height = height
@@ -158,6 +171,7 @@ class MainActivity : AppCompatActivity() {
         clickMore1(binding.backgroundMore1, binding, this, this)
         clickMore1(binding.more1, binding, this, this)
         clickMore1(binding.titleMore1, binding, this, this)
+        /*
         binding.image1.setOnClickListener {
             binding.groupMore.visibility = View.GONE
             binding.groupMore1.visibility = View.VISIBLE
@@ -165,22 +179,21 @@ class MainActivity : AppCompatActivity() {
             SharedPreferences(this).putBoolean("menuExit", false)
         }
         binding.image2.setOnClickListener {
-
         }
-        /*
+*/
      binding.background1.setOnClickListener {
          binding.groupNav.visibility = View.VISIBLE
          binding.groupNav1.visibility = View.GONE
          FragmentReplacer(supportFragmentManager).replaceFragments(
              fragmentList.getLastFragment(),
              HomeFragment(),
-             R.id.fragmentContainer
+             R.id.fragmentsContainer
          )
      }
-*/
+
         exit(binding.exitIcon, this)
         exit(binding.textExit, this)
-
+        defaultFragment(supportFragmentManager)
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -260,11 +273,16 @@ fun click(
         binding.groupNav1.visibility = View.GONE
         binding.groupMore.visibility = View.GONE
         binding.groupMore1.visibility = View.VISIBLE
+
         FragmentReplacer(fragmentManager).replaceFragments(
             fragmentList.getLastFragment(),
             HomeFragment(),
-            R.id.fragmentContainer
+            R.id.fragmentsContainer
         )
+
+
+
+
         val anim = AnimationUtils.loadAnimation(context, R.anim.arrow_anim)
         binding.arrow.startAnimation(anim)
     }
@@ -332,3 +350,8 @@ fun View.slideDown(duration: Int = 500) {
     }
 }
 
+fun defaultFragment(fragmentManager: FragmentManager){
+    val transaction = fragmentManager.beginTransaction()
+    transaction.add(R.id.fragmentsContainer, HomeFragment())
+    transaction.commit()
+}

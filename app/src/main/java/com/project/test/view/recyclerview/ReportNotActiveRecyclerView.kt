@@ -85,7 +85,7 @@ class ReportNotActiveRecyclerView(
                 FragmentReplacer(fragmentManager).replaceFragments(
                     ShowReportNotRegisteredFragment(),
                     DetailsReportNotActiveFragment(),
-                    R.id.fragmentContainer
+                    R.id.fragmentsContainer
                 )
             }
         }

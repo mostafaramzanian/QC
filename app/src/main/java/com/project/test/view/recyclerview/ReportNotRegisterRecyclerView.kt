@@ -92,7 +92,7 @@ class ReportNotRegisterRecyclerView(
         FragmentReplacer(fragmentManager).replaceFragments(
             ShowReportNotRegisteredFragment(),
             ShowMoreFormFragment(),
-            R.id.fragmentContainer
+            R.id.fragmentsContainer
         )
     }
 }

@@ -4,10 +4,12 @@
         android:id="@+id/logout_menu"
         android:title=""/>
 
-
     <item
         android:id="@+id/home_menu"
+        android:title=""/>
 
+    <item
+        android:id="@+id/fab_options"
         android:title=""/>
 
 </menu>

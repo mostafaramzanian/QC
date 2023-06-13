@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation.findNavController
 import com.project.test.utils.CustomToast
 import com.project.test.dataclass.DataNode
 import com.project.test.utils.FragmentReplacer
@@ -35,6 +36,7 @@ class InsertReportFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = InsertReportFragmentBinding.inflate(inflater)
+
         return binding.root
     }
 
@@ -208,7 +210,7 @@ class InsertReportFragment : Fragment() {
 
         val fragmentList = Stack()
         fragmentList.reset()
-        fragmentList.push(requireActivity(), R.id.fragmentContainer)
+        fragmentList.push(requireActivity(), R.id.fragmentsContainer)
         model.showLastFragment("InsertReportFragment")
         binding.btnAdd.setOnClickListener {
             val sharedPreferences = SharedPreferences(requireContext())
@@ -221,7 +223,7 @@ class InsertReportFragment : Fragment() {
                         FragmentReplacer(parentFragmentManager).replaceFragments(
                             InsertReportFragment(),
                             ShowMoreFormFragment(),
-                            R.id.fragmentContainer
+                            R.id.fragmentsContainer
                         )
                         sharedPreferences.putString("cpValueSelected",
                             cpValueSelected!!
