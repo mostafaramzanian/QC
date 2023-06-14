@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-     <item
+    <item
         android:id="@+id/logout_menu"
-        android:title=""/>
+        android:icon="@drawable/baseline_menu_24"
+        android:title="بیشتر" />
+
+    <item
+        android:id="@+id/placeholder"
+        android:title="" />
 
     <item
         android:id="@+id/home_menu"
-        android:title=""/>
+        android:icon="@drawable/baseline_home_24"
+        android:title="خانه" />
 
-    <item
-        android:id="@+id/fab_options"
-        android:title=""/>
 
 </menu>

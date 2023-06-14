@@ -5,42 +5,30 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.TranslateAnimation
-import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.OnBackPressedDispatcher
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomappbar.BottomAppBar
-import com.google.android.material.shape.MaterialShapeDrawable
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.project.test.R
 import com.project.test.databinding.ActivityMainBinding
-import com.project.test.model.GetData
 import com.project.test.utils.FragmentReplacer
 import com.project.test.utils.GoToOtherActivity
 import com.project.test.utils.MyService
 import com.project.test.utils.SharedPreferences
 import com.project.test.utils.SharedViewModel
-import com.project.test.utils.Size
 import com.project.test.utils.Stack
 import com.project.test.view.fragment.HomeFragment
 import com.project.test.view.fragment.InsertReportFragment
-import com.readystatesoftware.sqliteasset.SQLiteAssetHelper
 
 
 class MainActivity : AppCompatActivity() {
@@ -50,24 +38,21 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-        onBackPressedDispatcher.addCallback(
-            this,
-            object:OnBackPressedCallback(true){
-                override fun handleOnBackPressed() {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
 
-                }
             }
-        )
+        })
 
-        val navHost=
-            supportFragmentManager.findFragmentById(R.id.fragmentContainer)as NavHostFragment
+        val navHost =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
         val navController = navHost.navController
-     //   binding.bottomNav.setupWithNavController(navHost.findNavController())
+        //   binding.bottomNav.setupWithNavController(navHost.findNavController())
 
-        binding.groupNav.visibility = View.VISIBLE
-        binding.groupNav1.visibility = View.GONE
-        binding.groupMore.visibility = View.GONE
-        binding.groupMore1.visibility = View.VISIBLE
+//        binding.groupNav.visibility = View.VISIBLE
+//        binding.groupNav1.visibility = View.GONE
+//        binding.groupMore.visibility = View.GONE
+//        binding.groupMore1.visibility = View.VISIBLE
 
         val model = ViewModelProvider(this)[SharedViewModel::class.java]
         model.show.observe(this, Observer {
@@ -86,33 +71,33 @@ class MainActivity : AppCompatActivity() {
 
          */
 
-        val count = GetData(this).homePage()
-        if (count > 0) {
-            binding.arrow.clearAnimation()
-            binding.arrow.visibility = View.GONE
-        } else {
-            val anim = AnimationUtils.loadAnimation(this, R.anim.arrow_anim)
-            binding.arrow.startAnimation(anim)
-        }
+//        val count = GetData(this).homePage()
+//        if (count > 0) {
+//            binding.arrow.clearAnimation()
+//            binding.arrow.visibility = View.GONE
+//        } else {
+//            val anim = AnimationUtils.loadAnimation(this, R.anim.arrow_anim)
+//            binding.arrow.startAnimation(anim)
+//        }
 
 
-        val bottomAppBar = findViewById<BottomAppBar>(R.id.bottom_app_bar)
-        val bottomBarBackground = bottomAppBar.background as MaterialShapeDrawable
-        bottomBarBackground.shapeAppearanceModel = bottomBarBackground.shapeAppearanceModel
-            .toBuilder()
-            //.setBottomLeftCorner(ROUNDED,50f)
-            //.setBottomRightCorner(ROUNDED,50f)
-            //.setAllCorners(RoundedCornerTreatment()).setAllCornerSizes(RelativeCornerSize(0.5f))
-            .build()
+//        val bottomAppBar = findViewById<BottomAppBar>(R.id.bottom_app_bar)
+//        val bottomBarBackground = bottomAppBar.background as MaterialShapeDrawable
+//        bottomBarBackground.shapeAppearanceModel = bottomBarBackground.shapeAppearanceModel
+//            .toBuilder()
+//            //.setBottomLeftCorner(ROUNDED,50f)
+//            //.setBottomRightCorner(ROUNDED,50f)
+//            //.setAllCorners(RoundedCornerTreatment()).setAllCornerSizes(RelativeCornerSize(0.5f))
+//            .build()
 
         binding.fabOptions.setOnClickListener {
-            binding.arrow.clearAnimation()
-            binding.arrow.visibility = View.GONE
-            binding.groupNav.visibility = View.GONE
-            binding.groupNav1.visibility = View.VISIBLE
-            binding.groupMore.visibility = View.GONE
-            binding.groupMore1.visibility = View.VISIBLE
-           // binding.showMore.slideDown()
+//            binding.arrow.clearAnimation()
+//            binding.arrow.visibility = View.GONE
+//            binding.groupNav.visibility = View.GONE
+//            binding.groupNav1.visibility = View.VISIBLE
+//            binding.groupMore.visibility = View.GONE
+//            binding.groupMore1.visibility = View.VISIBLE
+            // binding.showMore.slideDown()
             /*
                 val bundle = Bundle()
                 bundle.putBoolean("hideTextView", true)
@@ -122,55 +107,61 @@ class MainActivity : AppCompatActivity() {
 
              */
             FragmentReplacer(supportFragmentManager).replaceFragments(
-                HomeFragment(),
-                InsertReportFragment(),
-                R.id.fragmentsContainer
+                HomeFragment(), InsertReportFragment(), R.id.fragmentsContainer
             )
 
         }
 
+        findViewById<TextView>(R.id.nav_more).setOnClickListener {
+            val bottomSheetDialog = BottomSheetDialog(this)
+            bottomSheetDialog.setContentView(R.layout.bottom_sheet_dialog_layout)
 
-        val fontSize = Size(this).fontSize(0.029f)
-
-        val titleApp = Size(this).fontSize(0.045f)
-        //Size(this).changeSize(0.065f,0.03f,findViewById<ImageButton>(R.id.home_menu))
-        val textView = findViewById<TextView>(R.id.title_home)
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
-        val textView1 = findViewById<TextView>(R.id.title_home1)
-        textView1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
-        val textView2 = findViewById<TextView>(R.id.title_more)
-        textView2.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
-        val textView3 = findViewById<TextView>(R.id.title_more1)
-        textView3.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
-        val textView4 = findViewById<TextView>(R.id.text_exit)
-        textView4.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
-
-        binding.customTitleLayout.textTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleApp)
-
-
-        val view = findViewById<LinearLayout>(R.id.constraint)
-        view.viewTreeObserver.addOnGlobalLayoutListener {
-            val height = binding.bottomAppBar.height
-            binding.innerViewGroup.layoutParams.height = height
-            binding.innerViewGroup.visibility = View.GONE;
-            binding.innerViewGroup.visibility = View.VISIBLE;
+            bottomSheetDialog.show()
         }
 
-        click(binding.background1, this, binding, supportFragmentManager, fragmentList)
-        click(binding.homeMenu1, this, binding, supportFragmentManager, fragmentList)
-        click(binding.titleHome1, this, binding, supportFragmentManager, fragmentList)
 
-        home(binding.background, binding, this)
-        home(binding.homeMenu, binding, this)
-        home(binding.titleHome, binding, this)
+//        val fontSize = Size(this).fontSize(0.029f)
 
-        clickMore(binding.backgroundMore, binding, this, this, this)
-        clickMore(binding.more, binding, this, this, this)
-        clickMore(binding.titleMore, binding, this, this, this)
+//        val titleApp = Size(this).fontSize(0.045f)
+        //Size(this).changeSize(0.065f,0.03f,findViewById<ImageButton>(R.id.home_menu))
+//        val textView = findViewById<TextView>(R.id.title_home)
+//        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
+//        val textView1 = findViewById<TextView>(R.id.title_home1)
+//        textView1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
+//        val textView2 = findViewById<TextView>(R.id.title_more)
+//        textView2.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
+//        val textView3 = findViewById<TextView>(R.id.title_more1)
+//        textView3.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
+//        val textView4 = findViewById<TextView>(R.id.text_exit)
+//        textView4.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
 
-        clickMore1(binding.backgroundMore1, binding, this, this)
-        clickMore1(binding.more1, binding, this, this)
-        clickMore1(binding.titleMore1, binding, this, this)
+//        binding.customTitleLayout.textTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleApp)
+
+
+//        val view = findViewById<LinearLayout>(R.id.constraint)
+//        view.viewTreeObserver.addOnGlobalLayoutListener {
+//            val height = binding.bottomAppBar.height
+//            binding.innerViewGroup.layoutParams.height = height
+//            binding.innerViewGroup.visibility = View.GONE;
+//            binding.innerViewGroup.visibility = View.VISIBLE;
+//        }
+
+        click(binding.navHome, this, binding, supportFragmentManager, fragmentList)
+//        click(binding.background1, this, binding, supportFragmentManager, fragmentList)
+//        click(binding.homeMenu1, this, binding, supportFragmentManager, fragmentList)
+//        click(binding.titleHome1, this, binding, supportFragmentManager, fragmentList)
+//
+//        home(binding.navHome, binding, this)
+//        home(binding.homeMenu, binding, this)
+//        home(binding.titleHome, binding, this)
+//
+//        clickMore(binding.navMore, binding, this, this, this)
+//        clickMore(binding.more, binding, this, this, this)
+//        clickMore(binding.titleMore, binding, this, this, this)
+//
+//        clickMore1(binding.backgroundMore1, binding, this, this)
+//        clickMore1(binding.more1, binding, this, this)
+//        clickMore1(binding.titleMore1, binding, this, this)
         /*
         binding.image1.setOnClickListener {
             binding.groupMore.visibility = View.GONE
@@ -181,18 +172,18 @@ class MainActivity : AppCompatActivity() {
         binding.image2.setOnClickListener {
         }
 */
-     binding.background1.setOnClickListener {
-         binding.groupNav.visibility = View.VISIBLE
-         binding.groupNav1.visibility = View.GONE
-         FragmentReplacer(supportFragmentManager).replaceFragments(
-             fragmentList.getLastFragment(),
-             HomeFragment(),
-             R.id.fragmentsContainer
-         )
-     }
+//        binding.background1.setOnClickListener {
+//            binding.groupNav.visibility = View.VISIBLE
+//            binding.groupNav1.visibility = View.GONE
+//            FragmentReplacer(supportFragmentManager).replaceFragments(
+//                fragmentList.getLastFragment(),
+//                HomeFragment(),
+//                R.id.fragmentsContainer
+//            )
+//        }
 
-        exit(binding.exitIcon, this)
-        exit(binding.textExit, this)
+//        exit(binding.exitIcon, this)
+//        exit(binding.textExit, this)
         defaultFragment(supportFragmentManager)
     }
 
@@ -235,8 +226,7 @@ fun startService(context: Activity) {
 }
 
 fun exit(
-    view: View,
-    context: Activity
+    view: View, context: Activity
 ) {
     view.setOnClickListener {
         SharedPreferences(context).clear()
@@ -246,15 +236,13 @@ fun exit(
 }
 
 fun home(
-    view: View,
-    binding: ActivityMainBinding,
-    context: Context
+    view: View, binding: ActivityMainBinding, context: Context
 ) {
     view.setOnClickListener {
-        binding.showMore.slideDown()
+//        binding.showMore.slideDown()
         SharedPreferences(context).putBoolean("menuExit", false)
-        binding.groupMore.visibility = View.GONE
-        binding.groupMore1.visibility = View.VISIBLE
+//        binding.groupMore.visibility = View.GONE
+//        binding.groupMore1.visibility = View.VISIBLE
     }
 }
 
@@ -267,24 +255,20 @@ fun click(
     fragmentList: Stack
 ) {
     view.setOnClickListener {
-        binding.showMore.slideDown()
+//        binding.showMore.slideDown()
         SharedPreferences(context).putBoolean("menuExit", false)
-        binding.groupNav.visibility = View.VISIBLE
-        binding.groupNav1.visibility = View.GONE
-        binding.groupMore.visibility = View.GONE
-        binding.groupMore1.visibility = View.VISIBLE
+//        binding.groupNav.visibility = View.VISIBLE
+//        binding.groupNav1.visibility = View.GONE
+//        binding.groupMore.visibility = View.GONE
+//        binding.groupMore1.visibility = View.VISIBLE
 
         FragmentReplacer(fragmentManager).replaceFragments(
-            fragmentList.getLastFragment(),
-            HomeFragment(),
-            R.id.fragmentsContainer
+            fragmentList.getLastFragment(), HomeFragment(), R.id.fragmentsContainer
         )
 
 
-
-
         val anim = AnimationUtils.loadAnimation(context, R.anim.arrow_anim)
-        binding.arrow.startAnimation(anim)
+//        binding.arrow.startAnimation(anim)
     }
 }
 
@@ -299,13 +283,13 @@ fun clickMore(
         val model1 = ViewModelProvider(context)[SharedViewModel::class.java]
         model1.statusViewSpinner("show")
         SharedPreferences(context2).putBoolean("menuExit", false)
-        binding.groupMore.visibility = View.GONE
-        binding.groupMore1.visibility = View.VISIBLE
-        binding.showMore.slideDown()
+//        binding.groupMore.visibility = View.GONE
+//        binding.groupMore1.visibility = View.VISIBLE
+//        binding.showMore.slideDown()
         model1.fragment.observe(context1, Observer {
             if (it == "HomeFragment") {
-                binding.groupNav.visibility = View.VISIBLE
-                binding.groupNav1.visibility = View.GONE
+//                binding.groupNav.visibility = View.VISIBLE
+//                binding.groupNav1.visibility = View.GONE
             }
         })
 
@@ -322,11 +306,11 @@ fun clickMore1(
         val model1 = ViewModelProvider(context)[SharedViewModel::class.java]
         model1.statusViewSpinner("hidden")
         SharedPreferences(context1).putBoolean("menuExit", true)
-        binding.groupMore.visibility = View.VISIBLE
-        binding.groupMore1.visibility = View.GONE
-        binding.groupNav.visibility = View.GONE
-        binding.groupNav1.visibility = View.VISIBLE
-        binding.showMore.slideUp()
+//        binding.groupMore.visibility = View.VISIBLE
+//        binding.groupMore1.visibility = View.GONE
+//        binding.groupNav.visibility = View.GONE
+//        binding.groupNav1.visibility = View.VISIBLE
+//        binding.showMore.slideUp()
     }
 }
 
@@ -350,7 +334,7 @@ fun View.slideDown(duration: Int = 500) {
     }
 }
 
-fun defaultFragment(fragmentManager: FragmentManager){
+fun defaultFragment(fragmentManager: FragmentManager) {
     val transaction = fragmentManager.beginTransaction()
     transaction.add(R.id.fragmentsContainer, HomeFragment())
     transaction.commit()

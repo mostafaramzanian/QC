@@ -20,4 +20,8 @@
     <color name="TabNonActive">#777777</color>
     <color name="TabActive">#212121</color>
 
+    <color name="tab_icon_active">#CCCCCC</color>
+    <color name="tab_icon_inactive">#ECECEC</color>
+
+
 </resources>

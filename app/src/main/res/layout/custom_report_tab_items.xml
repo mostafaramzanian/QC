@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icon_tab"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:background="@drawable/circle"
+            android:backgroundTint="@color/tab_icon_inactive"
+            android:padding="15dp"
+            android:src="@drawable/result" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/counter"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignLeft="@+id/icon_tab"
+            android:layout_marginLeft="-20dp"
+            android:background="@drawable/circle"
+            android:fontFamily="@font/vazirmatn_fd_regular"
+            android:gravity="center"
+            android:text="10"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_tab"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/vazirmatn_medium"
+        android:gravity="center"
+        android:text=""
+        android:textSize="17sp"
+        tools:ignore="RtlHardcoded" />
+
+</LinearLayout>
