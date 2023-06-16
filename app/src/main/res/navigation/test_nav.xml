@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_home_menu_to_insertFromFragment"
             app:destination="@id/insertFromFragment" />
+        <action
+            android:id="@+id/action_home_menu_self"
+            app:destination="@id/home_menu" />
     </fragment>
     <fragment
         android:id="@+id/insertFromFragment"
@@ -25,29 +28,49 @@
         <action
             android:id="@+id/action_insertFromFragment_to_showMoreFormFragment"
             app:destination="@id/showMoreFormFragment" />
+        <action
+            android:id="@+id/action_insertFromFragment_self2"
+            app:destination="@id/insertFromFragment" />
+        <action
+            android:id="@+id/action_insertFromFragment_to_home_menu"
+            app:destination="@id/home_menu" />
     </fragment>
     <fragment
         android:id="@+id/showReportNotRegisteredFragment"
         android:name="com.project.test.view.fragment.ShowReportNotRegisteredFragment"
         android:label="ShowReportNotRegisteredFragment" >
         <action
-            android:id="@+id/action_showReportNotRegisteredFragment_to_detailsReportNotActiveFragment"
-            app:destination="@id/detailsReportNotActiveFragment" />
+            android:id="@+id/action_showReportNotRegisteredFragment_to_home_menu"
+            app:destination="@id/home_menu" />
+        <action
+            android:id="@+id/action_showReportNotRegisteredFragment_to_showMoreFormFragment"
+            app:destination="@id/showMoreFormFragment" />
     </fragment>
     <fragment
         android:id="@+id/showReportRegisteredFragment"
         android:name="com.project.test.view.fragment.ShowReportRegisteredFragment"
         android:label="ShowReportRegisteredFragment" >
         <action
-            android:id="@+id/action_showReportRegisteredFragment_to_showMoreFormFragment"
-            app:destination="@id/showMoreFormFragment" />
+            android:id="@+id/action_showReportRegisteredFragment_to_home_menu"
+            app:destination="@id/home_menu" />
+        <action
+            android:id="@+id/action_showReportRegisteredFragment_to_detailsReportNotActiveFragment"
+            app:destination="@id/detailsReportNotActiveFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsReportNotActiveFragment"
         android:name="com.project.test.view.fragment.DetailsReportNotActiveFragment"
-        android:label="DetailsReportNotActiveFragment" />
+        android:label="DetailsReportNotActiveFragment" >
+        <action
+            android:id="@+id/action_detailsReportNotActiveFragment_to_showReportRegisteredFragment"
+            app:destination="@id/showReportRegisteredFragment" />
+    </fragment>
     <fragment
         android:id="@+id/showMoreFormFragment"
         android:name="com.project.test.view.fragment.ShowMoreFormFragment"
-        android:label="ShowMoreFormFragment" />
+        android:label="ShowMoreFormFragment" >
+        <action
+            android:id="@+id/action_showMoreFormFragment_to_showReportNotRegisteredFragment"
+            app:destination="@id/showReportNotRegisteredFragment" />
+    </fragment>
 </navigation>

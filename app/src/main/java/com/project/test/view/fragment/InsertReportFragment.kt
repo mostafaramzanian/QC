@@ -12,7 +12,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
 import com.project.test.utils.CustomToast
 import com.project.test.dataclass.DataNode
 import com.project.test.utils.FragmentReplacer
@@ -24,6 +26,7 @@ import com.project.test.utils.Stack
 import com.project.test.databinding.InsertReportFragmentBinding
 import com.project.test.model.GetData
 import com.project.test.model.Query
+import com.project.test.utils.NavigationApp
 
 
 class InsertReportFragment : Fragment() {
@@ -42,6 +45,7 @@ class InsertReportFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         model.showHide("Hide")
        val processId= SharedPreferences(requireActivity()).getInt("process_id", 0)
@@ -217,14 +221,19 @@ class InsertReportFragment : Fragment() {
             if(!sharedPreferences.getBoolean("menuExit",false)) {
                 when {
                     cpValueSelected != null -> {
+
                         val model1 = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
                         model1.sendMessage1("start")
                         model1.isDraft(1)
+                        NavigationApp(requireActivity(),parentFragmentManager,R.id.fragmentContainer).navigationForward(R.id.action_insertFromFragment_to_showMoreFormFragment,"")
+                        /*
                         FragmentReplacer(parentFragmentManager).replaceFragments(
                             InsertReportFragment(),
                             ShowMoreFormFragment(),
                             R.id.fragmentsContainer
                         )
+
+                         */
                         sharedPreferences.putString("cpValueSelected",
                             cpValueSelected!!
                         )

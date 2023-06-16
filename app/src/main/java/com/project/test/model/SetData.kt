@@ -24,10 +24,13 @@ class SetData(private val context: Activity) {
                 put("parameter_id", data.parameterId)
                 put("tool_id", data.toolId)
                 put("report_value", data.reportValue)
+                put("attachment", "null")
                 put("description", data.description)
                 put("status", data.status)
                 put("created_datetime", data.createdDatetime)
                 put("report_order", data.reportOrder)
+                put("lab_request_code", "null")
+
             }
             return Query(context).insertCpReportsParameters(values1)
         }
@@ -36,25 +39,14 @@ class SetData(private val context: Activity) {
                 put("report_id", dataLab.reportId)
                 put("parameter_id", dataLab.parameterId)
                 put("tool_id", dataLab.toolId)
+                put("report_value","null")
+                put("attachment", "null")
                 put("description", dataLab.description)
+                put("status", "null")
                 put("created_datetime", dataLab.createdDatetime)
                 put("report_order", dataLab.reportOrder)
                 put("lab_request_code", dataLab.labRequestCode)
             }
-            /*
-            val j:JSONObject = JSONObject()
-            j.put("","")
-
-            val j2:JSONObject = JSONObject()
-            j2.put("","")
-
-
-            val ar: JSONArray = JSONArray()
-            ar.put(j)
-            ar.put(j2)
-
-
-             */
             return Query(context).insertCpReportsParameters(values1)
         }
         return 0
@@ -62,12 +54,16 @@ class SetData(private val context: Activity) {
 
     fun information1(data: DataCpReports): Long {
         val values = ContentValues().apply {
-
             put("cp_id", cpId)
             put("station_id", csId)
             put("created_by_user", data.createdByUser)
             put("created_datetime", data.createdDateTime)
+            put("product_tracking_code", "null")
             put("is_draft", data.isDraft)
+            put("completed_datetime", "null")
+            put("shift", "null")
+            put("operator_name", "null")
+            put("production_count", "null")
         }
         return Query(context).insertCpReports(values)
     }

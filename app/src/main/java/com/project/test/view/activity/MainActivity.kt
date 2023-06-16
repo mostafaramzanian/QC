@@ -10,6 +10,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.TranslateAnimation
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
@@ -17,18 +18,24 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.project.test.R
 import com.project.test.databinding.ActivityMainBinding
+import com.project.test.model.Json
 import com.project.test.utils.FragmentReplacer
 import com.project.test.utils.GoToOtherActivity
 import com.project.test.utils.MyService
+import com.project.test.utils.NavigationApp
 import com.project.test.utils.SharedPreferences
 import com.project.test.utils.SharedViewModel
 import com.project.test.utils.Stack
 import com.project.test.view.fragment.HomeFragment
 import com.project.test.view.fragment.InsertReportFragment
+import org.json.JSONObject
 
 
 class MainActivity : AppCompatActivity() {
@@ -36,18 +43,32 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
+/*
+        val json = Json(this).getJson()
+        val table1 = json.getJSONArray("cp_reports")
+
+        for (i in 0 until table1.length()) {
+            val row = table1.getJSONObject(i)
+            val column1 = row?.getInt("id")
+            val column2 = row?.getInt("cp_id")
+            val column3 = row?.getInt("station_id")
+            val column4 = row?.getInt("created_by_user")
+            val text= "$column1 $column2 $column3 $column4"
+            Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+        }
+
+
+ */
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-
+                NavigationApp(this@MainActivity,supportFragmentManager,R.id.fragmentContainer).navigationBackward()
             }
         })
 
-        val navHost =
-            supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
-        val navController = navHost.navController
-        //   binding.bottomNav.setupWithNavController(navHost.findNavController())
+        binding.customTitleLayout.backPage.setOnClickListener {
+            NavigationApp(this@MainActivity,supportFragmentManager,R.id.fragmentContainer).navigationBackward()
+        }
 
 //        binding.groupNav.visibility = View.VISIBLE
 //        binding.groupNav1.visibility = View.GONE
@@ -62,14 +83,9 @@ class MainActivity : AppCompatActivity() {
                 binding.customTitleLayout.backPage.visibility = View.VISIBLE
             }
         })
-        val fragmentList = Stack()
 
-        /*
-        binding.customTitleLayout.backPage.setOnClickListener {
-            val size = fragmentList.pop(supportFragmentManager, R.id.fragmentContainer)
-        }
 
-         */
+
 
 //        val count = GetData(this).homePage()
 //        if (count > 0) {
@@ -91,6 +107,7 @@ class MainActivity : AppCompatActivity() {
 //            .build()
 
         binding.fabOptions.setOnClickListener {
+          NavigationApp(this,supportFragmentManager,R.id.fragmentContainer).navigationForward(R.id.action_home_menu_to_insertFromFragment,"InsertFromFragment")
 //            binding.arrow.clearAnimation()
 //            binding.arrow.visibility = View.GONE
 //            binding.groupNav.visibility = View.GONE
@@ -104,18 +121,18 @@ class MainActivity : AppCompatActivity() {
                 val myFragment = HomeFragment()
                 myFragment.arguments = bundle
                 supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, myFragment).commit()
+ */
 
-             */
-            FragmentReplacer(supportFragmentManager).replaceFragments(
-                HomeFragment(), InsertReportFragment(), R.id.fragmentsContainer
-            )
-
+            //  insertReportFragment(supportFragmentManager)
+        }
+        binding.navHome.setOnClickListener {
+          NavigationApp(this,supportFragmentManager,R.id.fragmentContainer).navigationForward(R.id.action_home_menu_self,"HomeFragment")
+            //  homeFragment(supportFragmentManager)
         }
 
         findViewById<TextView>(R.id.nav_more).setOnClickListener {
             val bottomSheetDialog = BottomSheetDialog(this)
             bottomSheetDialog.setContentView(R.layout.bottom_sheet_dialog_layout)
-
             bottomSheetDialog.show()
         }
 
@@ -146,7 +163,7 @@ class MainActivity : AppCompatActivity() {
 //            binding.innerViewGroup.visibility = View.VISIBLE;
 //        }
 
-        click(binding.navHome, this, binding, supportFragmentManager, fragmentList)
+        //click(binding.navHome, this, binding, supportFragmentManager, fragmentList)
 //        click(binding.background1, this, binding, supportFragmentManager, fragmentList)
 //        click(binding.homeMenu1, this, binding, supportFragmentManager, fragmentList)
 //        click(binding.titleHome1, this, binding, supportFragmentManager, fragmentList)
@@ -184,7 +201,7 @@ class MainActivity : AppCompatActivity() {
 
 //        exit(binding.exitIcon, this)
 //        exit(binding.textExit, this)
-        defaultFragment(supportFragmentManager)
+        //defaultFragment(supportFragmentManager)
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -334,8 +351,14 @@ fun View.slideDown(duration: Int = 500) {
     }
 }
 
-fun defaultFragment(fragmentManager: FragmentManager) {
+fun homeFragment(fragmentManager: FragmentManager) {
     val transaction = fragmentManager.beginTransaction()
-    transaction.add(R.id.fragmentsContainer, HomeFragment())
+    transaction.add(R.id.fragmentContainer, HomeFragment())
+    transaction.commit()
+}
+
+fun insertReportFragment(fragmentManager: FragmentManager) {
+    val transaction = fragmentManager.beginTransaction()
+    transaction.add(R.id.fragmentsContainer, InsertReportFragment())
     transaction.commit()
 }

@@ -15,6 +15,7 @@ import com.project.test.R
 import com.project.test.utils.SharedPreferences
 import com.project.test.utils.SharedViewModel
 import com.project.test.databinding.RecyclerReportActiveBinding
+import com.project.test.utils.NavigationApp
 import com.project.test.view.fragment.ShowMoreFormFragment
 import com.project.test.view.fragment.ShowReportNotRegisteredFragment
 
@@ -89,10 +90,7 @@ class ReportNotRegisterRecyclerView(
         model.sendMessage1(data.cpId.toString())
         model.sum(data.sum.toString())
         model.isDraft(1)
-        FragmentReplacer(fragmentManager).replaceFragments(
-            ShowReportNotRegisteredFragment(),
-            ShowMoreFormFragment(),
-            R.id.fragmentsContainer
-        )
+        NavigationApp(activity,fragmentManager,R.id.fragmentContainer).navigationForward(R.id.action_showReportNotRegisteredFragment_to_showMoreFormFragment,"")
+
     }
 }

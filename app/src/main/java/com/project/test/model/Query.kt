@@ -217,6 +217,19 @@ class Query(private val context: Activity) {
         db.delete(tableName, null, null)
         db.close()
     }
+
+    fun allCpReports(): Cursor{
+        val cursor = db.rawQuery("SELECT * FROM cp_reports", null)
+        return (cursor)
+    }
+    fun allCpReportsInfo(): Cursor{
+        val cursor = db.rawQuery("SELECT * FROM cp_reports_info", null)
+        return (cursor)
+    }
+    fun allCpReportsParameters(): Cursor{
+        val cursor = db.rawQuery("SELECT * FROM cp_reports_parameters", null)
+        return (cursor)
+    }
 }
 
 

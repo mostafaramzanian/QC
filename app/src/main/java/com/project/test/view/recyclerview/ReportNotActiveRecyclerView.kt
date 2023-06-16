@@ -14,6 +14,7 @@ import com.project.test.utils.FragmentReplacer
 import com.project.test.R
 import com.project.test.utils.SharedPreferences
 import com.project.test.databinding.RecyclerReportFinalBinding
+import com.project.test.utils.NavigationApp
 import com.project.test.utils.SharedViewModel
 import com.project.test.view.fragment.DetailsReportNotActiveFragment
 import com.project.test.view.fragment.ShowReportNotRegisteredFragment
@@ -82,11 +83,7 @@ class ReportNotActiveRecyclerView(
                 model.sendMessage1(data.cpId.toString())
                 model.sum(data.sum.toString())
                 model.isDraft(0)
-                FragmentReplacer(fragmentManager).replaceFragments(
-                    ShowReportNotRegisteredFragment(),
-                    DetailsReportNotActiveFragment(),
-                    R.id.fragmentsContainer
-                )
+                NavigationApp(activity,fragmentManager,R.id.fragmentContainer).navigationForward(R.id.action_showReportRegisteredFragment_to_detailsReportNotActiveFragment,"")
             }
         }
     }
