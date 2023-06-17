@@ -63,7 +63,8 @@
         android:label="DetailsReportNotActiveFragment" >
         <action
             android:id="@+id/action_detailsReportNotActiveFragment_to_showReportRegisteredFragment"
-            app:destination="@id/showReportRegisteredFragment" />
+            app:destination="@id/showReportRegisteredFragment"
+        />
     </fragment>
     <fragment
         android:id="@+id/showMoreFormFragment"

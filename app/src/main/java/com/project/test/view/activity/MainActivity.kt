@@ -19,8 +19,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.project.test.R
@@ -83,9 +85,8 @@ class MainActivity : AppCompatActivity() {
                 binding.customTitleLayout.backPage.visibility = View.VISIBLE
             }
         })
-
-
-
+      val navigationApp =  NavigationApp(this,supportFragmentManager,R.id.fragmentContainer)
+       // setupActionBarWithNavController(findNavController(R.id.fragmentContainer))
 
 //        val count = GetData(this).homePage()
 //        if (count > 0) {
@@ -107,7 +108,8 @@ class MainActivity : AppCompatActivity() {
 //            .build()
 
         binding.fabOptions.setOnClickListener {
-          NavigationApp(this,supportFragmentManager,R.id.fragmentContainer).navigationForward(R.id.action_home_menu_to_insertFromFragment,"InsertFromFragment")
+            navigationApp.emptyStack()
+            navigationApp.navigationForward(R.id.action_home_menu_to_insertFromFragment,"InsertFromFragment")
 //            binding.arrow.clearAnimation()
 //            binding.arrow.visibility = View.GONE
 //            binding.groupNav.visibility = View.GONE
@@ -123,11 +125,10 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, myFragment).commit()
  */
 
-            //  insertReportFragment(supportFragmentManager)
         }
         binding.navHome.setOnClickListener {
-          NavigationApp(this,supportFragmentManager,R.id.fragmentContainer).navigationForward(R.id.action_home_menu_self,"HomeFragment")
-            //  homeFragment(supportFragmentManager)
+            navigationApp.emptyStack()
+            navigationApp.navigationForward(R.id.action_home_menu_self,"HomeFragment")
         }
 
         findViewById<TextView>(R.id.nav_more).setOnClickListener {
