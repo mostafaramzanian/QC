@@ -85,7 +85,7 @@
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/edit_text_1_final"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/edit_text_info"
                 android:fontFamily="@font/vazirmatn_medium"
@@ -104,7 +104,7 @@
                 android:id="@+id/operator_name"
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="25dp"
                 android:fontFamily="@font/vazirmatn_bold"
                 android:text="@string/Name_Operator"
                 android:textColor="@color/black"
@@ -115,7 +115,7 @@
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/edit_text_2_final"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/edit_text_info"
                 android:fontFamily="@font/vazirmatn_medium"
@@ -135,7 +135,7 @@
                 android:id="@+id/total_production"
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="25dp"
                 android:fontFamily="@font/vazirmatn_bold"
                 android:text="@string/Total_Production"
                 android:textColor="@color/black"
@@ -146,7 +146,7 @@
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/edit_text_3_final"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/edit_text_info"
                 android:fontFamily="@font/vazirmatn_medium"
@@ -165,7 +165,7 @@
                 android:id="@+id/shift"
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="30dp"
                 android:fontFamily="@font/vazirmatn_bold"
                 android:text="@string/Shift"
                 android:textColor="@color/black"
@@ -232,7 +232,7 @@
                 android:id="@+id/inbound_tracking_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="0dp"
                 android:layout_marginRight="20dp"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@+id/shift">
@@ -241,6 +241,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:layout_marginTop="14dp"
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatButton
@@ -248,17 +249,19 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginRight="10dp"
+                        android:layout_marginTop="14dp"
                         android:background="@drawable/add_final_registr"
                         tools:ignore="RtlHardcoded" />
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/edit_text_4_final"
                         android:layout_width="180dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
                         android:background="@drawable/edit_text_info"
                         android:fontFamily="@font/vazirmatn_medium"
                         android:inputType="text"
                         android:maxLines="1"
+                        android:layout_marginTop="14dp"
                         android:paddingLeft="15dp"
                         android:paddingTop="0dp"
                         android:paddingRight="15dp"
@@ -271,6 +274,7 @@
                         android:layout_width="130dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
+                        android:layout_marginTop="14dp"
                         android:fontFamily="@font/vazirmatn_bold"
                         android:gravity="center_vertical"
                         android:text="@string/Entry_Code"
@@ -286,7 +290,7 @@
                 android:id="@+id/non_conformity_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="18dp"
                 android:layout_marginRight="20dp"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@+id/inbound_tracking_container">
@@ -308,7 +312,7 @@
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/edit_text_5_final"
                         android:layout_width="180dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
                         android:background="@drawable/edit_text_info"
                         android:fontFamily="@font/vazirmatn_medium"
                         android:inputType="text"

@@ -46,14 +46,15 @@ class HomeFragment : Fragment() {
 
         val countReportActive = GetData(requireActivity()).reportActive()
         if (countReportActive.size > 0) {
-            //  val countReportActive1 = countReportActive[0]
+              val countReportActive1 = countReportActive[0]
             binding.innerConstraintLayout.visibility = View.VISIBLE
             binding.noValuesActive.visibility = View.GONE
-//            binding.inner4ConstraintLayout.visibility = View.GONE
-//            binding.countReportText.text = countReportActive1.count.toString()
-//            binding.titleLastReportText.text = countReportActive1.csName
-//            binding.titleLastReportCpText.text = countReportActive1.cpName
-//            binding.timeLastReportText.text = countReportActive1.time
+
+            //binding.inner4ConstraintLayout.visibility = View.GONE
+            binding.countReportText.text = countReportActive1.count.toString()
+            binding.titleLastReportText.text = countReportActive1.csName
+            binding.titleLastReportCpText.text = countReportActive1.cpName
+            binding.timeLastReportText.text = countReportActive1.time
         } else {
             binding.innerConstraintLayout.visibility = View.GONE
             binding.noValuesActive.visibility = View.VISIBLE

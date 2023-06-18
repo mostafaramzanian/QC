@@ -1,22 +1,23 @@
 package com.project.test.view.recyclerview
 
 import android.app.Activity
-import android.content.Context
+import android.text.Editable
 import android.text.InputType.TYPE_CLASS_NUMBER
 import android.text.InputType.TYPE_CLASS_TEXT
+import android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
+import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.RecyclerView
@@ -28,7 +29,6 @@ import com.project.test.dataclass.DataInfo
 import com.project.test.dataclass.DataLab
 import com.project.test.dataclass.SetDataInfo
 import com.project.test.model.GetData
-import com.project.test.model.Query
 import com.project.test.model.SetData
 import com.project.test.utils.Alert
 import com.project.test.utils.CurrentTime
@@ -211,32 +211,23 @@ class InformationRecyclerViewAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun setData(data: DataInfo) {
             val sharedPreferences = SharedPreferences(context)
-            val tools = Query(context).tools(
-                data.toolType, sharedPreferences.getInt("process_id", 0)
-            )
             val importanceLevel = "درجه اهمیت: (${data.importanceLevel})"
             val title = "عنوان مشخصه: ${data.name}"
             val time = "${data.samplingInterval} دقیقه"
             val range =
                 "${data.acceptableRangeMin} < ${data.acceptableRangeTarget} < ${data.acceptableRangeMax} درجه"
-            val idTools = mutableListOf<Int>()
-            val listTools = mutableListOf<String>()
-            val correctionFactor = mutableListOf<Float>()
             binding.titleInfo1.text = title
             binding.titleInfo2.text = importanceLevel
             binding.codeDoc1.text = time
             binding.txtTitleDoc1.text = range
-            if (tools.moveToFirst()) {
-                do {
-                    idTools.add(tools.getInt(tools.getColumnIndexOrThrow("id")))
-                    listTools.add(tools.getString(tools.getColumnIndexOrThrow("title")))
-                    correctionFactor.add(tools.getFloat(tools.getColumnIndexOrThrow("correction_factor")))
-                } while (tools.moveToNext())
-            }
-            idTools.add(0, 0)
-            listTools.add(0, "مقدار کیفی")
-            correctionFactor.add(0, 0f)
+
+            val idTools = GetData(context).tools(data.toolType).first
+            val listTools = GetData(context).tools(data.toolType).second
+            val correctionFactor = GetData(context).tools(data.toolType).third
+
             binding.spinnerViewInfo.setItems(listTools)
+            binding.spinnerViewInfo.selectItemByIndex(0)
+
             val animDown = AnimationUtils.loadAnimation(context, R.anim.spinner_dropdown_anim)
             val animUp = AnimationUtils.loadAnimation(context, R.anim.spinner_dropup_anim)
             binding.spinnerViewInfo.setOnClickListener {
@@ -248,48 +239,72 @@ class InformationRecyclerViewAdapter(
                     binding.arrowSpinnerInfo.startAnimation(animDown)
                 }
             }
-            var idTool: Int? = null
-            var cF: Float? = null
-            val model1 = ViewModelProvider(context1)[SharedViewModel::class.java]
+            var idTool = idTools[0]
+            var cF: Float = correctionFactor[0]
+            //val model1 = ViewModelProvider(context1)[SharedViewModel::class.java]
             binding.spinnerViewInfo.setOnSpinnerItemSelectedListener<String> { oldIndex, oldItem, newIndex, newItem ->
                 binding.arrowSpinnerInfo.startAnimation(animUp)
                 idTool = idTools[newIndex]
                 cF = correctionFactor[newIndex]
-                if (oldIndex == 0 || newIndex == 0) {
+                if ( newIndex == 0) {
                     binding.editText1.inputType = TYPE_CLASS_TEXT
-                    binding.editText1.text = null
-                    binding.radioConfirmation.isChecked = false
-                    binding.radioRejection.isChecked = false
+                  //  binding.editText1.text = null
+                   // binding.radioConfirmation.isChecked = false
+                   // binding.radioRejection.isChecked = false
                 }
                 if (newIndex != 0) {
-                    binding.editText1.inputType = TYPE_CLASS_NUMBER
-                    if (binding.editText1.text!!.isNotEmpty()) {
+                    binding.editText1.inputType = TYPE_CLASS_NUMBER or TYPE_NUMBER_FLAG_DECIMAL
+                    if (binding.editText1.text!!.isNotEmpty() && (binding.editText1.text.toString().toFloatOrNull() != null || binding.editText1.text.toString().toIntOrNull() != null)) {
                         val value = binding.editText1.text.toString()
                         change(
                             data.acceptableRangeMin,
                             data.acceptableRangeMax,
                             binding,
-                            cF!!,
-                            value.toFloat()
+                            cF,
+                            value.toFloat(),
+                            context
                         )
                     }
                 }
-                model1.statusSpinnerInfo("show")
+                //  model1.statusSpinnerInfo("show")
             }
+//            binding.editText1.addTextChangedListener(object : TextWatcher {
+//                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+//
+//                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//                    if (s?.length!! % 7 == 0) {
+//                        binding.editText1.setText(StringBuilder(s).insert(s.length - 1, "-").toString())
+//                        binding.editText1.setSelection( binding.editText1.text!!.length)
+//                    }
+//                    if (!s.toString().startsWith("L-")) {
+//                        binding.editText1.setText("L-$s")
+//                        binding.editText1.setSelection(binding.editText1.text!!.length)
+//                    }
+//                }
+//
+//                override fun afterTextChanged(s: Editable?) {}
+//            })
             var reportValue = ""
             binding.editText1.addTextChangedListener {
                 val text = it.toString()
-                if (cF != null && text != "" && idTool!! > 0) {
+                if (text != "") {
                     try {
-                        val user = Integer.parseInt(text)
-                        val value = user.toFloat()
-                        reportValue = change(
-                            data.acceptableRangeMin,
-                            data.acceptableRangeMax,
-                            binding,
-                            cF!!,
-                            value
-                        )
+                        if (text.toFloatOrNull() == null || text.toIntOrNull() == null) {
+                            binding.radioConfirmation.isChecked = false
+                            binding.radioRejection.isChecked = false
+                            binding.editText1.background = getDrawable(context, R.drawable.edit_text_info)
+                            binding.editText3Observed.text = "-"
+                        } else {
+                            val value = text.toFloat()
+                            reportValue = change(
+                                data.acceptableRangeMin,
+                                data.acceptableRangeMax,
+                                binding,
+                                cF,
+                                value,
+                                context
+                            )
+                        }
                     } catch (e: NumberFormatException) {
                         // Handle the exception here
                     }
@@ -298,9 +313,17 @@ class InformationRecyclerViewAdapter(
                     reportValue = it.toString()
                     binding.editText1.setBackgroundResource(R.drawable.edit_text_info)
                     reportValue =
-                        change(data.acceptableRangeMin, data.acceptableRangeMax, binding, 0f, 0f)
+                        change(
+                            data.acceptableRangeMin,
+                            data.acceptableRangeMax,
+                            binding,
+                            0f,
+                            0f,
+                            context
+                        )
                 }
             }
+            /*
             binding.editText1.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
                 if (idTool == null) {
                     CustomToast(context).toastAlert(
@@ -334,6 +357,8 @@ class InformationRecyclerViewAdapter(
                 }
             })
 
+
+             */
             binding.btnInfo.setOnClickListener {
                 var isChecked = 0
                 var checkName: String? = null
@@ -433,7 +458,7 @@ class InformationRecyclerViewAdapter(
                     val dataInfo = SetDataInfo(
                         idCpReport!!,
                         data.id,
-                        idTool!!,
+                        idTool,
                         reportValue,
                         binding.editText2.text.toString(),
                         state!!,
@@ -463,8 +488,8 @@ class InformationRecyclerViewAdapter(
                                 "اطلاعات وارد گردیده با موفقیت ثبت شدند."
                             )
                             empty(binding)
-                             idTool= null
-                             cF= null
+                            idTool = idTools[0]
+                            cF = correctionFactor[0]
                             GetData(context).count(
                                 context1,
                                 context2,
@@ -513,16 +538,27 @@ class InformationRecyclerViewAdapter(
         max: Float,
         binding: RecyclerInfoBinding,
         cf: Float,
-        value: Float
+        value: Float,
+        context: Activity
     ): String {
         val sum = value + cf
+
         if (value > 0) {
-            if ((sum >= min) && (max <= sum)) {
+            if ((sum >= min) && (sum <= max)) {
                 binding.editText1.background = getDrawable(context, R.drawable.bac_valid)
                 binding.radioConfirmation.isChecked = true
+                if(!binding.radioConfirmation.isChecked){
+                    binding.radioRejection.isChecked = true
+                    binding.radioConfirmation.isChecked = true
+                }
             } else {
                 binding.editText1.background = getDrawable(context, R.drawable.back_wrong)
                 binding.radioRejection.isChecked = true
+                if(!binding.radioRejection.isChecked){
+                    binding.radioConfirmation.isChecked = true
+                    binding.radioRejection.isChecked = true
+                }
+
             }
             binding.editText3Observed.text = sum.toString()
         } else {
@@ -547,16 +583,16 @@ private fun spannableString(text: String?, text3: String?, color: Int): Spannabl
     return spannableString
 }
 
-private fun emptyLab(binding: ReyclerLabBinding){
-    binding.editText1.text= null
-    binding.editText2.text= null
+private fun emptyLab(binding: ReyclerLabBinding) {
+    binding.editText1.text = null
+    binding.editText2.text = null
 }
 
-private fun empty(binding: RecyclerInfoBinding){
-    binding.editText1.text= null
-    binding.editText2.text= null
+private fun empty(binding: RecyclerInfoBinding) {
+    binding.editText1.text = null
+    binding.editText2.text = null
     binding.spinnerViewInfo.text = "انتخاب کنید"
-    binding.editText3Observed.text="-"
+    binding.editText3Observed.text = "-"
     binding.radioConfirmation.isChecked = false;
     binding.radioRejection.isChecked = false
 

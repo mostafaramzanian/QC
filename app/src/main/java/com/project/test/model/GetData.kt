@@ -456,4 +456,27 @@ class GetData(private val context: Activity) {
         }
         return dataInfo
     }
+
+
+    fun tools(toolType:Int):Triple<MutableList<Int>,MutableList<String>,MutableList<Float>>{
+        val tools = Query(context).tools(
+            toolType, sharedPreferences.getInt("process_id", 0)
+        )
+        val idTools = mutableListOf<Int>()
+        val listTools = mutableListOf<String>()
+        val correctionFactor = mutableListOf<Float>()
+
+        if (tools.moveToFirst()) {
+            do {
+                idTools.add(tools.getInt(tools.getColumnIndexOrThrow("id")))
+                listTools.add(tools.getString(tools.getColumnIndexOrThrow("title")))
+                correctionFactor.add(tools.getFloat(tools.getColumnIndexOrThrow("correction_factor")))
+            } while (tools.moveToNext())
+        }
+        idTools.add(0, 0)
+        listTools.add(0, "انتخاب کنید")
+        correctionFactor.add(0, 0f)
+
+        return Triple (idTools, listTools, correctionFactor)
+    }
 }

@@ -25,9 +25,9 @@
     <string name="Guide_to_Completing">راهنمای تکمیل گزارش</string>
     <string name="Text_Home_1">هیچ گزارش جدیدی وجود ندارد. شما می توانید با استفاده از آیکن</string>
     <string name="Text_Home_2">گزارش جدید ایجاد کنید. (به فلش نشان داده شده در زیر توجه نمایید.)</string>
-    <string name="Total_Reports">تعداد کل گزارشات:</string>
+    <string name="Total_Reports">تعداد کل گزارشات فعال:</string>
     <string name="The_Title_of_the_Last_Report">آخرین گزارش فعال برای ایستگاه:</string>
-    <string name="The_Time">زمان ثبت آخرین گزارش</string>
+    <string name="The_Time">زمان ثبت آخرین گزارش فعال: </string>
     <string name="Btn_Show_Active_Report">مشاهده گزارشات فعال</string>
     <string name="Status_Reports_Active">وضعیت گزارشات فعال</string>
     <string name="Title_Last_Reports">عنوان آخرین گزارش:</string>
