@@ -21,7 +21,6 @@ import com.project.test.model.GetData
 import com.project.test.utils.Alert
 import com.project.test.utils.SharedPreferences
 import com.project.test.utils.SharedViewModel
-import com.project.test.utils.Stack
 import com.project.test.view.adapter.ShowFormAdapter
 
 
@@ -29,9 +28,7 @@ class ShowFormReportFragment : Fragment() {
     private lateinit var binding: ShowFormReportBinding
     lateinit var model: SharedViewModel
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = ShowFormReportBinding.inflate(inflater)
 
@@ -40,8 +37,8 @@ class ShowFormReportFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val fragmentList = Stack()
-        fragmentList.push(requireActivity(), R.id.fragmentsContainer)
+//        val fragmentList = Stack()
+//        fragmentList.push(requireActivity(), R.id.fragmentsContainer)
         model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         model.message1.observe(viewLifecycleOwner, Observer {
             binding.viewPager.setCurrentItem(4, false)
@@ -54,11 +51,7 @@ class ShowFormReportFragment : Fragment() {
 //        val width2 = Size(requireContext()).calWidth(0.05f)
 //        val height2 = Size(requireContext()).calHeight(0.03f)
         val tabTitle = arrayOf(
-            "ثبت نهایی گزارش",
-            "گزارشات ثبت شده",
-            "ثبت گزارش",
-            "اسناد و مدارک",
-            "راهنما"
+            "ثبت نهایی گزارش", "گزارشات ثبت شده", "ثبت گزارش", "اسناد و مدارک", "راهنما"
         )
         val tabImages = arrayOf(
             R.drawable.register,
@@ -70,14 +63,14 @@ class ShowFormReportFragment : Fragment() {
 
 //        val viewPagerItems = HashMap<String, Int>();
 
+        binding.viewPager.offscreenPageLimit = 10
+
         binding.viewPager.adapter = ShowFormAdapter(5, parentFragmentManager, lifecycle)
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
 
             val v = layoutInflater.inflate(
-                R.layout.custom_report_tab_items,
-                binding.tabLayout,
-                false
+                R.layout.custom_report_tab_items, binding.tabLayout, false
             )
             v.findViewById<TextView>(R.id.text_tab).text = tabTitle[position]
             v.findViewById<ImageView>(R.id.icon_tab).setImageResource(tabImages[position])
@@ -180,18 +173,11 @@ class ShowFormReportFragment : Fragment() {
                             val textAlert =
                                 "کاربر گرامی برای استفاده از این قسمت باید حداقل یک گزارش ثبت شده داشته باشید!"
                             val alert = Alert(
-                                requireActivity(),
-                                textAlert,
-                                null,
-                                null,
-                                "متوجه شدم",
-                                null,
-                                "خطا"
+                                requireActivity(), textAlert, null, null, "متوجه شدم", null, "خطا"
                             )
                             alert.setOnClick(View.OnClickListener {
-                                binding.tabLayout.setScrollPosition(2, 0f, true);
-                                binding.viewPager.currentItem = 2;
-
+                                binding.tabLayout.setScrollPosition(2, 0f, true)
+                                binding.viewPager.currentItem = 2
                                 position = "2"
                             })
                             alert.alert()
@@ -294,21 +280,18 @@ class ShowFormReportFragment : Fragment() {
         })
 
 
-        view.post {
-            val wMeasureSpec =
-                View.MeasureSpec.makeMeasureSpec(binding.viewPager.width, View.MeasureSpec.EXACTLY)
-            val hMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
-            view.measure(wMeasureSpec, hMeasureSpec)
-            val viewPager = view.findViewById<ViewPager2>(R.id.viewPager)
-            val layoutParams = viewPager.layoutParams
-            layoutParams.height = view.measuredHeight
-            viewPager.layoutParams = layoutParams
-        }
+//        view.post {
+//            val wMeasureSpec =
+//                View.MeasureSpec.makeMeasureSpec(binding.viewPager.width, View.MeasureSpec.EXACTLY)
+//            val hMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+//            view.measure(wMeasureSpec, hMeasureSpec)
+//            val viewPager = view.findViewById<ViewPager2>(R.id.viewPager)
+//            val layoutParams = viewPager.layoutParams
+//            layoutParams.height = view.measuredHeight
+//            viewPager.layoutParams = layoutParams
+//        }
     }
 
-    override fun onPause() {
-        super.onPause()
-    }
 }
 
 private fun View.size(Width: Int, Height: Int) {

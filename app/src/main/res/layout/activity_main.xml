@@ -17,7 +17,8 @@
         android:id="@+id/fragmentContainer"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:visibility="visible"
         app:defaultNavHost="true"
         app:navGraph="@navigation/test_nav" />
@@ -38,12 +39,13 @@
     <!--        app:layout_constraintWidth_percent="0.07"-->
     <!--        tools:ignore="RtlHardcoded" />-->
 
-    <LinearLayout
-        android:id="@+id/fragmentsContainer"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical" />
+<!--    <LinearLayout-->
+<!--        android:id="@+id/fragmentsContainer"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_weight="1"-->
+<!--        android:orientation="vertical"-->
+<!--        android:visibility="gone" />-->
 
     <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
     <!--        android:id="@+id/show_more"-->
@@ -185,12 +187,13 @@
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="Image_Fab"
             android:scaleType="center"
             app:layout_anchor="@+id/bottom_app_bar"
             app:maxImageSize="32dp"
             app:srcCompat="@drawable/baseline_add_24"
-            app:tint="@android:color/white"
-            android:contentDescription="Image_Fab" />
+            app:tint="@android:color/white" />
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </LinearLayout>

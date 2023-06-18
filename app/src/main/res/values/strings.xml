@@ -77,4 +77,5 @@
     <string name="more">بیشتر</string>
     <string name="rememberMe">مرا به خاطر بسپار</string>
     <string name="services">سرویس برنامه کنترل کیفیت در حال اجرا است.</string>
+    <string name="item_not_found">موردی وجود ندارد</string>
 </resources>

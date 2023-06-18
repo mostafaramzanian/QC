@@ -10,11 +10,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.project.test.dataclass.DataReport
-import com.project.test.view.recyclerview.OtherRecyclerView
-import com.project.test.utils.SharedViewModel
 import com.project.test.databinding.OtherFormActiveBinding
+import com.project.test.dataclass.DataReport
 import com.project.test.model.GetData
+import com.project.test.utils.SharedViewModel
+import com.project.test.view.recyclerview.OtherRecyclerView
 
 class OtherFormActiveFragment : Fragment() {
     private lateinit var binding: OtherFormActiveBinding

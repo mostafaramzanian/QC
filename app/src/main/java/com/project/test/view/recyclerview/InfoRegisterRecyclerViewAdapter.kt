@@ -2,14 +2,12 @@ package com.project.test.view.recyclerview
 
 
 import android.app.Activity
-import android.util.TypedValue
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.project.test.dataclass.DataInfoRegister
 import com.project.test.R
-import com.project.test.utils.Size
 import com.project.test.databinding.RecyclerInforegisterBinding
+import com.project.test.dataclass.DataInfoRegister
 import saman.zamani.persiandate.PersianDate
 import java.text.SimpleDateFormat
 import java.util.Locale

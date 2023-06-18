@@ -9,15 +9,12 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.RecyclerView
-import com.project.test.dataclass.DataReport
-import com.project.test.utils.FragmentReplacer
 import com.project.test.R
+import com.project.test.databinding.RecyclerReportActiveBinding
+import com.project.test.dataclass.DataReport
+import com.project.test.utils.NavigationApp
 import com.project.test.utils.SharedPreferences
 import com.project.test.utils.SharedViewModel
-import com.project.test.databinding.RecyclerReportActiveBinding
-import com.project.test.utils.NavigationApp
-import com.project.test.view.fragment.ShowMoreFormFragment
-import com.project.test.view.fragment.ShowReportNotRegisteredFragment
 
 class ReportNotRegisterRecyclerView(
     private val context: Activity,
@@ -90,7 +87,11 @@ class ReportNotRegisterRecyclerView(
         model.sendMessage1(data.cpId.toString())
         model.sum(data.sum.toString())
         model.isDraft(1)
-        NavigationApp(activity,fragmentManager,R.id.fragmentContainer).navigationForward(R.id.action_showReportNotRegisteredFragment_to_showMoreFormFragment,"")
+        NavigationApp(
+            activity,
+            fragmentManager,
+            R.id.fragmentContainer
+        ).navigationForward(R.id.action_showReportNotRegisteredFragment_to_showMoreFormFragment, "")
 
     }
 }

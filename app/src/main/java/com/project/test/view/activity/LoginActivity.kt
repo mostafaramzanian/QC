@@ -49,42 +49,42 @@ class LoginActivity : AppCompatActivity() {
 
         binding.edtInputUsername.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
-             //   binding.usernameIcon.setMargins(0, 0, 280, 44)
-              //  binding.hintUsername.setMargins(0, 0, 10, 44)
-              //  binding.usernameIcon.size(30, 30)
-               // binding.hintUsername.textSize = 16f
+                //   binding.usernameIcon.setMargins(0, 0, 280, 44)
+                //  binding.hintUsername.setMargins(0, 0, 10, 44)
+                //  binding.usernameIcon.size(30, 30)
+                // binding.hintUsername.textSize = 16f
             }
             if (!hasFocus && binding.edtInputUsername.text.toString().trim().isEmpty()) {
-             //   binding.usernameIcon.setMargins(0, 0, 280, 0)
-             //   binding.hintUsername.setMargins(0, 0, 10, 0)
-            //    binding.usernameIcon.size(50, 50)
-            //    binding.hintUsername.textSize = 20f
+                //   binding.usernameIcon.setMargins(0, 0, 280, 0)
+                //   binding.hintUsername.setMargins(0, 0, 10, 0)
+                //    binding.usernameIcon.size(50, 50)
+                //    binding.hintUsername.textSize = 20f
             }
         }
 //        binding.edtInputPassword.setOnFocusChangeListener { _, hasFocus ->
 //            if (hasFocus) {
-             //   binding.passwordIcon.setMargins(0, 0, 280, 44)
-             //   binding.hintPassword.setMargins(0, 0, 10, 44)
+        //   binding.passwordIcon.setMargins(0, 0, 280, 44)
+        //   binding.hintPassword.setMargins(0, 0, 10, 44)
 //                binding.showPassword.setMargins(0, 85, 240, 0)
 //                if (binding.alertPass.visibility == View.GONE) {
 //                    binding.rememberMe.setMargins(0, 87, 240, 0)
 //                } else {
 //                    binding.rememberMe.setMargins(0, 157, 240, 0)
 //                }
-             //   binding.passwordIcon.size(30, 30)
-            //    binding.hintPassword.textSize = 16f
+        //   binding.passwordIcon.size(30, 30)
+        //    binding.hintPassword.textSize = 16f
 //            }
 //            if (!hasFocus && binding.edtInputPassword.text.toString().trim().isEmpty()) {
-             //   binding.passwordIcon.setMargins(0, 0, 280, 0)
-             //   binding.hintPassword.setMargins(0, 0, 10, 0)
-            //    binding.passwordIcon.size(40, 40)
+        //   binding.passwordIcon.setMargins(0, 0, 280, 0)
+        //   binding.hintPassword.setMargins(0, 0, 10, 0)
+        //    binding.passwordIcon.size(40, 40)
 //                if (binding.alertPass.visibility == View.GONE) {
 //                    binding.rememberMe.setMargins(0, 60, 240, 0)
 //                } else {
 //                    binding.rememberMe.setMargins(0, 130, 240, 0)
 //                }
 
-               // binding.hintPassword.textSize = 20f
+        // binding.hintPassword.textSize = 20f
 //            }
 //        }
 
@@ -137,9 +137,10 @@ class LoginActivity : AppCompatActivity() {
             }
         }
         val sharedPreferences = SharedPreferences(this)
-        val rememberMe = sharedPreferences.getBoolean("rememberMe", false)
-        if (rememberMe) {
+        val userID = sharedPreferences.getInt("userId", -1)
+        if (userID != -1) {
             GoToOtherActivity(this).mainActivity()
+            return
         }
         binding.login.setOnClickListener {
             var user = binding.edtInputUsername.text.toString()
@@ -199,7 +200,7 @@ class LoginActivity : AppCompatActivity() {
                         }
                         val fullName = "$name $lastName"
                         val text1 =
-                            "کاربر گرامی $fullName از آن جا که کاربری شما در سیستم $userType2 تعریف شده است امکان ورود به برنامه را ندارید! فقط کاربرانی که کاربری آن ها بازرس می باشد اجازه ورود دارند."
+                            "کاربر گرامی $fullName از آن جا که نوع کاربری شما در سیستم $userType2 تعریف شده است امکان ورود به برنامه را ندارید! فقط کاربرانی که نوع کاربری آن ها بازرس می باشد اجازه ورود دارند."
                         val spannableString: SpannableString?
                         val spannableString1: SpannableString?
                         val spannableString2: SpannableString?

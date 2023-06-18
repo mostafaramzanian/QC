@@ -18,6 +18,8 @@
             android:layout_gravity="center"
             android:background="@drawable/circle"
             android:backgroundTint="@color/tab_icon_inactive"
+            android:maxWidth="70dp"
+            android:maxHeight="70dp"
             android:padding="15dp"
             android:src="@drawable/result" />
 

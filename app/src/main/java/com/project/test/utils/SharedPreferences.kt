@@ -39,6 +39,7 @@ class SharedPreferences(context: Context) {
     fun clear(){
         editor.clear()
         editor.apply()
+
     }
     fun remove(key:String){
         editor.remove(key)

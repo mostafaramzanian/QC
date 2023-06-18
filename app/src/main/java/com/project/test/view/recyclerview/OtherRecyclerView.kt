@@ -9,10 +9,10 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.RecyclerView
-import com.project.test.utils.SharedPreferences
-import com.project.test.utils.SharedViewModel
 import com.project.test.databinding.RecyclerReportActiveBinding
 import com.project.test.dataclass.DataReport
+import com.project.test.utils.SharedPreferences
+import com.project.test.utils.SharedViewModel
 
 class OtherRecyclerView(
     private val context: Activity,

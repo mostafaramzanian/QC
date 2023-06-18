@@ -62,10 +62,10 @@
             android:lineSpacingExtra="10sp"
             android:paddingLeft="20dp"
             android:paddingTop="30dp"
-            android:paddingRight="10dp"
+            android:paddingRight="20dp"
             android:paddingBottom="20dp"
             android:text="@string/Text_Help_Insert"
-            android:textSize="13sp"
+            android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="@+id/inner4_constraint"
             app:layout_constraintLeft_toLeftOf="@+id/inner4_constraint"
             app:layout_constraintRight_toRightOf="@+id/inner4_constraint"
@@ -208,19 +208,19 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/button_bg"
             android:fontFamily="@font/vazirmatn_medium"
             android:text="@string/Btn_Create_Rport"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/inner3_constraint"
             app:layout_constraintLeft_toLeftOf="@+id/inner3_constraint"
             app:layout_constraintRight_toRightOf="@+id/inner3_constraint"
             app:layout_constraintTop_toBottomOf="@+id/spinnerViewQuality"
             app:layout_constraintVertical_bias=".7"
-            app:layout_constraintWidth_percent=".9" />
+            app:layout_constraintWidth_percent=".6" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.AppCompatImageView

@@ -9,11 +9,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.project.test.dataclass.DataInfoRegister
-import com.project.test.view.recyclerview.InfoRegisterRecyclerViewAdapter
-import com.project.test.utils.SharedViewModel
 import com.project.test.databinding.InfoRegisterBinding
+import com.project.test.dataclass.DataInfoRegister
 import com.project.test.model.GetData
+import com.project.test.utils.SharedViewModel
+import com.project.test.view.recyclerview.InfoRegisterRecyclerViewAdapter
 
 
 class InfoRegisterFragment : Fragment() {

@@ -4,13 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintHelp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
+    android:layout_height="match_parent"
+    android:paddingTop="40dp">
+
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/title_help1"
         android:layout_width="match_parent"
@@ -22,8 +19,7 @@
         android:gravity="center"
         android:text="@string/Generated_Report_Information"
         android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/text_info_report"
         app:layout_constraintLeft_toLeftOf="@+id/text_info_report"
         app:layout_constraintRight_toRightOf="@+id/text_info_report" />
@@ -36,10 +32,11 @@
         android:layout_marginRight="20dp"
         android:background="@drawable/title_info"
         android:fontFamily="@font/vazirmatn_medium"
+        android:gravity="center"
         android:lineSpacingExtra="10dp"
         android:padding="10dp"
         android:textColor="@color/black"
-        android:textSize="15sp"
+        android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_help1"
@@ -58,7 +55,7 @@
         android:gravity="center"
         android:text="@string/Guide_to_Completing"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/text_help_report"
         app:layout_constraintLeft_toLeftOf="@+id/text_help_report"
         app:layout_constraintRight_toRightOf="@+id/text_help_report"
@@ -81,18 +78,18 @@
         app:layout_constraintTop_toBottomOf="@+id/help_title"
         tools:ignore="RtlHardcoded" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/vazirmatn_regular"
-        android:paddingTop="1000000dp"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        android:visibility="invisible"
+<!--    <androidx.appcompat.widget.AppCompatTextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:fontFamily="@font/vazirmatn_regular"-->
+<!--        android:paddingTop="1000000dp"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="15sp"-->
+<!--        android:visibility="invisible"-->
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent" />-->
 
 
     <androidx.constraintlayout.widget.Guideline

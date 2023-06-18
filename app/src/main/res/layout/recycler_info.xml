@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:paddingBottom="20dp">
+    android:paddingBottom="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/inner_info"
@@ -30,7 +30,7 @@
             android:fontFamily="@font/vazirmatn_bold"
             android:text="@string/Tolerance"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="16sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="RtlHardcoded" />
@@ -56,7 +56,7 @@
             android:fontFamily="@font/vazirmatn_bold"
             android:text="@string/Sampling_Frequency"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="16sp"
             app:layout_constraintRight_toLeftOf="@+id/txt_title_doc_1"
             app:layout_constraintTop_toTopOf="@+id/txt_title_doc"
             tools:ignore="RtlHardcoded" />
@@ -82,7 +82,7 @@
             android:fontFamily="@font/vazirmatn_bold"
             android:text="@string/Control"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="16sp"
             app:layout_constraintRight_toRightOf="@+id/txt_title_doc"
             app:layout_constraintTop_toBottomOf="@+id/txt_title_doc" />
 
@@ -135,7 +135,7 @@
             android:fontFamily="@font/vazirmatn_bold"
             android:text="@string/Observed_Value"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="16sp"
             app:layout_constraintRight_toRightOf="@+id/control_tools"
             app:layout_constraintTop_toBottomOf="@+id/control_tools" />
 
@@ -227,7 +227,7 @@
             android:fontFamily="@font/vazirmatn_bold"
             android:text="@string/Description"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="16sp"
             app:layout_constraintRight_toRightOf="@+id/observed_value"
             app:layout_constraintTop_toBottomOf="@+id/observed_value_change" />
 
@@ -258,7 +258,7 @@
             android:fontFamily="@font/vazirmatn_bold"
             android:text="@string/Status"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="16sp"
             app:layout_constraintRight_toRightOf="@+id/description"
             app:layout_constraintTop_toBottomOf="@+id/edit_text_2" />
 
@@ -346,7 +346,7 @@
             android:gravity="center"
             android:text="@string/Characteristic_Title"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"

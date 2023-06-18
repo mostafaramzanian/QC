@@ -11,19 +11,20 @@
         style="@style/MyCustomTabLayout"
         android:layout_width="match_parent"
         android:layout_height="130dp"
-        android:layoutDirection="ltr"
         android:layout_gravity="center"
+        android:layoutDirection="ltr"
         app:tabIndicatorAnimationMode="linear"
         app:tabIndicatorColor="@color/red"
         app:tabIndicatorFullWidth="true"
         app:tabIndicatorHeight="2dp"
         app:tabMode="fixed"
-
         />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
         android:paddingTop="10dp" />
 </LinearLayout>

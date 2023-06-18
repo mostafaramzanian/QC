@@ -22,9 +22,10 @@ class NavigationApp(
         } else if (label1 == "InsertFromFragment" && label == "HomeFragment") {
             navController?.navigate(R.id.action_insertFromFragment_to_home_menu)
         } else {
-                navController?.navigate(destination)
+            navController?.navigate(destination)
         }
     }
+
     fun navigationBackward() {
         if (navController?.currentDestination?.label != "InsertFromFragment" && navController?.currentDestination?.label != "HomeFragment") {
             navController?.navigateUp()

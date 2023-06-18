@@ -1,366 +1,417 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraint_final_form"
+    android:id="@+id/scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.08" />
+    android:paddingTop="40dp">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineBottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9" />
-    <ScrollView
-        android:id="@+id/scroll_view"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/guidelineBottom"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTop">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout_inner_final"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-           >
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout_inner_final"
+            android:layout_marginTop="17dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/background_info"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineLeft4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.57" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineLeft5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.43" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineLeft6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.723" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineLeft7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.97" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineLeft8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.75" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineLeft9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.365" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/code_product"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="20dp"
+                android:fontFamily="@font/vazirmatn_bold"
+                android:text="@string/Product_Tracking_Code"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintRight_toRightOf="@+id/constraintLayout_inner_final"
+                app:layout_constraintTop_toTopOf="@+id/constraintLayout_inner_final"
+                tools:ignore="RtlHardcoded" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edit_text_1_final"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/edit_text_info"
+                android:fontFamily="@font/vazirmatn_medium"
+                android:maxLength="63"
+                android:maxLines="1"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_inner_final"
+                app:layout_constraintRight_toLeftOf="@+id/code_product"
+                app:layout_constraintTop_toTopOf="@+id/code_product"
+                tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/operator_name"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/vazirmatn_bold"
+                android:text="@string/Name_Operator"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintRight_toRightOf="@+id/code_product"
+                app:layout_constraintTop_toBottomOf="@+id/code_product" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edit_text_2_final"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/edit_text_info"
+                android:fontFamily="@font/vazirmatn_medium"
+                android:inputType="text"
+                android:maxLength="63"
+                android:maxLines="1"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_inner_final"
+                app:layout_constraintRight_toLeftOf="@+id/operator_name"
+                app:layout_constraintTop_toTopOf="@+id/operator_name"
+                tools:ignore="RtlHardcoded" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/total_production"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/vazirmatn_bold"
+                android:text="@string/Total_Production"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintRight_toRightOf="@+id/code_product"
+                app:layout_constraintTop_toBottomOf="@+id/operator_name" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edit_text_3_final"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/edit_text_info"
+                android:fontFamily="@font/vazirmatn_medium"
+                android:inputType="number"
+                android:maxLines="1"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_inner_final"
+                app:layout_constraintRight_toLeftOf="@+id/total_production"
+                app:layout_constraintTop_toTopOf="@+id/total_production"
+                tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/shift"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/vazirmatn_bold"
+                android:text="@string/Shift"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintRight_toRightOf="@+id/code_product"
+                app:layout_constraintTop_toBottomOf="@+id/total_production" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="@+id/shift"
+                app:layout_constraintRight_toLeftOf="@+id/shift"
+                app:layout_constraintTop_toTopOf="@+id/shift">
+
+                <RadioButton
+                    android:id="@+id/radio_shift_third"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:fontFamily="@font/vazirmatn_medium"
+                    android:layoutDirection="ltr"
+                    android:text="@string/Third"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/shift"
+                    app:layout_constraintRight_toLeftOf="@+id/shift"
+                    app:layout_constraintTop_toTopOf="@+id/shift"
+                    tools:ignore="RtlHardcoded" />
+
+                <RadioButton
+                    android:id="@+id/radio_shift_second"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:fontFamily="@font/vazirmatn_medium"
+                    android:layoutDirection="ltr"
+                    android:text="@string/Second"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/shift"
+                    app:layout_constraintRight_toLeftOf="@+id/radio_shift_first"
+                    app:layout_constraintTop_toTopOf="@+id/shift"
+                    tools:ignore="RtlHardcoded" />
+
+                <RadioButton
+                    android:id="@+id/radio_shift_first"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:fontFamily="@font/vazirmatn_medium"
+                    android:layoutDirection="ltr"
+                    android:text="@string/First"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/shift"
+                    app:layout_constraintLeft_toLeftOf="@+id/edit_text_3_final"
+                    app:layout_constraintRight_toLeftOf="@+id/radio_shift_second"
+                    app:layout_constraintTop_toTopOf="@+id/shift"
+                    tools:ignore="RtlHardcoded" />
+            </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/inbound_tracking_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="17dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/background_info"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/shift">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/add_layout_inbound_code"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/add_final_registr"
+                        tools:ignore="RtlHardcoded" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edit_text_4_final"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edit_text_info"
+                        android:fontFamily="@font/vazirmatn_medium"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="0dp"
+                        android:paddingRight="15dp"
+                        android:tag="input_code"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="130dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:fontFamily="@font/vazirmatn_bold"
+                        android:gravity="center_vertical"
+                        android:text="@string/Entry_Code"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/non_conformity_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/inbound_tracking_container">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/add_layout_non_conformity"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/add_final_registr"
+                        tools:ignore="RtlHardcoded" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edit_text_5_final"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edit_text_info"
+                        android:fontFamily="@font/vazirmatn_medium"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:tag="input_code"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="0dp"
+                        android:paddingRight="15dp"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="130dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:fontFamily="@font/vazirmatn_bold"
+                        android:gravity="center_vertical"
+                        android:text="@string/Non_Code"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <!--            <androidx.appcompat.widget.AppCompatTextView-->
+            <!--                android:id="@+id/non_compliance_code"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="30dp"-->
+            <!--                android:fontFamily="@font/vazirmatn_bold"-->
+            <!--                android:gravity="bottom"-->
+            <!--                android:text="@string/Non_Code"-->
+            <!--                android:textColor="@color/black"-->
+            <!--                android:textSize="15sp"-->
+            <!--                app:layout_constraintRight_toRightOf="@+id/code_product"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/add_layout" />-->
+
+            <!--            <androidx.appcompat.widget.AppCompatEditText-->
+            <!--                android:id="@+id/edit_text_5_final"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:background="@drawable/edit_text_info"-->
+            <!--                android:fontFamily="@font/vazirmatn_medium"-->
+            <!--                android:inputType="number"-->
+            <!--                android:maxLines="1"-->
+            <!--                android:paddingLeft="15dp"-->
+            <!--                android:paddingTop="0dp"-->
+            <!--                android:paddingRight="15dp"-->
+            <!--                android:textColor="@color/black"-->
+            <!--                android:textSize="17.5sp"-->
+            <!--                app:layout_constraintRight_toLeftOf="@+id/guidelineLeft6"-->
+            <!--                app:layout_constraintTop_toTopOf="@+id/non_compliance_code"-->
+            <!--                app:layout_constraintWidth_percent="0.309"-->
+            <!--                tools:ignore="RtlHardcoded,RtlSymmetry" />-->
+
+
+            <!--            <androidx.appcompat.widget.AppCompatButton-->
+            <!--                android:id="@+id/add_layout_1"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="0dp"-->
+            <!--                android:background="@drawable/add_final_registr"-->
+            <!--                app:layout_constraintBottom_toBottomOf="@+id/non_compliance_code"-->
+            <!--                app:layout_constraintLeft_toLeftOf="@id/constraintLayout_inner_final"-->
+            <!--                app:layout_constraintRight_toLeftOf="@+id/guidelineLeft8"-->
+            <!--                app:layout_constraintTop_toTopOf="@+id/non_compliance_code"-->
+            <!--                tools:ignore="RtlHardcoded" />-->
+
+            <Button
+                android:id="@+id/btn_final"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="70dp"
+                android:layout_marginBottom="50dp"
+                android:background="@drawable/btn_info"
+                android:fontFamily="@font/vazirmatn_bold"
+                android:text="@string/Confirmation_Info"
+                android:textColor="@color/white"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guidelineLeft4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.57" />
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guidelineLeft5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.43" />
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guidelineLeft6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.723" />
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guidelineLeft7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.97" />
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guidelineLeft8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.75" />
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guidelineLeft9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.365" />
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/code_product"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginRight="20dp"
-                    android:fontFamily="@font/vazirmatn_bold"
-                    android:text="@string/Product_Tracking_Code"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    app:layout_constraintRight_toRightOf="@+id/constraintLayout_inner_final"
-                    app:layout_constraintTop_toTopOf="@+id/constraintLayout_inner_final"
-                    tools:ignore="RtlHardcoded" />
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edit_text_1_final"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/edit_text_info"
-                    android:fontFamily="@font/vazirmatn_medium"
-                    android:maxLength="63"
-                    android:maxLines="1"
-                    android:paddingLeft="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_inner_final"
-                    app:layout_constraintRight_toLeftOf="@+id/code_product"
-                    app:layout_constraintTop_toTopOf="@+id/code_product"
-                    tools:ignore="RtlHardcoded,RtlSymmetry" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/operator_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:fontFamily="@font/vazirmatn_bold"
-                    android:text="@string/Name_Operator"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    app:layout_constraintRight_toRightOf="@+id/code_product"
-                    app:layout_constraintTop_toBottomOf="@+id/code_product" />
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edit_text_2_final"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/edit_text_info"
-                    android:fontFamily="@font/vazirmatn_medium"
-                    android:inputType="text"
-                    android:maxLength="63"
-                    android:maxLines="1"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_inner_final"
-                    app:layout_constraintRight_toLeftOf="@+id/operator_name"
-                    app:layout_constraintTop_toTopOf="@+id/operator_name"
-                    tools:ignore="RtlHardcoded" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/total_production"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:fontFamily="@font/vazirmatn_bold"
-                    android:text="@string/Total_Production"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    app:layout_constraintRight_toRightOf="@+id/code_product"
-                    app:layout_constraintTop_toBottomOf="@+id/operator_name" />
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edit_text_3_final"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/edit_text_info"
-                    android:fontFamily="@font/vazirmatn_medium"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_inner_final"
-                    app:layout_constraintRight_toLeftOf="@+id/total_production"
-                    app:layout_constraintTop_toTopOf="@+id/total_production"
-                    tools:ignore="RtlHardcoded,RtlSymmetry" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/shift"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:fontFamily="@font/vazirmatn_bold"
-                    android:text="@string/Shift"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    app:layout_constraintRight_toRightOf="@+id/code_product"
-                    app:layout_constraintTop_toBottomOf="@+id/total_production" />
-
-                <RadioGroup
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="@+id/shift"
-                    app:layout_constraintRight_toLeftOf="@+id/shift"
-                    app:layout_constraintTop_toTopOf="@+id/shift">
-
-                    <RadioButton
-                        android:id="@+id/radio_shift_third"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
-                        android:fontFamily="@font/vazirmatn_medium"
-                        android:layoutDirection="ltr"
-                        android:text="@string/Third"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/shift"
-                        app:layout_constraintRight_toLeftOf="@+id/shift"
-                        app:layout_constraintTop_toTopOf="@+id/shift"
-                        tools:ignore="RtlHardcoded" />
-
-                    <RadioButton
-                        android:id="@+id/radio_shift_second"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:fontFamily="@font/vazirmatn_medium"
-                        android:layoutDirection="ltr"
-                        android:text="@string/Second"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/shift"
-                        app:layout_constraintRight_toLeftOf="@+id/radio_shift_first"
-                        app:layout_constraintTop_toTopOf="@+id/shift"
-                        tools:ignore="RtlHardcoded" />
-
-                    <RadioButton
-                        android:id="@+id/radio_shift_first"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="45dp"
-                        android:fontFamily="@font/vazirmatn_medium"
-                        android:layoutDirection="ltr"
-                        android:text="@string/First"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:checked="true"
-                        app:layout_constraintBottom_toBottomOf="@+id/shift"
-                        app:layout_constraintRight_toLeftOf="@+id/radio_shift_second"
-                        app:layout_constraintTop_toTopOf="@+id/shift"
-                        app:layout_constraintLeft_toLeftOf="@+id/edit_text_3_final"
-                        tools:ignore="RtlHardcoded" />
-                </RadioGroup>
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/production_tracking_code"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:fontFamily="@font/vazirmatn_bold"
-                    android:text="@string/Entry_Code"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    app:layout_constraintRight_toRightOf="@+id/code_product"
-                    app:layout_constraintTop_toBottomOf="@+id/shift" />
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edit_text_4_final"
-                    android:layout_width="0dp"
-                    app:layout_constraintWidth_percent="0.309"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/edit_text_info"
-                    android:fontFamily="@font/vazirmatn_medium"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:paddingTop="0dp"
-                    android:textColor="@color/black"
-                    android:textSize="17.5sp"
-                    app:layout_constraintRight_toLeftOf="@+id/guidelineLeft6"
-                    app:layout_constraintTop_toTopOf="@+id/production_tracking_code"
-                    tools:ignore="RtlHardcoded,RtlSymmetry" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/add_layout"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:background="@drawable/add_final_registr"
-                    app:layout_constraintBottom_toBottomOf="@+id/production_tracking_code"
-                    app:layout_constraintLeft_toLeftOf="@id/constraintLayout_inner_final"
-                    app:layout_constraintRight_toLeftOf="@+id/guidelineLeft8"
-                    app:layout_constraintTop_toTopOf="@+id/production_tracking_code"
-                    tools:ignore="RtlHardcoded" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/non_compliance_code"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:fontFamily="@font/vazirmatn_bold"
-                    android:gravity="bottom"
-                    android:text="@string/Non_Code"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    app:layout_constraintRight_toRightOf="@+id/code_product"
-                    app:layout_constraintTop_toBottomOf="@+id/add_layout" />
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edit_text_5_final"
-                    android:layout_width="0dp"
-                    app:layout_constraintWidth_percent="0.309"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/edit_text_info"
-                    android:fontFamily="@font/vazirmatn_medium"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:paddingTop="0dp"
-                    android:textColor="@color/black"
-                    android:textSize="17.5sp"
-                    app:layout_constraintRight_toLeftOf="@+id/guidelineLeft6"
-                    app:layout_constraintTop_toTopOf="@+id/non_compliance_code"
-                    tools:ignore="RtlHardcoded,RtlSymmetry" />
-
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/add_layout_1"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:background="@drawable/add_final_registr"
-                    app:layout_constraintBottom_toBottomOf="@+id/non_compliance_code"
-                    app:layout_constraintLeft_toLeftOf="@id/constraintLayout_inner_final"
-                    app:layout_constraintRight_toLeftOf="@+id/guidelineLeft8"
-                    app:layout_constraintTop_toTopOf="@+id/non_compliance_code"
-                    tools:ignore="RtlHardcoded" />
-
-                <Button
-                    android:id="@+id/btn_final"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="70dp"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginRight="70dp"
-                    android:layout_marginBottom="50dp"
-                    android:background="@drawable/btn_info"
-                    android:fontFamily="@font/vazirmatn_bold"
-                    android:text="@string/Confirmation_Info"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/add_layout_1" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/title_final"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginRight="25dp"
-                android:background="@drawable/background_title_info"
-                android:fontFamily="@font/vazirmatn_bold"
-                android:gravity="center"
-                android:text="@string/Final_Report_Title"
-                android:textColor="@color/white"
-                android:textSize="17sp"
-                app:layout_constraintRight_toRightOf="@+id/constraintLayout_inner_final"
-                app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_inner_final"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/non_conformity_container" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/title_final"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="25dp"
+            android:background="@drawable/background_title_info"
+            android:fontFamily="@font/vazirmatn_bold"
+            android:gravity="center"
+            android:text="@string/Final_Report_Title"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_inner_final"
+            app:layout_constraintRight_toRightOf="@+id/constraintLayout_inner_final"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

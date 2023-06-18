@@ -8,7 +8,6 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
-import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
@@ -21,22 +20,21 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.RecyclerView
-import com.project.test.utils.Alert
-import com.project.test.utils.CurrentTime
-import com.project.test.utils.CustomToast
+import com.project.test.R
+import com.project.test.databinding.RecyclerInfoBinding
+import com.project.test.databinding.ReyclerLabBinding
 import com.project.test.dataclass.DataCpReports
 import com.project.test.dataclass.DataInfo
 import com.project.test.dataclass.DataLab
-import com.project.test.R
 import com.project.test.dataclass.SetDataInfo
-import com.project.test.utils.SharedPreferences
-import com.project.test.utils.SharedViewModel
-import com.project.test.utils.Size
-import com.project.test.databinding.RecyclerInfoBinding
-import com.project.test.databinding.ReyclerLabBinding
 import com.project.test.model.GetData
 import com.project.test.model.Query
 import com.project.test.model.SetData
+import com.project.test.utils.Alert
+import com.project.test.utils.CurrentTime
+import com.project.test.utils.CustomToast
+import com.project.test.utils.SharedPreferences
+import com.project.test.utils.SharedViewModel
 
 
 class InformationRecyclerViewAdapter(
