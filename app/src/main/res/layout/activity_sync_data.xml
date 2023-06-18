@@ -21,8 +21,8 @@
         <ProgressBar
             android:id="@+id/large_progressbar"
             style="?android:attr/progressBarStyle"
-            android:layout_width="290dp"
-            android:layout_height="290dp"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
             android:layout_centerInParent="true"
             android:indeterminate="true"
             android:indeterminateOnly="false"
@@ -43,8 +43,8 @@
         android:layout_marginTop="40dp"
         android:fontFamily="@font/vazirmatn_medium"
         android:gravity="center"
-        android:text="اتصال برقرار شد\nدرحال تبادل اطلاعات"
-        android:textSize="20sp" />
+        android:text="اتصال برقرار شد\nلطفاً تا اتمام عملیات دستگاه را جدا ننمایید."
+        android:textSize="19sp" />
 
     <ProgressBar
         android:id="@+id/sync_progress_bar"
@@ -56,7 +56,7 @@
         android:max="100"
         android:progress="0"
         android:progressBackgroundTint="#919191"
-        android:progressTint="#27A12D" />
+        android:progressTint="#3064F9" />
 
     <TextView
         android:id="@+id/sync_percent"
