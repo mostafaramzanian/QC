@@ -34,6 +34,7 @@ class GetData(private val context: Activity) {
     )
 
     fun infoRegister(isDraft: Int): MutableList<DataInfoRegister> {
+
         val cpReports = Query(context).cpSelectReports1(cpId, isDraft)
         val dataInfoRegister = mutableListOf<DataInfoRegister>()
         if (cpReports.moveToFirst()) {
@@ -99,9 +100,13 @@ class GetData(private val context: Activity) {
 
 
                 } while (cpReportsParameters.moveToNext())
+                cpReportsParameters.close()
             }
         }
+        cpReports.close()
+
         return dataInfoRegister
+
     }
 
 
@@ -164,7 +169,7 @@ class GetData(private val context: Activity) {
                 dataInfo.add(data)
             } while (cpStandardParameters.moveToNext())
         }
-
+        cpStandardParameters.close()
         return dataInfo
     }
 
@@ -198,6 +203,7 @@ class GetData(private val context: Activity) {
                 }
             }
             reportOrder = 1
+            statusSet1.close()
         } else {
             if (cpReports.moveToFirst()) {
                 idCpReport1 = cpReports.getInt(cpReports.getColumnIndexOrThrow("id"))
@@ -208,8 +214,11 @@ class GetData(private val context: Activity) {
                         statusSet1.getInt(statusSet1.getColumnIndexOrThrow("report_order"))
                     reportOrder = reportOrder1 + 1
                 }
+                statusSet1.close()
             }
         }
+        cpReports.close()
+
         return Triple(dataCpReports, idCpReport1, reportOrder)
     }
 
@@ -279,9 +288,11 @@ class GetData(private val context: Activity) {
                     )
                     dataInfo.add(data)
                 }
+                cpReports1.close()
+                cpReportsParameters.close()
             } while (cpReports.moveToNext())
         }
-
+        cpReports.close()
         return dataInfo
     }
 
@@ -310,6 +321,7 @@ class GetData(private val context: Activity) {
                 dataInfo.add(data)
             } while (cursor.moveToNext())
         }
+        cursor.close()
         return dataInfo
     }
 
@@ -321,6 +333,7 @@ class GetData(private val context: Activity) {
         if (cpReports.moveToFirst()) {
             id = cpReports.getInt(cpReports.getColumnIndexOrThrow("id"))
         }
+        cpReports.close()
         return id
     }
 
@@ -334,7 +347,7 @@ class GetData(private val context: Activity) {
             count = cpReports.getInt(0)
             cpReports.close()
         }
-
+        cpReports.close()
         return count
     }
 
@@ -359,6 +372,8 @@ class GetData(private val context: Activity) {
             )
             dataInfo.add(data)
         }
+        cursor.close()
+        cursor1.close()
         return dataInfo
     }
 
@@ -383,6 +398,8 @@ class GetData(private val context: Activity) {
             )
             dataInfo.add(data)
         }
+        cursor.close()
+        cursor1.close()
         return dataInfo
     }
 
@@ -422,7 +439,7 @@ class GetData(private val context: Activity) {
                 dataInfo.add(data)
             } while (cpReports.moveToNext())
         }
-
+        cpReports.close()
         return dataInfo
     }
 
@@ -454,11 +471,12 @@ class GetData(private val context: Activity) {
                 dataInfo.add(data)
             } while (cpReports.moveToNext())
         }
+        cpReports.close()
         return dataInfo
     }
 
 
-    fun tools(toolType:Int):Triple<MutableList<Int>,MutableList<String>,MutableList<Float>>{
+    fun tools(toolType: Int): Triple<MutableList<Int>, MutableList<String>, MutableList<Float>> {
         val tools = Query(context).tools(
             toolType, sharedPreferences.getInt("process_id", 0)
         )
@@ -476,7 +494,7 @@ class GetData(private val context: Activity) {
         idTools.add(0, 0)
         listTools.add(0, "انتخاب کنید")
         correctionFactor.add(0, 0f)
-
-        return Triple (idTools, listTools, correctionFactor)
+        tools.close()
+        return Triple(idTools, listTools, correctionFactor)
     }
 }

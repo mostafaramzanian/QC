@@ -12,9 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.project.test.R
 import com.project.test.databinding.RecyclerReportFinalBinding
 import com.project.test.dataclass.DataReport
+import com.project.test.utils.CurrentTime
 import com.project.test.utils.NavigationApp
 import com.project.test.utils.SharedPreferences
 import com.project.test.utils.SharedViewModel
+import saman.zamani.persiandate.PersianDate
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class ReportNotActiveRecyclerView(
     private val context: Activity,
@@ -49,10 +53,11 @@ class ReportNotActiveRecyclerView(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun setData(data: DataReport) {
+
             binding.txtTitle1.text = data.csName
             binding.txtControlStationName1.text = data.cpName
-            binding.txtFirstTime1.text = data.createTime
-            binding.txtLastTime1.text = data.lastChangeTime
+            binding.txtFirstTime1.text = CurrentTime().date(data.createTime).first
+            binding.txtLastTime1.text = CurrentTime().date(data.lastChangeTime).first
             binding.txtStatus.text = data.Status
             binding.root.setOnClickListener {
                 val sharedPreferences = SharedPreferences(context)
