@@ -2,12 +2,15 @@ package com.project.test.view.recyclerview
 
 
 import android.app.Activity
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.project.test.R
 import com.project.test.databinding.RecyclerInforegisterBinding
 import com.project.test.dataclass.DataInfoRegister
+import com.project.test.utils.CurrentTime
 import saman.zamani.persiandate.PersianDate
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -34,62 +37,33 @@ class InfoRegisterRecyclerViewAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun setData(data: DataInfoRegister) {
-            val dateFormat = SimpleDateFormat("y-M-d H:m:s.S", Locale.US)
-            val date = dateFormat.parse(data.created_datetime)
-            val timeString = SimpleDateFormat("HH:mm:ss", Locale.US).format(date!!)
-            val persianDate = PersianDate(date.time)
 
-            val day: String = if (persianDate.shDay < 10) {
-                String.format("0%s", persianDate.shDay)
-            } else {
-                persianDate.shDay.toString()
-            }
-//
-//            val day = when (persianDate.shDay) {
-//                1 -> "01"
-//                2 -> "02"
-//                3 -> "03"
-//                4 -> "04"
-//                5 -> "05"
-//                6 -> "06"
-//                7 -> "07"
-//                8 -> "08"
-//                9 -> "09"
-//                else -> persianDate.shDay.toString()
-//            }
+            val timeString = CurrentTime().date(data.created_datetime).second
+            val finalDate = CurrentTime().date(data.created_datetime).third
 
-            val month: String = if (persianDate.shMonth < 10) {
-                String.format("0%s", persianDate.shMonth)
+            if (data.report_value != "null") {
+                binding.txtTitleDoc1.text = data.name
+                binding.showObservedValue.text = data.report_value
+                binding.showDateRegister.text = finalDate
+                binding.showTimeRegister.text = timeString
             } else {
-                persianDate.shMonth.toString()
+                //     binding.txtTitleDoc.visibility= View.INVISIBLE
+                binding.txtTitleDoc1.text = "آزمایشگاه"
+                binding.observedValue.text = "کد درخواست آزمایشگاه: "
+                binding.showObservedValue.text = data.lab_request_code
+                binding.status.text = "تاریخ ثبت: "
+                binding.showStatus.text = finalDate
+                binding.dateRegister.text = "ساعت ثبت: "
+                binding.showDateRegister.text = timeString
+                binding.timeRegister.visibility = View.INVISIBLE
+
+                binding.innerInfo.setBackgroundResource(R.drawable.background_lab)
+                binding.titleInfo.setBackgroundResource(R.drawable.lab)
+
+                val typeface = ResourcesCompat.getFont(context, R.font.vazirmatn_fd_regular)
+                binding.showStatus.typeface = typeface
             }
 
-//            val month = when (persianDate.shMonth) {
-//                1 -> "01"
-//                2 -> "02"
-//                3 -> "03"
-//                4 -> "04"
-//                5 -> "05"
-//                6 -> "06"
-//                7 -> "07"
-//                8 -> "08"
-//                9 -> "09"
-//                else -> persianDate.shMonth.toString()
-//            }
-
-            val finalDate = String.format(
-                "%s %s / %s / %s",
-                persianDate.dayName(),
-                day,
-                month,
-                persianDate.shYear.toString()
-            )
-
-
-            binding.txtTitleDoc1.text = data.name
-            binding.showObservedValue.text = data.report_value
-            binding.showDateRegister.text = finalDate
-            binding.showTimeRegister.text = timeString
             if (data.status == "1") {
                 binding.showStatus.setTextColor(
                     ContextCompat.getColor(

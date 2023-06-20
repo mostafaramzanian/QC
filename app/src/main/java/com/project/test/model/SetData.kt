@@ -17,6 +17,7 @@ class SetData(private val context: Activity) {
         "csIdSelected",
         0
     )
+
     fun information(data: SetDataInfo?, dataLab: DataLab?): Long {
         if (data != null) {
             val values1 = ContentValues().apply {
@@ -39,7 +40,7 @@ class SetData(private val context: Activity) {
                 put("report_id", dataLab.reportId)
                 put("parameter_id", dataLab.parameterId)
                 put("tool_id", dataLab.toolId)
-                put("report_value","null")
+                put("report_value", "null")
                 put("attachment", "null")
                 put("description", dataLab.description)
                 put("status", "null")
@@ -77,16 +78,17 @@ class SetData(private val context: Activity) {
             put("completed_datetime", data.completed_datetime)
             put("is_draft", 0)
         }
-        return Query(context).updateCpReports(cpId,values)
+        return Query(context).updateCpReports(cpId, values)
     }
-    fun finalReport1(data:MutableList<String>?, data1:MutableList<String>?,reportId:Int): Int {
+
+    fun finalReport1(data: MutableList<String>?, data1: MutableList<String>?, reportId: Int): Int {
         val values = ContentValues()
         if (data != null) {
             for (item in data) {
                 values.put("cp_report_id", reportId)
                 values.put("parameter_type", "inbound_tracking_code")
                 values.put("parameter_value", item)
-                if(Query(context).insertCpReportsInfo(values) == -1L) {
+                if (Query(context).insertCpReportsInfo(values) == -1L) {
                     return -1
                 }
             }
@@ -97,7 +99,7 @@ class SetData(private val context: Activity) {
                 values1.put("cp_report_id", reportId)
                 values1.put("parameter_type", "non_conformity_code")
                 values1.put("parameter_value", item)
-                if(Query(context).insertCpReportsInfo(values1) == -1L) {
+                if (Query(context).insertCpReportsInfo(values1) == -1L) {
                     return -1
                 }
             }

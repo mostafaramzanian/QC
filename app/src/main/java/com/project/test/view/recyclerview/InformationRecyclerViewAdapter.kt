@@ -246,9 +246,9 @@ class InformationRecyclerViewAdapter(
                 binding.arrowSpinnerInfo.startAnimation(animUp)
                 idTool = idTools[newIndex]
                 cF = correctionFactor[newIndex]
-                if ( newIndex == 0) {
+                if (oldIndex==0 ||  newIndex == 0) {
                     binding.editText1.inputType = TYPE_CLASS_TEXT
-                  //  binding.editText1.text = null
+                    binding.editText1.text = null
                    // binding.radioConfirmation.isChecked = false
                    // binding.radioRejection.isChecked = false
                 }
@@ -289,12 +289,6 @@ class InformationRecyclerViewAdapter(
                 val text = it.toString()
                 if (text != "") {
                     try {
-                        if (text.toFloatOrNull() == null || text.toIntOrNull() == null) {
-                            binding.radioConfirmation.isChecked = false
-                            binding.radioRejection.isChecked = false
-                            binding.editText1.background = getDrawable(context, R.drawable.edit_text_info)
-                            binding.editText3Observed.text = "-"
-                        } else {
                             val value = text.toFloat()
                             reportValue = change(
                                 data.acceptableRangeMin,
@@ -304,9 +298,13 @@ class InformationRecyclerViewAdapter(
                                 value,
                                 context
                             )
-                        }
                     } catch (e: NumberFormatException) {
-                        // Handle the exception here
+
+                        binding.radioConfirmation.isChecked = false
+                        binding.radioRejection.isChecked = false
+                        binding.editText1.background = getDrawable(context, R.drawable.edit_text_info)
+                        binding.editText3Observed.text = "-"
+                        Toast.makeText(context, "toString()", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     binding.editText3Observed.text = "-"

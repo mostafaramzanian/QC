@@ -198,6 +198,7 @@ class InsertReportFragment : Fragment() {
                     binding.spinnerView.dismiss()
                 }
             }
+            binding.spinnerViewQuality.spinnerPopupHeight = ViewGroup.LayoutParams.WRAP_CONTENT
         }
 
         binding.spinnerViewQuality.setOnSpinnerItemSelectedListener<String> { oldIndex, oldItem, newIndex, newItem ->
@@ -216,7 +217,6 @@ class InsertReportFragment : Fragment() {
             if (!sharedPreferences.getBoolean("menuExit", false)) {
                 when {
                     cpValueSelected != null -> {
-
                         val model1 =
                             ViewModelProvider(requireActivity())[SharedViewModel::class.java]
                         model1.sendMessage1("start")

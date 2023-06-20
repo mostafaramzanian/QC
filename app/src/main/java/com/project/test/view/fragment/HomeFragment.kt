@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.project.test.R
 import com.project.test.databinding.HomeFragmentBinding
 import com.project.test.model.GetData
+import com.project.test.utils.CurrentTime
 import com.project.test.utils.NavigationApp
 import com.project.test.utils.SharedViewModel
 
@@ -54,7 +55,7 @@ class HomeFragment : Fragment() {
             binding.countReportText.text = countReportActive1.count.toString()
             binding.titleLastReportText.text = countReportActive1.csName
             binding.titleLastReportCpText.text = countReportActive1.cpName
-            binding.timeLastReportText.text = countReportActive1.time
+            binding.timeLastReportText.text = CurrentTime().date(countReportActive1.time).first
         } else {
             binding.innerConstraintLayout.visibility = View.GONE
             binding.noValuesActive.visibility = View.VISIBLE
@@ -84,7 +85,7 @@ class HomeFragment : Fragment() {
             binding.countReportNoActiveText.text = countReportNotActive1.count.toString()
             binding.titleLastReportNoActiveText.text = countReportNotActive1.csName
             binding.lastCpNotActiveText.text = countReportNotActive1.cpName
-            binding.timeLastReportNoActiveText.text = countReportNotActive1.time
+            binding.timeLastReportNoActiveText.text =  CurrentTime().date(countReportNotActive1.time).first
         } else {
             binding.inner1ConstraintLayout.visibility = View.GONE
             binding.noValuesNotActive.visibility = View.VISIBLE
