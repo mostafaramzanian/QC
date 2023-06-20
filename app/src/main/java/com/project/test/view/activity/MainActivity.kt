@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.project.test.R
 import com.project.test.databinding.ActivityMainBinding
+import com.project.test.model.DatabaseReportsAsJson
 import com.project.test.utils.MyService
 import com.project.test.utils.NavigationApp
 import com.project.test.utils.SharedPreferences
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val json = DatabaseReportsAsJson(this).getJson()
         /*
                 val json = Json(this).getJson()
                 val table1 = json.getJSONArray("cp_reports")

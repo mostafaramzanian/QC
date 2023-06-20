@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.project.test.databinding.InfoRegisterBinding
 import com.project.test.databinding.InformationBinding
 import com.project.test.dataclass.DataInfo
 import com.project.test.model.GetData
@@ -16,20 +17,20 @@ import com.project.test.utils.SharedViewModel
 import com.project.test.view.recyclerview.InformationRecyclerViewAdapter
 
 class InformationFragment : Fragment() {
-    private lateinit var binding: InformationBinding
+    private lateinit var binding: InfoRegisterBinding
     private lateinit var adapter: InformationRecyclerViewAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = InformationBinding.inflate(inflater)
+        binding = InfoRegisterBinding.inflate(inflater)
         val model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         model.message.observe(viewLifecycleOwner, Observer {
             if (it == "2") {
-                binding.constraintInformation.visibility = View.VISIBLE
+                binding.recyclerViewInfoRegister.visibility = View.VISIBLE
             } else {
-                binding.constraintInformation.visibility = View.INVISIBLE
+                binding.recyclerViewInfoRegister.visibility = View.INVISIBLE
             }
 
         })
@@ -48,10 +49,10 @@ class InformationFragment : Fragment() {
                 requireActivity(),
                 dataInfo as ArrayList<DataInfo>
             )
-            binding.recyclerViewInfo.layoutManager = LinearLayoutManager(
+            binding.recyclerViewInfoRegister.layoutManager = LinearLayoutManager(
                 requireActivity(), RecyclerView.VERTICAL, false
             )
-            binding.recyclerViewInfo.adapter = adapter
+            binding.recyclerViewInfoRegister.adapter = adapter
         })
     }
 

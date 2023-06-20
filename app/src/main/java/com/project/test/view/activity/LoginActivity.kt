@@ -20,7 +20,7 @@ import androidx.core.view.marginRight
 import androidx.core.view.marginTop
 import androidx.core.widget.addTextChangedListener
 import com.project.test.R
-import com.project.test.databinding.LoginBinding
+import com.project.test.databinding.ActivityLoginBinding
 import com.project.test.model.Query
 import com.project.test.utils.CustomToast
 import com.project.test.utils.GoToOtherActivity
@@ -30,7 +30,7 @@ import java.util.Locale
 
 
 class LoginActivity : AppCompatActivity() {
-    private lateinit var binding: LoginBinding
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onBackPressed() {
     }
@@ -42,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
         // Query(this).deleteAll("cp_reports_info")
 
         stopService(Intent(this, MyService::class.java))
-        binding = LoginBinding.inflate(layoutInflater)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val colorStateListAlertDisable =
             ColorStateList.valueOf(ContextCompat.getColor(binding.root.context, R.color.alert))

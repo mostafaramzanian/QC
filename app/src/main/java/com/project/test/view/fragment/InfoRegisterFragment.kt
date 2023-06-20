@@ -28,10 +28,10 @@ class InfoRegisterFragment : Fragment() {
         val model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         model.message.observe(viewLifecycleOwner, Observer {
             if (it == "1") {
-                binding.constraintInfoRegister.visibility = View.VISIBLE
+                binding.recyclerViewInfoRegister.visibility = View.VISIBLE
                 showReport()
             } else {
-                binding.constraintInfoRegister.visibility = View.INVISIBLE
+                binding.recyclerViewInfoRegister.visibility = View.INVISIBLE
             }
 
         })

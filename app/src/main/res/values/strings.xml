@@ -44,7 +44,7 @@
     <string name="Show_Password">مشاهده پسورد</string>
     <string name="Password">رمز عبور</string>
     <string name="Error_Password">لطفا کلمه عبور خود را وارد کنید!</string>
-    <string name="Welcome">خوش آمدید</string>
+    <string name="Welcome">به نرم افزار کنترل کیفیت خوش آمدید</string>
     <string name="Title">عنوان:</string>
     <string name="Code">کد:</string>
     <string name="Btn_Show">نمایش</string>

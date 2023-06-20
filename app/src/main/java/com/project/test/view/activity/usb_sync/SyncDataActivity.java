@@ -17,14 +17,13 @@ import android.widget.TextView;
 
 import com.project.test.R;
 import com.project.test.model.Database;
+import com.project.test.model.DatabaseReportsAsJson;
 import com.project.test.utils.usb_utils.Connection;
 import com.project.test.utils.usb_utils.TransferDataInterface;
 import com.project.test.utils.usb_utils.UsbConnection;
 import com.project.test.utils.usb_utils.Utilities;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -187,17 +186,26 @@ public class SyncDataActivity extends Activity implements Callback, Runnable, Tr
     @Override
     public String sendDeviceData() {
 
+
+//        try {
+//            JSONObject j = new JSONObject();
+//            j.put("cp_reports", new JSONArray());
+//            j.put("cp_reports_info", new JSONArray());
+//            j.put("cp_reports_parameters", new JSONArray());
+//            return j.toString();
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        return "{}";
+
         try {
-            JSONObject j = new JSONObject();
-            j.put("cp_reports", new JSONArray());
-            j.put("cp_reports_info", new JSONArray());
-            j.put("cp_reports_parameters", new JSONArray());
-            return j.toString();
-        } catch (JSONException e) {
-            e.printStackTrace();
+            DatabaseReportsAsJson databaseReportsAsJson = new DatabaseReportsAsJson(this);
+            return databaseReportsAsJson.getJson().toString();
+
+        } catch (Exception e) {
+            return "{}";
         }
 
-        return "{}";
     }
 
     @Override
@@ -338,7 +346,7 @@ public class SyncDataActivity extends Activity implements Callback, Runnable, Tr
         runOnUiThread(() -> {
             ((TextView) findViewById(R.id.sync_text)).setText("دستگاه جدا شد.\nدر حال بستن برنامه...");
         });
-        mDeviceHandler.postDelayed(this::onDestroy, 3000);
+        mDeviceHandler.postDelayed(this::onDestroy, 2000);
     }
 
     private void process_full_packet(int command) {
@@ -399,7 +407,7 @@ public class SyncDataActivity extends Activity implements Callback, Runnable, Tr
                     findViewById(R.id.close_window).setVisibility(View.VISIBLE);
                 });
 
-                mDeviceHandler.postDelayed(this::disconnectFromAccessory, 3000);
+                mDeviceHandler.postDelayed(this::disconnectFromAccessory, 1000);
                 break;
             }
 

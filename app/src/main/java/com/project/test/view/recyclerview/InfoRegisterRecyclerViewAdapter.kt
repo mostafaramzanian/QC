@@ -39,33 +39,52 @@ class InfoRegisterRecyclerViewAdapter(
             val timeString = SimpleDateFormat("HH:mm:ss", Locale.US).format(date!!)
             val persianDate = PersianDate(date.time)
 
-            val day = when (persianDate.shDay) {
-                1 -> "01"
-                2 -> "02"
-                3 -> "03"
-                4 -> "04"
-                5 -> "05"
-                6 -> "06"
-                7 -> "07"
-                8 -> "08"
-                9 -> "09"
-                else -> persianDate.shDay.toString()
+            val day: String = if (persianDate.shDay < 10) {
+                String.format("0%s", persianDate.shDay)
+            } else {
+                persianDate.shDay.toString()
             }
-            val month = when (persianDate.shMonth) {
-                1 -> "01"
-                2 -> "02"
-                3 -> "03"
-                4 -> "04"
-                5 -> "05"
-                6 -> "06"
-                7 -> "07"
-                8 -> "08"
-                9 -> "09"
-                else -> persianDate.shMonth.toString()
+//
+//            val day = when (persianDate.shDay) {
+//                1 -> "01"
+//                2 -> "02"
+//                3 -> "03"
+//                4 -> "04"
+//                5 -> "05"
+//                6 -> "06"
+//                7 -> "07"
+//                8 -> "08"
+//                9 -> "09"
+//                else -> persianDate.shDay.toString()
+//            }
+
+            val month: String = if (persianDate.shMonth < 10) {
+                String.format("0%s", persianDate.shMonth)
+            } else {
+                persianDate.shMonth.toString()
             }
 
-            val finalDate = persianDate.dayName()
-                .toString() + "  " + day + " / " + month + " / " + persianDate.shYear.toString()
+//            val month = when (persianDate.shMonth) {
+//                1 -> "01"
+//                2 -> "02"
+//                3 -> "03"
+//                4 -> "04"
+//                5 -> "05"
+//                6 -> "06"
+//                7 -> "07"
+//                8 -> "08"
+//                9 -> "09"
+//                else -> persianDate.shMonth.toString()
+//            }
+
+            val finalDate = String.format(
+                "%s %s / %s / %s",
+                persianDate.dayName(),
+                day,
+                month,
+                persianDate.shYear.toString()
+            )
+
 
             binding.txtTitleDoc1.text = data.name
             binding.showObservedValue.text = data.report_value

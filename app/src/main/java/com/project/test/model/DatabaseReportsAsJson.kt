@@ -4,7 +4,7 @@ import android.app.Activity
 import org.json.JSONArray
 import org.json.JSONObject
 
-class Json(private val context: Activity) {
+class DatabaseReportsAsJson(private val context: Activity) {
 
     fun getJson(): JSONObject {
         val tableCpReports = mutableListOf<Map<String, Any?>>()
