@@ -109,25 +109,43 @@ public class SyncDataActivity extends Activity implements Callback, Runnable, Tr
     }
 
     public void writeIntoFile(Context context, String fileName, byte[] content) throws IOException {
-//        File appSpecificInternalStorageDirectory = context.getFilesDir();
-//        File file = new File(appSpecificInternalStorageDirectory, fileName);
-        File appSpecificExternalStorageDirectory = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+////        File appSpecificInternalStorageDirectory = context.getFilesDir();
+////        File file = new File(appSpecificInternalStorageDirectory, fileName);
+//        File appSpecificExternalStorageDirectory = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+//
+//        File dir = new File(appSpecificExternalStorageDirectory + "/" + "instructions");
+//
+//        // Make sure the path directory exists.
+//        if (!dir.exists()) {
+//            // Make it, if it doesn't exit
+//            boolean success = dir.mkdirs();
+//            if (!success) {
+//                dir = null;
+//            }
+//        }
+//        File file = new File(dir, fileName);
+//        file.createNewFile();
+//        FileOutputStream fos = new FileOutputStream(file, false);
+//        fos.write(content);
+//        fos.close();
 
-        File dir = new File(appSpecificExternalStorageDirectory + "/" + "instructions");
 
-        // Make sure the path directory exists.
-        if (!dir.exists()) {
-            // Make it, if it doesn't exit
-            boolean success = dir.mkdirs();
-            if (!success) {
-                dir = null;
-            }
+        File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+
+        directory = new File(directory + "/QualityControl");
+        if (!directory.isDirectory()) {
+            directory.mkdir();
+        } else {
+
+            File file = new File(directory, fileName);
+            file.createNewFile();
+            FileOutputStream fos = new FileOutputStream(file, false);
+            fos.write(content);
+            fos.close();
+
         }
-        File file = new File(dir, fileName);
-        file.createNewFile();
-        FileOutputStream fos = new FileOutputStream(file, false);
-        fos.write(content);
-        fos.close();
+
+
     }
 
     public String readFromFile(String filePath) throws IOException {
@@ -237,8 +255,11 @@ public class SyncDataActivity extends Activity implements Callback, Runnable, Tr
         JSONArray j = new JSONArray();
 
         try {
-            File appSpecificExternalStorageDirectory = this.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-            File file = new File(appSpecificExternalStorageDirectory + "/" + "instructions");
+
+            File appSpecificExternalStorageDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+//            directory = new File(directory + "/QualityControl");
+//            File appSpecificExternalStorageDirectory = this.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+            File file = new File(appSpecificExternalStorageDirectory + "/" + "QualityControl");
             for (File listFile : Objects.requireNonNull(file.listFiles())) {
                 j.put(listFile.getName());
             }

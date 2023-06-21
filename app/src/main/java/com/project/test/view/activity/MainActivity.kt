@@ -1,21 +1,30 @@
 package com.project.test.view.activity
 
 
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.os.StrictMode
+import android.os.StrictMode.VmPolicy
+import android.provider.Settings
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.TranslateAnimation
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.project.test.BuildConfig
 import com.project.test.R
 import com.project.test.databinding.ActivityMainBinding
-import com.project.test.model.DatabaseReportsAsJson
 import com.project.test.utils.MyService
 import com.project.test.utils.NavigationApp
 import com.project.test.utils.SharedPreferences
@@ -24,11 +33,16 @@ import com.project.test.utils.SharedViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
+    private val PermissionsRequestId = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val json = DatabaseReportsAsJson(this).getJson()
+
+//        requestFilePermissions()
+//        val json = DatabaseReportsAsJson(this).getJson()
         /*
                 val json = Json(this).getJson()
                 val table1 = json.getJSONArray("cp_reports")
@@ -48,18 +62,14 @@ class MainActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 NavigationApp(
-                    this@MainActivity,
-                    supportFragmentManager,
-                    R.id.fragmentContainer
+                    this@MainActivity, supportFragmentManager, R.id.fragmentContainer
                 ).navigationBackward()
             }
         })
 
         binding.customTitleLayout.backPage.setOnClickListener {
             NavigationApp(
-                this@MainActivity,
-                supportFragmentManager,
-                R.id.fragmentContainer
+                this@MainActivity, supportFragmentManager, R.id.fragmentContainer
             ).navigationBackward()
         }
 
@@ -101,8 +111,7 @@ class MainActivity : AppCompatActivity() {
         binding.fabOptions.setOnClickListener {
             navigationApp.emptyStack()
             navigationApp.navigationForward(
-                R.id.action_home_menu_to_insertFromFragment,
-                "InsertFromFragment"
+                R.id.action_home_menu_to_insertFromFragment, "InsertFromFragment"
             )
 //            binding.arrow.clearAnimation()
 //            binding.arrow.visibility = View.GONE
@@ -233,6 +242,23 @@ class MainActivity : AppCompatActivity() {
             startService(this)
         } else {
             stopService(Intent(this, MyService::class.java))
+        }
+
+    }
+
+    private fun requestFilePermissions() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
+            val uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID)
+            startActivity(Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri))
+        } else {
+            ActivityCompat.requestPermissions(
+                this, arrayOf<String>(
+                    READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE
+                ), PermissionsRequestId
+            )
+            val builder = VmPolicy.Builder()
+            StrictMode.setVmPolicy(builder.build())
         }
 
     }

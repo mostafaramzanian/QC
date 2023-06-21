@@ -33,11 +33,15 @@ class DocumentRecyclerViewAdapter(
             binding.txtTitleDoc1.text = data.subject
             binding.codeDoc1.text = data.code
             binding.btnDoc.setOnClickListener {
-                val appSpecificExternalStorageDirectory =
-                    context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
+//                val appSpecificExternalStorageDirectory =
+//                    context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
 
-                val file =
-                    File(appSpecificExternalStorageDirectory.toString() + "/instructions/" + data.attachment)
+                var directory =
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
+
+                directory = File("$directory/QualityControl/")
+
+                val file = File(directory.toString() + "/" + data.attachment)
 
                 FileHelperUtils.openFile(file, context)
             }

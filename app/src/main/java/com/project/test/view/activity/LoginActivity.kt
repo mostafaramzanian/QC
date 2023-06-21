@@ -13,7 +13,9 @@ import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import androidx.core.view.marginBottom
 import androidx.core.view.marginLeft
 import androidx.core.view.marginRight
@@ -161,6 +163,14 @@ class LoginActivity : AppCompatActivity() {
                         tableLogin.getString(tableLogin.getColumnIndexOrThrow("lastname"))
                     val userType =
                         tableLogin.getString(tableLogin.getColumnIndexOrThrow("user_type"))
+
+                    val userType1 = Query(this).userTypes(userType)
+                    var userType2 = ""
+                    if (userType1.moveToFirst()) {
+                        userType2 =
+                            userType1.getString(userType1.getColumnIndexOrThrow("title"))
+                    }
+
                     if (userType == "QC_EXPERT" || userType == "QC_REVIEWER" || userType == "QUALITY_ASSURANCE_EXPERT") {
                         sharedPreferences.putString("username", user)
                         if (binding.rememberMe.isChecked) {
@@ -171,6 +181,7 @@ class LoginActivity : AppCompatActivity() {
                         sharedPreferences.putInt("userId", userId)
                         sharedPreferences.putString("fullName", "$name $lastName")
                         sharedPreferences.putString("userType", userType)
+                        sharedPreferences.putString("userTypeTitle", userType2)
 
                         val id = sharedPreferences.getInt("userId", 0)
                         val tableUserProcesses = Query(this).userProcesses(id)
@@ -190,14 +201,17 @@ class LoginActivity : AppCompatActivity() {
                         )
                         CustomToast(this).toastValid(spannableString, null)
 
-                        GoToOtherActivity(this).mainActivity()
+                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                            this@LoginActivity,
+                            binding.imageView2,
+                            ViewCompat.getTransitionName(binding.imageView2)!!
+                        )
+                        startActivity(intent, options.toBundle())
+
+//                        GoToOtherActivity(this).mainActivity()
                     } else {
-                        val userType1 = Query(this).userTypes(userType)
-                        var userType2 = ""
-                        if (userType1.moveToFirst()) {
-                            userType2 =
-                                userType1.getString(userType1.getColumnIndexOrThrow("title"))
-                        }
+
                         val fullName = "$name $lastName"
                         val text1 =
                             "کاربر گرامی $fullName از آن جا که نوع کاربری شما در سیستم $userType2 تعریف شده است امکان ورود به برنامه را ندارید! فقط کاربرانی که نوع کاربری آن ها بازرس می باشد اجازه ورود دارند."

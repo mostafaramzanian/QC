@@ -36,6 +36,10 @@
         <item name="windowMinWidthMinor">70%</item>
     </style>
 
+    <style name="home_fragment_text_title">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 
 </resources>
 

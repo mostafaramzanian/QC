@@ -12,6 +12,7 @@ import com.project.test.databinding.HomeFragmentBinding
 import com.project.test.model.GetData
 import com.project.test.utils.CurrentTime
 import com.project.test.utils.NavigationApp
+import com.project.test.utils.SharedPreferences
 import com.project.test.utils.SharedViewModel
 
 
@@ -44,6 +45,12 @@ class HomeFragment : Fragment() {
 ////            binding.inner2ConstraintLayout.visibility = View.VISIBLE
 ////            binding.iconAlertNoReport.visibility = View.VISIBLE
 //        }
+
+        val sh = SharedPreferences(requireActivity())
+
+        binding.username.text = "${sh.getString("fullName", "")}، به نرم افزار کنترل کیفیت خوش آمدید."
+        binding.userRole.text = "${sh.getString("userTypeTitle", "")}"
+
 
         val countReportActive = GetData(requireActivity()).reportActive()
         if (countReportActive.size > 0) {

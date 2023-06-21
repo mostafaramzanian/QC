@@ -1,395 +1,504 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:paddingTop="20dp">
-
-
-    <!--    <RelativeLayout-->
-    <!--        android:id="@+id/text_no_report"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginLeft="8dp"-->
-    <!--        android:layout_marginTop="20dp"-->
-    <!--        android:layout_marginRight="8dp"-->
-    <!--        android:visibility="visible">-->
-
-
-    <!--        <androidx.appcompat.widget.AppCompatTextView-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginTop="40dp"-->
-    <!--            android:layout_marginBottom="20dp"-->
-    <!--            android:background="@drawable/border_report"-->
-    <!--            android:fontFamily="@font/vazirmatn_medium"-->
-    <!--            android:gravity="center"-->
-    <!--            android:lineSpacingExtra="8sp"-->
-    <!--            android:minHeight="60dp"-->
-    <!--            android:paddingLeft="20dp"-->
-    <!--            android:paddingRight="20dp"-->
-    <!--            android:text="هیچ گزارشی ثبت نشده است."-->
-    <!--            android:textColor="@color/black"-->
-    <!--            android:textSize="16sp"-->
-    <!--            tools:ignore="RtlHardcoded,RtlSymmetry" />-->
-
-    <!--        <androidx.appcompat.widget.AppCompatImageView-->
-    <!--            android:id="@+id/icon_alert_no_report"-->
-    <!--            android:layout_width="55dp"-->
-    <!--            android:layout_height="55dp"-->
-    <!--            android:layout_alignParentTop="true"-->
-    <!--            android:layout_centerHorizontal="true"-->
-    <!--            android:background="@color/white"-->
-    <!--            android:paddingLeft="1dp"-->
-    <!--            android:paddingRight="1dp"-->
-    <!--            android:src="@drawable/alert_no_report"-->
-    <!--            tools:ignore="RtlHardcoded" />-->
-
-    <!--    </RelativeLayout>-->
-
+    android:background="@color/bottom_nav">
 
     <RelativeLayout
-        android:id="@+id/active_reports_layout_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="150dp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/simple_circle"
+            android:padding="15dp"
+            android:src="@drawable/icon"
+            android:transitionName="profile"
+            android:translationZ="20dp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="15dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/border_report">
+            android:layout_marginRight="30dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="10dp"
+            app:contentPadding="20dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/inner_constraint_layout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/count_report"
-                    android:layout_width="wrap_content"
+
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="60dp"
-                    android:layout_marginRight="30dp"
-                    android:fontFamily="@font/vazirmatn_medium"
-                    android:text="@string/Total_Reports"
-                    app:layout_constraintRight_toRightOf="@id/inner_constraint_layout"
-                    app:layout_constraintTop_toTopOf="@id/inner_constraint_layout"
-                    tools:ignore="RtlHardcoded" />
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:gravity="right|center_vertical"
+                    android:orientation="vertical">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/count_report_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="60dp"
-                    android:layout_marginRight="30dp"
-                    app:layout_constraintRight_toLeftOf="@id/count_report"
-                    app:layout_constraintTop_toTopOf="@id/inner_constraint_layout"
-                    tools:ignore="RtlHardcoded" />
+                    <TextView
+                        android:id="@+id/username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/vazirmatn_medium"
+                        android:text="@string/Welcome"
+                        android:textColor="@color/black" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/title_last_report"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
-                    android:fontFamily="@font/vazirmatn_medium"
-                    android:text="@string/The_Title_of_the_Last_Report"
-                    app:layout_constraintRight_toRightOf="@id/inner_constraint_layout"
-                    app:layout_constraintTop_toBottomOf="@id/count_report"
-                    tools:ignore="RtlHardcoded" />
+                    <TextView
+                        android:id="@+id/user_role"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/vazirmatn_medium"
+                        android:text="بازرس کیفیت"
+                        android:textColor="@color/TabNonActive"
+                        android:textSize="12sp" />
+                </LinearLayout>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/title_last_report_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
-                    app:layout_constraintRight_toLeftOf="@id/title_last_report"
-                    app:layout_constraintTop_toBottomOf="@id/count_report"
-                    tools:ignore="RtlHardcoded" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/baseline_account_circle_24"
+                    app:tint="@color/black" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/title_last_report_cp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
-                    android:fontFamily="@font/vazirmatn_medium"
-                    android:text="آخرین گزارش فعال برای طرح کیفیت: "
-                    app:layout_constraintRight_toRightOf="@id/inner_constraint_layout"
-                    app:layout_constraintTop_toBottomOf="@id/title_last_report_text"
-                    tools:ignore="RtlHardcoded" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/title_last_report_cp_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
-                    app:layout_constraintRight_toLeftOf="@id/title_last_report_cp"
-                    app:layout_constraintTop_toBottomOf="@id/title_last_report_text"
-                    tools:ignore="RtlHardcoded" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/time_last_report"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
-                    android:fontFamily="@font/vazirmatn_medium"
-                    android:text="@string/The_Time"
-                    app:layout_constraintRight_toRightOf="@id/inner_constraint_layout"
-                    app:layout_constraintTop_toBottomOf="@id/title_last_report_cp"
-                    tools:ignore="RtlHardcoded" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/time_last_report_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
-                    app:layout_constraintRight_toLeftOf="@id/time_last_report"
-                    app:layout_constraintTop_toBottomOf="@id/title_last_report_cp"
-                    tools:ignore="RtlHardcoded" />
-
-                <Button
-                    android:id="@+id/view_active_reports"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/btn"
-                    android:fontFamily="@font/vazirmatn_medium"
-                    android:text="@string/Btn_Show_Active_Report"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@id/inner_constraint_layout"
-                    app:layout_constraintLeft_toLeftOf="@id/inner_constraint_layout"
-                    app:layout_constraintRight_toRightOf="@id/inner_constraint_layout"
-                    app:layout_constraintTop_toBottomOf="@id/time_last_report" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/no_values_active"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:fontFamily="@font/vazirmatn_bold"
-                android:gravity="center"
-                android:paddingTop="65dp"
-                android:paddingBottom="60dp"
-                android:text="موردی وجود ندارد"
-                android:textColor="@color/black"
-                android:textSize="17sp"
-                android:visibility="visible"
-                tools:ignore="RtlHardcoded" />
-
-        </RelativeLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/title_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:background="@drawable/reports_active"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/title_info1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/vazirmatn_bold"
-                android:text="خلاصه ای از وضعیت گزارشات فعال"
-                android:textColor="@color/white"
-                android:textSize="17sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="RtlHardcoded" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </RelativeLayout>
+            </LinearLayout>
 
 
-    <RelativeLayout
-        android:id="@+id/final_reports_layout_parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/border_report">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/inner1_constraint_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/count_report_no_active"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="60dp"
-                    android:layout_marginRight="30dp"
-                    android:fontFamily="@font/vazirmatn_medium"
-                    android:text="تعداد کل گزارشات غیر فعال:"
-                    app:layout_constraintRight_toRightOf="@id/inner1_constraint_layout"
-                    app:layout_constraintTop_toTopOf="@id/inner1_constraint_layout"
-                    tools:ignore="RtlHardcoded" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/count_report_no_active_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="60dp"
-                    android:layout_marginRight="30dp"
-                    app:layout_constraintRight_toLeftOf="@id/count_report_no_active"
-                    app:layout_constraintTop_toTopOf="@id/inner1_constraint_layout"
-                    tools:ignore="RtlHardcoded" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/title_last_report_no_active"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
-                    android:fontFamily="@font/vazirmatn_medium"
-                    android:text="آخرین گزارش غیر فعال برای ایستگاه:"
-                    app:layout_constraintRight_toRightOf="@id/inner1_constraint_layout"
-                    app:layout_constraintTop_toBottomOf="@id/count_report_no_active"
-                    tools:ignore="RtlHardcoded" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/title_last_report_no_active_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
-                    app:layout_constraintRight_toLeftOf="@id/title_last_report_no_active"
-                    app:layout_constraintTop_toBottomOf="@id/count_report_no_active"
-                    tools:ignore="RtlHardcoded" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/last_Cp_Not_Active"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
-                    android:fontFamily="@font/vazirmatn_medium"
-                    android:text="آخرین گزارش غیر فعال برای طرح کیفیت: "
-                    app:layout_constraintRight_toRightOf="@id/inner1_constraint_layout"
-                    app:layout_constraintTop_toBottomOf="@id/title_last_report_no_active"
-                    tools:ignore="RtlHardcoded" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/last_Cp_Not_Active_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
-                    app:layout_constraintRight_toLeftOf="@id/last_Cp_Not_Active"
-                    app:layout_constraintTop_toBottomOf="@id/title_last_report_no_active"
-                    tools:ignore="RtlHardcoded" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/time_last_report_no_active"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
-                    android:fontFamily="@font/vazirmatn_medium"
-                    android:text="زمان ثبت آخرین گزارش غیر فعال: "
-                    app:layout_constraintRight_toRightOf="@id/inner1_constraint_layout"
-                    app:layout_constraintTop_toBottomOf="@id/last_Cp_Not_Active"
-                    tools:ignore="RtlHardcoded" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/time_last_report_no_active_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
-                    app:layout_constraintRight_toLeftOf="@id/time_last_report_no_active"
-                    app:layout_constraintTop_toBottomOf="@id/last_Cp_Not_Active_text"
-                    tools:ignore="RtlHardcoded" />
-
-                <Button
-                    android:id="@+id/view_active_reports_no_active"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/btn"
-                    android:fontFamily="@font/vazirmatn_medium"
-                    android:text="@string/Show_Reports_Saved"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@id/inner1_constraint_layout"
-                    app:layout_constraintLeft_toLeftOf="@id/inner1_constraint_layout"
-                    app:layout_constraintRight_toRightOf="@id/inner1_constraint_layout"
-                    app:layout_constraintTop_toBottomOf="@id/time_last_report_no_active_text" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/no_values_not_active"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:fontFamily="@font/vazirmatn_bold"
-                android:gravity="center"
-                android:paddingTop="65dp"
-                android:paddingBottom="60dp"
-                android:text="موردی وجود ندارد"
-                android:textColor="@color/black"
-                android:textSize="17sp"
-                android:visibility="visible"
-                tools:ignore="RtlHardcoded" />
-        </RelativeLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:background="@drawable/reports_active"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/not_active_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/vazirmatn_bold"
-                android:text="خلاصه ای از وضعیت گزارشات ثبت نهایی شده"
-                android:textColor="@color/white"
-                android:textSize="17sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="RtlHardcoded" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+        </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
 
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/view_bg"
+        android:elevation="3dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="20dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/active_reports_layout_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/border_report">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/inner_constraint_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/count_report"
+                                style="@style/home_fragment_text_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="60dp"
+                                android:layout_marginRight="30dp"
+                                android:fontFamily="@font/vazirmatn_medium"
+                                android:text="@string/Total_Reports"
+                                app:layout_constraintRight_toRightOf="@id/inner_constraint_layout"
+                                app:layout_constraintTop_toTopOf="@id/inner_constraint_layout"
+                                tools:ignore="RtlHardcoded" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/count_report_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="60dp"
+                                android:layout_marginRight="30dp"
+                                android:fontFamily="@font/vazirmatn_fd_medium"
+                                app:layout_constraintRight_toLeftOf="@id/count_report"
+                                app:layout_constraintTop_toTopOf="@id/inner_constraint_layout"
+                                tools:ignore="RtlHardcoded" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/title_last_report"
+                                style="@style/home_fragment_text_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="30dp"
+                                android:fontFamily="@font/vazirmatn_medium"
+                                android:text="@string/The_Title_of_the_Last_Report"
+                                app:layout_constraintRight_toRightOf="@id/inner_constraint_layout"
+                                app:layout_constraintTop_toBottomOf="@id/count_report"
+                                tools:ignore="RtlHardcoded" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/title_last_report_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="30dp"
+                                android:fontFamily="@font/vazirmatn_medium"
+                                app:layout_constraintRight_toLeftOf="@id/title_last_report"
+                                app:layout_constraintTop_toBottomOf="@id/count_report"
+                                tools:ignore="RtlHardcoded" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/title_last_report_cp"
+                                style="@style/home_fragment_text_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="30dp"
+                                android:fontFamily="@font/vazirmatn_medium"
+                                android:text="آخرین گزارش فعال برای طرح کیفیت: "
+                                app:layout_constraintRight_toRightOf="@id/inner_constraint_layout"
+                                app:layout_constraintTop_toBottomOf="@id/title_last_report_text"
+                                tools:ignore="RtlHardcoded" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/title_last_report_cp_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="30dp"
+                                android:fontFamily="@font/vazirmatn_medium"
+                                app:layout_constraintRight_toLeftOf="@id/title_last_report_cp"
+                                app:layout_constraintTop_toBottomOf="@id/title_last_report_text"
+                                tools:ignore="RtlHardcoded" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/time_last_report"
+                                style="@style/home_fragment_text_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="30dp"
+                                android:fontFamily="@font/vazirmatn_medium"
+                                android:text="@string/The_Time"
+                                app:layout_constraintRight_toRightOf="@id/inner_constraint_layout"
+                                app:layout_constraintTop_toBottomOf="@id/title_last_report_cp"
+                                tools:ignore="RtlHardcoded" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/time_last_report_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="30dp"
+                                android:fontFamily="@font/vazirmatn_fd_medium"
+                                app:layout_constraintRight_toLeftOf="@id/time_last_report"
+                                app:layout_constraintTop_toBottomOf="@id/title_last_report_cp"
+                                tools:ignore="RtlHardcoded" />
+
+                            <Button
+                                android:id="@+id/view_active_reports"
+                                android:layout_width="300dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="30dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@drawable/btn"
+                                android:fontFamily="@font/vazirmatn_medium"
+                                android:text="@string/Btn_Show_Active_Report"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="@id/inner_constraint_layout"
+                                app:layout_constraintLeft_toLeftOf="@id/inner_constraint_layout"
+                                app:layout_constraintRight_toRightOf="@id/inner_constraint_layout"
+                                app:layout_constraintTop_toBottomOf="@id/time_last_report" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/no_values_active"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/vazirmatn_bold"
+                            android:gravity="center"
+                            android:paddingTop="65dp"
+                            android:paddingBottom="60dp"
+                            android:text="موردی وجود ندارد"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+                            android:visibility="visible"
+                            tools:ignore="RtlHardcoded" />
+
+                    </RelativeLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/title_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="25dp"
+                        android:background="@drawable/reports_active"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/title_info1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/vazirmatn_bold"
+                            android:text="خلاصه ای از وضعیت گزارشات فعال"
+                            android:textColor="@color/white"
+                            android:textSize="17sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="RtlHardcoded" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/final_reports_layout_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/border_report">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/inner1_constraint_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/count_report_no_active"
+                                style="@style/home_fragment_text_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="60dp"
+                                android:layout_marginRight="30dp"
+                                android:fontFamily="@font/vazirmatn_medium"
+                                android:text="تعداد کل گزارشات غیر فعال:"
+                                app:layout_constraintRight_toRightOf="@id/inner1_constraint_layout"
+                                app:layout_constraintTop_toTopOf="@id/inner1_constraint_layout"
+                                tools:ignore="RtlHardcoded" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/count_report_no_active_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="60dp"
+                                android:layout_marginRight="30dp"
+                                android:fontFamily="@font/vazirmatn_fd_medium"
+                                app:layout_constraintRight_toLeftOf="@id/count_report_no_active"
+                                app:layout_constraintTop_toTopOf="@id/inner1_constraint_layout"
+                                tools:ignore="RtlHardcoded" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/title_last_report_no_active"
+                                style="@style/home_fragment_text_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="30dp"
+                                android:fontFamily="@font/vazirmatn_medium"
+                                android:text="آخرین گزارش غیر فعال برای ایستگاه:"
+                                app:layout_constraintRight_toRightOf="@id/inner1_constraint_layout"
+                                app:layout_constraintTop_toBottomOf="@id/count_report_no_active"
+                                tools:ignore="RtlHardcoded" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/title_last_report_no_active_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="30dp"
+                                app:layout_constraintRight_toLeftOf="@id/title_last_report_no_active"
+                                app:layout_constraintTop_toBottomOf="@id/count_report_no_active"
+                                tools:ignore="RtlHardcoded" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/last_Cp_Not_Active"
+                                style="@style/home_fragment_text_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="30dp"
+                                android:fontFamily="@font/vazirmatn_medium"
+                                android:text="آخرین گزارش غیر فعال برای طرح کیفیت: "
+                                app:layout_constraintRight_toRightOf="@id/inner1_constraint_layout"
+                                app:layout_constraintTop_toBottomOf="@id/title_last_report_no_active"
+                                tools:ignore="RtlHardcoded" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/last_Cp_Not_Active_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="30dp"
+                                app:layout_constraintRight_toLeftOf="@id/last_Cp_Not_Active"
+                                app:layout_constraintTop_toBottomOf="@id/title_last_report_no_active"
+                                tools:ignore="RtlHardcoded" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/time_last_report_no_active"
+                                style="@style/home_fragment_text_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="30dp"
+                                android:fontFamily="@font/vazirmatn_medium"
+                                android:text="زمان ثبت آخرین گزارش غیر فعال: "
+                                app:layout_constraintRight_toRightOf="@id/inner1_constraint_layout"
+                                app:layout_constraintTop_toBottomOf="@id/last_Cp_Not_Active"
+                                tools:ignore="RtlHardcoded" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/time_last_report_no_active_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="30dp"
+                                android:fontFamily="@font/vazirmatn_fd_medium"
+                                app:layout_constraintRight_toLeftOf="@id/time_last_report_no_active"
+                                app:layout_constraintTop_toBottomOf="@id/last_Cp_Not_Active"
+                                tools:ignore="RtlHardcoded" />
+
+                            <Button
+                                android:id="@+id/view_active_reports_no_active"
+                                android:layout_width="300dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="50dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@drawable/btn"
+                                android:fontFamily="@font/vazirmatn_medium"
+                                android:text="@string/Show_Reports_Saved"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="@id/inner1_constraint_layout"
+                                app:layout_constraintLeft_toLeftOf="@id/inner1_constraint_layout"
+                                app:layout_constraintRight_toRightOf="@id/inner1_constraint_layout"
+                                app:layout_constraintTop_toBottomOf="@id/time_last_report_no_active_text" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/no_values_not_active"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/vazirmatn_bold"
+                            android:gravity="center"
+                            android:paddingTop="65dp"
+                            android:paddingBottom="60dp"
+                            android:text="موردی وجود ندارد"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+                            android:visibility="visible"
+                            tools:ignore="RtlHardcoded" />
+                    </RelativeLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="25dp"
+                        android:background="@drawable/reports_active"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/not_active_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/vazirmatn_bold"
+                            android:text="خلاصه ای از وضعیت گزارشات ثبت نهایی شده"
+                            android:textColor="@color/white"
+                            android:textSize="17sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="RtlHardcoded" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <!--    <RelativeLayout-->
+        <!--        android:id="@+id/text_no_report"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_marginLeft="8dp"-->
+        <!--        android:layout_marginTop="20dp"-->
+        <!--        android:layout_marginRight="8dp"-->
+        <!--        android:visibility="visible">-->
+
+
+        <!--        <androidx.appcompat.widget.AppCompatTextView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="40dp"-->
+        <!--            android:layout_marginBottom="20dp"-->
+        <!--            android:background="@drawable/border_report"-->
+        <!--            android:fontFamily="@font/vazirmatn_medium"-->
+        <!--            android:gravity="center"-->
+        <!--            android:lineSpacingExtra="8sp"-->
+        <!--            android:minHeight="60dp"-->
+        <!--            android:paddingLeft="20dp"-->
+        <!--            android:paddingRight="20dp"-->
+        <!--            android:text="هیچ گزارشی ثبت نشده است."-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:textSize="16sp"-->
+        <!--            tools:ignore="RtlHardcoded,RtlSymmetry" />-->
+
+        <!--        <androidx.appcompat.widget.AppCompatImageView-->
+        <!--            android:id="@+id/icon_alert_no_report"-->
+        <!--            android:layout_width="55dp"-->
+        <!--            android:layout_height="55dp"-->
+        <!--            android:layout_alignParentTop="true"-->
+        <!--            android:layout_centerHorizontal="true"-->
+        <!--            android:background="@color/white"-->
+        <!--            android:paddingLeft="1dp"-->
+        <!--            android:paddingRight="1dp"-->
+        <!--            android:src="@drawable/alert_no_report"-->
+        <!--            tools:ignore="RtlHardcoded" />-->
+
+        <!--    </RelativeLayout>-->
+
+
+    </LinearLayout>
+</RelativeLayout>
