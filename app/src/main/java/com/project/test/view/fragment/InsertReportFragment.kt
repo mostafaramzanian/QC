@@ -3,14 +3,17 @@ package com.project.test.view.fragment
 import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.project.test.R
 import com.project.test.databinding.InsertReportFragmentBinding
+import com.project.test.dataclass.DataCp
 import com.project.test.dataclass.DataNode
 import com.project.test.model.GetData
 import com.project.test.model.Query
@@ -39,42 +42,8 @@ class InsertReportFragment : Fragment() {
 
         val model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         model.showHide("Hide")
-        val processId = SharedPreferences(requireActivity()).getInt("process_id", 0)
-        val nodes = mutableListOf<DataNode>()
 
-        val controlStation = Query(requireActivity()).controlStation(processId)
-        val columnIndex = controlStation.getColumnIndexOrThrow("name")
-        val columnIndex1 = controlStation.getColumnIndexOrThrow("parent")
-        val columnIndex2 = controlStation.getColumnIndexOrThrow("id")
-
-        if (controlStation.moveToFirst()) {
-            do {
-                val name = controlStation.getString(columnIndex)
-                val parent = controlStation.getString(columnIndex1)
-                val id = controlStation.getInt(columnIndex2)
-                val node = DataNode(id, name, parent)
-                val parentNode = nodes.find { it.id.toString() == parent }
-                if (parentNode != null) {
-                    parentNode.children += node
-                    node.space = parentNode.space + 1
-                    node.space1 = parentNode.space1 + 6
-                }
-                nodes += node
-
-            } while (controlStation.moveToNext())
-        } else {
-            CustomToast(requireContext()).toastAlert(null, "ایستگاه کنترلی یافت نشد!")
-        }
-        fun buildStringRecursive(node: DataNode, list: MutableList<String>, set: HashSet<Int>) {
-            if (set.add(node.id)) {
-                val string =
-                    node.charNull.repeat(node.space1 + 0) + node.star.repeat(node.space + 0) + node.name
-                list.add(string)
-                node.children.forEach { child ->
-                    buildStringRecursive(child, list, set)
-                }
-            }
-        }
+        val nodes = GetData(requireActivity()).controlStation()
 
         val list = mutableListOf<String>()
         val set = HashSet<Int>()
@@ -111,6 +80,9 @@ class InsertReportFragment : Fragment() {
             requireContext(),
             R.anim.spinner_dropup_anim
         )
+
+
+
         binding.spinnerView.setOnClickListener {
             if (binding.spinnerView.isShowing) {
                 binding.spinnerView.dismiss()
@@ -134,30 +106,46 @@ class InsertReportFragment : Fragment() {
         var csIndexSelected: Int? = null
         var cpValueSelected: String? = null
         var cpIndexSelected: Int? = null
+        var productName: String? = null
         val listIdCp = mutableListOf<Int>()
         val listName = mutableListOf<String>()
+        val listName1 = mutableListOf<String>()
+        val product = mutableListOf<String>()
         val listId = mutableListOf<Int>()
+
+
         binding.spinnerView.setOnSpinnerItemSelectedListener<String> { oldIndex, oldItem, newIndex, newItem ->
             binding.arrowSpinner.startAnimation(animUp)
             csValueSelected = newItem
             csIndexSelected = newIndex
+            var parent=""
+            for (i in newIndex downTo 0) {
+                if (nodes[i].parent == "#root") {
+                    parent=nodes[i].name
+                    break
+                }
+            }
             for (i in newIndex downTo 0) {
                 listName.clear()
                 listId.clear()
-                val (name, id) = findNode1(
+                val listCp = GetData(requireActivity()).findNode1(
                     requireActivity(),
                     nodes,
                     nodes[i].id.toString()
                 )
-                listName.addAll(name)
-                listId.addAll(id)
+                for (cp in listCp) {
+                    listName1.add(cp.cp_code)
+                    listId.add(cp.id)
+                    product.add(cp.product)
+                    listName.add ("$parent >> ${cp.product} (${cp.cp_code})")
+                }
 
-                if (nodes[i].parent == "#root" || name.size > 0) {
+                if (nodes[i].parent == "#root" || listCp.size > 0) {
                     break
                 }
             }
             binding.spinnerViewQuality.setItems(listName)
-            listIdCp.addAll(listId)
+          //  listIdCp.addAll(listId)
             if (listName.size > 0) {
                 cpValue = listName[0]
                 binding.arrowSpinner1.visibility = View.VISIBLE
@@ -169,11 +157,13 @@ class InsertReportFragment : Fragment() {
                 if (binding.spinnerViewQuality.text == "انتخاب کنید" || binding.spinnerViewQuality.hint == "انتخاب کنید") {
                     cpValueSelected = null
                     cpIndexSelected = null
+                    productName=null
                 }
             } else {
                 cpValue = null
                 cpValueSelected = null
                 cpIndexSelected = null
+                productName=null
                 binding.arrowSpinner1.clearAnimation()
                 binding.spinnerViewQuality.setPadding(22, 22, 20, 22)
                 binding.arrowSpinner1.visibility = View.INVISIBLE
@@ -186,8 +176,8 @@ class InsertReportFragment : Fragment() {
             }
 
         }
-        binding.spinnerViewQuality.setOnClickListener {
 
+        binding.spinnerViewQuality.setOnClickListener {
             if (cpValue != null) {
                 if (binding.spinnerViewQuality.isShowing) {
                     binding.spinnerViewQuality.dismiss()
@@ -203,16 +193,34 @@ class InsertReportFragment : Fragment() {
 
         binding.spinnerViewQuality.setOnSpinnerItemSelectedListener<String> { oldIndex, oldItem, newIndex, newItem ->
             binding.arrowSpinner1.startAnimation(animUp1)
-            cpValueSelected = newItem
-            cpIndexSelected = listIdCp[newIndex]
 
+            cpValueSelected = listName1[newIndex]
+            cpIndexSelected = listId[newIndex]
+            productName= product[newIndex]
         }
 
-//        val fragmentList = Stack()
-//        fragmentList.reset()
-//        fragmentList.push(requireActivity(), R.id.fragmentsContainer)
+        binding.constraintLayout1.setOnClickListener {
+            if (binding.spinnerView.isShowing) {
+                binding.spinnerView.dismiss()
+                binding.arrowSpinner.startAnimation(animUp)
+            }
+            if (binding.spinnerViewQuality.isShowing) {
+                binding.spinnerViewQuality.dismiss()
+                binding.arrowSpinner1.startAnimation(animUp1)
+            }
+        }
+
         model.showLastFragment("InsertReportFragment")
         binding.btnAdd.setOnClickListener {
+            if (binding.spinnerView.isShowing) {
+                binding.spinnerView.dismiss()
+                binding.arrowSpinner.startAnimation(animUp)
+            }
+            if (binding.spinnerViewQuality.isShowing) {
+                binding.spinnerViewQuality.dismiss()
+                binding.arrowSpinner1.startAnimation(animUp1)
+            }
+
             val sharedPreferences = SharedPreferences(requireContext())
             if (!sharedPreferences.getBoolean("menuExit", false)) {
                 when {
@@ -229,14 +237,6 @@ class InsertReportFragment : Fragment() {
                             R.id.action_insertFromFragment_to_showMoreFormFragment,
                             ""
                         )
-                        /*
-                        FragmentReplacer(parentFragmentManager).replaceFragments(
-                            InsertReportFragment(),
-                            ShowMoreFormFragment(),
-                            R.id.fragmentsContainer
-                        )
-
-                         */
                         sharedPreferences.putString(
                             "cpValueSelected",
                             cpValueSelected!!
@@ -244,6 +244,10 @@ class InsertReportFragment : Fragment() {
                         sharedPreferences.putString(
                             "csValueSelected",
                             nodes[csIndexSelected!!].name
+                        )
+                        sharedPreferences.putString(
+                            "productName",
+                            productName!!
                         )
                         sharedPreferences.putInt(
                             "csIdSelected",
@@ -328,41 +332,17 @@ class InsertReportFragment : Fragment() {
 
     }
 }
-
-private fun findNode1(
-    context: Activity,
-    nods: MutableList<DataNode>,
-    idSelect: String
-): Pair<List<String>, List<Int>> {
-
-    val cp = Query(context).cp(idSelect)
-    val listName = mutableListOf<String>()
-    val listId = mutableListOf<Int>()
-    if (cp.moveToFirst()) {
-        do {
-            val cpCode = cp.getString(cp.getColumnIndexOrThrow("cp_code"))
-            val selectCp = Query(context).selectFromCp(cpCode)
-            if (selectCp.moveToFirst()) {
-                val cpName = selectCp.getString(selectCp.getColumnIndexOrThrow("cp_code"))
-                val cpId = selectCp.getInt(selectCp.getColumnIndexOrThrow("id"))
-                val cpAccess =
-                    selectCp.getString(selectCp.getColumnIndexOrThrow("access_user_group"))
-                val list = cpAccess.replace("'", "").split(",")
-                    .map { it.trim().replace("[", "").replace("]", "") }
-                // val index = list.indexOf( SharedPreferences(context).getString("userType", ""))
-                val index = list.indexOf("MASTER_WORKER")
-                if (index != -1 && cpName != null) {
-                    listName.add(cpName)
-                    listId.add(cpId)
-                } else {
-
-                }
-            }
-        } while (cp.moveToNext())
+private fun buildStringRecursive(node: DataNode, list: MutableList<String>, set: HashSet<Int>) {
+    if (set.add(node.id)) {
+        val string =
+            node.charNull.repeat(node.space1 + 0) + node.star.repeat(node.space + 0) + node.name
+        list.add(string)
+        node.children.forEach { child ->
+            buildStringRecursive(child, list, set)
+        }
     }
-    return Pair(listName, listId)
-
 }
+
 
 private fun findNode(node: DataNode, id: Int): Int? {
     if (node.id == id) {

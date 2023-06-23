@@ -77,6 +77,10 @@ class OtherRecyclerView(
             "cpIdSelected",
             data.cpId
         )
+        sharedPreferences.putString(
+            "productName",
+            data.nameProduct
+        )
         sharedPreferences.putInt(
             "idReports",
             data.idReports

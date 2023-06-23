@@ -1,6 +1,7 @@
 package com.project.test.view.recyclerview
 
 import android.app.Activity
+import android.content.Context
 import android.text.Editable
 import android.text.InputType.TYPE_CLASS_NUMBER
 import android.text.InputType.TYPE_CLASS_TEXT
@@ -12,10 +13,13 @@ import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
@@ -81,6 +85,36 @@ class InformationRecyclerViewAdapter(
 
         fun setData(data: DataInfo) {
             val sharedPreferences = SharedPreferences(context)
+
+            binding.editText1.setText("L0")
+            binding.editText1.setSelection(binding.editText1.text!!.length)
+            binding.editText1.addTextChangedListener(object : TextWatcher {
+                var len = 0
+
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                    val str: String = binding.editText1.text.toString()
+                    len = str.length
+                }
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    var str = s.toString()
+                    val string = binding.editText1.text.toString()
+                    if (string.length == 5  && len < string.length) {
+                        str += "-"
+                        binding.editText1.setText(str)
+                        binding.editText1.setSelection(str.length)
+                    }
+                    if (count < before) {
+                        if (binding.editText1.text!!.length <= 2) {
+                            binding.editText1.setText("L0")
+                            binding.editText1.setSelection(binding.editText1.text!!.length)
+                        } else {
+                            //  Toast.makeText(context, "Backspace pressed", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+
+                override fun afterTextChanged(s: Editable?) {}
+            })
 
             val importanceLevel = "درجه اهمیت: (${data.importanceLevel})"
             val title = "عنوان مشخصه: ${data.name}"
@@ -231,6 +265,8 @@ class InformationRecyclerViewAdapter(
             val animDown = AnimationUtils.loadAnimation(context, R.anim.spinner_dropdown_anim)
             val animUp = AnimationUtils.loadAnimation(context, R.anim.spinner_dropup_anim)
             binding.spinnerViewInfo.setOnClickListener {
+                binding.editText1.clearFocus()
+                binding.editText2.clearFocus()
                 if (binding.spinnerViewInfo.isShowing) {
                     binding.spinnerViewInfo.dismiss()
                     binding.arrowSpinnerInfo.startAnimation(animUp)
@@ -238,6 +274,31 @@ class InformationRecyclerViewAdapter(
                     binding.spinnerViewInfo.show()
                     binding.arrowSpinnerInfo.startAnimation(animDown)
                 }
+            }
+            binding.constraintLayoutInfo.setOnClickListener {
+                binding.editText1.clearFocus()
+                binding.editText2.clearFocus()
+                spinner(binding,animUp)
+            }
+            binding.editText1.onFocusChangeListener = View.OnFocusChangeListener { _, _ ->
+                spinner(binding,animUp)
+            }
+
+            binding.editText2.onFocusChangeListener = View.OnFocusChangeListener { _, _ ->
+                spinner(binding,animUp)
+            }
+            binding.btnInfo.setOnClickListener {
+                spinner(binding,animUp)
+            }
+            binding.radioConfirmation.setOnClickListener {
+                binding.editText1.clearFocus()
+                binding.editText2.clearFocus()
+                spinner(binding,animUp)
+            }
+            binding.radioRejection.setOnClickListener {
+                binding.editText1.clearFocus()
+                binding.editText2.clearFocus()
+                spinner(binding,animUp)
             }
             var idTool = idTools[0]
             var cF: Float = correctionFactor[0]
@@ -268,22 +329,6 @@ class InformationRecyclerViewAdapter(
                 }
                 //  model1.statusSpinnerInfo("show")
             }
-//            binding.editText1.addTextChangedListener(object : TextWatcher {
-//                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-//
-//                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//                    if (s?.length!! % 7 == 0) {
-//                        binding.editText1.setText(StringBuilder(s).insert(s.length - 1, "-").toString())
-//                        binding.editText1.setSelection( binding.editText1.text!!.length)
-//                    }
-//                    if (!s.toString().startsWith("L-")) {
-//                        binding.editText1.setText("L-$s")
-//                        binding.editText1.setSelection(binding.editText1.text!!.length)
-//                    }
-//                }
-//
-//                override fun afterTextChanged(s: Editable?) {}
-//            })
             var reportValue = ""
             binding.editText1.addTextChangedListener {
                 val text = it.toString()
@@ -304,7 +349,6 @@ class InformationRecyclerViewAdapter(
                         binding.radioRejection.isChecked = false
                         binding.editText1.background = getDrawable(context, R.drawable.edit_text_info)
                         binding.editText3Observed.text = "-"
-                        Toast.makeText(context, "toString()", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     binding.editText3Observed.text = "-"
@@ -598,4 +642,11 @@ private fun empty(binding: RecyclerInfoBinding) {
     binding.editText1.isEnabled = false
     binding.editText1.visibility = View.GONE
     binding.editText5.visibility = View.VISIBLE
+}
+
+private fun spinner(binding: RecyclerInfoBinding,  animUp: Animation){
+    if (binding.spinnerViewInfo.isShowing) {
+        binding.spinnerViewInfo.dismiss()
+        binding.arrowSpinnerInfo.startAnimation(animUp)
+    }
 }

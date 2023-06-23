@@ -1,6 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/info_inner_layout"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="46dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:visibility="gone"
+        android:background="@drawable/background_info"
+          >
+        <TextView
+            android:id="@+id/item_not_found"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/vazirmatn_medium"
+            android:gravity="center"
+            android:text="@string/item_not_found"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/title_doc2"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/background_title_info"
+        android:fontFamily="@font/vazirmatn_bold"
+        android:textAlignment="center"
+        android:paddingTop="5dp"
+        android:text="@string/Recorded_Information"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        tools:ignore="RelativeOverlap,RtlHardcoded" />
+
+<androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recyclerView_infoRegister"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="40dp" />
+    android:paddingTop="40dp"
+    />
+
+
+</RelativeLayout>

@@ -32,6 +32,8 @@ class InfoRegisterFragment : Fragment() {
                 showReport()
             } else {
                 binding.recyclerViewInfoRegister.visibility = View.INVISIBLE
+                binding.infoInnerLayout.visibility=View.GONE
+                binding.titleDoc2.visibility=View.GONE
             }
 
         })
@@ -52,7 +54,10 @@ class InfoRegisterFragment : Fragment() {
         val model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         model.isDraft.observe(viewLifecycleOwner, Observer {
             val dataInfoRegister = GetData(requireActivity()).infoRegister(it)
-
+            if(dataInfoRegister.size==0 ){
+               binding.infoInnerLayout.visibility=View.VISIBLE
+                binding.titleDoc2.visibility=View.VISIBLE
+            }
             adapter = InfoRegisterRecyclerViewAdapter(
                 requireActivity(),
                 dataInfoRegister as ArrayList<DataInfoRegister>

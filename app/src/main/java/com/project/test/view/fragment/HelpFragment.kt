@@ -1,17 +1,21 @@
 package com.project.test.view.fragment
 
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.project.test.R
 import com.project.test.databinding.HelpBinding
 import com.project.test.utils.SharedPreferences
 import com.project.test.utils.SharedViewModel
@@ -59,37 +63,42 @@ class HelpFragment : Fragment() {
         model.message1.observe(viewLifecycleOwner, Observer {
             val station = sharedPreferences.getString("csValueSelected", "")
             val quality = sharedPreferences.getString("cpValueSelected", "")
-            val text =
-                "کاربر گرامی شما در حال تکمیل گزارش برای ایستگاه $station و طرح کیفیت $quality می باشید."
-            val spannable = SpannableString(text)
-            var index = text.indexOf(station)
-            spannable.setSpan(
-                ForegroundColorSpan(Color.RED),
-                index,
-                index + station.length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            val product = sharedPreferences.getString("productName", "")
+            val text1= "کاربر گرامی شما در حال تکمیل گزارش برای محصول $product"
+            val text2= " در ایستگاه کنترلی $station "
+            val text3= "و طرح کیفیت $quality می باشید."
+
+            val color = ContextCompat.getColor(requireContext(), R.color.red)
+            val builder = SpannableStringBuilder()
+            val spannableString =
+                com.project.test.utils.SpannableString()
+                    .spannableString(text1, product, color, null, null)
+            val spannableString1 =
+                com.project.test.utils.SpannableString()
+                    .spannableString(text2, station, color, null, null)
+            val spannableString2 = com.project.test.utils.SpannableString().spannableString(
+                text3, quality, color, null,
+               null
             )
-            index = text.indexOf(quality)
-            spannable.setSpan(
-                ForegroundColorSpan(Color.RED),
-                index,
-                index + quality.length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-            binding.textInfoReport.text = spannable
+            builder.append(spannableString);
+            builder.append(spannableString1);
+            builder.append(spannableString2);
+
+            binding.textInfoReport.text = builder
+
         })
     }
 
 
     override fun onResume() {
         super.onResume()
-        val dm = DisplayMetrics()
-        activity?.windowManager?.defaultDisplay?.getMetrics(dm)
+//        val dm = DisplayMetrics()
+//        activity?.windowManager?.defaultDisplay?.getMetrics(dm)
 
 // will either be DENSITY_LOW, DENSITY_MEDIUM or DENSITY_HIGH
 
 // will either be DENSITY_LOW, DENSITY_MEDIUM or DENSITY_HIGH
-        val dpiClassification = dm.densityDpi
+     //   val dpiClassification = dm.densityDpi
 
 // these will return the actual dpi horizontally and vertically
 

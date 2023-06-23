@@ -4,6 +4,7 @@ package com.project.test.view.activity
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -15,14 +16,16 @@ import android.provider.Settings
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.TranslateAnimation
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.project.test.BuildConfig
+import com.google.firebase.BuildConfig
 import com.project.test.R
 import com.project.test.databinding.ActivityMainBinding
 import com.project.test.utils.MyService
@@ -232,24 +235,25 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        startService(this)
+      //  startService(this)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        val rememberMe = SharedPreferences(this).getBoolean("rememberMe", false)
-        if (rememberMe) {
-            startService(this)
-        } else {
-            stopService(Intent(this, MyService::class.java))
-        }
+//        val rememberMe = SharedPreferences(this).getBoolean("rememberMe", false)
+//        if (rememberMe) {
+//            startService(this)
+//        } else {
+//            stopService(Intent(this, MyService::class.java))
+//        }
 
     }
 
     private fun requestFilePermissions() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
-            val uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID)
+           // val uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID)
+            val uri = Uri.parse("package:" + applicationContext.packageName)
             startActivity(Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri))
         } else {
             ActivityCompat.requestPermissions(
@@ -266,9 +270,9 @@ class MainActivity : AppCompatActivity() {
 
 }
 
-fun startService(context: Activity) {
-    context.startService(Intent(context, MyService::class.java))
-}
+//fun startService(context: Activity) {
+//    context.startService(Intent(context, MyService::class.java))
+//}
 //
 //fun exit(
 //    view: View, context: Activity
@@ -359,25 +363,25 @@ fun startService(context: Activity) {
 //    }
 //}
 
-fun View.slideUp(duration: Int = 500) {
-    if (visibility == View.INVISIBLE) {
-        visibility = View.VISIBLE
-        val animate = TranslateAnimation(0f, 0f, this.height.toFloat(), 0f)
-        animate.duration = duration.toLong()
-        animate.fillAfter = true
-        this.startAnimation(animate)
-    }
-}
+//fun View.slideUp(duration: Int = 500) {
+//    if (visibility == View.INVISIBLE) {
+//        visibility = View.VISIBLE
+//        val animate = TranslateAnimation(0f, 0f, this.height.toFloat(), 0f)
+//        animate.duration = duration.toLong()
+//        animate.fillAfter = true
+//        this.startAnimation(animate)
+//    }
+//}
 
-fun View.slideDown(duration: Int = 500) {
-    if (visibility == View.VISIBLE) {
-        visibility = View.INVISIBLE
-        val animate = TranslateAnimation(0f, 0f, 0f, this.height.toFloat())
-        animate.duration = duration.toLong()
-        animate.fillAfter = false
-        this.startAnimation(animate)
-    }
-}
+//fun View.slideDown(duration: Int = 500) {
+//    if (visibility == View.VISIBLE) {
+//        visibility = View.INVISIBLE
+//        val animate = TranslateAnimation(0f, 0f, 0f, this.height.toFloat())
+//        animate.duration = duration.toLong()
+//        animate.fillAfter = false
+//        this.startAnimation(animate)
+//    }
+//}
 
 //fun homeFragment(fragmentManager: FragmentManager) {
 //    val transaction = fragmentManager.beginTransaction()

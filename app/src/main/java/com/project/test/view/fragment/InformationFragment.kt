@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -43,6 +44,7 @@ class InformationFragment : Fragment() {
         val model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         model.message1.observe(viewLifecycleOwner, Observer {
             val dataInfo = GetData(requireActivity()).information1()
+
             adapter = InformationRecyclerViewAdapter(
                 requireActivity(),
                 requireActivity(),

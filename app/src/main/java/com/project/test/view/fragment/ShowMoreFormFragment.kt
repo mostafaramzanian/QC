@@ -5,9 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
+import androidx.core.view.marginBottom
+import androidx.core.view.marginLeft
+import androidx.core.view.marginRight
+import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +20,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.project.test.R
 import com.project.test.databinding.ShowMoreFormBinding
+import com.project.test.model.GetData
 import com.project.test.utils.SharedViewModel
 import com.project.test.view.adapter.ShowMoreFormAdapter
 
@@ -54,10 +60,13 @@ class ShowMoreFormFragment : Fragment() {
 //        val height1 = Size(requireContext()).calHeight(0.03f)
 //        val width2 = Size(requireContext()).calWidth(0.05f)
 //        val height2 = Size(requireContext()).calHeight(0.03f)
+
+        val data = GetData(requireActivity()).otherReports("notShowAllReports")
+        val count1 = data.size
         TabLayoutMediator(binding.tabLayoutMore, binding.viewPagerMore) { tab, position ->
             when (position) {
                 0 -> {
-                    val count1 = 90
+
                     tab.setCustomView(R.layout.custom_view)
 //                    val tvTabText = tab.customView!!.findViewById<TextView>(R.id.text_tab_1)
 //                    tvTabText.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
@@ -65,12 +74,20 @@ class ShowMoreFormFragment : Fragment() {
 //                    counter1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize1)
                     if (count1 > 0) {
                         if (count1 < 100) {
-//                        tab.customView?.findViewById<ImageView>(R.id.fabCounter1) ?.size(width1, height1)
-                            tab.customView?.findViewById<TextView>(R.id.counter)?.text =
-                                count1.toString()
+                            tab.customView?.findViewById<TextView>(R.id.counter)?.apply {
+                                text = count1.toString()
+                                textSize = 16f // Change the text size here
+                                size(50, 50)
+                                setMargins(-50, 0, 0, 50)
+                            }
                         } else {
 //                        tab.customView?.findViewById<ImageView>(R.id.fabCounter1) ?.size(width2, height2)
-                            tab.customView?.findViewById<TextView>(R.id.counter)?.text = "99+"
+                            tab.customView?.findViewById<TextView>(R.id.counter)?.apply {
+                                text = "+99"
+                                textSize = 16f // Change the text size here
+                                size(60, 60)
+                                setMargins(-50, 0, 0, 50)
+                            }
                         }
                     } else {
                         tab.customView?.findViewById<TextView>(R.id.counter)?.visibility = View.GONE
@@ -148,6 +165,16 @@ private fun View.size(Width: Int, Height: Int) {
     layoutParams = (layoutParams as ViewGroup.MarginLayoutParams).apply {
         width = Width
         height = Height
+    }
+}
+private fun View.setMargins(
+    left: Int = this.marginLeft,
+    top: Int = this.marginTop,
+    right: Int = this.marginRight,
+    bottom: Int = this.marginBottom
+) {
+    layoutParams = (layoutParams as ViewGroup.MarginLayoutParams).apply {
+        setMargins(left, top, right, bottom)
     }
 }
 
