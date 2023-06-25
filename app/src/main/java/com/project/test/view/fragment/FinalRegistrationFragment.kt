@@ -33,6 +33,8 @@ import com.project.test.utils.GoToOtherActivity
 import com.project.test.utils.SharedPreferences
 import com.project.test.utils.SharedViewModel
 import com.project.test.utils.SpannableString
+import com.vicmikhailau.maskededittext.MaskedFormatter
+import com.vicmikhailau.maskededittext.MaskedWatcher
 
 
 class FinalRegistrationFragment : Fragment() {
@@ -278,6 +280,13 @@ class FinalRegistrationFragment : Fragment() {
                         v.findViewById<AppCompatButton>(R.id.operator_button).setOnClickListener {
                             binding.nonConformityContainer.removeView(v)
                         }
+                        v.findViewById<AppCompatEditText>(R.id.edit_text).run {
+                            text =
+                                Editable.Factory.getInstance().newEditable("F")
+                            val formatter = MaskedFormatter("F##-###")
+                            addTextChangedListener(MaskedWatcher(formatter, this))
+                        }
+
                         v.findViewById<TextView>(R.id.title).text = getString(R.string.Non_Code)
                         binding.nonConformityContainer.addView(v)
                     }
@@ -311,15 +320,19 @@ class FinalRegistrationFragment : Fragment() {
 
                         binding.inboundTrackingContainer.children.forEach { view ->
                             Log.d("~~~~~~~~~~v", view.toString())
-                            listInboundTrackingCode1.add(
+                            val tmp =
                                 view.findViewWithTag<AppCompatEditText>("input_code")?.text.toString()
-                            )
+                            if (tmp != "" || tmp.isNotEmpty()) {
+                                listInboundTrackingCode1.add(tmp)
+                            }
                         }
                         binding.nonConformityContainer.children.forEach { view ->
                             Log.d("~~~~~~~~~~c", view.toString())
-                            listNonConformityCode1.add(
+                            val tmp =
                                 view.findViewWithTag<AppCompatEditText>("input_code")?.text.toString()
-                            )
+                            if (tmp != "" || tmp.isNotEmpty()) {
+                                listNonConformityCode1.add(tmp)
+                            }
                         }
 
 
@@ -363,7 +376,15 @@ class FinalRegistrationFragment : Fragment() {
                         builder.append(spannableString1);
                         builder.append(spannableString2);
                         val alert =
-                            Alert(requireActivity(), null, null, builder, "تایید", "لغو", "هشدار")
+                            Alert(
+                                requireActivity(),
+                                null,
+                                null,
+                                builder,
+                                "تایید",
+                                "لغو",
+                                "هشدار"
+                            )
 
                         alert.setOnClick {
                             val check = SetData(requireActivity()).finalReport(dataInfo)

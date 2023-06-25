@@ -315,7 +315,7 @@
                         android:background="@drawable/add_final_registr"
                         tools:ignore="RtlHardcoded" />
 
-                    <androidx.appcompat.widget.AppCompatEditText
+                    <com.vicmikhailau.maskededittext.MaskedEditText
                         android:id="@+id/edit_text_5_final"
                         android:layout_width="180dp"
                         android:layout_height="35dp"
@@ -329,7 +329,25 @@
                         android:paddingRight="15dp"
                         android:textColor="@color/black"
                         android:textSize="15sp"
-                        tools:ignore="RtlHardcoded,RtlSymmetry" />
+                        android:text="F"
+                        tools:ignore="RtlHardcoded,RtlSymmetry"
+                        app:mask="F##-###" />
+
+<!--                    <androidx.appcompat.widget.AppCompatEditText-->
+<!--                        android:id="@+id/edit_text_5_final"-->
+<!--                        android:layout_width="180dp"-->
+<!--                        android:layout_height="35dp"-->
+<!--                        android:background="@drawable/edit_text_info"-->
+<!--                        android:fontFamily="@font/vazirmatn_medium"-->
+<!--                        android:inputType="text"-->
+<!--                        android:maxLines="1"-->
+<!--                        android:tag="input_code"-->
+<!--                        android:paddingLeft="15dp"-->
+<!--                        android:paddingTop="0dp"-->
+<!--                        android:paddingRight="15dp"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="15sp"-->
+<!--                        tools:ignore="RtlHardcoded,RtlSymmetry" />-->
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="130dp"

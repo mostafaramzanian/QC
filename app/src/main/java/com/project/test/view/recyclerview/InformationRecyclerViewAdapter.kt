@@ -39,6 +39,7 @@ import com.project.test.utils.CurrentTime
 import com.project.test.utils.CustomToast
 import com.project.test.utils.SharedPreferences
 import com.project.test.utils.SharedViewModel
+import com.project.test.utils.Utils
 
 
 class InformationRecyclerViewAdapter(
@@ -86,35 +87,35 @@ class InformationRecyclerViewAdapter(
         fun setData(data: DataInfo) {
             val sharedPreferences = SharedPreferences(context)
 
-            binding.editText1.setText("L0")
+//            binding.editText1.setText("L0")
             binding.editText1.setSelection(binding.editText1.text!!.length)
-            binding.editText1.addTextChangedListener(object : TextWatcher {
-                var len = 0
-
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                    val str: String = binding.editText1.text.toString()
-                    len = str.length
-                }
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    var str = s.toString()
-                    val string = binding.editText1.text.toString()
-                    if (string.length == 5  && len < string.length) {
-                        str += "-"
-                        binding.editText1.setText(str)
-                        binding.editText1.setSelection(str.length)
-                    }
-                    if (count < before) {
-                        if (binding.editText1.text!!.length <= 2) {
-                            binding.editText1.setText("L0")
-                            binding.editText1.setSelection(binding.editText1.text!!.length)
-                        } else {
-                            //  Toast.makeText(context, "Backspace pressed", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-
-                override fun afterTextChanged(s: Editable?) {}
-            })
+//            binding.editText1.addTextChangedListener(object : TextWatcher {
+//                var len = 0
+//
+//                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//                    val str: String = binding.editText1.text.toString()
+//                    len = str.length
+//                }
+//                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//                    var str = s.toString()
+//                    val string = binding.editText1.text.toString()
+//                    if (string.length == 5  && len < string.length) {
+//                        str += "-"
+//                        binding.editText1.setText(str)
+//                        binding.editText1.setSelection(str.length)
+//                    }
+//                    if (count < before) {
+//                        if (binding.editText1.text!!.length <= 2) {
+//                            binding.editText1.setText("L0")
+//                            binding.editText1.setSelection(binding.editText1.text!!.length)
+//                        } else {
+//                            //  Toast.makeText(context, "Backspace pressed", Toast.LENGTH_SHORT).show()
+//                        }
+//                    }
+//                }
+//
+//                override fun afterTextChanged(s: Editable?) {}
+//            })
 
             val importanceLevel = "درجه اهمیت: (${data.importanceLevel})"
             val title = "عنوان مشخصه: ${data.name}"
@@ -144,7 +145,7 @@ class InformationRecyclerViewAdapter(
                 }
                 if (binding.editText1.text.toString() != "") {
                     val color = ContextCompat.getColor(context, R.color.red)
-                    val observe = binding.editText1.text.toString()
+                    val observe =  binding.editText1.text.toString().uppercase()
                     val station = sharedPreferences.getString("csValueSelected", "")
                     val quality = sharedPreferences.getString("cpValueSelected", "")
                     val text = "کاربر گرامی شما در حال ثبت اطلاعات برای ایستگاه کنترلی $station"
@@ -177,7 +178,7 @@ class InformationRecyclerViewAdapter(
                         binding.editText2.text.toString(),
                         currentTime,
                         reportOrder!!,
-                        binding.editText1.text.toString()
+                        binding.editText1.text.toString().uppercase()
                     )
                     val alert = Alert(context, null, null, builder, "تایید", "لغو", "هشدار")
                     alert.setOnClick(View.OnClickListener {
@@ -301,7 +302,7 @@ class InformationRecyclerViewAdapter(
                 spinner(binding,animUp)
             }
             var idTool = idTools[0]
-            var cF: Float = correctionFactor[0]
+            var cF: Double = correctionFactor[0]
             //val model1 = ViewModelProvider(context1)[SharedViewModel::class.java]
             binding.spinnerViewInfo.setOnSpinnerItemSelectedListener<String> { oldIndex, oldItem, newIndex, newItem ->
                 binding.arrowSpinnerInfo.startAnimation(animUp)
@@ -315,14 +316,14 @@ class InformationRecyclerViewAdapter(
                 }
                 if (newIndex != 0) {
                     binding.editText1.inputType = TYPE_CLASS_NUMBER or TYPE_NUMBER_FLAG_DECIMAL
-                    if (binding.editText1.text!!.isNotEmpty() && (binding.editText1.text.toString().toFloatOrNull() != null || binding.editText1.text.toString().toIntOrNull() != null)) {
+                    if (binding.editText1.text!!.isNotEmpty() && (binding.editText1.text.toString().toDoubleOrNull() != null || binding.editText1.text.toString().toIntOrNull() != null)) {
                         val value = binding.editText1.text.toString()
                         change(
                             data.acceptableRangeMin,
                             data.acceptableRangeMax,
                             binding,
                             cF,
-                            value.toFloat(),
+                            value.toDouble(),
                             context
                         )
                     }
@@ -334,7 +335,7 @@ class InformationRecyclerViewAdapter(
                 val text = it.toString()
                 if (text != "") {
                     try {
-                            val value = text.toFloat()
+                            val value = text.toDouble()
                             reportValue = change(
                                 data.acceptableRangeMin,
                                 data.acceptableRangeMax,
@@ -359,8 +360,8 @@ class InformationRecyclerViewAdapter(
                             data.acceptableRangeMin,
                             data.acceptableRangeMax,
                             binding,
-                            0f,
-                            0f,
+                            0.0,
+                            0.0,
                             context
                         )
                 }
@@ -576,14 +577,14 @@ class InformationRecyclerViewAdapter(
     }
 
     fun change(
-        min: Float,
-        max: Float,
+        min: Double,
+        max: Double,
         binding: RecyclerInfoBinding,
-        cf: Float,
-        value: Float,
+        cf: Double,
+        value: Double,
         context: Activity
     ): String {
-        val sum = value + cf
+        val sum = Utils.roundOffDecimal(value + cf)
 
         if (value > 0) {
             if ((sum >= min) && (sum <= max)) {

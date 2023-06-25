@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
@@ -76,17 +75,17 @@ class ShowMoreFormFragment : Fragment() {
                         if (count1 < 100) {
                             tab.customView?.findViewById<TextView>(R.id.counter)?.apply {
                                 text = count1.toString()
-                                textSize = 16f // Change the text size here
-                                size(50, 50)
-                                setMargins(-50, 0, 0, 50)
+//                                textSize = 16f // Change the text size here
+//                                size(50, 50)
+//                                setMargins(-50, 0, 0, 50)
                             }
                         } else {
 //                        tab.customView?.findViewById<ImageView>(R.id.fabCounter1) ?.size(width2, height2)
                             tab.customView?.findViewById<TextView>(R.id.counter)?.apply {
                                 text = "+99"
-                                textSize = 16f // Change the text size here
-                                size(60, 60)
-                                setMargins(-50, 0, 0, 50)
+//                                textSize = 16f // Change the text size here
+//                                size(60, 60)
+//                                setMargins(-50, 0, 0, 50)
                             }
                         }
                     } else {
@@ -167,6 +166,7 @@ private fun View.size(Width: Int, Height: Int) {
         height = Height
     }
 }
+
 private fun View.setMargins(
     left: Int = this.marginLeft,
     top: Int = this.marginTop,

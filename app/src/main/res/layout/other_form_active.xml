@@ -3,6 +3,7 @@
     android:id="@+id/recyclerView_Other_Form"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:layout_margin="20dp"
     android:paddingBottom="80dp" />
 

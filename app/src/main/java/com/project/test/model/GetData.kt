@@ -202,9 +202,9 @@ class GetData(private val context: Activity) {
                 val acceptableRangeTarget =
                     cpStandardParameters.getFloat(cpStandardParameters.getColumnIndexOrThrow("acceptable_range_target"))
                 val acceptableRangeMin =
-                    cpStandardParameters.getFloat(cpStandardParameters.getColumnIndexOrThrow("acceptable_range_min"))
+                    cpStandardParameters.getDouble(cpStandardParameters.getColumnIndexOrThrow("acceptable_range_min"))
                 val acceptableRangeMax =
-                    cpStandardParameters.getFloat(cpStandardParameters.getColumnIndexOrThrow("acceptable_range_max"))
+                    cpStandardParameters.getDouble(cpStandardParameters.getColumnIndexOrThrow("acceptable_range_max"))
                 val acceptableRangeOtherValue =
                     cpStandardParameters.getString(cpStandardParameters.getColumnIndexOrThrow("acceptable_range_other_value"))
                 val sampleAmount =
@@ -548,24 +548,24 @@ class GetData(private val context: Activity) {
     }
 
 
-    fun tools(toolType: Int): Triple<MutableList<Int>, MutableList<String>, MutableList<Float>> {
+    fun tools(toolType: Int): Triple<MutableList<Int>, MutableList<String>, MutableList<Double>> {
         val tools = Query(context).tools(
             toolType, sharedPreferences.getInt("process_id", 0)
         )
         val idTools = mutableListOf<Int>()
         val listTools = mutableListOf<String>()
-        val correctionFactor = mutableListOf<Float>()
+        val correctionFactor = mutableListOf<Double>()
 
         if (tools.moveToFirst()) {
             do {
                 idTools.add(tools.getInt(tools.getColumnIndexOrThrow("id")))
                 listTools.add(tools.getString(tools.getColumnIndexOrThrow("title")))
-                correctionFactor.add(tools.getFloat(tools.getColumnIndexOrThrow("correction_factor")))
+                correctionFactor.add(tools.getDouble(tools.getColumnIndexOrThrow("correction_factor")))
             } while (tools.moveToNext())
         }
         idTools.add(0, 0)
         listTools.add(0, "انتخاب کنید")
-        correctionFactor.add(0, 0f)
+        correctionFactor.add(0, 0.0)
         tools.close()
         return Triple(idTools, listTools, correctionFactor)
     }
