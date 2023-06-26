@@ -10,6 +10,7 @@ import android.text.SpannableString
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +29,7 @@ import com.project.test.utils.CustomToast
 import com.project.test.utils.GoToOtherActivity
 import com.project.test.utils.MyService
 import com.project.test.utils.SharedPreferences
+import com.toxicbakery.bcrypt.Bcrypt
 import java.util.Locale
 
 
@@ -92,7 +94,7 @@ class LoginActivity : AppCompatActivity() {
 
         binding.edtInputUsername.addTextChangedListener {
             binding.edtInputUsername.setBackgroundResource(R.drawable.edit_text_bg)
-            binding.username.defaultHintTextColor = colorStateListAlertDisable;
+            binding.username.defaultHintTextColor = colorStateListAlertDisable
 //            binding.hintUsername.setTextColor(
 //                ContextCompat.getColor(
 //                    this,
@@ -105,7 +107,7 @@ class LoginActivity : AppCompatActivity() {
 
         binding.edtInputPassword.addTextChangedListener {
             binding.edtInputPassword.setBackgroundResource(R.drawable.edit_text_bg)
-            binding.password.defaultHintTextColor = colorStateListAlertDisable;
+            binding.password.defaultHintTextColor = colorStateListAlertDisable
 //            binding.hintPassword.setTextColor(
 //                ContextCompat.getColor(
 //                    this,
@@ -125,16 +127,16 @@ class LoginActivity : AppCompatActivity() {
             binding.alertPass.visibility = View.GONE
         }
         binding.showPassword.setOnClickListener {
-            val start = binding.edtInputPassword.selectionStart;
-            val end = binding.edtInputPassword.selectionEnd;
+            val start = binding.edtInputPassword.selectionStart
+            val end = binding.edtInputPassword.selectionEnd
             if (binding.showPassword.isChecked) {
                 binding.edtInputPassword.transformationMethod =
                     HideReturnsTransformationMethod.getInstance()
-                binding.edtInputPassword.setSelection(start, end);
+                binding.edtInputPassword.setSelection(start, end)
             } else {
                 binding.edtInputPassword.transformationMethod =
                     PasswordTransformationMethod.getInstance()
-                binding.edtInputPassword.setSelection(start, end);
+                binding.edtInputPassword.setSelection(start, end)
 
             }
         }
@@ -155,8 +157,15 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
             val tableLogin = Query(this).login(user)
-            if (validation(user, password)) {
-                if (tableLogin.moveToFirst()) {
+            if (tableLogin.moveToFirst()) {
+                Log.d("~~~~~~~p", tableLogin.getString(tableLogin.getColumnIndexOrThrow("passwd")))
+                if (validation(
+                        user,
+                        password,
+                        tableLogin.getString(tableLogin.getColumnIndexOrThrow("passwd"))
+                    )
+                ) {
+
                     val userId = tableLogin.getInt(tableLogin.getColumnIndexOrThrow("id"))
                     val name = tableLogin.getString(tableLogin.getColumnIndexOrThrow("firstname"))
                     val lastName =
@@ -167,8 +176,7 @@ class LoginActivity : AppCompatActivity() {
                     val userType1 = Query(this).userTypes(userType)
                     var userType2 = ""
                     if (userType1.moveToFirst()) {
-                        userType2 =
-                            userType1.getString(userType1.getColumnIndexOrThrow("title"))
+                        userType2 = userType1.getString(userType1.getColumnIndexOrThrow("title"))
                     }
 
                     if (userType == "QC_EXPERT" || userType == "QC_REVIEWER" || userType == "QUALITY_ASSURANCE_EXPERT") {
@@ -261,29 +269,22 @@ class LoginActivity : AppCompatActivity() {
                         }
                     }
                 }
+
+
+                tableLogin.close()
+
+            } else {
+                val text = "نام کاربری یا گذرواژه اشتباه است"
+                val spannableString = SpannableString(text)
+                spannableString.setSpan(
+                    ForegroundColorSpan(ContextCompat.getColor(this, R.color.white)),
+                    0,
+                    text.length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                CustomToast(this).toastAlert(spannableString, null)
             }
-
-            tableLogin.close()
-
-
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-    }
-
-    override fun onPause() {
-        super.onPause()
-    }
-
-    override fun onStop() {
-        super.onStop()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
 
@@ -321,7 +322,7 @@ class LoginActivity : AppCompatActivity() {
 
     // private val alert = Alert(this)
     // این متد مسئول اعتبار سنجی ورودی های کاربر است
-    private fun validation(user: String, pass: String): Boolean {
+    private fun validation(user: String, pass: String, hash_passwd: String): Boolean {
 
         val tableLogin = Query(this).login(user)
 
@@ -359,8 +360,9 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-
         if (isEmptyUser && isEmptyPassword) {
+
+
             validUserPass = when {
                 tableLogin.count == 0 -> {
                     val text = "نام کاربری اشتباه است!"
@@ -375,7 +377,7 @@ class LoginActivity : AppCompatActivity() {
                     false
                 }
 
-                pass != "1" -> {
+                !Bcrypt.verify(pass, hash_passwd.toByteArray()) -> {
 
                     val text = "رمز عبور اشتباه است!"
                     val spannableString = SpannableString(text)

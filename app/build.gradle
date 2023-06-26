@@ -50,6 +50,7 @@ dependencies {
     implementation 'org.mindrot:jbcrypt:0.4'
     implementation 'com.github.samanzamani:PersianDate:1.6.1'
     implementation 'com.google.firebase:firebase-firestore-ktx:24.6.1'
-    implementation  'io.github.vicmikhailau:MaskedEditText:4.0.7'
+    implementation 'io.github.vicmikhailau:MaskedEditText:4.0.7'
+    implementation "com.ToxicBakery.library.bcrypt:bcrypt:1.0.9"
 
 }
