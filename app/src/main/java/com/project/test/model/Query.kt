@@ -6,7 +6,8 @@ import android.database.Cursor
 import android.widget.Toast
 
 class Query(private val context: Activity) {
-    private val db = Database(context).writableDatabase
+    private val myDatabase = Database(context).getInstance()
+    private val db = myDatabase.writableDatabase
     fun login(user: String): Cursor {
         val cursor =
             db.rawQuery("SELECT * FROM users WHERE username ='$user' AND is_deleted = 0", null)

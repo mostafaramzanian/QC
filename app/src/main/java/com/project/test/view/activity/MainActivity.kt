@@ -28,6 +28,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.BuildConfig
 import com.project.test.R
 import com.project.test.databinding.ActivityMainBinding
+import com.project.test.model.Database
 import com.project.test.utils.MyService
 import com.project.test.utils.NavigationApp
 import com.project.test.utils.SharedPreferences
@@ -239,7 +240,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        Database(this).getInstance().close()
         super.onDestroy()
+
+
 //        val rememberMe = SharedPreferences(this).getBoolean("rememberMe", false)
 //        if (rememberMe) {
 //            startService(this)
