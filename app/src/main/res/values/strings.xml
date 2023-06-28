@@ -78,4 +78,6 @@
     <string name="rememberMe">مرا به خاطر بسپار</string>
     <string name="services">سرویس برنامه کنترل کیفیت در حال اجرا است.</string>
     <string name="item_not_found">موردی وجود ندارد</string>
+    <string name="success_login">ورود با موفقیت انجام شد</string>
+    <string name="alert_exit">برای خروج، کلید بازگشت را مجدداً فشار دهید</string>
 </resources>

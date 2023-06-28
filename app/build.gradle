@@ -52,5 +52,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx:24.6.1'
     implementation 'io.github.vicmikhailau:MaskedEditText:4.0.7'
     implementation "com.ToxicBakery.library.bcrypt:bcrypt:1.0.9"
-
+    implementation "com.github.koushikcse:LoadingButton:1.7"
 }

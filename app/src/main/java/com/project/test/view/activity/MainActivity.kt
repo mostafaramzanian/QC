@@ -3,8 +3,6 @@ package com.project.test.view.activity
 
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -15,17 +13,13 @@ import android.os.StrictMode.VmPolicy
 import android.provider.Settings
 import android.view.MotionEvent
 import android.view.View
-import android.view.animation.TranslateAnimation
-import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.firebase.BuildConfig
 import com.project.test.R
 import com.project.test.databinding.ActivityMainBinding
 import com.project.test.utils.MyService
@@ -59,8 +53,6 @@ class MainActivity : AppCompatActivity() {
                     val text= "$column1 $column2 $column3 $column4"
                     Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
                 }
-
-
          */
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -218,6 +210,9 @@ class MainActivity : AppCompatActivity() {
         //defaultFragment(supportFragmentManager)
     }
 
+    override fun onBackPressed() {
+    }
+
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         if (event?.action == MotionEvent.ACTION_DOWN) {
             // stopService(Intent(this, MyService::class.java))
@@ -235,7 +230,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-      //  startService(this)
+        //  startService(this)
     }
 
     override fun onDestroy() {
@@ -252,7 +247,7 @@ class MainActivity : AppCompatActivity() {
     private fun requestFilePermissions() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
-           // val uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID)
+            // val uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID)
             val uri = Uri.parse("package:" + applicationContext.packageName)
             startActivity(Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri))
         } else {

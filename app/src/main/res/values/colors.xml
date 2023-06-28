@@ -23,5 +23,7 @@
     <color name="tab_icon_active">#CCCCCC</color>
     <color name="tab_icon_inactive">#ECECEC</color>
 
+    <color name="error_color">#830a00</color>
+    <color name="success_color">#ffffff</color>
 
 </resources>

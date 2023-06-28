@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".view.activity.MainActivity">
 
     <include
@@ -23,102 +23,6 @@
         android:visibility="visible"
         app:defaultNavHost="true"
         app:navGraph="@navigation/test_nav" />
-
-
-    <!--    <androidx.appcompat.widget.AppCompatImageView-->
-    <!--        android:id="@+id/arrow"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:layout_marginLeft="70dp"-->
-    <!--        android:rotation="20"-->
-    <!--        android:src="@drawable/help_icon"-->
-    <!--        android:visibility="gone"-->
-    <!--        app:layout_constraintBottom_toTopOf="@+id/top_guideline"-->
-    <!--        app:layout_constraintHeight_percent="0.07"-->
-    <!--        app:layout_constraintLeft_toLeftOf="@+id/left_guideline"-->
-    <!--        app:layout_constraintRight_toLeftOf="@+id/right_guideline"-->
-    <!--        app:layout_constraintWidth_percent="0.07"-->
-    <!--        tools:ignore="RtlHardcoded" />-->
-
-<!--    <LinearLayout-->
-<!--        android:id="@+id/fragmentsContainer"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_weight="1"-->
-<!--        android:orientation="vertical"-->
-<!--        android:visibility="gone" />-->
-
-    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-    <!--        android:id="@+id/show_more"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:visibility="gone"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--        app:layout_constraintRight_toRightOf="parent">-->
-
-    <!--        <androidx.appcompat.widget.AppCompatImageView-->
-    <!--            android:id="@+id/image1"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="0dp"-->
-    <!--            android:alpha="0.6"-->
-    <!--            android:background="#575353"-->
-    <!--            app:layout_constraintBottom_toTopOf="@id/image2"-->
-    <!--            app:layout_constraintHeight_percent="0.67"-->
-    <!--            app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--            app:layout_constraintRight_toRightOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--        <androidx.appcompat.widget.AppCompatImageView-->
-    <!--            android:id="@+id/image2"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="0dp"-->
-    <!--            android:layout_marginTop="10dp"-->
-    <!--            android:background="@drawable/view_bg"-->
-    <!--            android:visibility="gone"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintHeight_percent="0.4"-->
-    <!--            app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--            app:layout_constraintRight_toRightOf="parent" />-->
-
-    <!--        <androidx.appcompat.widget.AppCompatImageView-->
-    <!--            android:id="@+id/image3"-->
-    <!--            android:layout_width="0dp"-->
-    <!--            android:layout_height="4dp"-->
-    <!--            android:layout_marginTop="10dp"-->
-    <!--            android:background="@color/black"-->
-    <!--            app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--            app:layout_constraintRight_toRightOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="@id/image2"-->
-    <!--            app:layout_constraintWidth_percent="0.08" />-->
-
-    <!--        <androidx.appcompat.widget.AppCompatImageButton-->
-    <!--            android:id="@+id/exit_icon"-->
-    <!--            android:layout_width="0dp"-->
-    <!--            android:layout_height="0dp"-->
-    <!--            android:layout_marginTop="50dp"-->
-    <!--            android:layout_marginRight="10dp"-->
-    <!--            android:background="@drawable/logout"-->
-    <!--            app:layout_constraintHeight_percent="0.04"-->
-    <!--            app:layout_constraintRight_toLeftOf="@+id/text_exit"-->
-    <!--            app:layout_constraintTop_toTopOf="@+id/image2"-->
-    <!--            app:layout_constraintWidth_percent="0.04"-->
-    <!--            tools:ignore="RtlHardcoded" />-->
-
-    <!--        <TextView-->
-    <!--            android:id="@+id/text_exit"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginRight="20dp"-->
-    <!--            android:fontFamily="@font/vazirmatn_medium"-->
-    <!--            android:text="@string/Exit"-->
-    <!--            android:textColor="@color/black"-->
-    <!--            android:textSize="15sp"-->
-    <!--            app:layout_constraintBottom_toBottomOf="@+id/exit_icon"-->
-    <!--            app:layout_constraintRight_toRightOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="@+id/exit_icon"-->
-    <!--            tools:ignore="RtlHardcoded" />-->
-    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/CoordinatorLayout"

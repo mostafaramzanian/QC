@@ -2,7 +2,6 @@ package com.project.test.model
 
 import android.app.Activity
 import android.database.Cursor
-import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
@@ -16,6 +15,7 @@ import com.project.test.dataclass.DataNode
 import com.project.test.dataclass.DataReport
 import com.project.test.dataclass.DataReportActive
 import com.project.test.dataclass.DataReportNotActive
+import com.project.test.dataclass.DataUser
 import com.project.test.utils.CurrentTime
 import com.project.test.utils.CustomToast
 import com.project.test.utils.SharedPreferences
@@ -25,19 +25,16 @@ import com.project.test.utils.SharedViewModel
 class GetData(private val context: Activity) {
     private val sharedPreferences = SharedPreferences(context)
     private val cpId = sharedPreferences.getInt(
-        "cpIdSelected",
-        0
+        "cpIdSelected", 0
     )
     private val csId = sharedPreferences.getInt(
-        "csIdSelected",
-        0
+        "csIdSelected", 0
     )
     private val csName = sharedPreferences.getString(
-        "csValueSelected",
-        ""
+        "csValueSelected", ""
     )
 
-    fun controlStation():MutableList<DataNode>{
+    fun controlStation(): MutableList<DataNode> {
         val processId = SharedPreferences(context).getInt("process_id", 0)
         val controlStation = Query(context).controlStation(processId)
         val nodes = mutableListOf<DataNode>()
@@ -45,7 +42,8 @@ class GetData(private val context: Activity) {
         if (controlStation.moveToFirst()) {
             do {
                 val name = controlStation.getString(controlStation.getColumnIndexOrThrow("name"))
-                val parent = controlStation.getString(controlStation.getColumnIndexOrThrow("parent"))
+                val parent =
+                    controlStation.getString(controlStation.getColumnIndexOrThrow("parent"))
                 val id = controlStation.getInt(controlStation.getColumnIndexOrThrow("id"))
                 val node = DataNode(id, name, parent)
                 val parentNode = nodes.find { it.id.toString() == parent }
@@ -60,13 +58,11 @@ class GetData(private val context: Activity) {
         } else {
             CustomToast(context).toastAlert(null, "ایستگاه کنترلی یافت نشد!")
         }
- return (nodes)
+        return (nodes)
     }
 
-     fun findNode1(
-        context: Activity,
-        nods: MutableList<DataNode>,
-        idSelect: String
+    fun findNode1(
+        context: Activity, nods: MutableList<DataNode>, idSelect: String
     ): MutableList<DataCp> {
 
         val cp = Query(context).cp(idSelect)
@@ -87,7 +83,7 @@ class GetData(private val context: Activity) {
                     // val index = list.indexOf( SharedPreferences(context).getString("userType", ""))
                     val index = list.indexOf("MASTER_WORKER")
                     if (index != -1 && cpName != null) {
-                        val data = DataCp(cpId,cpName,product)
+                        val data = DataCp(cpId, cpName, product)
                         listName.add(data)
                         // listId.add(cpId)
                     }
@@ -99,15 +95,12 @@ class GetData(private val context: Activity) {
     }
 
 
-
-
     fun infoRegister(isDraft: Int): MutableList<DataInfoRegister> {
 
         val cpReports = Query(context).cpSelectReports1(cpId, isDraft)
         val dataInfoRegister = mutableListOf<DataInfoRegister>()
         if (cpReports.moveToFirst()) {
-            val id =
-                cpReports.getInt(cpReports.getColumnIndexOrThrow("id"))
+            val id = cpReports.getInt(cpReports.getColumnIndexOrThrow("id"))
             val cpReportsParameters = Query(context).cpReportsParameters(id)
 
             if (cpReportsParameters.moveToFirst()) {
@@ -139,12 +132,11 @@ class GetData(private val context: Activity) {
                         Query(context).cpStandardParametersSelected(parameterId)
                     var name: String? = null
                     if (idCpStandardParameters.moveToFirst()) {
-                        name =
-                            idCpStandardParameters.getString(
-                                idCpStandardParameters.getColumnIndexOrThrow(
-                                    "name"
-                                )
+                        name = idCpStandardParameters.getString(
+                            idCpStandardParameters.getColumnIndexOrThrow(
+                                "name"
                             )
+                        )
                     }
                     try {
                         val data = DataInfoRegister(
@@ -291,17 +283,13 @@ class GetData(private val context: Activity) {
     }
 
     fun count(
-        context: ViewModelStoreOwner,
-        context1: LifecycleOwner,
-        context2: Activity,
-        reportId: Int
+        context: ViewModelStoreOwner, context1: LifecycleOwner, context2: Activity, reportId: Int
     ): Int {
         val cpReports = Query(context2).cpSelectReports(cpId)
         var sum = 0
         val model1 = ViewModelProvider(context)[SharedViewModel::class.java]
         if (cpReports.moveToFirst()) {
-            val id =
-                cpReports.getInt(cpReports.getColumnIndexOrThrow("id"))
+            val id = cpReports.getInt(cpReports.getColumnIndexOrThrow("id"))
             val cpReportsParameters = Query(context2).cpReportsParameters(id)
             sum = cpReportsParameters.count
             model1.sum(sum.toString())
@@ -324,20 +312,14 @@ class GetData(private val context: Activity) {
         val dataInfo = mutableListOf<DataReport>()
         if (cpReports.moveToFirst()) {
             do {
-                val cpReport =
-                    cpReports.getInt(cpReports.getColumnIndexOrThrow("cp_report"))
+                val cpReport = cpReports.getInt(cpReports.getColumnIndexOrThrow("cp_report"))
                 val productName =
                     cpReports.getString(cpReports.getColumnIndexOrThrow("productName"))
-                val cpId =
-                    cpReports.getInt(cpReports.getColumnIndexOrThrow("cp_id"))
-                val csId =
-                    cpReports.getInt(cpReports.getColumnIndexOrThrow("station_id"))
-                val cpName =
-                    cpReports.getString(cpReports.getColumnIndexOrThrow("cp_code"))
-                val csName1 =
-                    cpReports.getString(cpReports.getColumnIndexOrThrow("name"))
-                val createTime =
-                    cpReports.getString(cpReports.getColumnIndexOrThrow("firstTime"))
+                val cpId = cpReports.getInt(cpReports.getColumnIndexOrThrow("cp_id"))
+                val csId = cpReports.getInt(cpReports.getColumnIndexOrThrow("station_id"))
+                val cpName = cpReports.getString(cpReports.getColumnIndexOrThrow("cp_code"))
+                val csName1 = cpReports.getString(cpReports.getColumnIndexOrThrow("name"))
+                val createTime = cpReports.getString(cpReports.getColumnIndexOrThrow("firstTime"))
 
                 val cpReports1 = Query(context).cpReportsJoin(cpReport)
                 val cpReportsParameters = Query(context).cpReportsParameters(cpReport)
@@ -372,16 +354,11 @@ class GetData(private val context: Activity) {
         val dataInfo = mutableListOf<DataDocument>()
         if (cursor.moveToFirst()) {
             do {
-                val subject =
-                    cursor.getString(cursor.getColumnIndexOrThrow("title"))
-                val code =
-                    cursor.getString(cursor.getColumnIndexOrThrow("document_code"))
-                val attachment =
-                    cursor.getString(cursor.getColumnIndexOrThrow("attachment"))
-                val description =
-                    cursor.getString(cursor.getColumnIndexOrThrow("description"))
-                val documentType =
-                    cursor.getString(cursor.getColumnIndexOrThrow("name"))
+                val subject = cursor.getString(cursor.getColumnIndexOrThrow("title"))
+                val code = cursor.getString(cursor.getColumnIndexOrThrow("document_code"))
+                val attachment = cursor.getString(cursor.getColumnIndexOrThrow("attachment"))
+                val description = cursor.getString(cursor.getColumnIndexOrThrow("description"))
+                val documentType = cursor.getString(cursor.getColumnIndexOrThrow("name"))
                 val data = DataDocument(
                     subject,
                     code,
@@ -394,6 +371,34 @@ class GetData(private val context: Activity) {
         }
         cursor.close()
         return dataInfo
+    }
+
+    fun getUser(username: String): DataUser? {
+        val cursor = Query(context).login(username)
+        val dataUser: DataUser
+
+        try {
+            if (cursor.moveToFirst()) {
+
+                dataUser = DataUser(
+                    cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("code")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("username")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("passwd")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("firstname")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("lastname")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("user_type")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("access_level"))
+                )
+                cursor.close()
+                return dataUser
+            } else {
+                return null
+            }
+        } catch (_: Exception) {
+            return null
+        }
+
     }
 
     fun insertReportFragment(cpIndexSelected: Int): Int {
@@ -436,10 +441,7 @@ class GetData(private val context: Activity) {
             val time = cursor.getString(cursor.getColumnIndexOrThrow("time"))
 
             val data = DataReportActive(
-                count,
-                csName,
-                cpName,
-                time
+                count, csName, cpName, time
             )
             dataInfo.add(data)
         }
@@ -462,10 +464,7 @@ class GetData(private val context: Activity) {
             val cpName = cursor.getString(cursor.getColumnIndexOrThrow("cp_code"))
             val time = cursor.getString(cursor.getColumnIndexOrThrow("time"))
             val data = DataReportNotActive(
-                count,
-                csName,
-                cpName,
-                time
+                count, csName, cpName, time
             )
             dataInfo.add(data)
         }
@@ -482,31 +481,16 @@ class GetData(private val context: Activity) {
         val dataInfo = mutableListOf<DataReport>()
         if (cpReports.moveToFirst()) {
             do {
-                val cpReport =
-                    cpReports.getInt(cpReports.getColumnIndexOrThrow("cp_report"))
-                val cpId =
-                    cpReports.getInt(cpReports.getColumnIndexOrThrow("cp_id"))
-                val csId =
-                    cpReports.getInt(cpReports.getColumnIndexOrThrow("station_id"))
-                val cpName =
-                    cpReports.getString(cpReports.getColumnIndexOrThrow("cp_code"))
-                val csName1 =
-                    cpReports.getString(cpReports.getColumnIndexOrThrow("name"))
-                val createTime =
-                    cpReports.getString(cpReports.getColumnIndexOrThrow("firstTime"))
+                val cpReport = cpReports.getInt(cpReports.getColumnIndexOrThrow("cp_report"))
+                val cpId = cpReports.getInt(cpReports.getColumnIndexOrThrow("cp_id"))
+                val csId = cpReports.getInt(cpReports.getColumnIndexOrThrow("station_id"))
+                val cpName = cpReports.getString(cpReports.getColumnIndexOrThrow("cp_code"))
+                val csName1 = cpReports.getString(cpReports.getColumnIndexOrThrow("name"))
+                val createTime = cpReports.getString(cpReports.getColumnIndexOrThrow("firstTime"))
                 val lastTime =
                     cpReports.getString(cpReports.getColumnIndexOrThrow("completed_datetime"))
                 val data = DataReport(
-                    cpId,
-                    csId,
-                    cpReport,
-                    csName1,
-                    cpName,
-                    createTime,
-                    lastTime,
-                    "غیر فعال",
-                    "",
-                    0
+                    cpId, csId, cpReport, csName1, cpName, createTime, lastTime, "غیر فعال", "", 0
                 )
                 dataInfo.add(data)
             } while (cpReports.moveToNext())
@@ -522,8 +506,7 @@ class GetData(private val context: Activity) {
             do {
                 val productTrackingCode =
                     cpReports.getString(cpReports.getColumnIndexOrThrow("product_tracking_code"))
-                val shift =
-                    cpReports.getInt(cpReports.getColumnIndexOrThrow("shift"))
+                val shift = cpReports.getInt(cpReports.getColumnIndexOrThrow("shift"))
                 val operatorName =
                     cpReports.getString(cpReports.getColumnIndexOrThrow("operator_name"))
                 val productionCount =
