@@ -1,7 +1,6 @@
 package com.project.test.view.recyclerview
 
 import android.app.Activity
-import android.content.Context
 import android.text.Editable
 import android.text.InputType.TYPE_CLASS_NUMBER
 import android.text.InputType.TYPE_CLASS_TEXT
@@ -11,15 +10,14 @@ import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
+import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
@@ -87,35 +85,47 @@ class InformationRecyclerViewAdapter(
         fun setData(data: DataInfo) {
             val sharedPreferences = SharedPreferences(context)
 
-//            binding.editText1.setText("L0")
-            binding.editText1.setSelection(binding.editText1.text!!.length)
+//            binding.editText1.setText("L")
+//            binding.editText1.setSelection(binding.editText1.text!!.length)
+//            var str=""
 //            binding.editText1.addTextChangedListener(object : TextWatcher {
 //                var len = 0
-//
 //                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-//                    val str: String = binding.editText1.text.toString()
+//                     str = binding.editText1.text.toString()
 //                    len = str.length
 //                }
 //                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 //                    var str = s.toString()
 //                    val string = binding.editText1.text.toString()
-//                    if (string.length == 5  && len < string.length) {
+//                    if (string.length == 5  && len < string.length && !string.contains("-")) {
 //                        str += "-"
 //                        binding.editText1.setText(str)
 //                        binding.editText1.setSelection(str.length)
 //                    }
 //                    if (count < before) {
 //                        if (binding.editText1.text!!.length <= 2) {
-//                            binding.editText1.setText("L0")
-//                            binding.editText1.setSelection(binding.editText1.text!!.length)
+////                            binding.editText1.setText("L")
+////                            binding.editText1.setSelection(binding.editText1.text!!.length)
 //                        } else {
 //                            //  Toast.makeText(context, "Backspace pressed", Toast.LENGTH_SHORT).show()
 //                        }
 //                    }
 //                }
-//
 //                override fun afterTextChanged(s: Editable?) {}
 //            })
+//
+//            binding.editText1.setOnKeyListener(object : View.OnKeyListener {
+//                override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
+//                    if (keyCode == KeyEvent.KEYCODE_DEL && !binding.editText1.text.toString().startsWith("L")) {
+//                        binding.editText1.setText(str)
+//                        binding.editText1.setSelection(binding.editText1.text.toString().length)
+//                        return true
+//                    }
+//                    return false
+//                }
+//            })
+
+
 
             val importanceLevel = "درجه اهمیت: (${data.importanceLevel})"
             val title = "عنوان مشخصه: ${data.name}"
