@@ -32,7 +32,13 @@ class DocumentRecyclerViewAdapter(
         fun setData(data: DataDocument) {
             binding.txtTitleDoc1.text = data.subject
             binding.codeDoc1.text = data.code
-            binding.btnDoc.setOnClickListener {
+            binding.type.text = data.document_type
+            if(data.description=="") {
+                binding.description.text ="توضیحاتی ثبت نشده است"
+            }else{
+                binding.description.text = data.description
+            }
+            binding.root.setOnClickListener {
 //                val appSpecificExternalStorageDirectory =
 //                    context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
 

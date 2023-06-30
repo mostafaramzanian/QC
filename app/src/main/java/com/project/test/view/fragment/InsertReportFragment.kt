@@ -1,22 +1,18 @@
 package com.project.test.view.fragment
 
-import android.app.Activity
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.project.test.R
 import com.project.test.databinding.InsertReportFragmentBinding
-import com.project.test.dataclass.DataCp
 import com.project.test.dataclass.DataNode
 import com.project.test.model.GetData
-import com.project.test.model.Query
 import com.project.test.utils.CustomToast
 import com.project.test.utils.NavigationApp
 import com.project.test.utils.SharedPreferences
@@ -41,7 +37,7 @@ class InsertReportFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-        model.showHide("Hide")
+        model.showHide("show")
 
         val nodes = GetData(requireActivity()).controlStation()
 
@@ -234,8 +230,7 @@ class InsertReportFragment : Fragment() {
                             parentFragmentManager,
                             R.id.fragmentContainer
                         ).navigationForward(
-                            R.id.action_insertFromFragment_to_showMoreFormFragment,
-                            ""
+                           "ShowMoreFormFragment"
                         )
                         sharedPreferences.putString(
                             "cpValueSelected",
@@ -266,6 +261,7 @@ class InsertReportFragment : Fragment() {
                             CustomToast(requireContext()).toastAlert(
                                 null,
                                 "توجه: کاربری گرامی شما گزارش فعال برای این طرح کیفیت دارید!"
+                                ,15f, Gravity.CENTER
                             )
                         } else {
                             sharedPreferences.putInt(
@@ -285,6 +281,7 @@ class InsertReportFragment : Fragment() {
                         CustomToast(requireContext()).toastAlert(
                             null,
                             "به دلیل عدم انتخاب ایستگاه کنترلی امکان ایجاد فرم گزارش وجود ندارد!"
+                            ,15f, Gravity.CENTER
                         )
                     }
 
@@ -292,6 +289,7 @@ class InsertReportFragment : Fragment() {
                         CustomToast(requireContext()).toastAlert(
                             null,
                             "به دلیل عدم انتخاب طرح کیفیت امکان ایجاد فرم گزارش وجود ندارد!"
+                            ,15f, Gravity.CENTER
                         )
                     }
                 }

@@ -12,17 +12,29 @@ class DatabaseReportsAsJson(private val context: Activity) {
         if (cursorCpReports.moveToFirst()) {
             do {
                 val rowCpReports = mutableMapOf<String, Any?>()
-                rowCpReports["id"] = cursorCpReports.getInt(0)
-                rowCpReports["cp_id"] = cursorCpReports.getInt(1)
-                rowCpReports["station_id"] = cursorCpReports.getInt(2)
-                rowCpReports["created_by_user"] = cursorCpReports.getInt(3)
-                rowCpReports["created_datetime"] = cursorCpReports.getString(4)
-                rowCpReports["product_tracking_code"] = cursorCpReports.getString(5)
-                rowCpReports["is_draft"] = cursorCpReports.getInt(6)
-                rowCpReports["completed_datetime"] = cursorCpReports.getString(7)
-                rowCpReports["shift"] = cursorCpReports.getInt(8)
-                rowCpReports["operator_name"] = cursorCpReports.getString(9)
-                rowCpReports["production_count"] = cursorCpReports.getInt(10)
+
+                rowCpReports["cp_reports_id"] =
+                    cursorCpReports.getInt(cursorCpReports.getColumnIndexOrThrow("cp_reports_id"))
+                rowCpReports["cp_id"] =
+                    cursorCpReports.getInt(cursorCpReports.getColumnIndexOrThrow("cp_id"))
+                rowCpReports["station_id"] =
+                    cursorCpReports.getInt(cursorCpReports.getColumnIndexOrThrow("station_id"))
+                rowCpReports["created_by_user"] =
+                    cursorCpReports.getInt(cursorCpReports.getColumnIndexOrThrow("created_by_user"))
+                rowCpReports["cp_reports_created_datetime"] =
+                    cursorCpReports.getString(cursorCpReports.getColumnIndexOrThrow("cp_reports_created_datetime"))
+                rowCpReports["product_tracking_code"] =
+                    cursorCpReports.getString(cursorCpReports.getColumnIndexOrThrow("product_tracking_code"))
+                rowCpReports["is_draft"] =
+                    cursorCpReports.getInt(cursorCpReports.getColumnIndexOrThrow("is_draft"))
+                rowCpReports["completed_datetime"] =
+                    cursorCpReports.getString(cursorCpReports.getColumnIndexOrThrow("completed_datetime"))
+                rowCpReports["shift"] =
+                    cursorCpReports.getInt(cursorCpReports.getColumnIndexOrThrow("shift"))
+                rowCpReports["operator_name"] =
+                    cursorCpReports.getString(cursorCpReports.getColumnIndexOrThrow("operator_name"))
+                rowCpReports["production_count"] =
+                    cursorCpReports.getInt(cursorCpReports.getColumnIndexOrThrow("production_count"))
 
                 tableCpReports.add(rowCpReports)
             } while (cursorCpReports.moveToNext())
@@ -30,43 +42,55 @@ class DatabaseReportsAsJson(private val context: Activity) {
 
 
         val tableCpReportsInfo = mutableListOf<Map<String, Any?>>()
-        val cursorAllCpReportsInfo = Query(context).allCpReportsInfo()
-        if (cursorAllCpReportsInfo.moveToFirst()) {
+        // val cursorAllCpReportsInfo = Query(context).allCpReportsInfo()
+        if (cursorCpReports.moveToFirst()) {
             do {
                 val rowCpReportsInfo = mutableMapOf<String, Any?>()
-                rowCpReportsInfo["id"] = cursorAllCpReportsInfo.getInt(0)
-                rowCpReportsInfo["cp_report_id"] = cursorAllCpReportsInfo.getInt(1)
-                rowCpReportsInfo["parameter_type"] = cursorAllCpReportsInfo.getString(2)
-                rowCpReportsInfo["parameter_value"] = cursorAllCpReportsInfo.getString(3)
+                rowCpReportsInfo["cp_reports_info_id"] =
+                    cursorCpReports.getInt(cursorCpReports.getColumnIndexOrThrow("cp_reports_info_id"))
+                rowCpReportsInfo["cp_report_id"] =
+                    cursorCpReports.getInt(cursorCpReports.getColumnIndexOrThrow("cp_report_id"))
+                rowCpReportsInfo["parameter_type"] =
+                    cursorCpReports.getString(cursorCpReports.getColumnIndexOrThrow("parameter_type"))
+                rowCpReportsInfo["parameter_value"] =
+                    cursorCpReports.getString(cursorCpReports.getColumnIndexOrThrow("parameter_value"))
+
 
                 tableCpReportsInfo.add(rowCpReportsInfo)
-
-            } while (cursorAllCpReportsInfo.moveToNext())
+            } while (cursorCpReports.moveToNext())
         }
 
 
         val tableCpReportsParameters = mutableListOf<Map<String, Any?>>()
-        val cursorAllCpReportsParameters = Query(context).allCpReportsParameters()
-        if (cursorAllCpReportsParameters.moveToFirst()) {
+        //val cursorAllCpReportsParameters = Query(context).allCpReportsParameters()
+        if (cursorCpReports.moveToFirst()) {
             do {
                 val rowAllCpReportsParameters = mutableMapOf<String, Any?>()
-                rowAllCpReportsParameters["id"] = cursorAllCpReportsParameters.getInt(0)
-                rowAllCpReportsParameters["report_id"] = cursorAllCpReportsParameters.getInt(1)
-                rowAllCpReportsParameters["parameter_id"] = cursorAllCpReportsParameters.getInt(2)
-                rowAllCpReportsParameters["tool_id"] = cursorAllCpReportsParameters.getInt(3)
+                rowAllCpReportsParameters["cp_reports_parameters_id"] =
+                    cursorCpReports.getInt(cursorCpReports.getColumnIndexOrThrow("cp_reports_parameters_id"))
+                rowAllCpReportsParameters["report_id"] =
+                    cursorCpReports.getInt(cursorCpReports.getColumnIndexOrThrow("report_id"))
+                rowAllCpReportsParameters["parameter_id"] =
+                    cursorCpReports.getInt(cursorCpReports.getColumnIndexOrThrow("parameter_id"))
+                rowAllCpReportsParameters["tool_id"] =
+                    cursorCpReports.getInt(cursorCpReports.getColumnIndexOrThrow("tool_id"))
                 rowAllCpReportsParameters["report_value"] =
-                    cursorAllCpReportsParameters.getString(4)
-                rowAllCpReportsParameters["attachment"] = cursorAllCpReportsParameters.getString(5)
-                rowAllCpReportsParameters["description"] = cursorAllCpReportsParameters.getString(6)
-                rowAllCpReportsParameters["status"] = cursorAllCpReportsParameters.getInt(7)
-                rowAllCpReportsParameters["created_datetime"] =
-                    cursorAllCpReportsParameters.getString(8)
-                rowAllCpReportsParameters["report_order"] = cursorAllCpReportsParameters.getInt(9)
+                    cursorCpReports.getString(cursorCpReports.getColumnIndexOrThrow("report_value"))
+                rowAllCpReportsParameters["attachment"] =
+                    cursorCpReports.getString(cursorCpReports.getColumnIndexOrThrow("attachment"))
+                rowAllCpReportsParameters["description"] =
+                    cursorCpReports.getString(cursorCpReports.getColumnIndexOrThrow("description"))
+                rowAllCpReportsParameters["status"] =
+                    cursorCpReports.getInt(cursorCpReports.getColumnIndexOrThrow("status"))
+                rowAllCpReportsParameters["cp_reports_parameters_created_datetime"] =
+                    cursorCpReports.getString(cursorCpReports.getColumnIndexOrThrow("cp_reports_parameters_created_datetime"))
+                rowAllCpReportsParameters["report_order"] =
+                    cursorCpReports.getInt(cursorCpReports.getColumnIndexOrThrow("report_order"))
                 rowAllCpReportsParameters["lab_request_code"] =
-                    cursorAllCpReportsParameters.getInt(10)
+                    cursorCpReports.getInt(cursorCpReports.getColumnIndexOrThrow("lab_request_code"))
 
                 tableCpReportsParameters.add(rowAllCpReportsParameters)
-            } while (cursorAllCpReportsParameters.moveToNext())
+            } while (cursorCpReports.moveToNext())
         }
 
         val jsonQC = JSONObject()

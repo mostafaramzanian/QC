@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.SpannableStringBuilder
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -398,12 +399,14 @@ class FinalRegistrationFragment : Fragment() {
                                 CustomToast(requireContext()).toastValid(
                                     null,
                                     "اطلاعات وارد گردیده با موفقیت ثبت شدند."
+                                    ,15f, Gravity.CENTER
                                 )
                                 GoToOtherActivity(requireActivity()).mainActivity()
                             } else {
                                 CustomToast(requireContext()).toastAlert(
                                     null,
                                     "عدم موفقیت در ثبت اطلاعات!"
+                                    ,15f, Gravity.CENTER
                                 )
                             }
                         }

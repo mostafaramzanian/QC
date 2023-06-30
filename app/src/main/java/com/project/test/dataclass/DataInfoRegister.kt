@@ -13,5 +13,6 @@ data class DataInfoRegister(
     val created_datetime: String,
     val report_order: Int,
     val lab_request_code: String?,
+    val user: String?
 
 )

@@ -3,10 +3,10 @@ package com.project.test.view.activity
 
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.SpannableStringBuilder
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.text.style.ForegroundColorSpan
@@ -207,7 +207,7 @@ class LoginActivity : AppCompatActivity() {
                             text.length + fullName.length,
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                         )
-                        CustomToast(this).toastValid(spannableString, null)
+                        CustomToast(this).toastValid(spannableString, null, null, null)
 
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
@@ -219,54 +219,35 @@ class LoginActivity : AppCompatActivity() {
 
 //                        GoToOtherActivity(this).mainActivity()
                     } else {
-
+                        val color = ContextCompat.getColor(this, R.color.black)
                         val fullName = "$name $lastName"
+                        val type = "بازرس"
                         val text1 =
-                            "کاربر گرامی $fullName از آن جا که نوع کاربری شما در سیستم $userType2 تعریف شده است امکان ورود به برنامه را ندارید! فقط کاربرانی که نوع کاربری آن ها بازرس می باشد اجازه ورود دارند."
+                            "کاربر گرامی $fullName از آن جا که نوع کاربری شما در سیستم اجازه ورود دارند."
+                        val text2 = "$userType2 تعریف شده است امکان ورود به برنامه را ندارید! "
+                        val text3 =
+                            "فقط کاربرانی که نوع کاربری آن ها $type می باشد اجازه ورود دارند."
+
                         val spannableString: SpannableString?
                         val spannableString1: SpannableString?
                         val spannableString2: SpannableString?
-                        var spannableString3: SpannableString? = null
-                        if (text1.length >= fullName.length) {
-                            spannableString = SpannableString(text1)
-                            val start = fullName.length + 45
-                            val end = userType2.length + start
-                            spannableString.setSpan(
-                                ForegroundColorSpan(Color.BLACK),
-                                12,
-                                fullName.length + 12,
-                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                            )
-                            spannableString1 = spannableString
-                            spannableString1.setSpan(
-                                ForegroundColorSpan(Color.BLACK),
-                                start,
-                                end,
-                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                            )
-                            spannableString2 = SpannableString(spannableString1)
-                            val startIndex1 = spannableString2.indexOf("ندارید!")
-                            val endIndex1 = startIndex1 + "ندارید!".length
-                            spannableString2.setSpan(
-                                ForegroundColorSpan(Color.BLACK),
-                                startIndex1,
-                                endIndex1,
-                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                            )
 
-                            spannableString3 = SpannableString(spannableString2)
-                            val startIndex = spannableString3.indexOf("بازرس")
-                            val endIndex = startIndex + "بازرس".length
-                            spannableString3.setSpan(
-                                ForegroundColorSpan(Color.BLACK),
-                                startIndex,
-                                endIndex,
-                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                            )
-                        }
-                        for (i in 1..8) {
-                            CustomToast(this).toastAlert(spannableString3, null)
-                        }
+                        val builder = SpannableStringBuilder()
+
+                        spannableString = com.project.test.utils.SpannableString()
+                            .spannableString(text1, fullName, color, null, null)
+                        spannableString1 = com.project.test.utils.SpannableString()
+                            .spannableString(text2, userType2, color, null, null)
+                        spannableString2 = com.project.test.utils.SpannableString()
+                            .spannableString(text3, type, color, null, null)
+
+                        builder.append(spannableString);
+                        builder.append(spannableString1);
+                        builder.append(spannableString2);
+                        val string = SpannableString.valueOf(builder)
+
+                        CustomToast(this).toastAlert(string, null, null, null)
+
                     }
                 }
 
@@ -282,7 +263,7 @@ class LoginActivity : AppCompatActivity() {
                     text.length,
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
-                CustomToast(this).toastAlert(spannableString, null)
+                CustomToast(this).toastAlert(spannableString, null, null, null)
             }
         }
     }
@@ -373,7 +354,7 @@ class LoginActivity : AppCompatActivity() {
                         text.length,
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                     )
-                    CustomToast(this).toastAlert(spannableString, null)
+                    CustomToast(this).toastAlert(spannableString, null, null, null)
                     false
                 }
 
@@ -387,7 +368,7 @@ class LoginActivity : AppCompatActivity() {
                         text.length,
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                     )
-                    CustomToast(this).toastAlert(spannableString, null)
+                    CustomToast(this).toastAlert(spannableString, null, null, null)
                     false
                 }
 

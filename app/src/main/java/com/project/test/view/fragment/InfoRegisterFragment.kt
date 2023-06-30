@@ -1,5 +1,7 @@
 package com.project.test.view.fragment
 
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -56,7 +58,7 @@ class InfoRegisterFragment : Fragment() {
             val dataInfoRegister = GetData(requireActivity()).infoRegister(it)
             if(dataInfoRegister.size==0 ){
                binding.infoInnerLayout.visibility=View.VISIBLE
-                binding.titleDoc2.visibility=View.VISIBLE
+                binding.titleDoc2.visibility=View.GONE
             }
             adapter = InfoRegisterRecyclerViewAdapter(
                 requireActivity(),

@@ -10,12 +10,11 @@ import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
-import android.view.KeyEvent
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
@@ -84,48 +83,46 @@ class InformationRecyclerViewAdapter(
 
         fun setData(data: DataInfo) {
             val sharedPreferences = SharedPreferences(context)
+            binding.editText1.setText("L")
+            binding.editText1.setSelection(binding.editText1.text!!.length)
+            var str1=""
+            binding.editText1.addTextChangedListener(object : TextWatcher {
+                var len = 0
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                     str1 = binding.editText1.text.toString()
+                    len = str1.length
+                }
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    var str = s.toString()
+                    val string = binding.editText1.text.toString()
+                    if (string.length >= 6 && string[5] != '-' && string.contains("-")){
+                        str = str.replace("-", "")
+                        binding.editText1.setText(str)
+                        str = str.substring(0, 5) + "-"+ str.substring(5);
+                        binding.editText1.setText(str)
+                        binding.editText1.setSelection(str.length)
+                    }
+                    if (string.length >= 5  && len < string.length && !string.contains("-")) {
+                        str = str.substring(0, 5) + "-"+ str.substring(5);
+                        binding.editText1.setText(str)
+                        binding.editText1.setSelection(str.length)
+                    }
 
-//            binding.editText1.setText("L")
-//            binding.editText1.setSelection(binding.editText1.text!!.length)
-//            var str=""
-//            binding.editText1.addTextChangedListener(object : TextWatcher {
-//                var len = 0
-//                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-//                     str = binding.editText1.text.toString()
-//                    len = str.length
-//                }
-//                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//                    var str = s.toString()
-//                    val string = binding.editText1.text.toString()
-//                    if (string.length == 5  && len < string.length && !string.contains("-")) {
-//                        str += "-"
-//                        binding.editText1.setText(str)
-//                        binding.editText1.setSelection(str.length)
-//                    }
-//                    if (count < before) {
-//                        if (binding.editText1.text!!.length <= 2) {
-////                            binding.editText1.setText("L")
-////                            binding.editText1.setSelection(binding.editText1.text!!.length)
-//                        } else {
-//                            //  Toast.makeText(context, "Backspace pressed", Toast.LENGTH_SHORT).show()
-//                        }
-//                    }
-//                }
-//                override fun afterTextChanged(s: Editable?) {}
-//            })
-//
-//            binding.editText1.setOnKeyListener(object : View.OnKeyListener {
-//                override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
-//                    if (keyCode == KeyEvent.KEYCODE_DEL && !binding.editText1.text.toString().startsWith("L")) {
-//                        binding.editText1.setText(str)
-//                        binding.editText1.setSelection(binding.editText1.text.toString().length)
-//                        return true
-//                    }
-//                    return false
-//                }
-//            })
-
-
+                    if (count < before && binding.editText1.text!!.length <= 1) {
+                            binding.editText1.setText("L")
+                            binding.editText1.setSelection(binding.editText1.text!!.length)
+                    }
+                }
+                override fun afterTextChanged(s: Editable?) {
+                    var str = s.toString()
+                    val string = binding.editText1.text.toString()
+                    if (string.length >= 6  && !string.contains("-")){
+                        str = str.substring(0, 5) + "-"+ str.substring(5);
+                        binding.editText1.setText(str)
+                        binding.editText1.setSelection(str.length)
+                    }
+                }
+            })
 
             val importanceLevel = "درجه اهمیت: (${data.importanceLevel})"
             val title = "عنوان مشخصه: ${data.name}"
@@ -197,7 +194,8 @@ class InformationRecyclerViewAdapter(
                             if (statusSet == -1L) {
                                 CustomToast(context).toastAlert(
                                     null,
-                                    "خطایی در هنگام ثبت اطلاعات رخ داده است!"
+                                    "خطایی در هنگام ثبت اطلاعات رخ داده است!",
+                                    15f, Gravity.CENTER
                                 )
                             }
                         }
@@ -206,11 +204,13 @@ class InformationRecyclerViewAdapter(
                             CustomToast(context).toastAlert(
                                 null,
                                 "عدم موفقیت در ثبت اطلاعات!"
+                                ,15f, Gravity.CENTER
                             )
                         } else {
                             CustomToast(context).toastValid(
                                 null,
                                 "اطلاعات وارد گردیده با موفقیت ثبت شدند."
+                                ,15f, Gravity.CENTER
                             )
                             emptyLab(binding)
                             GetData(context).count(
@@ -526,6 +526,7 @@ class InformationRecyclerViewAdapter(
                                 CustomToast(context).toastAlert(
                                     null,
                                     "خطایی در هنگام ثبت اطلاعات رخ داده است!"
+                                    ,15f, Gravity.CENTER
                                 )
                             }
                         }
@@ -534,11 +535,13 @@ class InformationRecyclerViewAdapter(
                             CustomToast(context).toastAlert(
                                 null,
                                 "عدم موفقیت در ثبت اطلاعات!"
+                                ,15f, Gravity.CENTER
                             )
                         } else {
                             CustomToast(context).toastValid(
                                 null,
                                 "اطلاعات وارد گردیده با موفقیت ثبت شدند."
+                                ,15f, Gravity.CENTER
                             )
                             empty(binding)
                             idTool = idTools[0]

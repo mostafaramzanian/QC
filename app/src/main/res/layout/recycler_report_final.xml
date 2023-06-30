@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginRight="20dp"
+    android:layout_marginLeft="20dp"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="10dp"
     app:cardElevation="6dp"
@@ -62,7 +64,47 @@
             android:textSize="16sp"
             app:layout_constraintRight_toLeftOf="@+id/txt_control_station_name"
             app:layout_constraintTop_toTopOf="@+id/txt_control_station_name"
+            tools:ignore="RtlHardcoded"
             tools:text="طرح کیفیت" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/userIcon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/user_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/user"
+            app:layout_constraintRight_toRightOf="@+id/txt_title"
+            app:layout_constraintTop_toBottomOf="@+id/txt_control_station_name" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:fontFamily="@font/vazirmatn_medium"
+            android:text="ثبت کننده گزارش:"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintRight_toLeftOf="@+id/time1"
+            app:layout_constraintTop_toBottomOf="@+id/txt_control_station_name"
+            tools:ignore="RtlHardcoded" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/user_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:ellipsize="start"
+            android:fontFamily="@font/vazirmatn_fd_regular"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintRight_toLeftOf="@+id/user"
+            app:layout_constraintTop_toTopOf="@+id/user"
+            tools:ignore="RtlHardcoded"
+            tools:text="زمان ایجاد گزارش:" />
+
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/time1"
@@ -72,7 +114,7 @@
             android:src="@drawable/icon_time"
             app:layout_constraintBottom_toBottomOf="@+id/txt_first_time"
             app:layout_constraintRight_toRightOf="@+id/txt_title"
-            app:layout_constraintTop_toBottomOf="@+id/txt_control_station_name" />
+            app:layout_constraintTop_toBottomOf="@+id/user" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txt_first_time"
@@ -85,7 +127,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintRight_toLeftOf="@+id/time1"
-            app:layout_constraintTop_toBottomOf="@+id/txt_control_station_name"
+            app:layout_constraintTop_toBottomOf="@+id/user"
             tools:ignore="RtlHardcoded" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -119,7 +161,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="5dp"
             android:fontFamily="@font/vazirmatn_medium"
-            android:text="@string/Time_Save_Last_Report"
+            android:text="@string/Time_Save_Last_Info"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintRight_toLeftOf="@+id/time"
@@ -178,10 +220,9 @@
             app:layout_constraintTop_toTopOf="@+id/txt_status"
             tools:ignore="RtlHardcoded"
             tools:text="وضعیت" />
-
         <Space
             android:layout_width="1dp"
-            android:layout_height="208dp"
+            android:layout_height="238dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

@@ -6,6 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.marginBottom
+import androidx.core.view.marginLeft
+import androidx.core.view.marginRight
+import androidx.core.view.marginTop
 import androidx.recyclerview.widget.RecyclerView
 import com.project.test.R
 import com.project.test.databinding.RecyclerInforegisterBinding
@@ -40,7 +44,7 @@ class InfoRegisterRecyclerViewAdapter(
 
             val timeString = CurrentTime().date(data.created_datetime).second
             val finalDate = CurrentTime().date(data.created_datetime).third
-
+            binding.userText.text = data.user
             if (data.report_value != "null") {
                 binding.txtTitleDoc1.text = data.name
                 binding.showObservedValue.text = data.report_value
@@ -55,7 +59,9 @@ class InfoRegisterRecyclerViewAdapter(
                 binding.showStatus.text = finalDate
                 binding.dateRegister.text = "ساعت ثبت: "
                 binding.showDateRegister.text = timeString
-                binding.timeRegister.visibility = View.INVISIBLE
+                binding.timeRegister.visibility = View.GONE
+                binding.showTimeRegister.visibility = View.GONE
+
 
                 binding.innerInfo.setBackgroundResource(R.drawable.background_lab)
                 binding.titleInfo.setBackgroundResource(R.drawable.lab)

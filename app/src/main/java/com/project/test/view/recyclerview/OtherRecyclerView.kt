@@ -48,6 +48,7 @@ class OtherRecyclerView(
 
         fun setData(data: DataReport) {
             binding.txtTitle1.text = data.csName
+            binding.userText.text = data.user
             binding.txtControlStationName1.text = data.cpName
             binding.txtFirstTime1.text = data.createTime
             binding.txtLastTime1.text = data.lastChangeTime

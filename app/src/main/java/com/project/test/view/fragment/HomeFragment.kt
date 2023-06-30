@@ -33,19 +33,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         model.showHide("Hide")
-//        val count = GetData(requireActivity()).homePage()
-//        if (count > 0) {
-////            binding.textNoReport.visibility = View.GONE
-////            binding.activeReportsLayoutParent.visibility = View.VISIBLE
-////            binding.inner2ConstraintLayout.visibility = View.GONE
-////            binding.iconAlertNoReport.visibility = View.GONE
-//        } else {
-////            binding.textNoReport.visibility = View.VISIBLE
-////            binding.activeReportsLayoutParent.visibility = View.GONE
-////            binding.inner2ConstraintLayout.visibility = View.VISIBLE
-////            binding.iconAlertNoReport.visibility = View.VISIBLE
-//        }
-
         val sh = SharedPreferences(requireActivity())
 
         binding.username.text = "${sh.getString("fullName", "")}، به نرم افزار کنترل کیفیت خوش آمدید."
@@ -60,6 +47,7 @@ class HomeFragment : Fragment() {
 
             //binding.inner4ConstraintLayout.visibility = View.GONE
             binding.countReportText.text = countReportActive1.count.toString()
+            binding.userText.text=countReportActive1.user
             binding.titleLastReportText.text = countReportActive1.csName
             binding.titleLastReportCpText.text = countReportActive1.cpName
             binding.timeLastReportText.text = CurrentTime().date(countReportActive1.time).first
@@ -73,7 +61,7 @@ class HomeFragment : Fragment() {
                 requireActivity(),
                 parentFragmentManager,
                 R.id.fragmentContainer
-            ).navigationForward(R.id.action_home_menu_to_showReportNotRegisteredFragment, "")
+            ).navigationForward("ShowReportNotRegisteredFragment")
 
 //            FragmentReplacer(parentFragmentManager).replaceFragments(
 //                HomeFragment(),
@@ -90,6 +78,7 @@ class HomeFragment : Fragment() {
             binding.noValuesNotActive.visibility = View.GONE
 
             binding.countReportNoActiveText.text = countReportNotActive1.count.toString()
+            binding.user1Text.text=countReportNotActive1.user
             binding.titleLastReportNoActiveText.text = countReportNotActive1.csName
             binding.lastCpNotActiveText.text = countReportNotActive1.cpName
             binding.timeLastReportNoActiveText.text =  CurrentTime().date(countReportNotActive1.time).first
@@ -102,7 +91,7 @@ class HomeFragment : Fragment() {
                 requireActivity(),
                 parentFragmentManager,
                 R.id.fragmentContainer
-            ).navigationForward(R.id.action_home_menu_to_showReportRegisteredFragment, "")
+            ).navigationForward("ShowReportRegisteredFragment")
             /*
             FragmentReplacer(parentFragmentManager).replaceFragments(
                 HomeFragment(),
