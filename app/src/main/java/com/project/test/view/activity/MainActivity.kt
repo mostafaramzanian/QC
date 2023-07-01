@@ -161,9 +161,6 @@ class MainActivity : AppCompatActivity() {
         //defaultFragment(supportFragmentManager)
     }
 
-    override fun onBackPressed() {
-    }
-
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         if (event?.action == MotionEvent.ACTION_DOWN) {
             // stopService(Intent(this, MyService::class.java))

@@ -14,12 +14,13 @@ class Database(context: Context?) :
 
 
  */
-class Database (private val context: Context) :
+class Database(private val context: Context) :
     SQLiteAssetHelper(context.applicationContext, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
         private const val DATABASE_NAME = "QC.db"
         private const val DATABASE_VERSION = 1
     }
+
     @Volatile
     private var instance: Database? = null
     fun getInstance(): Database =

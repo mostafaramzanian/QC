@@ -3,16 +3,15 @@ package com.project.test.view.activity
 
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.SpannableStringBuilder
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.text.style.ForegroundColorSpan
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
@@ -22,6 +21,7 @@ import com.kusu.loadingbutton.LoadingButton
 import com.project.test.R
 import com.project.test.databinding.ActivityLoginBinding
 import com.project.test.dataclass.DataUser
+import com.project.test.model.Database
 import com.project.test.model.GetData
 import com.project.test.model.Query
 import com.project.test.utils.CustomToast
@@ -29,6 +29,7 @@ import com.project.test.utils.GoToOtherActivity
 import com.project.test.utils.MyService
 import com.project.test.utils.SharedPreferences
 import com.project.test.utils.Utils
+import com.project.test.view.activity.usb_sync.SyncDataActivity
 import com.toxicbakery.bcrypt.Bcrypt
 import java.util.Locale
 
@@ -40,6 +41,11 @@ class LoginActivity : AppCompatActivity() {
         Utils.exitApp(this)
     }
 
+    override fun onDestroy() {
+        Database(this).getInstance().close()
+        super.onDestroy()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -48,6 +54,13 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         val colorStateListAlertDisable =
             ColorStateList.valueOf(ContextCompat.getColor(binding.root.context, R.color.alert))
+
+        binding.imageView2.setOnLongClickListener(View.OnLongClickListener {
+            Intent(this@LoginActivity, SyncDataActivity::class.java).also {
+                startActivity(it)
+            }
+            return@OnLongClickListener true
+        })
 
         binding.edtInputUsername.addTextChangedListener {
             binding.edtInputUsername.setBackgroundResource(R.drawable.edit_text_bg)
@@ -144,7 +157,10 @@ class LoginActivity : AppCompatActivity() {
                                 loginButton.hideLoading()
 
                                 CustomToast(this).toastValid(
-                                    SpannableString(getString(R.string.success_login)), null
+                                    SpannableString(getString(R.string.success_login)),
+                                    null,
+                                    null,
+                                    null
                                 )
 
                                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
@@ -162,54 +178,36 @@ class LoginActivity : AppCompatActivity() {
 //                        GoToOtherActivity(this).mainActivity()
                         } else {
 
+                            val color = ContextCompat.getColor(this, R.color.black)
                             val fullName = "${userData.firstname} ${userData.lastname}"
+                            val type = "بازرس"
                             val text1 =
-                                "کاربر گرامی $fullName از آن جا که نوع کاربری شما در سیستم $userType2 تعریف شده است امکان ورود به برنامه را ندارید! فقط کاربرانی که نوع کاربری آن ها بازرس می باشد اجازه ورود دارند."
+                                "کاربر گرامی $fullName از آن جا که نوع کاربری شما در سیستم اجازه ورود دارند."
+                            val text2 = "$userType2 تعریف شده است امکان ورود به برنامه را ندارید! "
+                            val text3 =
+                                "فقط کاربرانی که نوع کاربری آن ها $type می باشد اجازه ورود دارند."
+
                             val spannableString: SpannableString?
                             val spannableString1: SpannableString?
                             val spannableString2: SpannableString?
-                            var spannableString3: SpannableString? = null
-                            if (text1.length >= fullName.length) {
-                                spannableString = SpannableString(text1)
-                                val start = fullName.length + 45
-                                val end = userType2.length + start
-                                spannableString.setSpan(
-                                    ForegroundColorSpan(Color.BLACK),
-                                    12,
-                                    fullName.length + 12,
-                                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                                )
-                                spannableString1 = spannableString
-                                spannableString1.setSpan(
-                                    ForegroundColorSpan(Color.BLACK),
-                                    start,
-                                    end,
-                                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                                )
-                                spannableString2 = SpannableString(spannableString1)
-                                val startIndex1 = spannableString2.indexOf("ندارید!")
-                                val endIndex1 = startIndex1 + "ندارید!".length
-                                spannableString2.setSpan(
-                                    ForegroundColorSpan(Color.BLACK),
-                                    startIndex1,
-                                    endIndex1,
-                                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                                )
 
-                                spannableString3 = SpannableString(spannableString2)
-                                val startIndex = spannableString3.indexOf("بازرس")
-                                val endIndex = startIndex + "بازرس".length
-                                spannableString3.setSpan(
-                                    ForegroundColorSpan(Color.BLACK),
-                                    startIndex,
-                                    endIndex,
-                                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                                )
-                            }
+                            val builder = SpannableStringBuilder()
+
+                            spannableString = com.project.test.utils.SpannableString()
+                                .spannableString(text1, fullName, color, null, null)
+                            spannableString1 = com.project.test.utils.SpannableString()
+                                .spannableString(text2, userType2, color, null, null)
+                            spannableString2 = com.project.test.utils.SpannableString()
+                                .spannableString(text3, type, color, null, null)
+
+                            builder.append(spannableString);
+                            builder.append(spannableString1);
+                            builder.append(spannableString2);
+                            val string = SpannableString.valueOf(builder)
+
                             Handler(mainLooper).post {
                                 loginButton.hideLoading()
-                                CustomToast(this).toastAlert(spannableString3, null)
-
+                                CustomToast(this).toastAlert(string, null, null, null)
                             }
 
 //                        for (i in 1..8) {
@@ -229,7 +227,7 @@ class LoginActivity : AppCompatActivity() {
                         )
                         Handler(mainLooper).post {
                             loginButton.hideLoading()
-                            CustomToast(this).toastAlert(spannableString, null)
+                            CustomToast(this).toastAlert(spannableString, null, null, null)
                         }
                     }
 
@@ -245,7 +243,7 @@ class LoginActivity : AppCompatActivity() {
                     )
                     Handler(mainLooper).post {
                         loginButton.hideLoading()
-                        CustomToast(this).toastAlert(spannableString, null)
+                        CustomToast(this).toastAlert(spannableString, null, null, null)
                     }
 
                 }

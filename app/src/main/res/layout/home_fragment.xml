@@ -14,8 +14,10 @@
             android:id="@+id/imageView2"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
             android:layout_marginLeft="45dp"
             android:layout_marginTop="8dp"
+            android:elevation="3dp"
             android:background="@drawable/simple_circle"
             android:padding="15dp"
             android:src="@drawable/icon"
@@ -109,9 +111,9 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="18dp"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="8dp"
                         android:layout_marginBottom="20dp"
                         android:background="@drawable/border_report">
 
@@ -290,8 +292,8 @@
                         android:id="@+id/title_info"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="45dp"
-                        android:layout_marginRight="45dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="25dp"
                         android:background="@drawable/reports_active"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp">
@@ -322,9 +324,9 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="18dp"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="8dp"
                         android:layout_marginBottom="20dp"
                         android:background="@drawable/border_report">
 
@@ -332,7 +334,7 @@
                             android:id="@+id/inner1_constraint_layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:visibility="visible">
+                            android:visibility="gone">
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/count_report_no_active"
@@ -497,8 +499,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="45dp"
-                        android:layout_marginRight="45dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="25dp"
                         android:background="@drawable/reports_active"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp">

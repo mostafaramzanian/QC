@@ -24,7 +24,7 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.project.test.R
 import com.project.test.databinding.RecyclerInfoBinding
-import com.project.test.databinding.ReyclerLabBinding
+import com.project.test.databinding.RecyclerLabBinding
 import com.project.test.dataclass.DataCpReports
 import com.project.test.dataclass.DataInfo
 import com.project.test.dataclass.DataLab
@@ -47,7 +47,7 @@ class InformationRecyclerViewAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == 1) {
-            val binding = ReyclerLabBinding.inflate(context.layoutInflater, parent, false)
+            val binding = RecyclerLabBinding.inflate(context.layoutInflater, parent, false)
             LabInformationViewHolder(binding)
         } else {
             val binding = RecyclerInfoBinding.inflate(context.layoutInflater, parent, false)
@@ -78,46 +78,53 @@ class InformationRecyclerViewAdapter(
     override fun getItemCount(): Int = Info.size
 
     inner class LabInformationViewHolder(
-        private val binding: ReyclerLabBinding
+        private val binding: RecyclerLabBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun setData(data: DataInfo) {
             val sharedPreferences = SharedPreferences(context)
             binding.editText1.setText("L")
             binding.editText1.setSelection(binding.editText1.text!!.length)
-            var str1=""
+            var str1 = ""
             binding.editText1.addTextChangedListener(object : TextWatcher {
                 var len = 0
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                     str1 = binding.editText1.text.toString()
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    str1 = binding.editText1.text.toString()
                     len = str1.length
                 }
+
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     var str = s.toString()
                     val string = binding.editText1.text.toString()
-                    if (string.length >= 6 && string[5] != '-' && string.contains("-")){
+                    if (string.length >= 6 && string[5] != '-' && string.contains("-")) {
                         str = str.replace("-", "")
                         binding.editText1.setText(str)
-                        str = str.substring(0, 5) + "-"+ str.substring(5);
+                        str = str.substring(0, 5) + "-" + str.substring(5);
                         binding.editText1.setText(str)
                         binding.editText1.setSelection(str.length)
                     }
-                    if (string.length >= 5  && len < string.length && !string.contains("-")) {
-                        str = str.substring(0, 5) + "-"+ str.substring(5);
+                    if (string.length >= 5 && len < string.length && !string.contains("-")) {
+                        str = str.substring(0, 5) + "-" + str.substring(5);
                         binding.editText1.setText(str)
                         binding.editText1.setSelection(str.length)
                     }
 
                     if (count < before && binding.editText1.text!!.length <= 1) {
-                            binding.editText1.setText("L")
-                            binding.editText1.setSelection(binding.editText1.text!!.length)
+                        binding.editText1.setText("L")
+                        binding.editText1.setSelection(binding.editText1.text!!.length)
                     }
                 }
+
                 override fun afterTextChanged(s: Editable?) {
                     var str = s.toString()
                     val string = binding.editText1.text.toString()
-                    if (string.length >= 6  && !string.contains("-")){
-                        str = str.substring(0, 5) + "-"+ str.substring(5);
+                    if (string.length >= 6 && !string.contains("-")) {
+                        str = str.substring(0, 5) + "-" + str.substring(5);
                         binding.editText1.setText(str)
                         binding.editText1.setSelection(str.length)
                     }
@@ -152,7 +159,7 @@ class InformationRecyclerViewAdapter(
                 }
                 if (binding.editText1.text.toString() != "") {
                     val color = ContextCompat.getColor(context, R.color.red)
-                    val observe =  binding.editText1.text.toString().uppercase()
+                    val observe = binding.editText1.text.toString().uppercase()
                     val station = sharedPreferences.getString("csValueSelected", "")
                     val quality = sharedPreferences.getString("cpValueSelected", "")
                     val text = "کاربر گرامی شما در حال ثبت اطلاعات برای ایستگاه کنترلی $station"
@@ -203,14 +210,12 @@ class InformationRecyclerViewAdapter(
                         if (statusSet3 == -1L) {
                             CustomToast(context).toastAlert(
                                 null,
-                                "عدم موفقیت در ثبت اطلاعات!"
-                                ,15f, Gravity.CENTER
+                                "عدم موفقیت در ثبت اطلاعات!", 15f, Gravity.CENTER
                             )
                         } else {
                             CustomToast(context).toastValid(
                                 null,
-                                "اطلاعات وارد گردیده با موفقیت ثبت شدند."
-                                ,15f, Gravity.CENTER
+                                "اطلاعات وارد گردیده با موفقیت ثبت شدند.", 15f, Gravity.CENTER
                             )
                             emptyLab(binding)
                             GetData(context).count(
@@ -289,27 +294,27 @@ class InformationRecyclerViewAdapter(
             binding.constraintLayoutInfo.setOnClickListener {
                 binding.editText1.clearFocus()
                 binding.editText2.clearFocus()
-                spinner(binding,animUp)
+                spinner(binding, animUp)
             }
             binding.editText1.onFocusChangeListener = View.OnFocusChangeListener { _, _ ->
-                spinner(binding,animUp)
+                spinner(binding, animUp)
             }
 
             binding.editText2.onFocusChangeListener = View.OnFocusChangeListener { _, _ ->
-                spinner(binding,animUp)
+                spinner(binding, animUp)
             }
             binding.btnInfo.setOnClickListener {
-                spinner(binding,animUp)
+                spinner(binding, animUp)
             }
             binding.radioConfirmation.setOnClickListener {
                 binding.editText1.clearFocus()
                 binding.editText2.clearFocus()
-                spinner(binding,animUp)
+                spinner(binding, animUp)
             }
             binding.radioRejection.setOnClickListener {
                 binding.editText1.clearFocus()
                 binding.editText2.clearFocus()
-                spinner(binding,animUp)
+                spinner(binding, animUp)
             }
             var idTool = idTools[0]
             var cF: Double = correctionFactor[0]
@@ -318,15 +323,18 @@ class InformationRecyclerViewAdapter(
                 binding.arrowSpinnerInfo.startAnimation(animUp)
                 idTool = idTools[newIndex]
                 cF = correctionFactor[newIndex]
-                if (oldIndex==0 ||  newIndex == 0) {
+                if (oldIndex == 0 || newIndex == 0) {
                     binding.editText1.inputType = TYPE_CLASS_TEXT
                     binding.editText1.text = null
-                   // binding.radioConfirmation.isChecked = false
-                   // binding.radioRejection.isChecked = false
+                    // binding.radioConfirmation.isChecked = false
+                    // binding.radioRejection.isChecked = false
                 }
                 if (newIndex != 0) {
                     binding.editText1.inputType = TYPE_CLASS_NUMBER or TYPE_NUMBER_FLAG_DECIMAL
-                    if (binding.editText1.text!!.isNotEmpty() && (binding.editText1.text.toString().toDoubleOrNull() != null || binding.editText1.text.toString().toIntOrNull() != null)) {
+                    if (binding.editText1.text!!.isNotEmpty() && (binding.editText1.text.toString()
+                            .toDoubleOrNull() != null || binding.editText1.text.toString()
+                            .toIntOrNull() != null)
+                    ) {
                         val value = binding.editText1.text.toString()
                         change(
                             data.acceptableRangeMin,
@@ -345,20 +353,21 @@ class InformationRecyclerViewAdapter(
                 val text = it.toString()
                 if (text != "") {
                     try {
-                            val value = text.toDouble()
-                            reportValue = change(
-                                data.acceptableRangeMin,
-                                data.acceptableRangeMax,
-                                binding,
-                                cF,
-                                value,
-                                context
-                            )
+                        val value = text.toDouble()
+                        reportValue = change(
+                            data.acceptableRangeMin,
+                            data.acceptableRangeMax,
+                            binding,
+                            cF,
+                            value,
+                            context
+                        )
                     } catch (e: NumberFormatException) {
 
                         binding.radioConfirmation.isChecked = false
                         binding.radioRejection.isChecked = false
-                        binding.editText1.background = getDrawable(context, R.drawable.edit_text_info)
+                        binding.editText1.background =
+                            getDrawable(context, R.drawable.edit_text_info)
                         binding.editText3Observed.text = "-"
                     }
                 } else {
@@ -525,8 +534,7 @@ class InformationRecyclerViewAdapter(
                             if (statusSet == -1L) {
                                 CustomToast(context).toastAlert(
                                     null,
-                                    "خطایی در هنگام ثبت اطلاعات رخ داده است!"
-                                    ,15f, Gravity.CENTER
+                                    "خطایی در هنگام ثبت اطلاعات رخ داده است!", 15f, Gravity.CENTER
                                 )
                             }
                         }
@@ -534,14 +542,12 @@ class InformationRecyclerViewAdapter(
                         if (statusSet3 == -1L) {
                             CustomToast(context).toastAlert(
                                 null,
-                                "عدم موفقیت در ثبت اطلاعات!"
-                                ,15f, Gravity.CENTER
+                                "عدم موفقیت در ثبت اطلاعات!", 15f, Gravity.CENTER
                             )
                         } else {
                             CustomToast(context).toastValid(
                                 null,
-                                "اطلاعات وارد گردیده با موفقیت ثبت شدند."
-                                ,15f, Gravity.CENTER
+                                "اطلاعات وارد گردیده با موفقیت ثبت شدند.", 15f, Gravity.CENTER
                             )
                             empty(binding)
                             idTool = idTools[0]
@@ -603,14 +609,14 @@ class InformationRecyclerViewAdapter(
             if ((sum >= min) && (sum <= max)) {
                 binding.editText1.background = getDrawable(context, R.drawable.bac_valid)
                 binding.radioConfirmation.isChecked = true
-                if(!binding.radioConfirmation.isChecked){
+                if (!binding.radioConfirmation.isChecked) {
                     binding.radioRejection.isChecked = true
                     binding.radioConfirmation.isChecked = true
                 }
             } else {
                 binding.editText1.background = getDrawable(context, R.drawable.back_wrong)
                 binding.radioRejection.isChecked = true
-                if(!binding.radioRejection.isChecked){
+                if (!binding.radioRejection.isChecked) {
                     binding.radioConfirmation.isChecked = true
                     binding.radioRejection.isChecked = true
                 }
@@ -639,7 +645,7 @@ private fun spannableString(text: String?, text3: String?, color: Int): Spannabl
     return spannableString
 }
 
-private fun emptyLab(binding: ReyclerLabBinding) {
+private fun emptyLab(binding: RecyclerLabBinding) {
     binding.editText1.text = null
     binding.editText2.text = null
 }
@@ -658,7 +664,7 @@ private fun empty(binding: RecyclerInfoBinding) {
     binding.editText5.visibility = View.VISIBLE
 }
 
-private fun spinner(binding: RecyclerInfoBinding,  animUp: Animation){
+private fun spinner(binding: RecyclerInfoBinding, animUp: Animation) {
     if (binding.spinnerViewInfo.isShowing) {
         binding.spinnerViewInfo.dismiss()
         binding.arrowSpinnerInfo.startAnimation(animUp)

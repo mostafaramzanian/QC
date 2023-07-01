@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.hardware.usb.UsbAccessory;
 import android.hardware.usb.UsbManager;
+import android.media.MediaScannerConnection;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -142,6 +143,15 @@ public class SyncDataActivity extends Activity implements Callback, Runnable, Tr
             FileOutputStream fos = new FileOutputStream(file, false);
             fos.write(content);
             fos.close();
+
+            // Tell the media scanner about the new file so that it is
+            // immediately available to the user.
+            MediaScannerConnection.scanFile(this,
+                    new String[]{file.toString()}, null,
+                    (path, uri) -> {
+                        Log.i("ExternalStorage", "Scanned " + path + ":");
+                        Log.i("ExternalStorage", "-> uri=" + uri);
+                    });
 
         }
 

@@ -121,7 +121,7 @@ class FinalRegistrationFragment : Fragment() {
                     if (item.parameter_type == "inbound_tracking_code") {
 
                         val v = layoutInflater.inflate(
-                            R.layout.form_code_layout,
+                            R.layout.layout_form_code,
                             binding.inboundTrackingContainer,
                             false
                         )
@@ -145,7 +145,7 @@ class FinalRegistrationFragment : Fragment() {
                     }
                     if (item.parameter_type == "non_conformity_code") {
                         val v = layoutInflater.inflate(
-                            R.layout.form_code_layout,
+                            R.layout.layout_form_code,
                             binding.inboundTrackingContainer,
                             false
                         )
@@ -255,7 +255,7 @@ class FinalRegistrationFragment : Fragment() {
 //                            textViewList
 //                        )
                         val v = layoutInflater.inflate(
-                            R.layout.form_code_layout,
+                            R.layout.layout_form_code,
                             binding.inboundTrackingContainer,
                             false
                         )
@@ -274,7 +274,7 @@ class FinalRegistrationFragment : Fragment() {
 //                            textViewList1
 //                        )
                         val v = layoutInflater.inflate(
-                            R.layout.form_code_layout,
+                            R.layout.layout_form_code,
                             binding.nonConformityContainer,
                             false
                         )
