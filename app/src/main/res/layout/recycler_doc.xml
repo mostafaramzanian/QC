@@ -1,76 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="6dp"
+    app:cardUseCompatPadding="true">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txt_title_doc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:fontFamily="@font/vazirmatn_medium"
-        android:text="@string/Title"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="RtlHardcoded" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txt_title_doc_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:fontFamily="@font/vazirmatn_regular"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintRight_toLeftOf="@+id/txt_title_doc"
-        app:layout_constraintTop_toTopOf="@+id/txt_title_doc"
-        tools:ignore="RtlHardcoded"
-        tools:text="ایستگاه کنترلی" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/vazirmatn_medium"
+            android:text="عنوان:"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlHardcoded" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/code_doc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:fontFamily="@font/vazirmatn_medium"
-        android:text="@string/Code"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintRight_toLeftOf="@+id/txt_title_doc_1"
-        app:layout_constraintTop_toTopOf="@+id/txt_title_doc"
-        tools:ignore="RtlHardcoded" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtTitleDoc1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/vazirmatn_medium"
+            android:textSize="15sp"
+            app:layout_constraintRight_toLeftOf="@+id/txt_title"
+            app:layout_constraintTop_toTopOf="@+id/txt_title"
+            tools:ignore="RtlHardcoded"
+            tools:text="ایستگاه کنترلی" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/code_doc_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:fontFamily="@font/vazirmatn_regular"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintRight_toLeftOf="@+id/code_doc"
-        app:layout_constraintTop_toTopOf="@+id/code_doc"
-        tools:ignore="RtlHardcoded"
-        tools:text="کد1" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_control_station_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/vazirmatn_medium"
+            android:text="کد:"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintRight_toRightOf="@+id/txt_title"
+            app:layout_constraintTop_toBottomOf="@+id/txt_title" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_doc"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginLeft="20dp"
-        android:background="@drawable/btn"
-        android:fontFamily="@font/vazirmatn_bold"
-        android:text="@string/Btn_Show"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/code_doc_1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/code_doc_1"
-        tools:ignore="RtlHardcoded" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/codeDoc1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/vazirmatn_medium"
+            android:textSize="15sp"
+            app:layout_constraintRight_toLeftOf="@+id/txt_control_station_name"
+            app:layout_constraintTop_toTopOf="@+id/txt_control_station_name"
+            tools:ignore="RtlHardcoded"
+            tools:text="طرح کیفیت" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_first_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/vazirmatn_medium"
+            android:text="نوع:"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintRight_toRightOf="@+id/txt_control_station_name"
+            app:layout_constraintTop_toBottomOf="@+id/txt_control_station_name"
+            tools:ignore="RtlHardcoded" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:ellipsize="start"
+            android:fontFamily="@font/vazirmatn_medium"
+            android:textSize="15sp"
+            app:layout_constraintRight_toLeftOf="@+id/txt_first_time"
+            app:layout_constraintTop_toTopOf="@+id/txt_first_time"
+            tools:ignore="RtlHardcoded"
+            tools:text="زمان ایجاد گزارش:" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_last_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/vazirmatn_medium"
+            android:text="توضیحات:"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintRight_toRightOf="@+id/txt_control_station_name"
+            app:layout_constraintTop_toBottomOf="@+id/txt_first_time"
+            tools:ignore="RtlHardcoded" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:ellipsize="start"
+            android:gravity="center"
+            android:fontFamily="@font/vazirmatn_medium"
+            android:textSize="15sp"
+            app:layout_constraintRight_toLeftOf="@+id/txt_last_time"
+            app:layout_constraintTop_toTopOf="@+id/txt_last_time"
+            tools:ignore="RtlHardcoded"
+            tools:text="زمان ثبت نهایی گزارش:" />
+        <Button
+            android:id="@+id/btnDoc"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/button_bg"
+            android:fontFamily="@font/vazirmatn_medium"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:text="مشاهده"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="170dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

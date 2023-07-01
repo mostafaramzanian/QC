@@ -65,7 +65,7 @@ class ShowFormReportFragment : Fragment() {
 
         binding.viewPager.offscreenPageLimit = 10
 
-        binding.viewPager.adapter = ShowFormAdapter(5, parentFragmentManager, lifecycle)
+        binding.viewPager.adapter = ShowFormAdapter(5, childFragmentManager, lifecycle)
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
 

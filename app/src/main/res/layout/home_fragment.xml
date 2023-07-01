@@ -109,9 +109,9 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="18dp"
+                        android:layout_marginRight="20dp"
                         android:layout_marginBottom="20dp"
                         android:background="@drawable/border_report">
 
@@ -200,6 +200,32 @@
                                 tools:ignore="RtlHardcoded" />
 
                             <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/user"
+                                style="@style/home_fragment_text_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginRight="30dp"
+                                android:textSize="15sp"
+                                android:fontFamily="@font/vazirmatn_medium"
+                                android:text="ثبت کننده گزارش:"
+                                app:layout_constraintRight_toRightOf="@id/inner_constraint_layout"
+                                app:layout_constraintTop_toBottomOf="@id/title_last_report_cp"
+                                tools:ignore="RtlHardcoded" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/user_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginRight="10dp"
+                                android:textSize="15sp"
+                                android:fontFamily="@font/vazirmatn_medium"
+                                app:layout_constraintRight_toLeftOf="@id/user"
+                                app:layout_constraintTop_toBottomOf="@id/title_last_report_cp"
+                                tools:ignore="RtlHardcoded" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/time_last_report"
                                 style="@style/home_fragment_text_title"
                                 android:layout_width="wrap_content"
@@ -210,7 +236,7 @@
                                 android:fontFamily="@font/vazirmatn_medium"
                                 android:text="@string/The_Time"
                                 app:layout_constraintRight_toRightOf="@id/inner_constraint_layout"
-                                app:layout_constraintTop_toBottomOf="@id/title_last_report_cp"
+                                app:layout_constraintTop_toBottomOf="@id/user"
                                 tools:ignore="RtlHardcoded" />
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -222,7 +248,7 @@
                                 android:textSize="15sp"
                                 android:fontFamily="@font/vazirmatn_fd_medium"
                                 app:layout_constraintRight_toLeftOf="@id/time_last_report"
-                                app:layout_constraintTop_toBottomOf="@id/title_last_report_cp"
+                                app:layout_constraintTop_toBottomOf="@id/user"
                                 tools:ignore="RtlHardcoded" />
 
                             <Button
@@ -264,8 +290,8 @@
                         android:id="@+id/title_info"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginRight="25dp"
+                        android:layout_marginLeft="45dp"
+                        android:layout_marginRight="45dp"
                         android:background="@drawable/reports_active"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp">
@@ -296,9 +322,9 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="18dp"
+                        android:layout_marginRight="20dp"
                         android:layout_marginBottom="20dp"
                         android:background="@drawable/border_report">
 
@@ -385,17 +411,41 @@
                                 tools:ignore="RtlHardcoded" />
 
                             <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/user1"
+                                style="@style/home_fragment_text_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:textSize="15sp"
+                                android:fontFamily="@font/vazirmatn_medium"
+                                android:text="ثبت کننده گزارش:"
+                                app:layout_constraintRight_toRightOf="@id/last_Cp_Not_Active"
+                                app:layout_constraintTop_toBottomOf="@id/last_Cp_Not_Active"
+                                tools:ignore="RtlHardcoded" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/user1_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginRight="10dp"
+                                android:textSize="15sp"
+                                android:fontFamily="@font/vazirmatn_medium"
+                                app:layout_constraintRight_toLeftOf="@id/user1"
+                                app:layout_constraintTop_toBottomOf="@id/last_Cp_Not_Active"
+                                tools:ignore="RtlHardcoded" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/time_last_report_no_active"
                                 style="@style/home_fragment_text_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp"
-                                android:layout_marginRight="30dp"
                                 android:textSize="15sp"
                                 android:fontFamily="@font/vazirmatn_medium"
                                 android:text="زمان ثبت آخرین گزارش غیر فعال: "
-                                app:layout_constraintRight_toRightOf="@id/inner1_constraint_layout"
-                                app:layout_constraintTop_toBottomOf="@id/last_Cp_Not_Active"
+                                app:layout_constraintRight_toRightOf="@id/user1"
+                                app:layout_constraintTop_toBottomOf="@id/user1"
                                 tools:ignore="RtlHardcoded" />
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -407,7 +457,7 @@
                                 android:textSize="15sp"
                                 android:fontFamily="@font/vazirmatn_fd_medium"
                                 app:layout_constraintRight_toLeftOf="@id/time_last_report_no_active"
-                                app:layout_constraintTop_toBottomOf="@id/last_Cp_Not_Active"
+                                app:layout_constraintTop_toBottomOf="@id/user1"
                                 tools:ignore="RtlHardcoded" />
 
                             <Button
@@ -447,8 +497,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginRight="25dp"
+                        android:layout_marginLeft="45dp"
+                        android:layout_marginRight="45dp"
                         android:background="@drawable/reports_active"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp">

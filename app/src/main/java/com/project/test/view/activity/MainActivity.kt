@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.project.test.R
 import com.project.test.databinding.ActivityMainBinding
@@ -39,22 +40,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        requestFilePermissions()
-//        val json = DatabaseReportsAsJson(this).getJson()
-        /*
-                val json = Json(this).getJson()
-                val table1 = json.getJSONArray("cp_reports")
-
-                for (i in 0 until table1.length()) {
-                    val row = table1.getJSONObject(i)
-                    val column1 = row?.getInt("id")
-                    val column2 = row?.getInt("cp_id")
-                    val column3 = row?.getInt("station_id")
-                    val column4 = row?.getInt("created_by_user")
-                    val text= "$column1 $column2 $column3 $column4"
-                    Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
-                }
-         */
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 NavigationApp(
@@ -69,11 +54,6 @@ class MainActivity : AppCompatActivity() {
             ).navigationBackward()
         }
 
-//        binding.groupNav.visibility = View.VISIBLE
-//        binding.groupNav1.visibility = View.GONE
-//        binding.groupMore.visibility = View.GONE
-//        binding.groupMore1.visibility = View.VISIBLE
-
         val model = ViewModelProvider(this)[SharedViewModel::class.java]
         model.show.observe(this, Observer {
             if (it == "Hide") {
@@ -83,39 +63,11 @@ class MainActivity : AppCompatActivity() {
             }
         })
         val navigationApp = NavigationApp(this, supportFragmentManager, R.id.fragmentContainer)
-        // setupActionBarWithNavController(findNavController(R.id.fragmentContainer))
 
-//        val count = GetData(this).homePage()
-//        if (count > 0) {
-//            binding.arrow.clearAnimation()
-//            binding.arrow.visibility = View.GONE
-//        } else {
-//            val anim = AnimationUtils.loadAnimation(this, R.anim.arrow_anim)
-//            binding.arrow.startAnimation(anim)
-//        }
-
-
-//        val bottomAppBar = findViewById<BottomAppBar>(R.id.bottom_app_bar)
-//        val bottomBarBackground = bottomAppBar.background as MaterialShapeDrawable
-//        bottomBarBackground.shapeAppearanceModel = bottomBarBackground.shapeAppearanceModel
-//            .toBuilder()
-//            //.setBottomLeftCorner(ROUNDED,50f)
-//            //.setBottomRightCorner(ROUNDED,50f)
-//            //.setAllCorners(RoundedCornerTreatment()).setAllCornerSizes(RelativeCornerSize(0.5f))
-//            .build()
 
         binding.fabOptions.setOnClickListener {
-            navigationApp.emptyStack()
-            navigationApp.navigationForward(
-                R.id.action_home_menu_to_insertFromFragment, "InsertFromFragment"
-            )
-//            binding.arrow.clearAnimation()
-//            binding.arrow.visibility = View.GONE
-//            binding.groupNav.visibility = View.GONE
-//            binding.groupNav1.visibility = View.VISIBLE
-//            binding.groupMore.visibility = View.GONE
-//            binding.groupMore1.visibility = View.VISIBLE
-            // binding.showMore.slideDown()
+          navigationApp.navigationForward("InsertFromFragment")
+
             /*
                 val bundle = Bundle()
                 bundle.putBoolean("hideTextView", true)
@@ -123,11 +75,9 @@ class MainActivity : AppCompatActivity() {
                 myFragment.arguments = bundle
                 supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, myFragment).commit()
  */
-
         }
         binding.navHome.setOnClickListener {
-            navigationApp.emptyStack()
-            navigationApp.navigationForward(R.id.action_home_menu_self, "HomeFragment")
+            navigationApp.navigationForward("HomeFragment")
         }
 
         findViewById<TextView>(R.id.nav_more).setOnClickListener {

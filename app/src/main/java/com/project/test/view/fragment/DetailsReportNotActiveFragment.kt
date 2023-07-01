@@ -62,7 +62,7 @@ class DetailsReportNotActiveFragment : Fragment() {
             R.drawable.result
         )
 
-        binding.viewPager.adapter = ShowFormAdapter(2, parentFragmentManager, lifecycle)
+        binding.viewPager.adapter = ShowFormAdapter(2, childFragmentManager, lifecycle)
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
 
             val v = layoutInflater.inflate(

@@ -10,5 +10,6 @@ data class DataReport(
     val lastChangeTime:String,
     val Status: String,
     val nameProduct:String,
-    val sum: Int
+    val sum: Int,
+    val user:String
 )

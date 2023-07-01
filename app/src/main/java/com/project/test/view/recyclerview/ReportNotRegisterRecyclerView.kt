@@ -23,7 +23,7 @@ class ReportNotRegisterRecyclerView(
     private val LifecycleOwner: LifecycleOwner,
     private val context1: Context,
     private val activity: AppCompatActivity,
-    private val fragmentManager: FragmentManager,
+    private val fragmentManager: FragmentManager ,
     private val reports: ArrayList<DataReport>
 ) : RecyclerView.Adapter<ReportNotRegisterRecyclerView.ProductViewHolder>() {
     private val reportsFull = ArrayList<DataReport>()
@@ -51,6 +51,7 @@ class ReportNotRegisterRecyclerView(
 
         fun setData(data: DataReport) {
             binding.txtTitle1.text = data.csName
+            binding.userText.text= data.user
             binding.txtControlStationName1.text = data.cpName
             binding.txtFirstTime1.text = CurrentTime().date(data.createTime).first
             binding.txtLastTime1.text = CurrentTime().date(data.lastChangeTime).first
@@ -92,7 +93,7 @@ class ReportNotRegisterRecyclerView(
             activity,
             fragmentManager,
             R.id.fragmentContainer
-        ).navigationForward(R.id.action_showReportNotRegisteredFragment_to_showMoreFormFragment, "")
+        ).navigationForward("ShowMoreFormFragment")
 
     }
 }

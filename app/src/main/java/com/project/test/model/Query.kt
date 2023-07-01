@@ -4,10 +4,12 @@ import android.app.Activity
 import android.content.ContentValues
 import android.database.Cursor
 import android.widget.Toast
+import com.project.test.utils.SharedPreferences
 
 class Query(private val context: Activity) {
     private val myDatabase = Database(context).getInstance()
     private val db = myDatabase.writableDatabase
+    private val userId= SharedPreferences(context).getInt("userId",0)
     fun login(user: String): Cursor {
         val cursor =
             db.rawQuery("SELECT * FROM users WHERE username ='$user' AND is_deleted = 0", null)
@@ -49,7 +51,6 @@ class Query(private val context: Activity) {
     }
 
 
-
     fun cpStandardParameters(cp_Id: Int): Cursor {
         val cursor = db.rawQuery("SELECT * FROM cp_standard_parameters WHERE cp_id ='$cp_Id'", null)
         return (cursor)
@@ -71,16 +72,18 @@ class Query(private val context: Activity) {
 
     fun cpSelectReports(id: Int): Cursor {
         val cursor =
-            db.rawQuery("SELECT * FROM cp_reports WHERE cp_id ='$id' AND is_draft = '1'", null)
+            db.rawQuery("SELECT * FROM cp_reports WHERE cp_id ='$id' AND is_draft = '1' AND created_by_user='$userId'", null)
         return (cursor)
     }
 
-    fun cpSelectReports1(id: Int,isDraft: Int): Cursor {
+    fun cpSelectReports1(id: Int, isDraft: Int): Cursor {
         val cursor =
-            db.rawQuery("SELECT * FROM cp_reports WHERE cp_id ='$id' AND is_draft = '$isDraft'", null)
+            db.rawQuery(
+                "SELECT cp_reports.*, users.*,cp_reports.id AS cp_reports_id FROM cp_reports JOIN users ON cp_reports.created_by_user =  users.id  WHERE cp_id ='$id' AND is_draft = '$isDraft' AND created_by_user='$userId'",
+                null
+            )
         return (cursor)
     }
-
     fun updateCpReports(id: Int, values: ContentValues): Int {
         val selection = "cp_id = ?"
         val selectionArgs = arrayOf(id.toString())
@@ -107,7 +110,7 @@ class Query(private val context: Activity) {
 
     fun reportActive(): Cursor {
         val cursor = db.rawQuery(
-            "SELECT cp_reports_parameters.*, cp_reports.*,control_station.*,cp.*,cp_reports.created_datetime AS time FROM cp_reports_parameters JOIN cp_reports ON cp_reports_parameters.report_id = cp_reports.id JOIN cp ON cp_reports.cp_id = cp.id JOIN control_station ON cp.control_station_id = control_station.id WHERE is_draft = 1 ORDER BY id DESC LIMIT 1",
+            "SELECT cp_reports_parameters.*,users.*, cp_reports.*,control_station.*,cp.*,cp_reports.created_by_user AS user_id,cp_reports.created_datetime AS time FROM cp_reports_parameters JOIN cp_reports ON cp_reports_parameters.report_id = cp_reports.id JOIN cp ON cp_reports.cp_id = cp.id JOIN control_station ON cp.control_station_id = control_station.id JOIN users ON users.id = cp_reports.created_by_user WHERE is_draft = 1  AND user_id='$userId'ORDER BY id DESC LIMIT 1",
             null
         )
         return (cursor)
@@ -115,7 +118,7 @@ class Query(private val context: Activity) {
 
     fun reportNotActive(): Cursor {
         val cursor = db.rawQuery(
-            "SELECT cp_reports_parameters.*, cp_reports.*,control_station.*,cp.*,cp_reports.created_datetime AS time FROM cp_reports_parameters JOIN cp_reports ON cp_reports_parameters.report_id = cp_reports.id JOIN cp ON cp_reports.cp_id = cp.id JOIN control_station ON cp.control_station_id = control_station.id WHERE is_draft = 0 ORDER BY id DESC LIMIT 1",
+            "SELECT cp_reports_parameters.*,users.*, cp_reports.*,control_station.*,cp.*,cp_reports.created_by_user AS user_id,cp_reports.created_datetime AS time FROM cp_reports_parameters JOIN cp_reports ON cp_reports_parameters.report_id = cp_reports.id JOIN cp ON cp_reports.cp_id = cp.id JOIN control_station ON cp.control_station_id = control_station.id  JOIN users ON users.id = cp_reports.created_by_user WHERE is_draft = '0' AND user_id='$userId' ORDER BY id DESC LIMIT 1",
             null
         )
         return (cursor)
@@ -123,15 +126,15 @@ class Query(private val context: Activity) {
 
     fun reportNotActive1(): Cursor {
         val cursor = db.rawQuery(
-            "SELECT cp.*, cp_reports.*, control_station.*,cp_reports.created_datetime AS firstTime,cp_reports.id AS cp_report FROM cp JOIN cp_reports ON cp.id = cp_reports.cp_id JOIN control_station ON cp_reports.station_id = control_station.id WHERE is_draft='0'",
+            "SELECT cp.*, cp_reports.*,users.*, control_station.*,cp_reports.created_by_user AS user_id,cp_reports.created_datetime AS firstTime,cp_reports.id AS cp_report FROM cp JOIN cp_reports ON cp.id = cp_reports.cp_id JOIN control_station ON cp_reports.station_id = control_station.id JOIN users ON users.id = cp_reports.created_by_user WHERE is_draft='0' AND user_id='$userId'",
             null
         )
         return (cursor)
     }
 
-    fun finalRegister(cpId:Int): Cursor {
+    fun finalRegister(cpId: Int): Cursor {
         val cursor = db.rawQuery(
-            "SELECT * FROM cp_reports LEFT JOIN cp_reports_info ON cp_reports.id =  cp_reports_info.cp_report_id  WHERE cp_id ='$cpId' AND is_draft='0'",
+            "SELECT * FROM cp_reports LEFT JOIN cp_reports_info ON cp_reports.id =  cp_reports_info.cp_report_id  WHERE cp_id ='$cpId' AND is_draft='0' AND created_by_user='$userId'",
             null
         )
         return (cursor)
@@ -155,7 +158,7 @@ class Query(private val context: Activity) {
 
     fun otherReportQuery(cpId: Int): Cursor {
         val cursor = db.rawQuery(
-            "SELECT cp.*,products.*, cp_reports.*, control_station.*,products.name AS productName,cp_reports.created_datetime AS firstTime,cp_reports.id AS cp_report FROM products JOIN cp ON products.id=cp.product_id JOIN cp_reports ON cp.id = cp_reports.cp_id JOIN control_station ON cp_reports.station_id = control_station.id WHERE cp_id <> '$cpId' AND is_draft='1'",
+            "SELECT cp.*,products.*, cp_reports.*,users.*, control_station.*,cp_reports.created_by_user AS user_id,products.name AS productName,cp_reports.created_datetime AS firstTime,cp_reports.id AS cp_report FROM products JOIN cp ON products.id=cp.product_id JOIN cp_reports ON cp.id = cp_reports.cp_id JOIN control_station ON cp_reports.station_id = control_station.id JOIN users ON users.id = cp_reports.created_by_user WHERE cp_id <> '$cpId' AND is_draft='1' AND user_id='$userId'",
             null
         )
         return (cursor)
@@ -163,7 +166,7 @@ class Query(private val context: Activity) {
 
     fun otherReportQuery1(cpId: Int): Cursor {
         val cursor = db.rawQuery(
-            "SELECT cp.*,products.*,cp_reports.*, control_station.*,products.name AS productName,cp_reports.created_datetime AS firstTime,cp_reports.id AS cp_report FROM products JOIN cp ON products.id=cp.product_id JOIN cp_reports ON cp.id = cp_reports.cp_id JOIN control_station ON cp_reports.station_id = control_station.id WHERE is_draft='1'",
+            "SELECT cp.*,products.*,cp_reports.*,users.*,cp_reports.created_by_user AS user_id, control_station.*,products.name AS productName,cp_reports.created_datetime AS firstTime,cp_reports.id AS cp_report FROM products JOIN cp ON products.id=cp.product_id JOIN cp_reports ON cp.id = cp_reports.cp_id JOIN control_station ON cp_reports.station_id = control_station.id JOIN users ON users.id = cp_reports.created_by_user WHERE is_draft='1' AND user_id='$userId'",
             null
         )
         return (cursor)
@@ -171,7 +174,7 @@ class Query(private val context: Activity) {
 
     fun cpReportsJoin(reportId: Int): Cursor {
         val cursor = db.rawQuery(
-            "SELECT cp_reports_parameters.*, cp_reports.*,cp_reports_parameters.created_datetime AS lastTime FROM cp_reports JOIN cp_reports_parameters ON cp_reports.id = cp_reports_parameters.report_id WHERE report_id = '$reportId' ORDER BY report_order DESC LIMIT 1",
+            "SELECT cp_reports_parameters.*, cp_reports.*,cp_reports_parameters.created_datetime AS lastTime FROM cp_reports JOIN cp_reports_parameters ON cp_reports.id = cp_reports_parameters.report_id WHERE report_id = '$reportId' AND created_by_user='$userId' ORDER BY report_order DESC LIMIT 1",
             null
         )
         return (cursor)
@@ -188,8 +191,9 @@ class Query(private val context: Activity) {
         return (cursor)
     }
 
-    fun count2(isDraft:Int): Cursor {
-        val cursor = db.rawQuery("SELECT COUNT(*) FROM cp_reports WHERE is_draft ='$isDraft' ", null)
+    fun count2(isDraft: Int): Cursor {
+        val cursor =
+            db.rawQuery("SELECT COUNT(*) FROM cp_reports WHERE is_draft ='$isDraft' AND created_by_user='$userId'", null)
         return (cursor)
     }
 
@@ -201,7 +205,7 @@ class Query(private val context: Activity) {
 
 
     fun getLastRecord(): Cursor {
-        val cursor = db.rawQuery("SELECT * FROM cp_reports ORDER BY id DESC LIMIT 1", null)
+        val cursor = db.rawQuery("SELECT * FROM cp_reports  WHERE created_by_user='$userId' ORDER BY id DESC LIMIT 1", null)
         return (cursor)
     }
 
@@ -221,19 +225,23 @@ class Query(private val context: Activity) {
         db.close()
     }
 
-    fun allCpReports(): Cursor{
-        val cursor = db.rawQuery("SELECT * FROM cp_reports", null)
-        return (cursor)
-    }
-    fun allCpReportsInfo(): Cursor{
-        val cursor = db.rawQuery("SELECT * FROM cp_reports_info", null)
-        return (cursor)
-    }
-    fun allCpReportsParameters(): Cursor{
-        val cursor = db.rawQuery("SELECT * FROM cp_reports_parameters", null)
+    fun allCpReports(): Cursor {
+        val cursor = db.rawQuery(
+            "SELECT cp_reports.*,cp_reports_parameters.*,cp_reports_info.*,cp_reports.id AS cp_reports_id, cp_reports.created_datetime AS cp_reports_created_datetime,cp_reports_info.id AS cp_reports_info_id,cp_reports_parameters.created_datetime AS cp_reports_parameters_created_datetime,cp_reports_parameters.id AS cp_reports_parameters_id FROM cp_reports_parameters JOIN cp_reports ON cp_reports_parameters.report_id = cp_reports.id  JOIN cp_reports_info ON cp_reports.id = cp_reports_info.cp_report_id WHERE is_draft='0' AND created_by_user='$userId'",
+            null
+        )
         return (cursor)
     }
 
+    fun allCpReportsInfo(): Cursor {
+        val cursor = db.rawQuery("SELECT * FROM cp_reports_info", null)
+        return (cursor)
+    }
+
+    fun allCpReportsParameters(): Cursor {
+        val cursor = db.rawQuery("SELECT * FROM cp_reports_parameters", null)
+        return (cursor)
+    }
 
 
 }

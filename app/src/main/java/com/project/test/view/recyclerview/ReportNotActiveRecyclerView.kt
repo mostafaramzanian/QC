@@ -55,6 +55,7 @@ class ReportNotActiveRecyclerView(
         fun setData(data: DataReport) {
 
             binding.txtTitle1.text = data.csName
+            binding.userText.text=data.user
             binding.txtControlStationName1.text = data.cpName
             binding.txtFirstTime1.text = CurrentTime().date(data.createTime).first
             binding.txtLastTime1.text = CurrentTime().date(data.lastChangeTime).first
@@ -91,8 +92,7 @@ class ReportNotActiveRecyclerView(
                     fragmentManager,
                     R.id.fragmentContainer
                 ).navigationForward(
-                    R.id.action_showReportRegisteredFragment_to_detailsReportNotActiveFragment,
-                    ""
+                   "DetailsReportNotActiveFragment",
                 )
             }
         }

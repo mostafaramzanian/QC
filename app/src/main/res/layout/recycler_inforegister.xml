@@ -12,8 +12,8 @@
         android:id="@+id/inner_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/background_info"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -49,7 +49,7 @@
             android:id="@+id/observed_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/vazirmatn_bold"
             android:text="مقدار مشاهده شده:"
             android:textColor="@color/black"
@@ -73,7 +73,7 @@
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/vazirmatn_bold"
             android:text="@string/Status_1"
             android:textColor="@color/black"
@@ -95,25 +95,53 @@
             tools:ignore="RtlHardcoded" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/date_register"
+            android:id="@+id/user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/vazirmatn_bold"
-            android:text="@string/Date_Save"
+            android:text="ثبت کننده گزارش:"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintRight_toRightOf="@+id/status"
             app:layout_constraintTop_toBottomOf="@+id/status" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/user_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/vazirmatn_medium"
+            android:text="@string/Confirmation"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintRight_toLeftOf="@+id/user"
+            app:layout_constraintTop_toTopOf="@+id/user"
+            tools:ignore="RtlHardcoded" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/date_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/vazirmatn_bold"
+            android:text="@string/Date_Save"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintRight_toRightOf="@+id/user"
+            app:layout_constraintTop_toBottomOf="@+id/user" />
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/show_date_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="12dp"
+
             android:fontFamily="@font/vazirmatn_fd_regular"
             android:textColor="@color/black"
             android:textSize="16sp"
+
             app:layout_constraintRight_toLeftOf="@+id/date_register"
             app:layout_constraintTop_toTopOf="@+id/date_register"
             tools:ignore="RtlHardcoded"
@@ -123,7 +151,7 @@
             android:id="@+id/time_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/vazirmatn_bold"
             android:text="@string/Time_Save"
             android:textColor="@color/black"
@@ -151,8 +179,8 @@
         android:id="@+id/title_info"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
         android:layout_marginBottom="222dp"
         android:background="@drawable/background_title_info"
         app:layout_constraintLeft_toLeftOf="@+id/inner_info"
