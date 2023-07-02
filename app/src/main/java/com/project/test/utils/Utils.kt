@@ -56,6 +56,10 @@ class Utils {
             ).toInt()
         }
 
+        fun px2dp(resources: Resources, px: Float): Int {
+            return (px / resources.displayMetrics.density).toInt();
+        }
+
         fun dp2px(resources: Resources, dp: Float): Float {
             val scale: Float = resources.displayMetrics.density
             return dp * scale + 0.5f
