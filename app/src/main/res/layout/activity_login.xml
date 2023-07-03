@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -227,6 +228,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_bg"
                 android:clickable="true"
+                android:focusable="true"
                 android:fontFamily="@font/vazirmatn_bold"
                 android:text="@string/Login"
                 android:textColor="@color/white"
@@ -237,8 +239,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/alertPass"
                 app:layout_constraintVertical_bias=".5"
-                app:lb_isShadowEnable="false"
-                android:focusable="true" />
+                app:lb_isShadowEnable="false" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
