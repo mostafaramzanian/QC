@@ -17,6 +17,8 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.view.ViewCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.getkeepsafe.taptargetview.TapTarget
@@ -161,7 +163,15 @@ class MainActivity : AppCompatActivity() {
 
                 finish()
                 val intent = Intent(this@MainActivity, LoginActivity::class.java)
-                startActivity(intent)
+                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    this@MainActivity,
+                    binding.customTitleLayout.imageView2,
+                    ViewCompat.getTransitionName(binding.customTitleLayout.imageView2)!!
+                )
+
+                startActivity(intent, options.toBundle())
+
+
             }
             bottomSheetDialog.show()
         }

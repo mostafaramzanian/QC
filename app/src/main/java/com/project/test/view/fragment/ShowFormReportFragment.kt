@@ -2,6 +2,7 @@ package com.project.test.view.fragment
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.project.test.R
@@ -21,6 +21,7 @@ import com.project.test.model.GetData
 import com.project.test.utils.Alert
 import com.project.test.utils.SharedPreferences
 import com.project.test.utils.SharedViewModel
+import com.project.test.utils.Utils
 import com.project.test.view.adapter.ShowFormAdapter
 
 
@@ -64,7 +65,21 @@ class ShowFormReportFragment : Fragment() {
             )
             v.findViewById<TextView>(R.id.text_tab).text = tabTitle[position]
             v.findViewById<ImageView>(R.id.icon_tab).setImageResource(tabImages[position])
+            val iconTab = v.findViewById<ImageView>(R.id.icon_tab)
 
+//            binding.tabLayout.post {
+//                Log.d("~~~~~~~~~~WW", v.width.toString())
+//                Log.d("~~~~~~~~~~HH", v.height.toString())
+//
+//                Log.d("~~w", Utils.px2dp(resources, v.width.toFloat()).toString())
+//                Log.d("~~h", Utils.px2dp(resources, v.height.toFloat()).toString())
+//                Log.d("~~", "")
+//            }
+            v.post {
+
+                iconTab.layoutParams.height = iconTab.width
+                iconTab.requestLayout()
+            }
             tab.customView = v
 
 

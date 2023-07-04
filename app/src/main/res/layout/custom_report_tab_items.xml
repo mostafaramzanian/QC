@@ -49,6 +49,7 @@
         android:fontFamily="@font/vazirmatn_medium"
         android:gravity="center"
         android:text=""
+        android:textColor="@color/TabNonActive"
         android:textSize="17sp"
         tools:ignore="RtlHardcoded" />
 
