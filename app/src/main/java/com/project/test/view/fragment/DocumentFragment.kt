@@ -17,6 +17,7 @@ import com.project.test.dataclass.DataDocument
 import com.project.test.model.GetData
 import com.project.test.utils.SharedViewModel
 import com.project.test.view.recyclerview.DocumentRecyclerViewAdapter
+import kotlin.concurrent.thread
 
 
 class DocumentFragment : Fragment() {
@@ -45,23 +46,25 @@ class DocumentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        val fontSize = Size(requireContext()).fontSize(0.036f)
 
         val model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         model.message1.observe(viewLifecycleOwner, Observer {
-            val textView = view.findViewById<TextView>(R.id.title_doc2)
-//            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
-            val data = GetData(requireActivity()).doc()
-            if (data.size > 0) {
-                binding.itemNotFound.visibility = View.GONE
-                adapter =
-                    DocumentRecyclerViewAdapter(requireActivity(), data as ArrayList<DataDocument>)
-                binding.recyclerViewDoc.layoutManager = LinearLayoutManager(
-                    requireActivity(), RecyclerView.VERTICAL, false
-                )
-                binding.recyclerViewDoc.adapter = adapter
-            } else {
-                binding.itemNotFound.visibility = View.VISIBLE
+            thread(start = true) {
+                val data = GetData(requireActivity()).doc()
+                if (data.size > 0) {
+                    binding.itemNotFound.visibility = View.GONE
+                    adapter =
+                        DocumentRecyclerViewAdapter(
+                            requireActivity(),
+                            data as ArrayList<DataDocument>
+                        )
+                    binding.recyclerViewDoc.layoutManager = LinearLayoutManager(
+                        requireActivity(), RecyclerView.VERTICAL, false
+                    )
+                    binding.recyclerViewDoc.adapter = adapter
+                } else {
+                    binding.itemNotFound.visibility = View.VISIBLE
+                }
             }
         })
     }

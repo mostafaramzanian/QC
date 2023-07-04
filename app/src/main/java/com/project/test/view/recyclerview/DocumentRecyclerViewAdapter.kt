@@ -39,9 +39,6 @@ class DocumentRecyclerViewAdapter(
                 binding.description.text = data.description
             }
             binding.root.setOnClickListener {
-//                val appSpecificExternalStorageDirectory =
-//                    context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
-
                 var directory =
                     Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
 
@@ -51,17 +48,6 @@ class DocumentRecyclerViewAdapter(
 
                 FileHelperUtils.openFile(file, context)
             }
-
-//            val fontSizeBtn = Size(context).fontSize(0.032f)
-//            val fontSizeTitle = Size(context).fontSize(0.039f)
-//            val fontSizeContent = Size(context).fontSize(0.037f)
-
-//            binding.btnDoc.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeBtn)
-//            binding.txtTitleDoc.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.txtTitleDoc1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeContent)
-//
-//            binding.codeDoc.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.codeDoc1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeContent)
         }
 
     }

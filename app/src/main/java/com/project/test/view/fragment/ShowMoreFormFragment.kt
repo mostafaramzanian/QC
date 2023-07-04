@@ -53,13 +53,6 @@ class ShowMoreFormFragment : Fragment() {
 
         binding.viewPagerMore.isUserInputEnabled = false
 
-//        val fontSize = Size(requireContext()).fontSize(0.036f)
-//        val fontSize1 = Size(requireContext()).fontSize(0.030f)
-//        val width1 = Size(requireContext()).calWidth(0.045f)
-//        val height1 = Size(requireContext()).calHeight(0.03f)
-//        val width2 = Size(requireContext()).calWidth(0.05f)
-//        val height2 = Size(requireContext()).calHeight(0.03f)
-
         val data = GetData(requireActivity()).otherReports("notShowAllReports")
         val count1 = data.size
         TabLayoutMediator(binding.tabLayoutMore, binding.viewPagerMore) { tab, position ->
@@ -67,10 +60,6 @@ class ShowMoreFormFragment : Fragment() {
                 0 -> {
 
                     tab.setCustomView(R.layout.custom_view)
-//                    val tvTabText = tab.customView!!.findViewById<TextView>(R.id.text_tab_1)
-//                    tvTabText.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
-//                    val counter1 = tab.customView!!.findViewById<TextView>(R.id.counter1)
-//                    counter1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize1)
                     if (count1 > 0) {
                         if (count1 < 100) {
                             tab.customView?.findViewById<TextView>(R.id.counter)?.apply {
@@ -102,8 +91,6 @@ class ShowMoreFormFragment : Fragment() {
                         ContextCompat.getColor(requireContext(), R.color.TabActive)
                     )
                     tab.customView = v
-//                    val tvTabText2 = tab.customView!!.findViewById<TextView>(R.id.text_tab_2)
-//                    tvTabText2.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
                 }
             }
         }.attach()
@@ -114,46 +101,13 @@ class ShowMoreFormFragment : Fragment() {
                 tab?.customView?.findViewById<TextView>(R.id.text_tab_1)?.setTextColor(
                     ContextCompat.getColor(requireContext(), R.color.TabActive)
                 )
-//                when (tab?.position) {
-//                    0 -> {
-//                        /*
-//                                                tab.customView?.findViewById<Group>(R.id.groupTabLayout)?.visibility =
-//                                                    View.GONE
-//
-//                         */
-//                        tab.customView?.findViewById<TextView>(R.id.text_tab_1)?.setTextColor(
-//                            ContextCompat.getColor(requireContext(), R.color.TabActive)
-//                        )
-//                    }
-//
-//                    1 -> {
-//                        tab.customView?.findViewById<TextView>(R.id.text_tab_1)?.setTextColor(
-//                            ContextCompat.getColor(requireContext(), R.color.TabActive)
-//                        )
-//                    }
-//                }
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
                 tab?.customView?.findViewById<TextView>(R.id.text_tab_1)?.setTextColor(
                     ContextCompat.getColor(requireContext(), R.color.TabNonActive)
                 )
-//                when (tab?.position) {
-//                    0 -> {
-//                        tab.customView?.findViewById<TextView>(R.id.text_tab_1)?.setTextColor(
-//                            ContextCompat.getColor(requireContext(), R.color.TabNonActive)
-//                        )
-//                    }
-//
-//                    1 -> {
-//                        tab.customView?.findViewById<TextView>(R.id.text_tab_2)?.setTextColor(
-//                            ContextCompat.getColor(requireContext(), R.color.TabNonActive)
-//                        )
-//                    }
-//                }
-
             }
-
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
     }

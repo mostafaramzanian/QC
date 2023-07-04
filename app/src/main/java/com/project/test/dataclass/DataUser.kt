@@ -9,5 +9,6 @@ data class DataUser (
     val lastname: String,
     val user_type: String,
     val access_level: String,
-
+    val user_type_title: String,
+    val process_id:Int
     )

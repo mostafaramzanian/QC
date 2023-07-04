@@ -97,6 +97,7 @@
             android:layoutDirection="ltr"
             android:maxLength="10"
             android:maxLines="2"
+            android:inputType="number"
             android:paddingLeft="6dp"
             android:textColor="@color/black"
             android:textCursorDrawable="@drawable/cursordrawablered"

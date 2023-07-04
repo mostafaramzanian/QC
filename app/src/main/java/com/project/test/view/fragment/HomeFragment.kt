@@ -33,6 +33,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         model.showHide("Hide")
+        model.showcase("HomeFragment")
         val sh = SharedPreferences(requireActivity())
 
         binding.username.text = "${sh.getString("fullName", "")}، به نرم افزار کنترل کیفیت خوش آمدید."

@@ -32,6 +32,7 @@ import com.project.test.utils.Utils
 import com.project.test.view.activity.usb_sync.SyncDataActivity
 import com.toxicbakery.bcrypt.Bcrypt
 import java.util.Locale
+import kotlin.concurrent.thread
 
 
 class LoginActivity : AppCompatActivity() {
@@ -117,23 +118,14 @@ class LoginActivity : AppCompatActivity() {
                     it.lowercaseChar().toString()
                 }
             }
-            Thread {
-
+            thread(start = true) {
                 val userData: DataUser? = GetData(this).getUser(user)
-
                 if (userData != null) {
-
                     if (validation(
                             user, password, userData
                         )
                     ) {
-
-                        val userType1 = Query(this).userTypes(userData.user_type)
-                        var userType2 = ""
-                        if (userType1.moveToFirst()) {
-                            userType2 =
-                                userType1.getString(userType1.getColumnIndexOrThrow("title"))
-                        }
+                        val userType2 = userData.user_type_title
 
                         if (userData.user_type == "QC_EXPERT" || userData.user_type == "QC_REVIEWER" || userData.user_type == "QUALITY_ASSURANCE_EXPERT") {
                             sharedPreferences.putString("username", user)
@@ -142,17 +134,9 @@ class LoginActivity : AppCompatActivity() {
                                 "fullName", "${userData.firstname} ${userData.lastname}"
                             )
                             sharedPreferences.putString("userType", userData.user_type)
-                            sharedPreferences.putString("userTypeTitle", userType2)
+                            sharedPreferences.putString("userTypeTitle", userData.user_type_title)
+                            sharedPreferences.putInt("process_id", userData.process_id)
 
-                            val tableUserProcesses = Query(this).userProcesses(userData.id)
-                            if (tableUserProcesses.moveToFirst()) {
-                                val processId = tableUserProcesses.getInt(
-                                    tableUserProcesses.getColumnIndexOrThrow(
-                                        "process_id"
-                                    )
-                                )
-                                sharedPreferences.putInt("process_id", processId)
-                            }
                             Handler(mainLooper).post {
                                 loginButton.hideLoading()
 
@@ -162,7 +146,6 @@ class LoginActivity : AppCompatActivity() {
                                     null,
                                     null
                                 )
-
                                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
                                 val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                                     this@LoginActivity,
@@ -173,9 +156,6 @@ class LoginActivity : AppCompatActivity() {
                                 startActivity(intent, options.toBundle())
                                 finish()
                             }
-
-
-//                        GoToOtherActivity(this).mainActivity()
                         } else {
 
                             val color = ContextCompat.getColor(this, R.color.black)
@@ -209,12 +189,6 @@ class LoginActivity : AppCompatActivity() {
                                 loginButton.hideLoading()
                                 CustomToast(this).toastAlert(string, null, null, null)
                             }
-
-//                        for (i in 1..8) {
-//                            CustomToast(this).toastAlert(spannableString3, null)
-//                        }
-
-
                         }
                     } else {
                         val text = "نام کاربری یا گذرواژه اشتباه است"
@@ -230,8 +204,6 @@ class LoginActivity : AppCompatActivity() {
                             CustomToast(this).toastAlert(spannableString, null, null, null)
                         }
                     }
-
-
                 } else {
                     val text = "نام کاربری یا گذرواژه اشتباه است"
                     val spannableString = SpannableString(text)
@@ -245,17 +217,10 @@ class LoginActivity : AppCompatActivity() {
                         loginButton.hideLoading()
                         CustomToast(this).toastAlert(spannableString, null, null, null)
                     }
-
                 }
-
-            }.start()
-
-
+            }
         }
     }
-
-    // private val alert = Alert(this)
-    // این متد مسئول اعتبار سنجی ورودی های کاربر است
     private fun validation(user: String, pass: String, userData: DataUser): Boolean {
 
 
@@ -270,10 +235,8 @@ class LoginActivity : AppCompatActivity() {
                     binding.username.defaultHintTextColor = colorStateListAlertEnable
                     binding.alertUser.visibility = View.VISIBLE
                 }
-
                 false
             }
-
             else -> {
                 true
             }
@@ -285,10 +248,8 @@ class LoginActivity : AppCompatActivity() {
                     binding.password.defaultHintTextColor = colorStateListAlertEnable
                     binding.alertPass.visibility = View.VISIBLE
                 }
-
                 false
             }
-
             else -> {
                 true
             }
@@ -297,27 +258,6 @@ class LoginActivity : AppCompatActivity() {
         if (isEmptyUser && isEmptyPassword) {
 
             validUserPass = Bcrypt.verify(pass, userData.passwd.toByteArray())
-
-//            validUserPass = when {
-//
-//                !Bcrypt.verify(pass, userData.passwd.toByteArray()) -> {
-//                    val text = "رمز عبور اشتباه است!"
-//                    val spannableString = SpannableString(text)
-//                    spannableString.setSpan(
-//                        ForegroundColorSpan(ContextCompat.getColor(this, R.color.white)),
-//                        0,
-//                        text.length,
-//                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-//                    )
-//                    CustomToast(this).toastAlert(spannableString, null)
-//                    false
-//                }
-//
-//                else -> {
-//                    true
-//                }
-//
-//            }
         }
         return isEmptyUser && isEmptyPassword && validUserPass
     }

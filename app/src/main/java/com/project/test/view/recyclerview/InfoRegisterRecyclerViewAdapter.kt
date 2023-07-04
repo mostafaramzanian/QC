@@ -51,7 +51,6 @@ class InfoRegisterRecyclerViewAdapter(
                 binding.showDateRegister.text = finalDate
                 binding.showTimeRegister.text = timeString
             } else {
-                //     binding.txtTitleDoc.visibility= View.INVISIBLE
                 binding.txtTitleDoc1.text = "آزمایشگاه"
                 binding.observedValue.text = "کد درخواست آزمایشگاه: "
                 binding.showObservedValue.text = data.lab_request_code
@@ -83,22 +82,6 @@ class InfoRegisterRecyclerViewAdapter(
                 binding.showStatus.setTextColor(ContextCompat.getColor(context, R.color.red));
                 binding.showStatus.text = "رد"
             }
-
-//            val fontSizeBtn = Size(context).fontSize(0.037f)
-//            val fontSizeTitle = Size(context).fontSize(0.035f)
-//            val fontSizeContent = Size(context).fontSize(0.035f)
-
-//            binding.txtTitleDoc.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.txtTitleDoc1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeContent)
-//            binding.observedValue.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.showObservedValue.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeContent)
-//            binding.status.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.showStatus.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeContent)
-//            binding.dateRegister.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.showDateRegister.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeContent)
-//            binding.timeRegister.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.showTimeRegister.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeContent)
-//            binding.infoSaved.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeBtn)
         }
 
     }

@@ -65,14 +65,6 @@ class InformationRecyclerViewAdapter(
         } else if (holder is LabInformationViewHolder) {
             holder.setData(Info[position])
         }
-//
-//        if(Info[position].isLab == 0){
-//            (holder as InformationViewHolder).setData(Info[position])
-//
-//        }else{
-//            (holder as LabInformationViewHolder).setData(Info[position])
-////            holder.setData(Info[position])
-//        }
     }
 
     override fun getItemCount(): Int = Info.size
@@ -141,20 +133,13 @@ class InformationRecyclerViewAdapter(
             binding.titleInfo2.text = importanceLevel
             binding.codeDoc1.text = time
             binding.txtTitleDoc1.text = range
-
-            val model1 = ViewModelProvider(context1)[SharedViewModel::class.java]
-
             binding.btnInfo.setOnClickListener {
-
-                var text4: String?
-                var finalText: SpannableString?
-                var finalText1: String?
                 if (binding.editText1.text.toString() == "") {
                     val textAlert =
                         "کاربر گرامی برای ثبت اطلاعات باید قسمت کد درخواست آزمایشگاه تکمیل گردد!"
                     val alert = Alert(context, textAlert, null, null, "متوجه شدم", null, "خطا")
-                    alert.setOnClick(View.OnClickListener {
-                    })
+                    alert.setOnClick {
+                    }
                     alert.alert()
                 }
                 if (binding.editText1.text.toString() != "") {
@@ -185,74 +170,57 @@ class InformationRecyclerViewAdapter(
                     val dataCpReports: DataCpReports? = GetData(context).information().first
                     val idCpReport = GetData(context).information().second
                     val reportOrder = GetData(context).information().third
-                    val dataInfo = DataLab(
-                        idCpReport!!,
-                        data.id,
-                        0,
-                        binding.editText2.text.toString(),
-                        currentTime,
-                        reportOrder!!,
-                        binding.editText1.text.toString().uppercase()
-                    )
                     val alert = Alert(context, null, null, builder, "تایید", "لغو", "هشدار")
-                    alert.setOnClick(View.OnClickListener {
-                        if (dataCpReports != null) {
-                            val statusSet = SetData(context).information1(dataCpReports)
-                            if (statusSet == -1L) {
+                    try {
+                        val dataInfo = DataLab(
+                            idCpReport!!,
+                            data.id,
+                            0,
+                            binding.editText2.text.toString(),
+                            currentTime,
+                            reportOrder!!,
+                            binding.editText1.text.toString().uppercase()
+                        )
+                        alert.setOnClick {
+                            if (dataCpReports != null) {
+                                val statusSet = SetData(context).information1(dataCpReports)
+                                if (statusSet == -1L) {
+                                    CustomToast(context).toastAlert(
+                                        null,
+                                        "خطایی در هنگام ثبت اطلاعات رخ داده است!",
+                                        15f, Gravity.CENTER
+                                    )
+                                }
+                            }
+                            val statusSet3 = SetData(context).information(null, dataInfo)
+                            if (statusSet3 == -1L) {
                                 CustomToast(context).toastAlert(
                                     null,
-                                    "خطایی در هنگام ثبت اطلاعات رخ داده است!",
-                                    15f, Gravity.CENTER
+                                    "عدم موفقیت در ثبت اطلاعات!", 15f, Gravity.CENTER
+                                )
+                            } else {
+                                CustomToast(context).toastValid(
+                                    null,
+                                    "اطلاعات وارد گردیده با موفقیت ثبت شدند.", 15f, Gravity.CENTER
+                                )
+                                emptyLab(binding)
+                                GetData(context).count(
+                                    context1,
+                                    context2,
+                                    context,
+                                    sharedPreferences.getInt("idReports", 5)
                                 )
                             }
                         }
-                        val statusSet3 = SetData(context).information(null, dataInfo)
-                        if (statusSet3 == -1L) {
-                            CustomToast(context).toastAlert(
-                                null,
-                                "عدم موفقیت در ثبت اطلاعات!", 15f, Gravity.CENTER
-                            )
-                        } else {
-                            CustomToast(context).toastValid(
-                                null,
-                                "اطلاعات وارد گردیده با موفقیت ثبت شدند.", 15f, Gravity.CENTER
-                            )
-                            emptyLab(binding)
-                            GetData(context).count(
-                                context1,
-                                context2,
-                                context,
-                                sharedPreferences.getInt("idReports", 5)
-                            )
-                        }
-
-
-                    })
-                    alert.setOnClick1(View.OnClickListener {
-
-                    })
+                    } catch (ex: Exception) {
+                        ex.printStackTrace()
+                    }
+                    alert.setOnClick1 {
+                    }
                     alert.alert()
                 }
             }
-//            val fontSizeBtn = Size(context).fontSize(0.030f)
-//            val fontSizeTitle = Size(context).fontSize(0.032f)
-//            val fontSizeContent = Size(context).fontSize(0.032f)
-//            val fontSizeDegree = Size(context).fontSize(0.028f)
-//            val fontSizeTime = Size(context).fontSize(0.029f)
-//
-//            binding.btnInfo.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeBtn)
-//            binding.txtTitleDoc.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.txtTitleDoc1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeDegree)
-//            binding.codeDoc.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.codeDoc1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTime)
-//            binding.observedValue.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.editText1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeContent)
-//            binding.description.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.editText2.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeContent)
-//            binding.titleInfo1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.titleInfo2.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
         }
-
     }
 
 
@@ -318,7 +286,6 @@ class InformationRecyclerViewAdapter(
             }
             var idTool = idTools[0]
             var cF: Double = correctionFactor[0]
-            //val model1 = ViewModelProvider(context1)[SharedViewModel::class.java]
             binding.spinnerViewInfo.setOnSpinnerItemSelectedListener<String> { oldIndex, oldItem, newIndex, newItem ->
                 binding.arrowSpinnerInfo.startAnimation(animUp)
                 idTool = idTools[newIndex]
@@ -326,8 +293,6 @@ class InformationRecyclerViewAdapter(
                 if (oldIndex == 0 || newIndex == 0) {
                     binding.editText1.inputType = TYPE_CLASS_TEXT
                     binding.editText1.text = null
-                    // binding.radioConfirmation.isChecked = false
-                    // binding.radioRejection.isChecked = false
                 }
                 if (newIndex != 0) {
                     binding.editText1.inputType = TYPE_CLASS_NUMBER or TYPE_NUMBER_FLAG_DECIMAL
@@ -346,7 +311,6 @@ class InformationRecyclerViewAdapter(
                         )
                     }
                 }
-                //  model1.statusSpinnerInfo("show")
             }
             var reportValue = ""
             binding.editText1.addTextChangedListener {
@@ -385,42 +349,6 @@ class InformationRecyclerViewAdapter(
                         )
                 }
             }
-            /*
-            binding.editText1.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
-                if (idTool == null) {
-                    CustomToast(context).toastAlert(
-                        null,
-                        "کاربر گرامی ابتدا از قسمت ابزار کنترلی آیتمی را انتخاب نمایید!"
-                    )
-                    model1.statusSpinnerInfo("notShow")
-                    binding.editText5.layoutParams.height = binding.editText1.height
-                    binding.editText1.visibility = View.GONE
-                    binding.editText5.visibility = View.VISIBLE
-                }
-            }
-            binding.editText5.setOnClickListener {
-                if (idTool == null) {
-                    CustomToast(context).toastAlert(
-                        null,
-                        "کاربر گرامی ابتدا از قسمت ابزار کنترلی آیتمی را انتخاب نمایید!"
-                    )
-                }
-            }
-
-            model1.spinnerInfo.observe(context2, Observer {
-                if (it == "show" && idTool != null) {
-                    binding.editText1.visibility = View.VISIBLE
-                    binding.editText5.visibility = View.GONE
-                    binding.editText1.isEnabled = true
-                    binding.editText1.requestFocus()
-                    val imm =
-                        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-                    imm?.showSoftInput(binding.editText1, InputMethodManager.SHOW_IMPLICIT)
-                }
-            })
-
-
-             */
             binding.btnInfo.setOnClickListener {
                 var isChecked = 0
                 var checkName: String? = null
@@ -478,7 +406,6 @@ class InformationRecyclerViewAdapter(
                     val spannableString3: SpannableString?
                     val spannableString4: SpannableString?
 
-
                     val builder = SpannableStringBuilder()
 
                     if (observe1 != null) {
@@ -517,50 +444,55 @@ class InformationRecyclerViewAdapter(
                     val idCpReport = GetData(context).information().second
                     val reportOrder = GetData(context).information().third
                     val currentTime = CurrentTime().time()
-                    val dataInfo = SetDataInfo(
-                        idCpReport!!,
-                        data.id,
-                        idTool,
-                        reportValue,
-                        binding.editText2.text.toString(),
-                        state!!,
-                        currentTime,
-                        reportOrder!!
-                    )
                     val alert = Alert(context, null, null, builder, "تایید", "لغو", "هشدار")
-                    alert.setOnClick(View.OnClickListener {
-                        if (dataCpReports != null) {
-                            statusSet = SetData(context).information1(dataCpReports)
-                            if (statusSet == -1L) {
+                    try {
+                        val dataInfo = SetDataInfo(
+                            idCpReport!!,
+                            data.id,
+                            idTool,
+                            reportValue,
+                            binding.editText2.text.toString(),
+                            state!!,
+                            currentTime,
+                            reportOrder!!
+                        )
+                        alert.setOnClick(View.OnClickListener {
+                            if (dataCpReports != null) {
+                                statusSet = SetData(context).information1(dataCpReports)
+                                if (statusSet == -1L) {
+                                    CustomToast(context).toastAlert(
+                                        null,
+                                        "خطایی در هنگام ثبت اطلاعات رخ داده است!",
+                                        15f,
+                                        Gravity.CENTER
+                                    )
+                                }
+                            }
+                            val statusSet3 = SetData(context).information(dataInfo, null)
+                            if (statusSet3 == -1L) {
                                 CustomToast(context).toastAlert(
                                     null,
-                                    "خطایی در هنگام ثبت اطلاعات رخ داده است!", 15f, Gravity.CENTER
+                                    "عدم موفقیت در ثبت اطلاعات!", 15f, Gravity.CENTER
+                                )
+                            } else {
+                                CustomToast(context).toastValid(
+                                    null,
+                                    "اطلاعات وارد گردیده با موفقیت ثبت شدند.", 15f, Gravity.CENTER
+                                )
+                                empty(binding)
+                                idTool = idTools[0]
+                                cF = correctionFactor[0]
+                                GetData(context).count(
+                                    context1,
+                                    context2,
+                                    context,
+                                    sharedPreferences.getInt("idReports", 5)
                                 )
                             }
-                        }
-                        val statusSet3 = SetData(context).information(dataInfo, null)
-                        if (statusSet3 == -1L) {
-                            CustomToast(context).toastAlert(
-                                null,
-                                "عدم موفقیت در ثبت اطلاعات!", 15f, Gravity.CENTER
-                            )
-                        } else {
-                            CustomToast(context).toastValid(
-                                null,
-                                "اطلاعات وارد گردیده با موفقیت ثبت شدند.", 15f, Gravity.CENTER
-                            )
-                            empty(binding)
-                            idTool = idTools[0]
-                            cF = correctionFactor[0]
-                            GetData(context).count(
-                                context1,
-                                context2,
-                                context,
-                                sharedPreferences.getInt("idReports", 5)
-                            )
-                        }
-                    })
-
+                        })
+                    } catch (ex: Exception) {
+                        ex.printStackTrace()
+                    }
 
                     alert.setOnClick1(View.OnClickListener {
 
@@ -568,29 +500,6 @@ class InformationRecyclerViewAdapter(
                     alert.alert()
                 }
             }
-//            val fontSizeBtn = Size(context).fontSize(0.030f)
-//            val fontSizeTitle = Size(context).fontSize(0.032f)
-//            val fontSizeContent = Size(context).fontSize(0.032f)
-//            val fontSizeDegree = Size(context).fontSize(0.028f)
-//            val fontSizeTime = Size(context).fontSize(0.029f)
-//
-//            binding.btnInfo.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeBtn)
-//            binding.txtTitleDoc.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.txtTitleDoc1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeDegree)
-//            binding.codeDoc.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.codeDoc1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTime)
-//            binding.controlTools.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.observedValue.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.editText1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeContent)
-//            binding.observedValueChange.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.editText3Observed.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeContent)
-//            binding.description.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.editText2.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeContent)
-//            binding.statusInfo.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.radioConfirmation.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeContent)
-//            binding.radioRejection.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeContent)
-//            binding.titleInfo1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.titleInfo2.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
         }
 
     }

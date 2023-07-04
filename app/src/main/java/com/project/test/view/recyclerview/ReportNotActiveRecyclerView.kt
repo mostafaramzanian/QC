@@ -29,14 +29,6 @@ class ReportNotActiveRecyclerView(
     private val fragmentManager: FragmentManager,
     private val reports: ArrayList<DataReport>
 ) : RecyclerView.Adapter<ReportNotActiveRecyclerView.ProductViewHolder>() {
-    private val reportsFull = ArrayList<DataReport>()
-    private val reportMain = ArrayList<DataReport>()
-
-    init {
-        reportsFull.addAll(reports)
-        reportMain.addAll(reports)
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val binding = RecyclerReportFinalBinding.inflate(context.layoutInflater, parent, false)
         return ProductViewHolder(binding)

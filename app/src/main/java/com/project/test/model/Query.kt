@@ -12,7 +12,7 @@ class Query(private val context: Activity) {
     private val userId= SharedPreferences(context).getInt("userId",0)
     fun login(user: String): Cursor {
         val cursor =
-            db.rawQuery("SELECT * FROM users WHERE username ='$user' AND is_deleted = 0", null)
+            db.rawQuery("SELECT * FROM users JOIN user_types ON users.user_type = user_types.name JOIN user_processes ON users.id = user_processes.user_id  WHERE username ='$user' AND is_deleted = 0", null)
         return (cursor)
     }
 

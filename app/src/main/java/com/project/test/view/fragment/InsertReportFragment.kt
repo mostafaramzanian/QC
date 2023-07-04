@@ -38,7 +38,7 @@ class InsertReportFragment : Fragment() {
 
         val model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         model.showHide("show")
-
+        model.showcase("InsertReportFragment")
         val nodes = GetData(requireActivity()).controlStation()
 
         val list = mutableListOf<String>()
@@ -46,27 +46,9 @@ class InsertReportFragment : Fragment() {
         nodes.forEach { node ->
             buildStringRecursive(node, list, set)
         }
-        /*
-        val toastText = buildString {
-            fun buildStringRecursive(node: Node) {
-                    append(node.star.repeat(node.space + 0))
-                append(node.name)
-                append("\n")
-                node.children.forEach { child ->
-                    buildStringRecursive(child)
-                }
-            }
-            nodes.forEach { node ->
-                buildStringRecursive(node)
-            }
-        }
-
-         */
         val test = nodes.find { it.name.toString() == "111" }
         if (test != null) {
-
         }
-
         binding.spinnerView.setItems(list)
         val animDown = AnimationUtils.loadAnimation(
             requireContext(),
@@ -76,9 +58,6 @@ class InsertReportFragment : Fragment() {
             requireContext(),
             R.anim.spinner_dropup_anim
         )
-
-
-
         binding.spinnerView.setOnClickListener {
             if (binding.spinnerView.isShowing) {
                 binding.spinnerView.dismiss()
@@ -108,7 +87,6 @@ class InsertReportFragment : Fragment() {
         val listName1 = mutableListOf<String>()
         val product = mutableListOf<String>()
         val listId = mutableListOf<Int>()
-
 
         binding.spinnerView.setOnSpinnerItemSelectedListener<String> { oldIndex, oldItem, newIndex, newItem ->
             binding.arrowSpinner.startAnimation(animUp)
@@ -170,9 +148,7 @@ class InsertReportFragment : Fragment() {
                         "برای ایستگاه کنترلی انتخاب شده، طرح کیفیتی یافت نشد!"
                 }
             }
-
         }
-
         binding.spinnerViewQuality.setOnClickListener {
             if (cpValue != null) {
                 if (binding.spinnerViewQuality.isShowing) {
@@ -216,7 +192,6 @@ class InsertReportFragment : Fragment() {
                 binding.spinnerViewQuality.dismiss()
                 binding.arrowSpinner1.startAnimation(animUp1)
             }
-
             val sharedPreferences = SharedPreferences(requireContext())
             if (!sharedPreferences.getBoolean("menuExit", false)) {
                 when {
@@ -295,19 +270,6 @@ class InsertReportFragment : Fragment() {
                 }
             }
         }
-//        val size = Size(requireContext()).fontSize(0.029f)
-//        val size1 = Size(requireContext()).fontSize(0.04f)
-
-//        val textView = view.findViewById<TextView>(R.id.text_help)
-//        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, size)
-//
-//        val textView1 = view.findViewById<TextView>(R.id.textView)
-//        textView1.setTextSize(TypedValue.COMPLEX_UNIT_PX, size1)
-//        val textView2 = view.findViewById<TextView>(R.id.quality)
-//        textView2.setTextSize(TypedValue.COMPLEX_UNIT_PX, size1)
-//        val button = view.findViewById<Button>(R.id.btn_add)
-//        button.setTextSize(TypedValue.COMPLEX_UNIT_PX, size1)
-
         model.spinner.observe(viewLifecycleOwner, Observer {
             if (it == "hidden") {
                 if (binding.spinnerView.isShowing) {
@@ -322,7 +284,6 @@ class InsertReportFragment : Fragment() {
         })
 
     }
-
     override fun onPause() {
         super.onPause()
         binding.spinnerViewQuality.dismiss()
@@ -340,7 +301,6 @@ private fun buildStringRecursive(node: DataNode, list: MutableList<String>, set:
         }
     }
 }
-
 
 private fun findNode(node: DataNode, id: Int): Int? {
     if (node.id == id) {
