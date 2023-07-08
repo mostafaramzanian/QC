@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-250dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/blue_bg" />
+
+    <LinearLayout
+        android:id="@+id/headerBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center_vertical|right"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@id/imageView2"
+            android:fontFamily="@font/vazirmatn_bold"
+            android:text="@string/Welcome"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/simple_circle_white"
+            android:elevation="3dp"
+            android:padding="15dp"
+            android:src="@drawable/icon"
+            android:transitionName="profile" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/headerBox"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="40dp"
+        android:gravity="center"
+        android:weightSum="1">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.50"
+            android:elevation="3dp"
+            android:gravity="center">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+
+                android:maxLines="1"
+                android:minHeight="48dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textColorHint="@color/alert"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:endIconDrawable="@drawable/user_icon_blue"
+                app:endIconMode="custom"
+                app:endIconTint="#0044ff"
+                app:hintTextColor="@color/alert"
+                app:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_input_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/edit_text_bg"
+                    android:fontFamily="@font/vazirmatn_regular"
+                    android:hint="@string/Username"
+                    android:paddingRight="45dp"
+                    android:text="a.tazkari"
+                    android:textColor="@color/alert"
+                    android:textSize="17.5sp"
+                    tools:ignore="RtlSymmetry" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/alertUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/username"
+                android:layout_alignLeft="@+id/username"
+                android:layout_alignRight="@+id/username"
+                android:fontFamily="@font/vazirmatn_regular"
+                android:text="@string/Error_Username"
+                android:textColor="@color/red"
+                android:textSize="15sp"
+                android:visibility="gone" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/alertUser"
+                android:maxLength="30"
+                android:maxLines="1"
+                android:minHeight="48dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textColorHint="@color/alert"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:endIconDrawable="@drawable/password_icon_blue"
+                app:endIconMode="custom"
+                app:hintTextColor="@color/alert"
+                app:passwordToggleEnabled="false"
+                app:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_input_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/edit_text_bg"
+                    android:fontFamily="@font/vazirmatn_regular"
+                    android:hint="@string/Password"
+                    android:inputType="textPassword"
+                    android:text="123"
+                    android:textColor="@color/alert"
+                    android:textSize="17sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/alertPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/password"
+                android:layout_alignLeft="@+id/password"
+                android:layout_alignRight="@+id/password"
+                android:fontFamily="@font/vazirmatn_regular"
+                android:text="@string/Error_Password"
+                android:textColor="@color/red"
+                android:textSize="15sp"
+                android:visibility="gone"
+                tools:ignore="RtlHardcoded" />
+
+            <!--            <CheckBox-->
+            <!--                android:id="@+id/rememberMe"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="30dp"-->
+            <!--                android:layout_marginRight="120dp"-->
+            <!--                android:fontFamily="@font/vazirmatn_regular"-->
+            <!--                android:layoutDirection="rtl"-->
+            <!--                android:text="@string/rememberMe"-->
+            <!--                android:textColor="@color/alert"-->
+            <!--                android:textSize="17sp"-->
+            <!--                android:visibility="gone"-->
+            <!--                app:layout_constraintRight_toRightOf="@+id/password"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/show_password"-->
+            <!--                tools:ignore="RtlHardcoded" />-->
+
+            <CheckBox
+                android:id="@+id/show_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/alertPass"
+                android:layout_alignRight="@+id/password"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/vazirmatn_regular"
+                android:layoutDirection="rtl"
+                android:text="@string/Show_Password"
+                android:textColor="@color/alert"
+                android:textSize="17sp"
+                android:visibility="visible"
+                tools:ignore="RtlHardcoded" />
+
+
+            <com.kusu.loadingbutton.LoadingButton
+                android:id="@+id/login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/show_password"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/button_bg"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/vazirmatn_bold"
+                android:text="@string/Login"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:lb_isShadowEnable="false" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

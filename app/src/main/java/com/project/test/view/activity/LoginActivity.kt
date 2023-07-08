@@ -106,10 +106,36 @@ class LoginActivity : AppCompatActivity() {
 
             Utils.hideKeyboard(this@LoginActivity)
 
-            loginButton.showLoading()
 
             var user = binding.edtInputUsername.text.toString()
             val password = binding.password.editText?.text.toString()
+
+            val colorStateListAlertEnable =
+                ColorStateList.valueOf(ContextCompat.getColor(binding.root.context, R.color.red))
+
+            var isValidUsernameAndPass = true;
+
+            if (user == "") {
+                binding.edtInputUsername.setBackgroundResource(R.drawable.alert_edit_text)
+                binding.username.defaultHintTextColor = colorStateListAlertEnable
+                binding.alertUser.visibility = View.VISIBLE
+                isValidUsernameAndPass = false
+            } else {
+                binding.alertUser.visibility = View.GONE
+
+            }
+
+            if (password == "") {
+                binding.edtInputPassword.setBackgroundResource(R.drawable.alert_edit_text)
+                binding.password.defaultHintTextColor = colorStateListAlertEnable
+                binding.alertPass.visibility = View.VISIBLE
+                isValidUsernameAndPass = false
+            } else {
+                binding.alertPass.visibility = View.GONE
+            }
+
+            if (!isValidUsernameAndPass) return@setOnClickListener
+
             user = user.toCharArray().joinToString("") {
                 if (it.isDigit()) {
                     it.toString().lowercase(Locale.ENGLISH)
@@ -117,16 +143,15 @@ class LoginActivity : AppCompatActivity() {
                     it.lowercaseChar().toString()
                 }
             }
+
+            loginButton.showLoading()
             Thread {
 
                 val userData: DataUser? = GetData(this).getUser(user)
 
                 if (userData != null) {
 
-                    if (validation(
-                            user, password, userData
-                        )
-                    ) {
+                    if (Bcrypt.verify(password, userData.passwd.toByteArray())) {
 
                         val userType1 = Query(this).userTypes(userData.user_type)
                         var userType2 = ""
@@ -254,73 +279,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    // private val alert = Alert(this)
-    // این متد مسئول اعتبار سنجی ورودی های کاربر است
-    private fun validation(user: String, pass: String, userData: DataUser): Boolean {
-
-
-        val colorStateListAlertEnable =
-            ColorStateList.valueOf(ContextCompat.getColor(binding.root.context, R.color.red))
-        var validUserPass = false
-
-        val isEmptyUser = when {
-            user.isEmpty() -> {
-                Handler(mainLooper).post {
-                    binding.edtInputUsername.setBackgroundResource(R.drawable.alert_edit_text)
-                    binding.username.defaultHintTextColor = colorStateListAlertEnable
-                    binding.alertUser.visibility = View.VISIBLE
-                }
-
-                false
-            }
-
-            else -> {
-                true
-            }
-        }
-        val isEmptyPassword = when {
-            pass.isEmpty() -> {
-                Handler(mainLooper).post {
-                    binding.edtInputPassword.setBackgroundResource(R.drawable.alert_edit_text)
-                    binding.password.defaultHintTextColor = colorStateListAlertEnable
-                    binding.alertPass.visibility = View.VISIBLE
-                }
-
-                false
-            }
-
-            else -> {
-                true
-            }
-        }
-
-        if (isEmptyUser && isEmptyPassword) {
-
-            validUserPass = Bcrypt.verify(pass, userData.passwd.toByteArray())
-
-//            validUserPass = when {
-//
-//                !Bcrypt.verify(pass, userData.passwd.toByteArray()) -> {
-//                    val text = "رمز عبور اشتباه است!"
-//                    val spannableString = SpannableString(text)
-//                    spannableString.setSpan(
-//                        ForegroundColorSpan(ContextCompat.getColor(this, R.color.white)),
-//                        0,
-//                        text.length,
-//                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-//                    )
-//                    CustomToast(this).toastAlert(spannableString, null)
-//                    false
-//                }
-//
-//                else -> {
-//                    true
-//                }
-//
-//            }
-        }
-        return isEmptyUser && isEmptyPassword && validUserPass
-    }
 
 }
 

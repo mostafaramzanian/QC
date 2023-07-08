@@ -1,5 +1,6 @@
 package com.project.test.view.recyclerview
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.text.Editable
 import android.text.InputType.TYPE_CLASS_NUMBER
@@ -19,8 +20,9 @@ import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.project.test.R
 import com.project.test.databinding.RecyclerInfoBinding
@@ -35,15 +37,13 @@ import com.project.test.utils.Alert
 import com.project.test.utils.CurrentTime
 import com.project.test.utils.CustomToast
 import com.project.test.utils.SharedPreferences
-import com.project.test.utils.SharedViewModel
 import com.project.test.utils.Utils
 
 
 class InformationRecyclerViewAdapter(
     private val context: Activity,
     private val context1: ViewModelStoreOwner,
-    private val context2: LifecycleOwner,
-    private val Info: ArrayList<DataInfo>
+    private val context2: LifecycleOwner
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == 1) {
@@ -56,15 +56,16 @@ class InformationRecyclerViewAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return Info[position].isLab
+        return differ.currentList[position].isLab
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is InformationViewHolder) {
-            holder.setData(Info[position])
+            holder.setData(differ.currentList[position])
         } else if (holder is LabInformationViewHolder) {
-            holder.setData(Info[position])
+            holder.setData(differ.currentList[position])
         }
+        holder.setIsRecyclable(false)
 //
 //        if(Info[position].isLab == 0){
 //            (holder as InformationViewHolder).setData(Info[position])
@@ -75,7 +76,7 @@ class InformationRecyclerViewAdapter(
 //        }
     }
 
-    override fun getItemCount(): Int = Info.size
+    override fun getItemCount(): Int = differ.currentList.size
 
     inner class LabInformationViewHolder(
         private val binding: RecyclerLabBinding
@@ -132,7 +133,7 @@ class InformationRecyclerViewAdapter(
             })
 
             val importanceLevel = "درجه اهمیت: (${data.importanceLevel})"
-            val title = "عنوان مشخصه: ${data.name}"
+            val title = "مشخصه: ${data.name}"
             val time = "${data.samplingInterval} دقیقه"
             val range =
                 "${data.acceptableRangeMin} < ${data.acceptableRangeTarget} < ${data.acceptableRangeMax} درجه"
@@ -142,7 +143,7 @@ class InformationRecyclerViewAdapter(
             binding.codeDoc1.text = time
             binding.txtTitleDoc1.text = range
 
-            val model1 = ViewModelProvider(context1)[SharedViewModel::class.java]
+//            val model1 = ViewModelProvider(context1)[SharedViewModel::class.java]
 
             binding.btnInfo.setOnClickListener {
 
@@ -234,23 +235,7 @@ class InformationRecyclerViewAdapter(
                     alert.alert()
                 }
             }
-//            val fontSizeBtn = Size(context).fontSize(0.030f)
-//            val fontSizeTitle = Size(context).fontSize(0.032f)
-//            val fontSizeContent = Size(context).fontSize(0.032f)
-//            val fontSizeDegree = Size(context).fontSize(0.028f)
-//            val fontSizeTime = Size(context).fontSize(0.029f)
-//
-//            binding.btnInfo.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeBtn)
-//            binding.txtTitleDoc.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.txtTitleDoc1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeDegree)
-//            binding.codeDoc.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.codeDoc1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTime)
-//            binding.observedValue.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.editText1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeContent)
-//            binding.description.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.editText2.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeContent)
-//            binding.titleInfo1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.titleInfo2.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
+
         }
 
     }
@@ -262,7 +247,7 @@ class InformationRecyclerViewAdapter(
         fun setData(data: DataInfo) {
             val sharedPreferences = SharedPreferences(context)
             val importanceLevel = "درجه اهمیت: (${data.importanceLevel})"
-            val title = "عنوان مشخصه: ${data.name}"
+            val title = "مشخصه: ${data.name}"
             val time = "${data.samplingInterval} دقیقه"
             val range =
                 "${data.acceptableRangeMin} < ${data.acceptableRangeTarget} < ${data.acceptableRangeMax} درجه"
@@ -385,42 +370,7 @@ class InformationRecyclerViewAdapter(
                         )
                 }
             }
-            /*
-            binding.editText1.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
-                if (idTool == null) {
-                    CustomToast(context).toastAlert(
-                        null,
-                        "کاربر گرامی ابتدا از قسمت ابزار کنترلی آیتمی را انتخاب نمایید!"
-                    )
-                    model1.statusSpinnerInfo("notShow")
-                    binding.editText5.layoutParams.height = binding.editText1.height
-                    binding.editText1.visibility = View.GONE
-                    binding.editText5.visibility = View.VISIBLE
-                }
-            }
-            binding.editText5.setOnClickListener {
-                if (idTool == null) {
-                    CustomToast(context).toastAlert(
-                        null,
-                        "کاربر گرامی ابتدا از قسمت ابزار کنترلی آیتمی را انتخاب نمایید!"
-                    )
-                }
-            }
 
-            model1.spinnerInfo.observe(context2, Observer {
-                if (it == "show" && idTool != null) {
-                    binding.editText1.visibility = View.VISIBLE
-                    binding.editText5.visibility = View.GONE
-                    binding.editText1.isEnabled = true
-                    binding.editText1.requestFocus()
-                    val imm =
-                        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-                    imm?.showSoftInput(binding.editText1, InputMethodManager.SHOW_IMPLICIT)
-                }
-            })
-
-
-             */
             binding.btnInfo.setOnClickListener {
                 var isChecked = 0
                 var checkName: String? = null
@@ -528,7 +478,7 @@ class InformationRecyclerViewAdapter(
                         reportOrder!!
                     )
                     val alert = Alert(context, null, null, builder, "تایید", "لغو", "هشدار")
-                    alert.setOnClick(View.OnClickListener {
+                    alert.setOnClick {
                         if (dataCpReports != null) {
                             statusSet = SetData(context).information1(dataCpReports)
                             if (statusSet == -1L) {
@@ -559,7 +509,7 @@ class InformationRecyclerViewAdapter(
                                 sharedPreferences.getInt("idReports", 5)
                             )
                         }
-                    })
+                    }
 
 
                     alert.setOnClick1(View.OnClickListener {
@@ -568,29 +518,7 @@ class InformationRecyclerViewAdapter(
                     alert.alert()
                 }
             }
-//            val fontSizeBtn = Size(context).fontSize(0.030f)
-//            val fontSizeTitle = Size(context).fontSize(0.032f)
-//            val fontSizeContent = Size(context).fontSize(0.032f)
-//            val fontSizeDegree = Size(context).fontSize(0.028f)
-//            val fontSizeTime = Size(context).fontSize(0.029f)
-//
-//            binding.btnInfo.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeBtn)
-//            binding.txtTitleDoc.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.txtTitleDoc1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeDegree)
-//            binding.codeDoc.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.codeDoc1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTime)
-//            binding.controlTools.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.observedValue.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.editText1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeContent)
-//            binding.observedValueChange.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.editText3Observed.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeContent)
-//            binding.description.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.editText2.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeContent)
-//            binding.statusInfo.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.radioConfirmation.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeContent)
-//            binding.radioRejection.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeContent)
-//            binding.titleInfo1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
-//            binding.titleInfo2.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizeTitle)
+
         }
 
     }
@@ -629,6 +557,19 @@ class InformationRecyclerViewAdapter(
         }
         return sum.toString()
     }
+
+    private val differCallback = object : DiffUtil.ItemCallback<DataInfo>() {
+        override fun areItemsTheSame(oldItem: DataInfo, newItem: DataInfo): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        @SuppressLint("DiffUtilEquals")
+        override fun areContentsTheSame(oldItem: DataInfo, newItem: DataInfo): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+    val differ = AsyncListDiffer(this, differCallback)
 }
 
 

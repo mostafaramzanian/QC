@@ -39,21 +39,6 @@ class DetailsReportNotActiveFragment : Fragment() {
 //        val fragmentList = Stack()
         // fragmentList.push(requireActivity(), R.id.fragmentContainer)
         model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-        /*
-        model.message1.observe(viewLifecycleOwner, Observer {
-            binding.viewPager.setCurrentItem(4, false)
-        })
-
-
-         */
-//        val fontSize = Size(requireContext()).fontSize(0.029f)
-//        val fontSize1 = Size(requireContext()).fontSize(0.030f)
-//        val width1 = Size(requireContext()).calWidth(0.04f)
-//        val height1 = Size(requireContext()).calHeight(0.024f)
-//        val width2 = Size(requireContext()).calWidth(0.05f)
-//        val height2 = Size(requireContext()).calHeight(0.03f)
-        //val tabTitle = arrayOf("راهنما","ثبت نهایی گزارش", "گزارش های ثبت شده", "ثبت گزارش", "اسناد و مدارک")
-
 
         val tabTitle = arrayOf(
             "ثبت نهایی",

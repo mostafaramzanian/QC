@@ -1,275 +1,211 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".view.activity.LoginActivity">
+        android:layout_marginTop="-250dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/blue_bg" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/blue_bg"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHeight_percent=".27"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@drawable/view_bg"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHeight_percent=".78"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/login_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/vazirmatn_bold"
-                android:text="@string/Login"
-                android:textColor="@color/black"
-                android:textSize="28sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:layout_width="80dp"
-                android:layout_height="3dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/blue"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="@+id/login_title"
-                app:layout_constraintRight_toRightOf="@+id/login_title"
-                app:layout_constraintTop_toBottomOf="@+id/login_title" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:maxLines="1"
-                android:minHeight="48dp"
-                android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="10dp"
-                android:textColorHint="@color/alert"
-                app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp"
-                app:endIconDrawable="@drawable/user_icon_blue"
-                app:endIconMode="custom"
-                app:endIconTint="#0044ff"
-                app:hintTextColor="@color/alert"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_bias=".5"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias=".3"
-                app:layout_constraintWidth_percent=".8"
-                app:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_input_username"
-                    android:layout_width="360dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/edit_text_bg"
-                    android:fontFamily="@font/vazirmatn_regular"
-                    android:hint="@string/Username"
-                    android:paddingRight="45dp"
-                    android:text="a.tazkari"
-                    android:textColor="@color/alert"
-                    android:textSize="17.5sp"
-                    tools:ignore="RtlSymmetry" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/alertUser"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:fontFamily="@font/vazirmatn_regular"
-                android:text="@string/Error_Username"
-                android:textColor="@color/red"
-                android:textSize="15sp"
-                android:visibility="gone"
-                app:layout_constraintRight_toRightOf="@+id/username"
-                app:layout_constraintTop_toBottomOf="@+id/username" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLength="30"
-                android:maxLines="1"
-                android:minHeight="48dp"
-                android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="10dp"
-                android:textColorHint="@color/alert"
-                app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp"
-                app:endIconDrawable="@drawable/password_icon_blue"
-                app:endIconMode="custom"
-                app:hintTextColor="@color/alert"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_bias=".5"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/alertUser"
-                app:layout_constraintVertical_bias="0"
-                app:layout_constraintWidth_percent=".8"
-                app:passwordToggleEnabled="false"
-                app:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_input_password"
-                    android:layout_width="360dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/edit_text_bg"
-                    android:fontFamily="@font/vazirmatn_regular"
-                    android:hint="@string/Password"
-                    android:inputType="textPassword"
-                    android:text="123"
-                    android:textColor="@color/alert"
-                    android:textSize="17sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/alertPass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:fontFamily="@font/vazirmatn_regular"
-                android:text="@string/Error_Password"
-                android:textColor="@color/red"
-                android:textSize="15sp"
-                android:visibility="gone"
-                app:layout_constraintRight_toRightOf="@+id/password"
-                app:layout_constraintTop_toBottomOf="@+id/password"
-                tools:ignore="RtlHardcoded" />
-
-            <!--            <CheckBox-->
-            <!--                android:id="@+id/rememberMe"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginTop="30dp"-->
-            <!--                android:layout_marginRight="120dp"-->
-            <!--                android:fontFamily="@font/vazirmatn_regular"-->
-            <!--                android:layoutDirection="rtl"-->
-            <!--                android:text="@string/rememberMe"-->
-            <!--                android:textColor="@color/alert"-->
-            <!--                android:textSize="17sp"-->
-            <!--                android:visibility="gone"-->
-            <!--                app:layout_constraintRight_toRightOf="@+id/password"-->
-            <!--                app:layout_constraintTop_toBottomOf="@+id/show_password"-->
-            <!--                tools:ignore="RtlHardcoded" />-->
-
-            <CheckBox
-                android:id="@+id/show_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
-                android:fontFamily="@font/vazirmatn_regular"
-                android:layoutDirection="rtl"
-                android:text="@string/Show_Password"
-                android:textColor="@color/alert"
-                android:textSize="17sp"
-                android:visibility="visible"
-                app:layout_constraintRight_toRightOf="@+id/alertPass"
-                app:layout_constraintTop_toBottomOf="@+id/alertPass"
-                tools:ignore="RtlHardcoded" />
-
-
-            <!--            <Button-->
-            <!--                android:id="@+id/login"-->
-            <!--                android:layout_width="360dp"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginBottom="70dp"-->
-            <!--                android:background="@drawable/button_bg"-->
-            <!--                android:fontFamily="@font/vazirmatn_bold"-->
-            <!--                android:text="@string/Login"-->
-            <!--                android:textColor="@color/white"-->
-            <!--                android:textSize="20sp"-->
-            <!--                android:textStyle="bold"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                app:layout_constraintLeft_toLeftOf="parent"-->
-            <!--                app:layout_constraintRight_toRightOf="parent"-->
-            <!--                app:layout_constraintTop_toBottomOf="@+id/alertPass"-->
-            <!--                app:layout_constraintVertical_bias=".5" />-->
-
-
-            <com.kusu.loadingbutton.LoadingButton
-                android:id="@+id/login"
-                android:layout_width="360dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_bg"
-                android:clickable="true"
-                android:focusable="true"
-                android:fontFamily="@font/vazirmatn_bold"
-                android:text="@string/Login"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/alertPass"
-                app:layout_constraintVertical_bias=".5"
-                app:lb_isShadowEnable="false" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageView2"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:background="@drawable/simple_circle"
-            android:elevation="3dp"
-            android:padding="15dp"
-            android:src="@drawable/icon"
-            android:transitionName="profile"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView"
-            app:layout_constraintVertical_bias=".3" />
+    <LinearLayout
+        android:id="@+id/headerBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center_vertical|right"
+        android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@id/imageView2"
             android:fontFamily="@font/vazirmatn_bold"
             android:text="@string/Welcome"
             android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView2"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:background="@drawable/simple_circle_white"
+            android:elevation="3dp"
+            android:padding="15dp"
+            android:src="@drawable/icon"
+            android:transitionName="profile" />
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/headerBox"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="40dp"
+        android:elevation="3dp"
+        android:gravity="center">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+
+            android:maxLines="1"
+            android:minHeight="48dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColorHint="@color/alert"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:endIconDrawable="@drawable/user_icon_blue"
+            app:endIconMode="custom"
+            app:endIconTint="#0044ff"
+            app:hintTextColor="@color/alert"
+            app:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_input_username"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:background="@drawable/edit_text_bg"
+                android:fontFamily="@font/vazirmatn_regular"
+                android:hint="@string/Username"
+                android:paddingRight="45dp"
+                android:text="a.tazkari"
+                android:textColor="@color/alert"
+                android:textSize="17.5sp"
+                tools:ignore="RtlSymmetry" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/alertUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/username"
+            android:layout_alignLeft="@+id/username"
+            android:layout_alignRight="@+id/username"
+            android:fontFamily="@font/vazirmatn_regular"
+            android:text="@string/Error_Username"
+            android:textColor="@color/red"
+            android:textSize="15sp"
+            android:visibility="gone" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/alertUser"
+            android:maxLength="30"
+            android:maxLines="1"
+            android:minHeight="48dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColorHint="@color/alert"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:endIconDrawable="@drawable/password_icon_blue"
+            app:endIconMode="custom"
+            app:hintTextColor="@color/alert"
+            app:passwordToggleEnabled="false"
+            app:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_input_password"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:background="@drawable/edit_text_bg"
+                android:fontFamily="@font/vazirmatn_regular"
+                android:hint="@string/Password"
+                android:inputType="textPassword"
+                android:text="123"
+                android:textColor="@color/alert"
+                android:textSize="17sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/alertPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/password"
+            android:layout_alignLeft="@+id/password"
+            android:layout_alignRight="@+id/password"
+            android:fontFamily="@font/vazirmatn_regular"
+            android:text="@string/Error_Password"
+            android:textColor="@color/red"
+            android:textSize="15sp"
+            android:visibility="gone"
+            tools:ignore="RtlHardcoded" />
+
+        <!--            <CheckBox-->
+        <!--                android:id="@+id/rememberMe"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginTop="30dp"-->
+        <!--                android:layout_marginRight="120dp"-->
+        <!--                android:fontFamily="@font/vazirmatn_regular"-->
+        <!--                android:layoutDirection="rtl"-->
+        <!--                android:text="@string/rememberMe"-->
+        <!--                android:textColor="@color/alert"-->
+        <!--                android:textSize="17sp"-->
+        <!--                android:visibility="gone"-->
+        <!--                app:layout_constraintRight_toRightOf="@+id/password"-->
+        <!--                app:layout_constraintTop_toBottomOf="@+id/show_password"-->
+        <!--                tools:ignore="RtlHardcoded" />-->
+
+        <CheckBox
+            android:id="@+id/show_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/alertPass"
+            android:layout_alignRight="@+id/password"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/vazirmatn_regular"
+            android:layoutDirection="rtl"
+            android:text="@string/Show_Password"
+            android:textColor="@color/alert"
+            android:textSize="17sp"
+            android:visibility="visible"
+            tools:ignore="RtlHardcoded" />
+
+
+        <com.kusu.loadingbutton.LoadingButton
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/show_password"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/button_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/vazirmatn_bold"
+            android:text="@string/Login"
+            android:textColor="@color/white"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+            android:textStyle="bold"
+            app:lb_isShadowEnable="false" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

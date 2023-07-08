@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ConstraintLayout1"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
+        android:id="@+id/tabLayoutMore"
         style="@style/MyCustomTabLayout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
+        android:layout_height="60dp"
+        android:background="#1E000000"
+        android:fillViewport="true"
         android:layoutDirection="ltr"
+        app:tabGravity="fill"
         app:tabIndicatorAnimationMode="linear"
-        app:tabIndicatorColor="@color/red"
         app:tabIndicatorFullWidth="true"
         app:tabIndicatorHeight="3dp"
-        app:tabMinWidth="100dp"
-        app:tabMode="auto" />
+        app:tabMaxWidth="0dp"
+        app:tabMode="fixed" />
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
+        android:id="@+id/viewPagerMore"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:paddingTop="10dp" />
+        android:layout_weight="1" />
+
 </LinearLayout>
