@@ -53,27 +53,37 @@ class ReportNotActiveRecyclerView(
             binding.txtLastTime1.text = CurrentTime().date(data.lastChangeTime).first
             binding.txtStatus.text = data.Status
             binding.root.setOnClickListener {
-                val sharedPreferences = SharedPreferences(context)
-                sharedPreferences.putString(
-                    "cpValueSelected",
-                    data.cpName
-                )
-                sharedPreferences.putString(
-                    "csValueSelected",
-                    data.csName
-                )
-                sharedPreferences.putInt(
-                    "csIdSelected",
-                    data.csId
-                )
-                sharedPreferences.putInt(
-                    "cpIdSelected",
-                    data.cpId
-                )
-                sharedPreferences.putInt(
-                    "idReports",
+                val model1 =
+                    ViewModelProvider(ViewModelStoreOwner)[SharedViewModel::class.java]
+                model1.insertInformationData(
+                    data.cpName,
+                    data.csName,
+                    data.nameProduct,
+                    data.csId,
+                    data.cpId,
                     data.idReports
                 )
+//                val sharedPreferences = SharedPreferences(context)
+//                sharedPreferences.putString(
+//                    "cpValueSelected",
+//                    data.cpName
+//                )
+//                sharedPreferences.putString(
+//                    "csValueSelected",
+//                    data.csName
+//                )
+//                sharedPreferences.putInt(
+//                    "csIdSelected",
+//                    data.csId
+//                )
+//                sharedPreferences.putInt(
+//                    "cpIdSelected",
+//                    data.cpId
+//                )
+//                sharedPreferences.putInt(
+//                    "idReports",
+//                    data.idReports
+//                )
                 val model: SharedViewModel =
                     ViewModelProvider(activity)[SharedViewModel::class.java]
                 model.sendMessage1(data.cpId.toString())

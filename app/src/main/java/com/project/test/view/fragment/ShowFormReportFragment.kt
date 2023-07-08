@@ -142,13 +142,16 @@ class ShowFormReportFragment : Fragment() {
 
                 when (tab?.position) {
                     0 -> {
-                        val sharedPreferences = SharedPreferences(requireContext())
-                        val sum = GetData(requireActivity()).count(
-                            requireActivity(),
-                            requireActivity(),
-                            requireActivity(),
-                            sharedPreferences.getInt("idReports", 5)
-                        )
+                        val model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
+                        try {
+                            val sum = model.idReports.value?.let {
+                                GetData(requireActivity()).count(
+                                    requireActivity(),
+                                    requireActivity(),
+                                    requireActivity(),
+                                    it
+                                )
+                            }
                         if (sum == 0) {
                             val textAlert =
                                 "کاربر گرامی برای استفاده از این قسمت باید حداقل یک گزارش ثبت شده داشته باشید!"
@@ -166,6 +169,9 @@ class ShowFormReportFragment : Fragment() {
                             ContextCompat.getColor(requireContext(), R.color.TabActive)
                         )
                         position = tab.position.toString()
+                    }catch (ex: Exception){
+
+                        }
                     }
                 }
                 position = tab?.position.toString()

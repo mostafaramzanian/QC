@@ -33,7 +33,6 @@ import com.project.test.utils.Alert
 import com.project.test.utils.CurrentTime
 import com.project.test.utils.CustomToast
 import com.project.test.utils.GoToOtherActivity
-import com.project.test.utils.SharedPreferences
 import com.project.test.utils.SharedViewModel
 import com.project.test.utils.SpannableString
 import com.vicmikhailau.maskededittext.MaskedFormatter
@@ -232,9 +231,8 @@ class FinalRegistrationFragment : Fragment() {
                                     listNonConformityCode1.add(tmp)
                                 }
                             }
-                            val sharedPreferences = SharedPreferences(requireContext())
-                            val station = sharedPreferences.getString("csValueSelected", "")
-                            val quality = sharedPreferences.getString("cpValueSelected", "")
+                            val station =   model.cpValueSelectedName.value
+                            val quality =   model.csIndexSelectedName.value
                             val text =
                                 "کاربر گرامی شما در حال ثبت نهایی گزارشات وارد شده برای ایستگاه کنترلی $station"
                             val text5 =
@@ -282,7 +280,7 @@ class FinalRegistrationFragment : Fragment() {
                                 val check1 = SetData(requireActivity()).finalReport1(
                                     listInboundTrackingCode1,
                                     listNonConformityCode1,
-                                    sharedPreferences.getInt("idReports", 5)
+                                    model.idReports.value!!
                                 )
 
                                 if (check > 0 && check1 == 0) {

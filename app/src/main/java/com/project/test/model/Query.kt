@@ -3,13 +3,26 @@ package com.project.test.model
 import android.app.Activity
 import android.content.ContentValues
 import android.database.Cursor
+import android.database.DatabaseUtils
+import android.database.sqlite.SQLiteDatabase
 import android.widget.Toast
 import com.project.test.utils.SharedPreferences
 
 class Query(private val context: Activity) {
     private val myDatabase = Database(context).getInstance()
+    private val myDatabase1 = Database(context).getInstance()
     private val db = myDatabase.writableDatabase
     private val userId= SharedPreferences(context).getInt("userId",0)
+
+    fun check()
+    {
+
+        if (myDatabase === myDatabase1) {
+            Toast.makeText(context, "y", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, "n", Toast.LENGTH_SHORT).show()
+        }
+    }
     fun login(user: String): Cursor {
         val cursor =
             db.rawQuery("SELECT * FROM users JOIN user_types ON users.user_type = user_types.name JOIN user_processes ON users.id = user_processes.user_id  WHERE username ='$user' AND is_deleted = 0", null)

@@ -9,13 +9,19 @@ class SharedViewModel : ViewModel() {
     val show = MutableLiveData<String>()
     val fragment = MutableLiveData<String>()
     val spinner = MutableLiveData<String>()
-    val spinnerInfo = MutableLiveData<String>()
     val sum = MutableLiveData<String>()
     val isDraft = MutableLiveData<Int>()
     val showcase = MutableLiveData<String>()
+
+    val cpValueSelectedName = MutableLiveData<String>()
+    val csIndexSelectedName = MutableLiveData<String>()
+    val productName = MutableLiveData<String>()
+    val csIndexSelectedID = MutableLiveData<Int>()
+    val cpIndexSelectedID = MutableLiveData<Int>()
+    val idReports = MutableLiveData<Int>()
+
     fun sendMessage(text: String) {
         message.value = text
-
     }
 
     fun sendMessage1(text: String) {
@@ -30,22 +36,32 @@ class SharedViewModel : ViewModel() {
         fragment.value = text
     }
 
-    fun statusViewSpinner(text: String) {
-        spinner.value = text
-    }
-
-    fun statusSpinnerInfo(text: String) {
-        spinnerInfo.value = text
-    }
-
     fun sum(text: String) {
         sum.value = text
     }
+
     fun isDraft(text: Int) {
         isDraft.value = text
     }
 
     fun showcase(text: String) {
         showcase.value = text
+    }
+
+    fun insertInformationData(
+        cpValueSelectedName_Value: String,
+        csIndexSelectedName_Value: String,
+        productName_Value: String,
+        csIndexSelectedID_Value: Int,
+        cpIndexSelectedID_Value: Int,
+        idReports_Value: Int
+    ) {
+        csIndexSelectedID.value = csIndexSelectedID_Value
+        csIndexSelectedName.value = csIndexSelectedName_Value
+        cpValueSelectedName.value = cpValueSelectedName_Value
+        cpIndexSelectedID.value = cpIndexSelectedID_Value
+        productName.value = productName_Value
+        idReports.value = idReports_Value
+
     }
 }

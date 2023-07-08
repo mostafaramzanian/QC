@@ -19,7 +19,7 @@ class NavigationApp(
         }
     }
     fun navigationBackward() {
-        navController?.navigateUp()
+        navController?.popBackStack()
     }
 
     private fun emptyStack() {

@@ -190,21 +190,25 @@
                         tools:ignore="RtlHardcoded" />
                 </RelativeLayout>
 
-                <Button
+                <com.kusu.loadingbutton.LoadingButton
                     android:id="@+id/btn_add"
-                    android:layout_width="wrap_content"
+                    android:layout_width="320dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/button_bg"
+                    android:backgroundTint="@color/button"
                     android:fontFamily="@font/vazirmatn_medium"
                     android:paddingLeft="80dp"
                     android:paddingRight="80dp"
                     android:text="@string/Btn_Create_Rport"
                     android:textColor="@color/white"
                     android:textSize="17sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    />
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatImageView

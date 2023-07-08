@@ -26,4 +26,7 @@
     <color name="error_color">#830a00</color>
     <color name="success_color">#ffffff</color>
 
+    <color name="button">#6200EE</color>
+
+
 </resources>

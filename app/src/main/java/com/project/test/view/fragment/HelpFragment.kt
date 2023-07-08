@@ -11,6 +11,7 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -50,9 +51,10 @@ class HelpFragment : Fragment() {
 
         val model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         model.message1.observe(viewLifecycleOwner, Observer {
-            val station = sharedPreferences.getString("csValueSelected", "")
-            val quality = sharedPreferences.getString("cpValueSelected", "")
-            val product = sharedPreferences.getString("productName", "")
+
+            val station =   model.cpValueSelectedName.value
+            val quality =   model.csIndexSelectedName.value
+            val product =    model.productName.value
             val text1= "کاربر گرامی شما در حال تکمیل گزارش برای محصول $product"
             val text2= " در ایستگاه کنترلی $station "
             val text3= "و طرح کیفیت $quality می باشید."

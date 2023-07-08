@@ -196,6 +196,8 @@ class InsertReportFragment : Fragment() {
             if (!sharedPreferences.getBoolean("menuExit", false)) {
                 when {
                     cpValueSelected != null -> {
+                        val insertInfo = binding.btnAdd
+                        insertInfo.showLoading()
                         val model1 =
                             ViewModelProvider(requireActivity())[SharedViewModel::class.java]
                         model1.sendMessage1("start")
@@ -233,6 +235,7 @@ class InsertReportFragment : Fragment() {
                                 "idReports",
                                 id
                             )
+                            model1.insertInformationData(cpValueSelected!!,nodes[csIndexSelected!!].name,  productName!!, nodes[csIndexSelected!!].id, cpIndexSelected!!,id)
                             CustomToast(requireContext()).toastAlert(
                                 null,
                                 "توجه: کاربری گرامی شما گزارش فعال برای این طرح کیفیت دارید!"
@@ -243,6 +246,8 @@ class InsertReportFragment : Fragment() {
                                 "idReports",
                                 id
                             )
+                            model1.insertInformationData(cpValueSelected!!,nodes[csIndexSelected!!].name,  productName!!, nodes[csIndexSelected!!].id, cpIndexSelected!!,id)
+
                         }
                         GetData(requireActivity()).count(
                             requireActivity(),
