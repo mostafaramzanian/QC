@@ -2,6 +2,7 @@ package com.project.test.model
 
 import android.content.Context
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper
+import java.sql.SQLException
 
 /*
 class Database(context: Context?) :
@@ -29,3 +30,19 @@ class Database(private val context: Context) :
         }
 
 }
+
+//object DatabaseConnection {
+//
+//    fun getDB(context: Context): Database? {
+//        var dbase: Database? = null
+//        if (dbase == null) {
+//            try {
+//                dbase = Database(context)
+//            } catch (e: SQLException) {
+//                println(e.message)
+//            }
+//        }
+//        return dbase
+//    }
+//}
+//

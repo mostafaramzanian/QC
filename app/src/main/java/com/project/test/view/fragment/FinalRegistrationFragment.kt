@@ -5,7 +5,6 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Editable
 import android.text.SpannableStringBuilder
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -15,10 +14,6 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
-import androidx.core.view.marginBottom
-import androidx.core.view.marginLeft
-import androidx.core.view.marginRight
-import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -68,21 +63,21 @@ class FinalRegistrationFragment : Fragment() {
                 val data = GetData(requireActivity()).finalRegister()
                 if (data[0].product_tracking_code == "") {
                     binding.editText1Final.text =
-                        Editable.Factory.getInstance().newEditable("کد ردیابی محصول ثبت نشده است!")
+                        Editable.Factory.getInstance().newEditable("-")
                 } else {
                     binding.editText1Final.text = Editable.Factory.getInstance()
                         .newEditable(data[0].product_tracking_code.toString())
                 }
                 if (data[0].operator_name == "") {
                     binding.editText2Final.text =
-                        Editable.Factory.getInstance().newEditable("نام اپراتور ثبت نشده است!")
+                        Editable.Factory.getInstance().newEditable("-")
                 } else {
                     binding.editText2Final.text =
                         Editable.Factory.getInstance().newEditable(data[0].operator_name.toString())
                 }
                 if (data[0].production_count == 0) {
                     binding.editText3Final.text =
-                        Editable.Factory.getInstance().newEditable("تعداد تولید ثبت نشده است!")
+                        Editable.Factory.getInstance().newEditable("-")
                 } else {
                     binding.editText3Final.text = Editable.Factory.getInstance()
                         .newEditable(data[0].production_count.toString())
@@ -233,7 +228,6 @@ class FinalRegistrationFragment : Fragment() {
                         )
 
                         binding.inboundTrackingContainer.children.forEach { view ->
-                            Log.d("~~~~~~~~~~v", view.toString())
                             val tmp =
                                 view.findViewWithTag<AppCompatEditText>("input_code")?.text.toString()
                             if (tmp != "" || tmp.isNotEmpty()) {
@@ -241,11 +235,12 @@ class FinalRegistrationFragment : Fragment() {
                             }
                         }
                         binding.nonConformityContainer.children.forEach { view ->
-                            Log.d("~~~~~~~~~~c", view.toString())
                             val tmp =
                                 view.findViewWithTag<AppCompatEditText>("input_code")?.text.toString()
                             if (tmp != "" || tmp.isNotEmpty()) {
-                                listNonConformityCode1.add(tmp)
+                                if (tmp != "F") {
+                                    listNonConformityCode1.add(tmp)
+                                }
                             }
                         }
 
@@ -257,7 +252,7 @@ class FinalRegistrationFragment : Fragment() {
                             "کاربر گرامی شما در حال ثبت نهایی گزارشات وارد شده برای ایستگاه کنترلی $station"
                         val text5 =
                             " و طرح کیفیت $quality می باشید. آیا از صحت گزارشات وارد شده اطمینان دارید؟ "
-                        val text6 = "زیرا پس از تایید امکان ویرایش اطلاعات وجود ندارد!"
+                        val text6 = "زیرا پس از تایید امکان ویرایش اطلاعات وجود ندارد."
 
                         val color = ContextCompat.getColor(requireContext(), R.color.red)
                         val builder = SpannableStringBuilder()
@@ -288,7 +283,7 @@ class FinalRegistrationFragment : Fragment() {
                             val check1 = SetData(requireActivity()).finalReport1(
                                 listInboundTrackingCode1,
                                 listNonConformityCode1,
-                                sharedPreferences.getInt("idReports", 5)
+                                sharedPreferences.getInt("idReports", 0)
                             )
 
                             if (check > 0 && check1 == 0) {

@@ -21,7 +21,6 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.project.test.R
 import com.project.test.databinding.ActivityMainBinding
@@ -68,7 +67,7 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.fabOptions.setOnClickListener {
-          navigationApp.navigationForward("InsertFromFragment")
+            navigationApp.navigationForward("InsertFromFragment")
 
             /*
                 val bundle = Bundle()
@@ -186,13 +185,9 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
     }
 
-    override fun onPause() {
-        super.onPause()
-        //  startService(this)
-    }
-
     override fun onDestroy() {
         Database(this).getInstance().close()
+//        DatabaseConnection.getDB(this)?.writableDatabase?.close()
         super.onDestroy()
 
 

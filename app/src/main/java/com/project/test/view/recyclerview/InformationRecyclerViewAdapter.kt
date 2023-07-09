@@ -136,7 +136,7 @@ class InformationRecyclerViewAdapter(
             val title = "مشخصه: ${data.name}"
             val time = "${data.samplingInterval} دقیقه"
             val range =
-                "${data.acceptableRangeMin} < ${data.acceptableRangeTarget} < ${data.acceptableRangeMax} درجه"
+                "${data.acceptableRangeMin} < ${data.acceptableRangeTarget} < ${data.acceptableRangeMax} ${data.measurementUnit}  "
 
             binding.titleInfo1.text = title
             binding.titleInfo2.text = importanceLevel
@@ -147,18 +147,14 @@ class InformationRecyclerViewAdapter(
 
             binding.btnInfo.setOnClickListener {
 
-                var text4: String?
-                var finalText: SpannableString?
-                var finalText1: String?
-                if (binding.editText1.text.toString() == "") {
+                if (binding.editText1.text.toString() == "" || binding.editText1.text.toString() == "L") {
                     val textAlert =
                         "کاربر گرامی برای ثبت اطلاعات باید قسمت کد درخواست آزمایشگاه تکمیل گردد!"
                     val alert = Alert(context, textAlert, null, null, "متوجه شدم", null, "خطا")
                     alert.setOnClick(View.OnClickListener {
                     })
                     alert.alert()
-                }
-                if (binding.editText1.text.toString() != "") {
+                } else {
                     val color = ContextCompat.getColor(context, R.color.red)
                     val observe = binding.editText1.text.toString().uppercase()
                     val station = sharedPreferences.getString("csValueSelected", "")
@@ -388,7 +384,7 @@ class InformationRecyclerViewAdapter(
                 }
                 if (binding.editText1.text.toString() == "" && isChecked == 1) {
                     val textAlert =
-                        "کاربر گرامی برای ثبت اطلاعات باید قسمت مقدار مشاهده شده تکمیل گردد!"
+                        "کاربر گرامی برای ثبت اطلاعات باید قسمت مقدار مشاهده شده تکمیل گردد."
                     val alert = Alert(context, textAlert, null, null, "متوجه شدم", null, "خطا")
                     alert.setOnClick(View.OnClickListener {
                     })

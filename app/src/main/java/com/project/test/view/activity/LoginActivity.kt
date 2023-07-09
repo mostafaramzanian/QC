@@ -43,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         Database(this).getInstance().close()
+//        DatabaseConnection.getDB(this)?.writableDatabase?.close()
         super.onDestroy()
     }
 
@@ -176,7 +177,14 @@ class LoginActivity : AppCompatActivity() {
                                         "process_id"
                                     )
                                 )
+                                val processName = tableUserProcesses.getString(
+                                    tableUserProcesses.getColumnIndexOrThrow(
+                                        "name"
+                                    )
+                                )
+
                                 sharedPreferences.putInt("process_id", processId)
+                                sharedPreferences.putString("process_name", processName)
                             }
                             Handler(mainLooper).post {
                                 loginButton.hideLoading()
