@@ -4,12 +4,10 @@ package com.project.test.view.activity
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Intent
-import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.os.Handler
 import android.os.StrictMode
 import android.os.StrictMode.VmPolicy
 import android.provider.Settings
@@ -23,19 +21,14 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.erkutaras.showcaseview.ShowcaseManager
-//import com.erkutaras.showcaseview.ShowcaseManager
-import com.getkeepsafe.taptargetview.TapTarget
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.project.test.R
 import com.project.test.databinding.ActivityMainBinding
 import com.project.test.model.Database
-import com.project.test.model.Query
 import com.project.test.utils.MyService
 import com.project.test.utils.NavigationApp
 import com.project.test.utils.SharedPreferences
 import com.project.test.utils.SharedViewModel
-import com.project.test.utils.ShowCase
 
 
 class MainActivity : AppCompatActivity() {
@@ -47,119 +40,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-         fun callBuilder() {
-            val builder = ShowcaseManager.Builder()
-             builder.context(this)
-                .key("TEST")
-                .developerMode(true)
-                .marginFocusArea(10)
-                // first view
-                .view(findViewById(R.id.nav_home))
-                .descriptionTitle("آیکن خانه")
-                 .descriptionText("شما می توانید به وسیله ی این گزینه به صفحه خانه بروید.")
-                .buttonText("Done")
-                .cancelButtonColor(Color.RED)
-                .buttonVisibility(false)//To hide button
-                .cancelButtonVisibility(true)//To hide cancel button
-                .moveButtonsVisibility(true)
-                 .gradientFocusEnabled(true)
-                 .add()
-
-                .view(findViewById(R.id.active_reports_layout_parent))
-                .descriptionTitle("LOREM IPSUM DOLOR-2")
-                .descriptionText("")
-                 .roundedRectangle()
-                .marginFocusArea(30)
-              //  .cancelButtonColor(Color.GREEN)
-               // .selectedMoveButtonColor(Color.GREEN)
-               // .unSelectedMoveButtonColor(Color.RED)
-                .buttonVisibility(false)//To show button
-                .cancelButtonVisibility(true)//To show cancel button
-                .moveButtonsVisibility(true)
-                .add()
-                .build()
-                .show()
-
-        }
-        Handler().postDelayed({
-            //callBuilder()
-        }, 1000)
-        val model = ViewModelProvider(this)[SharedViewModel::class.java]
-     Query(this).check()
-      binding.customTitleLayout.showcase.setOnClickListener {
-          var targets = arrayOf<TapTarget>()
-          var radius = arrayOf<Int>()
-          var index = arrayOf<Any>()
-
-          model.showcase.observe(this, Observer {
-              if (it == "HomeFragment") {
-                  targets = arrayOf(
-                      TapTarget.forView(
-                          findViewById(R.id.nav_home),
-                          "آیکن خانه",
-                          "شما می توانید به وسیله ی این گزینه به صفحه خانه بروید."
-                      ),
-                      TapTarget.forView(
-                          findViewById(R.id.fab_options),
-                          "آیکن اضافه کردن",
-                          "Description 2"
-                      ),
-                      TapTarget.forView(
-                          findViewById(R.id.nav_more),
-                          "آیکن بیشتر",
-                          "Description 3"
-                      ),
-                      TapTarget.forView(
-                          findViewById(R.id.active_reports_layout_parent),
-                          "جدول خلاصه گزارشات فعال",
-                          "شما می توانید به وسیله ی این گزینه به صفحه خانه بروید."
-                      ),
-                      TapTarget.forView(
-                          findViewById(R.id.count_report),
-                          "تعداد گزارشات ثبت شده فعال",
-                          "Description 2"
-                      ),
-                      TapTarget.forView(
-                          findViewById(R.id.title_last_report),
-                          " آخرین گزارش فعال برای ایستگاه",
-                          "Description 3"
-                      ),
-                      TapTarget.forView(
-                          findViewById(R.id.title_last_report_cp),
-                          " آخرین گزارش فعال برای طرح کیفیت",
-                          "Description 3"
-                      ),
-                      TapTarget.forView(
-                          findViewById(R.id.user),
-                          "ثبت کننده گزارش",
-                          "Description 3"
-                      ),
-                      TapTarget.forView(
-                          findViewById(R.id.time_last_report),
-                          "زمان ثبت آخرین گزارش",
-                          "Description 3"
-                      )
-                  )
-                  radius = arrayOf(70, 70, 70, 320, 90, 110,110,70,100)
-                  index = arrayOf("null", 1, "null", 3, "null", "null", "null", "null", "null")
-              } else if (it == "InsertReportFragment") {
-                  targets = arrayOf(
-                      TapTarget.forView(findViewById(R.id.nav_home), "Title 4", "Description 1"),
-                      TapTarget.forView(
-                          findViewById(R.id.fab_options),
-                          "Title 5",
-                          "Description 2"
-                      ),
-                      TapTarget.forView(findViewById(R.id.nav_more), "Title 6", "Description 3")
-                  )
-              }
-
-          })
-          ShowCase().createShowCase(this, targets, radius, index)
-      }
-
-
 
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
@@ -176,7 +56,7 @@ class MainActivity : AppCompatActivity() {
             ).navigationBackward()
         }
 
-
+        val model = ViewModelProvider(this)[SharedViewModel::class.java]
         model.show.observe(this, Observer {
             if (it == "Hide") {
                 binding.customTitleLayout.backPage.visibility = View.INVISIBLE
@@ -306,13 +186,9 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
     }
 
-    override fun onPause() {
-        super.onPause()
-        //  startService(this)
-    }
-
     override fun onDestroy() {
         Database(this).getInstance().close()
+//        DatabaseConnection.getDB(this)?.writableDatabase?.close()
         super.onDestroy()
 
 

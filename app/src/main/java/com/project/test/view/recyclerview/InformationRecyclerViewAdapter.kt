@@ -1,5 +1,6 @@
 package com.project.test.view.recyclerview
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.text.Editable
 import android.text.InputType.TYPE_CLASS_NUMBER
@@ -19,8 +20,9 @@ import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.project.test.R
 import com.project.test.databinding.RecyclerInfoBinding
@@ -35,15 +37,13 @@ import com.project.test.utils.Alert
 import com.project.test.utils.CurrentTime
 import com.project.test.utils.CustomToast
 import com.project.test.utils.SharedPreferences
-import com.project.test.utils.SharedViewModel
 import com.project.test.utils.Utils
 
 
 class InformationRecyclerViewAdapter(
     private val context: Activity,
     private val context1: ViewModelStoreOwner,
-    private val context2: LifecycleOwner,
-    private val Info: ArrayList<DataInfo>
+    private val context2: LifecycleOwner
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == 1) {
@@ -56,18 +56,27 @@ class InformationRecyclerViewAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return Info[position].isLab
+        return differ.currentList[position].isLab
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is InformationViewHolder) {
-            holder.setData(Info[position])
+            holder.setData(differ.currentList[position])
         } else if (holder is LabInformationViewHolder) {
-            holder.setData(Info[position])
+            holder.setData(differ.currentList[position])
         }
+        holder.setIsRecyclable(false)
+//
+//        if(Info[position].isLab == 0){
+//            (holder as InformationViewHolder).setData(Info[position])
+//
+//        }else{
+//            (holder as LabInformationViewHolder).setData(Info[position])
+////            holder.setData(Info[position])
+//        }
     }
 
-    override fun getItemCount(): Int = Info.size
+    override fun getItemCount(): Int = differ.currentList.size
 
     inner class LabInformationViewHolder(
         private val binding: RecyclerLabBinding
@@ -124,25 +133,25 @@ class InformationRecyclerViewAdapter(
             })
 
             val importanceLevel = "درجه اهمیت: (${data.importanceLevel})"
-            val title = "عنوان مشخصه: ${data.name}"
+            val title = "مشخصه: ${data.name}"
             val time = "${data.samplingInterval} دقیقه"
             val range =
-                "${data.acceptableRangeMin} < ${data.acceptableRangeTarget} < ${data.acceptableRangeMax} درجه"
+                "${data.acceptableRangeMin} < ${data.acceptableRangeTarget} < ${data.acceptableRangeMax} ${data.measurementUnit}  "
 
             binding.titleInfo1.text = title
             binding.titleInfo2.text = importanceLevel
             binding.codeDoc1.text = time
             binding.txtTitleDoc1.text = range
             binding.btnInfo.setOnClickListener {
-                if (binding.editText1.text.toString() == "") {
+
+                if (binding.editText1.text.toString() == "" || binding.editText1.text.toString() == "L") {
                     val textAlert =
                         "کاربر گرامی برای ثبت اطلاعات باید قسمت کد درخواست آزمایشگاه تکمیل گردد!"
                     val alert = Alert(context, textAlert, null, null, "متوجه شدم", null, "خطا")
                     alert.setOnClick {
                     }
                     alert.alert()
-                }
-                if (binding.editText1.text.toString() != "") {
+                } else {
                     val color = ContextCompat.getColor(context, R.color.red)
                     val observe = binding.editText1.text.toString().uppercase()
                     val station = sharedPreferences.getString("csValueSelected", "")
@@ -220,6 +229,7 @@ class InformationRecyclerViewAdapter(
                     alert.alert()
                 }
             }
+
         }
     }
 
@@ -230,7 +240,7 @@ class InformationRecyclerViewAdapter(
         fun setData(data: DataInfo) {
             val sharedPreferences = SharedPreferences(context)
             val importanceLevel = "درجه اهمیت: (${data.importanceLevel})"
-            val title = "عنوان مشخصه: ${data.name}"
+            val title = "مشخصه: ${data.name}"
             val time = "${data.samplingInterval} دقیقه"
             val range =
                 "${data.acceptableRangeMin} < ${data.acceptableRangeTarget} < ${data.acceptableRangeMax} درجه"
@@ -349,6 +359,7 @@ class InformationRecyclerViewAdapter(
                         )
                 }
             }
+
             binding.btnInfo.setOnClickListener {
                 var isChecked = 0
                 var checkName: String? = null
@@ -366,7 +377,7 @@ class InformationRecyclerViewAdapter(
                 }
                 if (binding.editText1.text.toString() == "" && isChecked == 1) {
                     val textAlert =
-                        "کاربر گرامی برای ثبت اطلاعات باید قسمت مقدار مشاهده شده تکمیل گردد!"
+                        "کاربر گرامی برای ثبت اطلاعات باید قسمت مقدار مشاهده شده تکمیل گردد."
                     val alert = Alert(context, textAlert, null, null, "متوجه شدم", null, "خطا")
                     alert.setOnClick(View.OnClickListener {
                     })
@@ -500,6 +511,7 @@ class InformationRecyclerViewAdapter(
                     alert.alert()
                 }
             }
+
         }
 
     }
@@ -538,6 +550,19 @@ class InformationRecyclerViewAdapter(
         }
         return sum.toString()
     }
+
+    private val differCallback = object : DiffUtil.ItemCallback<DataInfo>() {
+        override fun areItemsTheSame(oldItem: DataInfo, newItem: DataInfo): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        @SuppressLint("DiffUtilEquals")
+        override fun areContentsTheSame(oldItem: DataInfo, newItem: DataInfo): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+    val differ = AsyncListDiffer(this, differCallback)
 }
 
 

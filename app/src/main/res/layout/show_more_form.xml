@@ -11,14 +11,14 @@
         android:id="@+id/tabLayoutMore"
         style="@style/MyCustomTabLayout"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         android:background="#1E000000"
         android:fillViewport="true"
         android:layoutDirection="ltr"
         app:tabGravity="fill"
         app:tabIndicatorAnimationMode="linear"
         app:tabIndicatorFullWidth="true"
-        app:tabIndicatorHeight="2dp"
+        app:tabIndicatorHeight="3dp"
         app:tabMaxWidth="0dp"
         app:tabMode="fixed" />
 

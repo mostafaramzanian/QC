@@ -6,67 +6,73 @@
     android:layout_height="match_parent"
     android:background="@color/bottom_nav">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginRight="20dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="10dp"
-        app:contentPadding="15dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="10dp"
+            app:contentPadding="20dp">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:orientation="vertical">
+                android:gravity="center"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/username"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/vazirmatn_medium"
-                    android:text="@string/Welcome"
-                    android:textColor="@color/black" />
 
-                <TextView
-                    android:id="@+id/user_role"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/vazirmatn_medium"
-                    android:text="بازرس کیفیت"
-                    android:textColor="@color/TabNonActive"
-                    android:textSize="12sp" />
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/vazirmatn_medium"
+                        android:text="@string/Welcome"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/user_role"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/vazirmatn_medium"
+                        android:text="بازرس کیفیت"
+                        android:textColor="@color/TabNonActive"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/baseline_account_circle_24"
+                    app:tint="@color/black" />
+
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/baseline_account_circle_24"
-                app:tint="@color/black" />
 
-        </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-
-    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="120dp"
         android:background="@drawable/view_bg"
         android:elevation="3dp"
         android:gravity="center"
@@ -135,7 +141,7 @@
                                 style="@style/home_fragment_text_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="15dp"
                                 android:layout_marginRight="20dp"
                                 android:fontFamily="@font/vazirmatn_medium"
                                 android:text="@string/The_Title_of_the_Last_Report"
@@ -148,7 +154,7 @@
                                 android:id="@+id/title_last_report_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="15dp"
                                 android:layout_marginRight="5dp"
                                 android:fontFamily="@font/vazirmatn_medium"
                                 android:textColor="@color/TabNonActive"
@@ -162,7 +168,7 @@
                                 style="@style/home_fragment_text_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="15dp"
                                 android:layout_marginRight="20dp"
                                 android:fontFamily="@font/vazirmatn_medium"
                                 android:text="آخرین گزارش فعال برای طرح کیفیت: "
@@ -175,7 +181,7 @@
                                 android:id="@+id/title_last_report_cp_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="15dp"
                                 android:layout_marginRight="5dp"
                                 android:fontFamily="@font/vazirmatn_medium"
                                 android:textColor="@color/TabNonActive"
@@ -189,7 +195,7 @@
                                 style="@style/home_fragment_text_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="15dp"
                                 android:layout_marginRight="20dp"
                                 android:fontFamily="@font/vazirmatn_medium"
                                 android:text="ثبت کننده گزارش:"
@@ -202,7 +208,7 @@
                                 android:id="@+id/user_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="15dp"
                                 android:layout_marginRight="5dp"
                                 android:fontFamily="@font/vazirmatn_medium"
                                 android:textColor="@color/TabNonActive"
@@ -216,7 +222,7 @@
                                 style="@style/home_fragment_text_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="15dp"
                                 android:layout_marginRight="20dp"
                                 android:fontFamily="@font/vazirmatn_medium"
                                 android:text="@string/The_Time"
@@ -229,7 +235,7 @@
                                 android:id="@+id/time_last_report_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="15dp"
                                 android:layout_marginRight="5dp"
                                 android:fontFamily="@font/vazirmatn_fd_medium"
                                 android:textColor="@color/TabNonActive"
@@ -290,7 +296,7 @@
                             android:fontFamily="@font/vazirmatn_bold"
                             android:text="خلاصه ای از وضعیت گزارشات فعال"
                             android:textColor="@color/white"
-                            android:textSize="18sp"
+                            android:textSize="20sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
@@ -353,7 +359,7 @@
                                 style="@style/home_fragment_text_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="15dp"
                                 android:layout_marginRight="20dp"
                                 android:fontFamily="@font/vazirmatn_medium"
                                 android:text="آخرین گزارش برای ایستگاه:"
@@ -366,7 +372,7 @@
                                 android:id="@+id/title_last_report_no_active_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="15dp"
                                 android:layout_marginRight="5dp"
                                 android:textColor="@color/TabNonActive"
                                 android:textSize="15sp"
@@ -379,7 +385,7 @@
                                 style="@style/home_fragment_text_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="15dp"
                                 android:layout_marginRight="20dp"
                                 android:fontFamily="@font/vazirmatn_medium"
                                 android:text="آخرین گزارش برای طرح کیفیت: "
@@ -392,7 +398,7 @@
                                 android:id="@+id/last_Cp_Not_Active_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="15dp"
                                 android:layout_marginRight="5dp"
                                 android:textColor="@color/TabNonActive"
                                 android:textSize="15sp"
@@ -405,7 +411,7 @@
                                 style="@style/home_fragment_text_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="15dp"
                                 android:fontFamily="@font/vazirmatn_medium"
                                 android:text="ثبت کننده گزارش:"
                                 android:textSize="15sp"
@@ -417,7 +423,7 @@
                                 android:id="@+id/user1_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="15dp"
                                 android:layout_marginRight="5dp"
                                 android:fontFamily="@font/vazirmatn_medium"
                                 android:textColor="@color/TabNonActive"
@@ -431,7 +437,7 @@
                                 style="@style/home_fragment_text_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="15dp"
                                 android:fontFamily="@font/vazirmatn_medium"
                                 android:text="زمان ثبت آخرین گزارش: "
                                 android:textSize="15sp"
@@ -443,7 +449,7 @@
                                 android:id="@+id/time_last_report_no_active_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="15dp"
                                 android:layout_marginRight="5dp"
                                 android:fontFamily="@font/vazirmatn_fd_medium"
                                 android:textColor="@color/TabNonActive"
@@ -502,7 +508,7 @@
                             android:fontFamily="@font/vazirmatn_bold"
                             android:text="خلاصه ای از وضعیت گزارشات ثبت نهایی شده"
                             android:textColor="@color/white"
-                            android:textSize="18sp"
+                            android:textSize="20sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"

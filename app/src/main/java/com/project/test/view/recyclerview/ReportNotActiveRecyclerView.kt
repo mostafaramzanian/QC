@@ -10,7 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.project.test.R
-import com.project.test.databinding.RecyclerReportFinalBinding
+import com.project.test.databinding.RecyclerReportCardviewBinding
+
 import com.project.test.dataclass.DataReport
 import com.project.test.utils.CurrentTime
 import com.project.test.utils.NavigationApp
@@ -30,7 +31,7 @@ class ReportNotActiveRecyclerView(
     private val reports: ArrayList<DataReport>
 ) : RecyclerView.Adapter<ReportNotActiveRecyclerView.ProductViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        val binding = RecyclerReportFinalBinding.inflate(context.layoutInflater, parent, false)
+        val binding = RecyclerReportCardviewBinding.inflate(context.layoutInflater, parent, false)
         return ProductViewHolder(binding)
     }
 
@@ -41,7 +42,7 @@ class ReportNotActiveRecyclerView(
     override fun getItemCount(): Int = reports.size
 
     inner class ProductViewHolder(
-        private val binding: RecyclerReportFinalBinding
+        private val binding: RecyclerReportCardviewBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun setData(data: DataReport) {
@@ -51,7 +52,7 @@ class ReportNotActiveRecyclerView(
             binding.txtControlStationName1.text = data.cpName
             binding.txtFirstTime1.text = CurrentTime().date(data.createTime).first
             binding.txtLastTime1.text = CurrentTime().date(data.lastChangeTime).first
-            binding.txtStatus.text = data.Status
+//            binding.txtStatus.text = data.Status
             binding.root.setOnClickListener {
                 val model1 =
                     ViewModelProvider(ViewModelStoreOwner)[SharedViewModel::class.java]

@@ -7,7 +7,6 @@ import android.os.Handler
 import android.os.Looper.getMainLooper
 import android.text.Editable
 import android.text.SpannableStringBuilder
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -17,10 +16,6 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
-import androidx.core.view.marginBottom
-import androidx.core.view.marginLeft
-import androidx.core.view.marginRight
-import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -69,7 +64,7 @@ class FinalRegistrationFragment : Fragment() {
                     if (data[0].product_tracking_code == "") {
                             binding.editText1Final.text =
                                 Editable.Factory.getInstance()
-                                    .newEditable("کد ردیابی محصول ثبت نشده است!")
+                                    .newEditable("-")
                     } else {
                         binding.editText1Final.text = Editable.Factory.getInstance()
                             .newEditable(data[0].product_tracking_code.toString())
@@ -77,7 +72,7 @@ class FinalRegistrationFragment : Fragment() {
                     if (data[0].operator_name == "") {
                             binding.editText2Final.text =
                                 Editable.Factory.getInstance()
-                                    .newEditable("نام اپراتور ثبت نشده است!")
+                                    .newEditable("-")
                     } else {
                         binding.editText2Final.text =
                             Editable.Factory.getInstance()
@@ -87,7 +82,7 @@ class FinalRegistrationFragment : Fragment() {
                         Handler(getMainLooper()).post {
                             binding.editText3Final.text =
                                 Editable.Factory.getInstance()
-                                    .newEditable("تعداد تولید ثبت نشده است!")
+                                    .newEditable("-")
                         }
                     } else {
                         binding.editText3Final.text = Editable.Factory.getInstance()
@@ -96,44 +91,42 @@ class FinalRegistrationFragment : Fragment() {
                     binding.inboundTrackingContainer.removeAllViews()
                     binding.nonConformityContainer.removeAllViews()
 
-                    data.forEachIndexed { _, item ->
-                        if (item.parameter_type == "inbound_tracking_code") {
-                            val v = layoutInflater.inflate(
-                                R.layout.layout_form_code,
-                                binding.inboundTrackingContainer,
-                                false
-                            )
-                            v.findViewById<AppCompatButton>(R.id.operator_button).visibility =
-                                View.GONE
-                            v.findViewById<AppCompatEditText>(R.id.edit_text).run {
-                                text =
-                                    Editable.Factory.getInstance().newEditable(item.parameter_value)
-                                isEnabled = false
-                            }
-                            binding.inboundTrackingContainer.addView(v)
+                data.forEachIndexed { _, item ->
+                    if (item.parameter_type == "inbound_tracking_code") {
+
+                        val v = layoutInflater.inflate(
+                            R.layout.layout_form_code,
+                            binding.inboundTrackingContainer,
+                            false
+                        )
+                        v.findViewById<AppCompatButton>(R.id.operator_button).visibility = View.GONE
+                        v.findViewById<AppCompatEditText>(R.id.edit_text).run {
+                            text =
+                                Editable.Factory.getInstance().newEditable(item.parameter_value)
+                            isEnabled = false
                         }
-                        if (item.parameter_type == "non_conformity_code") {
-                            val v = layoutInflater.inflate(
-                                R.layout.layout_form_code,
-                                binding.inboundTrackingContainer,
-                                false
-                            )
-                            v.findViewById<AppCompatButton>(R.id.operator_button).visibility =
-                                View.GONE
-                            v.findViewById<AppCompatEditText>(R.id.edit_text).run {
-                                text =
-                                    Editable.Factory.getInstance().newEditable(item.parameter_value)
-                                isEnabled = false
-                            }
-                            v.findViewById<TextView>(R.id.title).text =
-                                getString(R.string.Non_Code)
-                            binding.inboundTrackingContainer.addView(v)
-                        }
+                        binding.inboundTrackingContainer.addView(v)
                     }
-                    when (data[0].shift) {
-                        1 -> {
-                            binding.radioShiftFirst.isChecked = true
+                    if (item.parameter_type == "non_conformity_code") {
+                        val v = layoutInflater.inflate(
+                            R.layout.layout_form_code,
+                            binding.inboundTrackingContainer,
+                            false
+                        )
+                        v.findViewById<AppCompatButton>(R.id.operator_button).visibility = View.GONE
+                        v.findViewById<AppCompatEditText>(R.id.edit_text).run {
+                            text =
+                                Editable.Factory.getInstance().newEditable(item.parameter_value)
+                            isEnabled = false
                         }
+                        v.findViewById<TextView>(R.id.title).text = getString(R.string.Non_Code)
+                        binding.inboundTrackingContainer.addView(v)
+                    }
+                }
+                when (data[0].shift) {
+                    1 -> {
+                        binding.radioShiftFirst.isChecked = true
+                    }
 
                         2 -> {
                             binding.radioShiftSecond.isChecked = true
@@ -152,7 +145,6 @@ class FinalRegistrationFragment : Fragment() {
                     binding.editText4Final.isEnabled = false;
                     binding.btnFinal.visibility = View.INVISIBLE
 
-                    binding.btnFinal.setMargins(0, 0, 0, 0)
             } else {
                 val model1 = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
                 model1.message1.observe(viewLifecycleOwner, Observer {
@@ -215,29 +207,30 @@ class FinalRegistrationFragment : Fragment() {
                                 currentTime
                             )
 
-                            binding.inboundTrackingContainer.children.forEach { view ->
-                                Log.d("~~~~~~~~~~v", view.toString())
-                                val tmp =
-                                    view.findViewWithTag<AppCompatEditText>("input_code")?.text.toString()
-                                if (tmp != "" || tmp.isNotEmpty()) {
-                                    listInboundTrackingCode1.add(tmp)
-                                }
+                        binding.inboundTrackingContainer.children.forEach { view -> val tmp =
+                                view.findViewWithTag<AppCompatEditText>("input_code")?.text.toString()
+                            if (tmp != "" || tmp.isNotEmpty()) {
+                                listInboundTrackingCode1.add(tmp)
                             }
-                            binding.nonConformityContainer.children.forEach { view ->
-                                Log.d("~~~~~~~~~~c", view.toString())
-                                val tmp =
-                                    view.findViewWithTag<AppCompatEditText>("input_code")?.text.toString()
-                                if (tmp != "" || tmp.isNotEmpty()) {
+                        }
+                        binding.nonConformityContainer.children.forEach { view ->
+                            val tmp =
+                                view.findViewWithTag<AppCompatEditText>("input_code")?.text.toString()
+                            if (tmp != "" || tmp.isNotEmpty()) {
+                                if (tmp != "F") {
                                     listNonConformityCode1.add(tmp)
                                 }
                             }
+                        }
+
                             val station =   model.cpValueSelectedName.value
                             val quality =   model.csIndexSelectedName.value
+
                             val text =
-                                "کاربر گرامی شما در حال ثبت نهایی گزارشات وارد شده برای ایستگاه کنترلی $station"
-                            val text5 =
-                                " و طرح کیفیت $quality می باشید. آیا از صحت گزارشات وارد شده اطمینان دارید؟ "
-                            val text6 = "زیرا پس از تایید امکان ویرایش اطلاعات وجود ندارد!"
+                            "کاربر گرامی شما در حال ثبت نهایی گزارشات وارد شده برای ایستگاه کنترلی $station"
+                        val text5 =
+                            " و طرح کیفیت $quality می باشید. آیا از صحت گزارشات وارد شده اطمینان دارید؟ "
+                        val text6 = "زیرا پس از تایید امکان ویرایش اطلاعات وجود ندارد."
 
                             val color = ContextCompat.getColor(requireContext(), R.color.red)
                             val builder = SpannableStringBuilder()
@@ -309,21 +302,11 @@ class FinalRegistrationFragment : Fragment() {
                 })
             }
         })
+
     }
 
     override fun onResume() {
         super.onResume()
         //binding.root.requestLayout();
-    }
-}
-
-private fun View.setMargins(
-    left: Int = this.marginLeft,
-    top: Int = this.marginTop,
-    right: Int = this.marginRight,
-    bottom: Int = this.marginBottom
-) {
-    layoutParams = (layoutParams as ViewGroup.MarginLayoutParams).apply {
-        setMargins(left, top, right, bottom)
     }
 }

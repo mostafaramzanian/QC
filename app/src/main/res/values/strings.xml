@@ -35,7 +35,7 @@
     <string name="Status_Reports_Saved">وضعیت گزارشات ثبت نهایی شده</string>
     <string name="Text_Help_Insert">برای ثبت فرم گزارش ابتدا از قسمت ایستگاه کنترلی گزینه مورد نظر خود را وارد کنید و سپس اگر برای گزینه انتخابی شما برای ایستگاه کنترلی، طرح کیفیت وجود داشته باشد به شما نمایش داده خواهد شد و در انتها بر روی ایجاد فرم گزارش کلیک نمایید.</string>
     <string name="Station">ایستگاه کنترلی</string>
-    <string name="Select">اتنخاب کنید</string>
+    <string name="Select">انتخاب کنید</string>
     <string name="Quality">طرح کیفیت</string>
     <string name="Btn_Create_Rport">ایجاد فرم گزارش</string>
     <string name="Login">ورود</string>
