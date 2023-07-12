@@ -36,19 +36,21 @@ class HomeFragment : Fragment() {
         model.showcase("HomeFragment")
         val sh = SharedPreferences(requireActivity())
 
-        binding.username.text = "${sh.getString("fullName", "")}، به نرم افزار کنترل کیفیت خوش آمدید."
-        binding.userRole.text = "${sh.getString("userTypeTitle", "")}"
+        binding.username.text =
+            "${sh.getString("fullName", "")}، به نرم افزار کنترل کیفیت خوش آمدید."
+        binding.userRole.text =
+            "${sh.getString("userTypeTitle", "")} - ${sh.getString("process_name", "")}"
 
 
         val countReportActive = GetData(requireActivity()).reportActive()
         if (countReportActive.size > 0) {
-              val countReportActive1 = countReportActive[0]
+            val countReportActive1 = countReportActive[0]
             binding.innerConstraintLayout.visibility = View.VISIBLE
             binding.noValuesActive.visibility = View.GONE
 
             //binding.inner4ConstraintLayout.visibility = View.GONE
             binding.countReportText.text = countReportActive1.count.toString()
-            binding.userText.text=countReportActive1.user
+            binding.userText.text = countReportActive1.user
             binding.titleLastReportText.text = countReportActive1.csName
             binding.titleLastReportCpText.text = countReportActive1.cpName
             binding.timeLastReportText.text = CurrentTime().date(countReportActive1.time).first
@@ -79,10 +81,11 @@ class HomeFragment : Fragment() {
             binding.noValuesNotActive.visibility = View.GONE
 
             binding.countReportNoActiveText.text = countReportNotActive1.count.toString()
-            binding.user1Text.text=countReportNotActive1.user
+            binding.user1Text.text = countReportNotActive1.user
             binding.titleLastReportNoActiveText.text = countReportNotActive1.csName
             binding.lastCpNotActiveText.text = countReportNotActive1.cpName
-            binding.timeLastReportNoActiveText.text =  CurrentTime().date(countReportNotActive1.time).first
+            binding.timeLastReportNoActiveText.text =
+                CurrentTime().date(countReportNotActive1.time).first
         } else {
             binding.inner1ConstraintLayout.visibility = View.GONE
             binding.noValuesNotActive.visibility = View.VISIBLE

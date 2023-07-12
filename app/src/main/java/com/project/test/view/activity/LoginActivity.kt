@@ -107,10 +107,36 @@ class LoginActivity : AppCompatActivity() {
 
             Utils.hideKeyboard(this@LoginActivity)
 
-            loginButton.showLoading()
 
             var user = binding.edtInputUsername.text.toString()
             val password = binding.password.editText?.text.toString()
+
+            val colorStateListAlertEnable =
+                ColorStateList.valueOf(ContextCompat.getColor(binding.root.context, R.color.red))
+
+            var isValidUsernameAndPass = true;
+
+            if (user == "") {
+                binding.edtInputUsername.setBackgroundResource(R.drawable.alert_edit_text)
+                binding.username.defaultHintTextColor = colorStateListAlertEnable
+                binding.alertUser.visibility = View.VISIBLE
+                isValidUsernameAndPass = false
+            } else {
+                binding.alertUser.visibility = View.GONE
+
+            }
+
+            if (password == "") {
+                binding.edtInputPassword.setBackgroundResource(R.drawable.alert_edit_text)
+                binding.password.defaultHintTextColor = colorStateListAlertEnable
+                binding.alertPass.visibility = View.VISIBLE
+                isValidUsernameAndPass = false
+            } else {
+                binding.alertPass.visibility = View.GONE
+            }
+
+            if (!isValidUsernameAndPass) return@setOnClickListener
+
             user = user.toCharArray().joinToString("") {
                 if (it.isDigit()) {
                     it.toString().lowercase(Locale.ENGLISH)
@@ -118,13 +144,15 @@ class LoginActivity : AppCompatActivity() {
                     it.lowercaseChar().toString()
                 }
             }
-            thread(start = true) {
+
+            loginButton.showLoading()
+            Thread {
+
                 val userData: DataUser? = GetData(this).getUser(user)
                 if (userData != null) {
-                    if (validation(
-                            user, password, userData
-                        )
-                    ) {
+
+                    if (Bcrypt.verify(password, userData.passwd.toByteArray())) {
+
                         val userType2 = userData.user_type_title
 
                         if (userData.user_type == "QC_EXPERT" || userData.user_type == "QC_REVIEWER" || userData.user_type == "QUALITY_ASSURANCE_EXPERT") {
@@ -136,6 +164,7 @@ class LoginActivity : AppCompatActivity() {
                             sharedPreferences.putString("userType", userData.user_type)
                             sharedPreferences.putString("userTypeTitle", userData.user_type_title)
                             sharedPreferences.putInt("process_id", userData.process_id)
+                            sharedPreferences.putString("process_name", userData.processName)
 
                             Handler(mainLooper).post {
                                 loginButton.hideLoading()
@@ -221,46 +250,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-    private fun validation(user: String, pass: String, userData: DataUser): Boolean {
 
-
-        val colorStateListAlertEnable =
-            ColorStateList.valueOf(ContextCompat.getColor(binding.root.context, R.color.red))
-        var validUserPass = false
-
-        val isEmptyUser = when {
-            user.isEmpty() -> {
-                Handler(mainLooper).post {
-                    binding.edtInputUsername.setBackgroundResource(R.drawable.alert_edit_text)
-                    binding.username.defaultHintTextColor = colorStateListAlertEnable
-                    binding.alertUser.visibility = View.VISIBLE
-                }
-                false
-            }
-            else -> {
-                true
-            }
-        }
-        val isEmptyPassword = when {
-            pass.isEmpty() -> {
-                Handler(mainLooper).post {
-                    binding.edtInputPassword.setBackgroundResource(R.drawable.alert_edit_text)
-                    binding.password.defaultHintTextColor = colorStateListAlertEnable
-                    binding.alertPass.visibility = View.VISIBLE
-                }
-                false
-            }
-            else -> {
-                true
-            }
-        }
-
-        if (isEmptyUser && isEmptyPassword) {
-
-            validUserPass = Bcrypt.verify(pass, userData.passwd.toByteArray())
-        }
-        return isEmptyUser && isEmptyPassword && validUserPass
-    }
 
 }
 

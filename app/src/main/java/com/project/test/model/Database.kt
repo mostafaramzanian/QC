@@ -6,6 +6,7 @@ import android.content.Context
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper
 import java.lang.ref.WeakReference
 
+import java.sql.SQLException
 
 /*
 class Database(context: Context?) :
@@ -39,5 +40,3 @@ class Database(context: Application) :
     }
     var companion = Companion
 }
-
-

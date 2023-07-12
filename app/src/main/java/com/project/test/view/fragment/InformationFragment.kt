@@ -64,18 +64,18 @@ class InformationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val dataInfo = GetData(requireActivity()).information1()
+
         adapter = InformationRecyclerViewAdapter(
             requireActivity(),
             requireActivity(),
             requireActivity(),
-            dataInfo as ArrayList<DataInfo>
+//            dataInfo as ArrayList<DataInfo>
         )
 
         Thread {
-
+            val dataInfo = GetData(requireActivity()).information1()
             activity?.runOnUiThread {
-               // adapter.differ.submitList(dataInfo)
+                adapter.differ.submitList(dataInfo)
             }
         }.start()
 

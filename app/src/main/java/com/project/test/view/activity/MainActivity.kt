@@ -9,7 +9,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.os.Handler
 import android.os.StrictMode
 import android.os.StrictMode.VmPolicy
 import android.provider.Settings
@@ -30,12 +29,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.project.test.R
 import com.project.test.databinding.ActivityMainBinding
 import com.project.test.model.Database
-import com.project.test.model.Query
 import com.project.test.utils.MyService
 import com.project.test.utils.NavigationApp
 import com.project.test.utils.SharedPreferences
 import com.project.test.utils.SharedViewModel
-import com.project.test.utils.ShowCase
 
 
 class MainActivity : AppCompatActivity() {
@@ -183,7 +180,7 @@ class MainActivity : AppCompatActivity() {
             ).navigationBackward()
         }
 
-
+        val model = ViewModelProvider(this)[SharedViewModel::class.java]
         model.show.observe(this, Observer {
             if (it == "Hide") {
                 binding.customTitleLayout.backPage.visibility = View.INVISIBLE
@@ -311,11 +308,6 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         stopService(Intent(this, MyService::class.java))
         super.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        //  startService(this)
     }
 
     override fun onDestroy() {

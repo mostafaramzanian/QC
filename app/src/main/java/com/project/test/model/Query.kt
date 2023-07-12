@@ -31,7 +31,7 @@ class Query(private val context: Activity) {
     }
 
     fun userProcesses(userId: Int): Cursor {
-        val cursor = db.rawQuery("SELECT * FROM user_processes WHERE user_id ='$userId'", null)
+        val cursor = db.rawQuery("SELECT * FROM user_processes join processes ON user_processes.process_id = processes.id WHERE user_id ='$userId'", null)
         return (cursor)
     }
 

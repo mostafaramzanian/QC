@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.project.test.databinding.InfoRegisterBinding
-import com.project.test.dataclass.DataInfoRegister
 import com.project.test.model.GetData
 import com.project.test.utils.SharedViewModel
 import com.project.test.view.recyclerview.InfoRegisterRecyclerViewAdapter
@@ -42,14 +41,13 @@ class InfoRegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val dataInfoRegister = GetData(requireActivity()).infoRegister(0)
+//        val dataInfoRegister = GetData(requireActivity()).infoRegister(it)
 //        if (dataInfoRegister.size == 0) {
 //            binding.infoInnerLayout.visibility = View.VISIBLE
 //            binding.titleDoc2.visibility = View.GONE
 //        }
         adapter = InfoRegisterRecyclerViewAdapter(
-            requireActivity(),
-            dataInfoRegister as ArrayList<DataInfoRegister>
+            requireActivity()
         )
 //        Thread {
 //            val dataInfoRegister = GetData(requireActivity()).infoRegister(0)
@@ -80,7 +78,7 @@ class InfoRegisterFragment : Fragment() {
                     }
                 } else {
                     activity?.runOnUiThread {
-                       // adapter.differ.submitList(dataInfoRegister)
+                        adapter.differ.submitList(dataInfoRegister)
                     }
                 }
             }.start()
