@@ -3,14 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="20dp"
+    android:layout_marginTop="10dp"
     android:gravity="right"
     android:orientation="horizontal">
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/operator_button"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical"
         android:layout_marginRight="7dp"
         android:background="@drawable/remove_final_registr"
         tools:ignore="RtlHardcoded" />
@@ -18,7 +19,7 @@
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/edit_text"
         android:layout_width="180dp"
-        android:layout_height="35dp"
+        android:layout_height="30dp"
         android:background="@drawable/edit_text_info"
         android:fontFamily="@font/vazirmatn_medium"
         android:inputType="text"

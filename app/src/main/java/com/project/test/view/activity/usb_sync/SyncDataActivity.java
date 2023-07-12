@@ -242,7 +242,7 @@ public class SyncDataActivity extends Activity implements Callback, Runnable, Tr
         try (FileOutputStream fos = openFileOutput("tmp_db.db", Context.MODE_PRIVATE)) {
             fos.write(myBuffer);
 
-            try (Database database = new Database(this)) {
+            try (Database database = new Database(this.getApplication())) {
                 if (database.getWritableDatabase().isOpen()) {
                     database.getWritableDatabase().close();
                     database.close();

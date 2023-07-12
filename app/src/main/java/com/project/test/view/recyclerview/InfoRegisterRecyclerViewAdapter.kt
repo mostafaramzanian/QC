@@ -49,7 +49,7 @@ class InfoRegisterRecyclerViewAdapter(
                 binding.txtTitleDoc1.text = data.name
                 binding.showObservedValue.text = data.report_value
                 binding.showDateRegister.text = finalDate
-                binding.showTimeRegister.text = timeString
+              //  binding.showTimeRegister.text = timeString
             } else {
                 binding.txtTitleDoc1.text = "آزمایشگاه"
                 binding.observedValue.text = "کد درخواست آزمایشگاه: "
@@ -58,8 +58,8 @@ class InfoRegisterRecyclerViewAdapter(
                 binding.showStatus.text = finalDate
                 binding.dateRegister.text = "ساعت ثبت: "
                 binding.showDateRegister.text = timeString
-                binding.timeRegister.visibility = View.GONE
-                binding.showTimeRegister.visibility = View.GONE
+              //  binding.timeRegister.visibility = View.GONE
+              //  binding.showTimeRegister.visibility = View.GONE
 
 
                 binding.innerInfo.setBackgroundResource(R.drawable.background_lab)

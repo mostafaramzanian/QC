@@ -3,29 +3,30 @@ package com.project.test.model
 import android.app.Activity
 import android.content.ContentValues
 import android.database.Cursor
-import android.database.DatabaseUtils
-import android.database.sqlite.SQLiteDatabase
 import android.widget.Toast
 import com.project.test.utils.SharedPreferences
 
 class Query(private val context: Activity) {
-    private val myDatabase = Database(context).getInstance()
-    private val myDatabase1 = Database(context).getInstance()
+    private val myDatabase =
+        Database(context.application).companion.getInstance(context.application)
+    private val myDatabase1 =
+        Database(context.application).companion.getInstance(context.application)
     private val db = myDatabase.writableDatabase
-    private val userId= SharedPreferences(context).getInt("userId",0)
+    private val userId = SharedPreferences(context).getInt("userId", 0)
 
-    fun check()
-    {
-
+    fun check() {
         if (myDatabase === myDatabase1) {
             Toast.makeText(context, "y", Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(context, "n", Toast.LENGTH_SHORT).show()
         }
     }
+
     fun login(user: String): Cursor {
-        val cursor =
-            db.rawQuery("SELECT * FROM users JOIN user_types ON users.user_type = user_types.name JOIN user_processes ON users.id = user_processes.user_id  WHERE username ='$user' AND is_deleted = 0", null)
+        val cursor = db.rawQuery(
+            "SELECT * FROM users JOIN user_types ON users.user_type = user_types.name JOIN user_processes ON users.id = user_processes.user_id  WHERE username ='$user' AND is_deleted = 0",
+            null
+        )
         return (cursor)
     }
 
@@ -49,8 +50,7 @@ class Query(private val context: Activity) {
 
     fun cp(controlStationId: String): Cursor {
         val cursor = db.rawQuery(
-            "SELECT * FROM cp WHERE control_station_id ='$controlStationId' AND is_active = 1",
-            null
+            "SELECT * FROM cp WHERE control_station_id ='$controlStationId' AND is_active = 1", null
         )
         return (cursor)
     }
@@ -84,19 +84,21 @@ class Query(private val context: Activity) {
     }
 
     fun cpSelectReports(id: Int): Cursor {
-        val cursor =
-            db.rawQuery("SELECT * FROM cp_reports WHERE cp_id ='$id' AND is_draft = '1' AND created_by_user='$userId'", null)
+        val cursor = db.rawQuery(
+            "SELECT * FROM cp_reports WHERE cp_id ='$id' AND is_draft = '1' AND created_by_user='$userId'",
+            null
+        )
         return (cursor)
     }
 
     fun cpSelectReports1(id: Int, isDraft: Int): Cursor {
-        val cursor =
-            db.rawQuery(
-                "SELECT cp_reports.*, users.*,cp_reports.id AS cp_reports_id FROM cp_reports JOIN users ON cp_reports.created_by_user =  users.id  WHERE cp_id ='$id' AND is_draft = '$isDraft' AND created_by_user='$userId'",
-                null
-            )
+        val cursor = db.rawQuery(
+            "SELECT cp_reports.*, users.*,cp_reports.id AS cp_reports_id FROM cp_reports JOIN users ON cp_reports.created_by_user =  users.id  WHERE cp_id ='$id' AND is_draft = '$isDraft' AND created_by_user='$userId'",
+            null
+        )
         return (cursor)
     }
+
     fun updateCpReports(id: Int, values: ContentValues): Int {
         val selection = "cp_id = ?"
         val selectionArgs = arrayOf(id.toString())
@@ -205,8 +207,10 @@ class Query(private val context: Activity) {
     }
 
     fun count2(isDraft: Int): Cursor {
-        val cursor =
-            db.rawQuery("SELECT COUNT(*) FROM cp_reports WHERE is_draft ='$isDraft' AND created_by_user='$userId'", null)
+        val cursor = db.rawQuery(
+            "SELECT COUNT(*) FROM cp_reports WHERE is_draft ='$isDraft' AND created_by_user='$userId'",
+            null
+        )
         return (cursor)
     }
 
@@ -218,7 +222,10 @@ class Query(private val context: Activity) {
 
 
     fun getLastRecord(): Cursor {
-        val cursor = db.rawQuery("SELECT * FROM cp_reports  WHERE created_by_user='$userId' ORDER BY id DESC LIMIT 1", null)
+        val cursor = db.rawQuery(
+            "SELECT * FROM cp_reports  WHERE created_by_user='$userId' ORDER BY id DESC LIMIT 1",
+            null
+        )
         return (cursor)
     }
 

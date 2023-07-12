@@ -1,8 +1,11 @@
 package com.project.test.model
 
+import android.app.Activity
+import android.app.Application
 import android.content.Context
-import android.widget.Toast
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper
+import java.lang.ref.WeakReference
+
 
 /*
 class Database(context: Context?) :
@@ -15,18 +18,26 @@ class Database(context: Context?) :
 
 
  */
-class Database(private val context: Context) :
-    SQLiteAssetHelper(context.applicationContext, DATABASE_NAME, null, DATABASE_VERSION) {
+
+class Database(context: Application) :
+    SQLiteAssetHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+
     companion object {
         private const val DATABASE_NAME = "QC.db"
         private const val DATABASE_VERSION = 1
-    }
+        private var instance: WeakReference<Database>? = null
 
-    @Volatile
-    private var instance: Database? = null
-    fun getInstance(): Database =
-        instance ?: synchronized(this) {
-            instance ?: Database(context.applicationContext).also { instance = it }
+        @Synchronized
+        fun getInstance(context: Application): Database {
+            var database = instance?.get()
+            if (database == null) {
+                database = Database(context)
+                instance = WeakReference(database)
+            }
+            return database
         }
-
+    }
+    var companion = Companion
 }
+
+

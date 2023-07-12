@@ -4,11 +4,13 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
+import android.graphics.drawable.Icon
 import android.os.Build
 import android.os.Parcelable
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 
 import java.util.ArrayList
@@ -107,6 +109,7 @@ class ShowcaseManager private constructor(private val builder: Builder) {
         private var marginFocusArea: Int = 0
         private var type: ShowcaseType = ShowcaseType.CIRCLE
         private var gradientFocusEnabled: Boolean = false
+        private var radius: Float =0f
 
         init {
             showcaseModelList = ArrayList()
@@ -217,6 +220,11 @@ class ShowcaseManager private constructor(private val builder: Builder) {
             return this
         }
 
+        fun radius(value: Float): Builder {
+            this.radius = value
+            return this
+        }
+
         @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
         fun roundedRectangle(): Builder {
             this.type = ShowcaseType.ROUND_RECTANGLE
@@ -289,7 +297,8 @@ class ShowcaseManager private constructor(private val builder: Builder) {
                 radiusFocusArea = circleCenterRadius,
                 rect = rect,
                 type = type,
-                gradientFocusEnabled = gradientFocusEnabled
+                gradientFocusEnabled = gradientFocusEnabled,
+                raduis=radius
             )
 
         }

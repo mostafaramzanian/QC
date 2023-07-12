@@ -1,13 +1,10 @@
 package com.project.test.view.fragment
 
-import android.graphics.Color
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,22 +25,41 @@ class InfoRegisterFragment : Fragment() {
     ): View {
         binding = InfoRegisterBinding.inflate(inflater)
         val model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-        model.message.observe(viewLifecycleOwner, Observer {
+        model.message.observe(viewLifecycleOwner) {
             if (it == "1") {
                 binding.recyclerViewInfoRegister.visibility = View.VISIBLE
                 showReport()
             } else {
-                binding.recyclerViewInfoRegister.visibility = View.INVISIBLE
-                binding.infoInnerLayout.visibility=View.GONE
-                binding.titleDoc2.visibility=View.GONE
+                binding.recyclerViewInfoRegister.visibility = View.GONE
+                binding.infoInnerLayout.visibility = View.GONE
+                binding.titleDoc2.visibility = View.GONE
             }
 
-        })
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val dataInfoRegister = GetData(requireActivity()).infoRegister(0)
+//        if (dataInfoRegister.size == 0) {
+//            binding.infoInnerLayout.visibility = View.VISIBLE
+//            binding.titleDoc2.visibility = View.GONE
+//        }
+        adapter = InfoRegisterRecyclerViewAdapter(
+            requireActivity(),
+            dataInfoRegister as ArrayList<DataInfoRegister>
+        )
+//        Thread {
+//            val dataInfoRegister = GetData(requireActivity()).infoRegister(0)
+//            adapter.differ.submitList(dataInfoRegister)
+//        }.start()
+
+        binding.recyclerViewInfoRegister.layoutManager = LinearLayoutManager(
+            requireActivity(), RecyclerView.VERTICAL, false
+        )
+        binding.recyclerViewInfoRegister.adapter = adapter
     }
 
     override fun onResume() {
@@ -54,22 +70,32 @@ class InfoRegisterFragment : Fragment() {
 
     private fun showReport() {
         val model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-        model.isDraft.observe(viewLifecycleOwner, Observer {
-            val dataInfoRegister = GetData(requireActivity()).infoRegister(it)
-            if(dataInfoRegister.size==0 ){
-               binding.infoInnerLayout.visibility=View.VISIBLE
-                binding.titleDoc2.visibility=View.GONE
-            }
-            adapter = InfoRegisterRecyclerViewAdapter(
-                requireActivity(),
-                dataInfoRegister as ArrayList<DataInfoRegister>
-            )
-            binding.recyclerViewInfoRegister.layoutManager = LinearLayoutManager(
-                requireActivity(), RecyclerView.VERTICAL, false
-            )
+        model.isDraft.observe(viewLifecycleOwner) {
+            Thread {
+                val dataInfoRegister = GetData(requireActivity()).infoRegister(it)
+                if (dataInfoRegister.size == 0) {
+                    activity?.runOnUiThread {
+                        binding.infoInnerLayout.visibility = View.VISIBLE
+                        binding.titleDoc2.visibility = View.GONE
+                    }
+                } else {
+                    activity?.runOnUiThread {
+                       // adapter.differ.submitList(dataInfoRegister)
+                    }
+                }
+            }.start()
 
-            binding.recyclerViewInfoRegister.adapter = adapter
-        })
+
+////            adapter = InfoRegisterRecyclerViewAdapter(
+////                requireActivity(),
+////                dataInfoRegister as ArrayList<DataInfoRegister>
+////            )
+////            binding.recyclerViewInfoRegister.layoutManager = LinearLayoutManager(
+////                requireActivity(), RecyclerView.VERTICAL, false
+////            )
+////
+////            binding.recyclerViewInfoRegister.adapter = adapter
+        }
     }
 
 }

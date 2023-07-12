@@ -38,7 +38,8 @@ class ShowcaseModel(
     val radiusFocusArea: Float = 0.toFloat(),
     val rect: Rect? = null,
     val type: ShowcaseType = ShowcaseType.CIRCLE,
-    val gradientFocusEnabled: Boolean = false
+    val gradientFocusEnabled: Boolean = false,
+    val raduis: Float = 0.toFloat()
 ) : Parcelable {
     @IgnoredOnParcel
     var isBtnNextSelected: Boolean = false

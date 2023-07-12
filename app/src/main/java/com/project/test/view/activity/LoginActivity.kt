@@ -43,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        Database(this).getInstance().close()
+        Database(this.application).close()
         super.onDestroy()
     }
 

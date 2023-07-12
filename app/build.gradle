@@ -65,5 +65,8 @@ dependencies {
     implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.3'
     //implementation 'com.github.erkutaras:ShowcaseView:1.5.0'
     implementation "com.github.koushikcse:LoadingButton:1.7"
+//    implementation 'com.squareup.okhttp3:okhttp:4.9.2'
     implementation project(path: ':show_case')
+//    implementation 'androidx.room:room-ktx:2.4.2'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.6.1'
 }

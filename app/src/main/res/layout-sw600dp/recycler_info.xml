@@ -12,9 +12,9 @@
         android:id="@+id/inner_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="18dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/background_info"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -25,12 +25,12 @@
             android:id="@+id/txt_title_doc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
             android:layout_marginRight="10dp"
             android:fontFamily="@font/vazirmatn_bold"
             android:text="@string/Tolerance"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="16sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="RtlHardcoded" />
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:fontFamily="@font/vazirmatn_regular"
+            android:fontFamily="@font/vazirmatn_fd_regular"
             android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintRight_toLeftOf="@+id/txt_title_doc"
@@ -52,13 +52,13 @@
             android:id="@+id/code_doc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
             android:fontFamily="@font/vazirmatn_bold"
             android:text="@string/Sampling_Frequency"
             android:textColor="@color/black"
-            android:textSize="15sp"
-            app:layout_constraintRight_toRightOf="@+id/txt_title_doc"
-            app:layout_constraintTop_toBottomOf="@+id/txt_title_doc"
+            android:textSize="16sp"
+            app:layout_constraintRight_toLeftOf="@+id/txt_title_doc_1"
+            app:layout_constraintTop_toTopOf="@+id/txt_title_doc"
             tools:ignore="RtlHardcoded" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -82,9 +82,9 @@
             android:fontFamily="@font/vazirmatn_bold"
             android:text="@string/Control"
             android:textColor="@color/black"
-            android:textSize="15sp"
-            app:layout_constraintRight_toRightOf="@+id/code_doc"
-            app:layout_constraintTop_toBottomOf="@+id/code_doc" />
+            android:textSize="16sp"
+            app:layout_constraintRight_toRightOf="@+id/txt_title_doc"
+            app:layout_constraintTop_toBottomOf="@+id/txt_title_doc" />
 
         <com.skydoves.powerspinner.PowerSpinnerView
             android:id="@+id/spinnerView_info"
@@ -101,7 +101,7 @@
             android:paddingBottom="6dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
-            android:textSize="14sp"
+            android:textSize="14.5sp"
             app:layout_constraintBottom_toBottomOf="@+id/control_tools"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/control_tools"
@@ -135,7 +135,7 @@
             android:fontFamily="@font/vazirmatn_bold"
             android:text="@string/Observed_Value"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="16sp"
             app:layout_constraintRight_toRightOf="@+id/control_tools"
             app:layout_constraintTop_toBottomOf="@+id/control_tools" />
 
@@ -162,7 +162,7 @@
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edit_text_1"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:background="@drawable/edit_text_info"
             android:fontFamily="@font/vazirmatn_medium"
@@ -201,11 +201,10 @@
             android:id="@+id/observed_value_change"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:fontFamily="@font/vazirmatn_medium"
             android:text="مقدار مشاهده شده پس از اعمال ضریب تصحیح: "
             android:textColor="@color/black"
-            android:textSize="12dp"
             app:layout_constraintRight_toRightOf="@+id/observed_value"
             app:layout_constraintTop_toBottomOf="@+id/observed_value" />
 
@@ -224,18 +223,18 @@
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:fontFamily="@font/vazirmatn_bold"
             android:text="@string/Description"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="16sp"
             app:layout_constraintRight_toRightOf="@+id/observed_value"
             app:layout_constraintTop_toBottomOf="@+id/observed_value_change" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edit_text_2"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:background="@drawable/edit_text_info"
             android:fontFamily="@font/vazirmatn_medium"
@@ -249,20 +248,19 @@
             app:layout_constraintLeft_toLeftOf="@+id/spinnerView_info"
             app:layout_constraintRight_toLeftOf="@+id/description"
             app:layout_constraintTop_toTopOf="@+id/description"
-            app:layout_constraintBottom_toBottomOf="@+id/description"
             tools:ignore="RtlHardcoded,RtlSymmetry" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/status_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:fontFamily="@font/vazirmatn_bold"
             android:text="@string/Status"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="16sp"
             app:layout_constraintRight_toRightOf="@+id/description"
-            app:layout_constraintTop_toBottomOf="@+id/description" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_2" />
 
         <RadioGroup
             android:id="@+id/RadioGroup"
@@ -330,6 +328,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
+        android:layout_marginBottom="185dp"
         android:background="@drawable/background_title_info"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
@@ -347,7 +346,7 @@
             android:gravity="center"
             android:text="@string/Characteristic_Title"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -362,7 +361,7 @@
             android:gravity="center"
             android:text="@string/Dgree_Imortant"
             android:textColor="@color/white"
-            android:textSize="12sp"
+            android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"

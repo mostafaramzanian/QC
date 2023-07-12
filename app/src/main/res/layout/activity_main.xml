@@ -84,6 +84,7 @@
                     android:textColor="#FFFFFF"
                     android:textSize="13sp"
                     app:drawableTopCompat="@drawable/baseline_home_24" />
+
             </LinearLayout>
         </com.google.android.material.bottomappbar.BottomAppBar>
 

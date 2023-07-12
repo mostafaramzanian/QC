@@ -2,6 +2,8 @@ package com.project.test.view.fragment
 
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,16 +54,18 @@ class DocumentFragment : Fragment() {
             thread(start = true) {
                 val data = GetData(requireActivity()).doc()
                 if (data.size > 0) {
+                    Handler(Looper.getMainLooper()).post {
                     binding.itemNotFound.visibility = View.GONE
-                    adapter =
-                        DocumentRecyclerViewAdapter(
-                            requireActivity(),
-                            data as ArrayList<DataDocument>
+                        adapter =
+                            DocumentRecyclerViewAdapter(
+                                requireActivity(),
+                                data as ArrayList<DataDocument>
+                            )
+                        binding.recyclerViewDoc.layoutManager = LinearLayoutManager(
+                            requireActivity(), RecyclerView.VERTICAL, false
                         )
-                    binding.recyclerViewDoc.layoutManager = LinearLayoutManager(
-                        requireActivity(), RecyclerView.VERTICAL, false
-                    )
-                    binding.recyclerViewDoc.adapter = adapter
+                        binding.recyclerViewDoc.adapter = adapter
+                    }
                 } else {
                     binding.itemNotFound.visibility = View.VISIBLE
                 }

@@ -17,12 +17,12 @@
         android:layout_height="wrap_content"
         android:background="@drawable/selector_rect"
         android:gravity="center"
+        android:backgroundTint="@color/black"
         android:src="@drawable/selector_next_arrow"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="ContentDescription" />
-
 
     <ImageButton
         android:id="@+id/img_previous"
@@ -31,6 +31,7 @@
         android:gravity="center"
         android:background="@drawable/selector_rect"
         android:src="@drawable/selector_previous_arrow"
+        android:backgroundTint="@color/black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,6 +42,7 @@
            android:layout_height="wrap_content"
            android:id="@+id/count"
            android:textSize="15sp"
+           android:textColor="@color/black"
            android:fontFamily="@font/vazirmatn_fd_medium"
            app:layout_constraintTop_toTopOf="parent"
            app:layout_constraintBottom_toBottomOf="parent"

@@ -2,6 +2,7 @@ package com.erkutaras.showcaseview
 
 import android.content.Context
 import android.graphics.*
+import android.graphics.drawable.Icon
 import android.os.Build
 import androidx.annotation.RequiresApi
 import android.util.AttributeSet
@@ -45,6 +46,7 @@ open class ShowcaseView : RelativeLayout {
     private var rect: Rect = Rect()
     private var type: ShowcaseType = ShowcaseType.CIRCLE
     private var gradientFocusEnabled: Boolean = false
+    private var raduis: Float = 0.toFloat()
 
     constructor(context: Context) : super(context) {
         init()
@@ -134,6 +136,7 @@ open class ShowcaseView : RelativeLayout {
         rect = showcaseModel.rect ?: Rect()
         type = showcaseModel.type
         gradientFocusEnabled = showcaseModel.gradientFocusEnabled
+        raduis=showcaseModel.raduis
     }
 
     /**
@@ -247,7 +250,7 @@ open class ShowcaseView : RelativeLayout {
             if (ShowcaseUtils.isNotZero(cancelBtnColor.toFloat())) {
                 resources.getDrawable(R.drawable.ic_outline_cancel, null).setTint(cancelBtnColor)
             } else {
-                resources.getDrawable(R.drawable.ic_outline_cancel, null).setTint(Color.WHITE)
+                resources.getDrawable(R.drawable.ic_outline_cancel, null).setTint(Color.BLACK)
             }
             imgBtnCancel.setImageResource(R.drawable.ic_outline_cancel)
         }
@@ -427,7 +430,8 @@ open class ShowcaseView : RelativeLayout {
         // shadow for focus area
         val shadowPaint = Paint()
         shadowPaint.color = colorBackground
-        shadowPaint.alpha = alphaBackground
+       shadowPaint.alpha = alphaBackground
+        //shadowPaint.alpha = 255
         shadowPaint.strokeWidth = 1.0f
         shadowPaint.style = Paint.Style.FILL_AND_STROKE
         shadowPaint.shader = Shader()
@@ -453,7 +457,8 @@ open class ShowcaseView : RelativeLayout {
     private fun drawFocusArea(paint: Paint, canvas: Canvas) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             when (type) {
-                ShowcaseType.CIRCLE -> canvas.drawCircle(cxFocusArea, cyFocusArea, radiusFocusArea, paint)
+               // ShowcaseType.CIRCLE -> canvas.drawCircle(cxFocusArea, cyFocusArea, radiusFocusArea, paint)
+               ShowcaseType.CIRCLE -> canvas.drawCircle(cxFocusArea, cyFocusArea, raduis, paint)
                 ShowcaseType.RECTANGLE -> canvas.drawRect(rect, paint)
                 ShowcaseType.ROUND_RECTANGLE -> {
                     val radius = ShowcaseUtils.convertDpToPx(5f)

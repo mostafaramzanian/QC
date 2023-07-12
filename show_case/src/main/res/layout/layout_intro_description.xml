@@ -7,7 +7,16 @@
     android:layout_height="match_parent"
     android:padding="@dimen/padding"
     >
-
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:padding="@dimen/padding"
+        >
     <ImageButton
         android:id="@+id/img_cancel"
         android:layout_width="25dp"
@@ -37,7 +46,7 @@
         android:textSize="@dimen/textSize_title"
         android:textStyle="bold"
         tools:text="LOREM IPSUM DOLOR"
-        android:textColor="@color/intro_title"
+        android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/imageView_description"
         app:layout_constraintRight_toRightOf="parent"
         />
@@ -53,7 +62,7 @@
         android:textSize="@dimen/textSize_description"
         android:textStyle="normal"
         tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-        android:textColor="@color/intro_text"
+        android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/textView_description_title"
         app:layout_constraintRight_toRightOf="parent"
         />
@@ -81,11 +90,11 @@
         android:paddingTop="15dp"
         android:textSize="@dimen/textSize_description"
         android:textStyle="bold"
-        android:background="@color/intro_button_background"
+        android:background="@color/black"
         tools:text="Done"
-        android:textColor="@color/intro_button_text"
+        android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/button_container"
         app:layout_constraintStart_toStartOf="parent"
         />
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

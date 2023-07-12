@@ -84,6 +84,7 @@ class ShowcaseActivity : AppCompatActivity(), OnIndexChangedListener {
         val currentShowModel = showcaseModels[currentIndex];
         currentShowModel.isBtnNextSelected = isBntNextSelected
         currentShowModel.isBtnPreviousSelected = isBntPreviousSelected
+
         layout.updateView(currentShowModel)
     }
 
@@ -149,7 +150,19 @@ class ShowcaseActivity : AppCompatActivity(), OnIndexChangedListener {
         val isBtnPreviousSelected =(index + 1) < showcaseModels.size //At the last item imgNext.isSelected = false
         val isBtnNextSelected = (index != 0) //At the first item imgPrevious.isSelected = false
         updateView(isBtnNextSelected, isBtnPreviousSelected)
+
+        if(index1==1){
+            findViewById<ImageButton>(R.id.img_next).visibility=View.GONE
+        }else{
+            findViewById<ImageButton>(R.id.img_next).visibility=View.VISIBLE
+        }
+        if(index1==size){
+            findViewById<ImageButton>(R.id.img_previous).visibility=View.GONE
+        }else{
+            findViewById<ImageButton>(R.id.img_previous).visibility=View.VISIBLE
+        }
         layout.count("$index1  از  $size")
+
     }
 
     override fun onResume() {
