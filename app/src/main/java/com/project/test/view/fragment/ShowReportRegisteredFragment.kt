@@ -14,6 +14,7 @@ import com.project.test.dataclass.DataReport
 import com.project.test.model.GetData
 import com.project.test.utils.SharedViewModel
 import com.project.test.view.recyclerview.ReportNotActiveRecyclerView
+import kotlin.concurrent.thread
 
 class ShowReportRegisteredFragment : Fragment() {
 
@@ -34,20 +35,23 @@ class ShowReportRegisteredFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         model.showHide("Show")
-        val data = GetData(requireActivity()).showAllReportNotActive()
-        adapter = ReportNotActiveRecyclerView(
-            requireActivity(),
-            requireActivity(),
-            requireActivity(),
-            requireActivity(),
-            requireActivity() as AppCompatActivity,
-            parentFragmentManager,
-            data as ArrayList<DataReport>
-        )
-        binding.recyclerView.layoutManager = LinearLayoutManager(
-            requireActivity(), RecyclerView.VERTICAL, false
-        )
-
-        binding.recyclerView.adapter = adapter
+        thread(true) {
+            val data = GetData(requireActivity()).showAllReportNotActive()
+            adapter = ReportNotActiveRecyclerView(
+                requireActivity(),
+                requireActivity(),
+                requireActivity(),
+                requireActivity(),
+                requireActivity() as AppCompatActivity,
+                parentFragmentManager,
+                data as ArrayList<DataReport>
+            )
+            activity?.runOnUiThread {
+                binding.recyclerView.layoutManager = LinearLayoutManager(
+                    requireActivity(), RecyclerView.VERTICAL, false
+                )
+                binding.recyclerView.adapter = adapter
+            }
+        }
     }
 }

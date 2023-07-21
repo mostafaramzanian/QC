@@ -15,6 +15,7 @@ import com.project.test.dataclass.DataReport
 import com.project.test.model.GetData
 import com.project.test.utils.SharedViewModel
 import com.project.test.view.recyclerview.OtherRecyclerView
+import kotlin.concurrent.thread
 
 class OtherFormActiveFragment : Fragment() {
     private lateinit var binding: OtherFormActiveBinding
@@ -33,21 +34,25 @@ class OtherFormActiveFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         model.message1.observe(viewLifecycleOwner, Observer {
-            val data = GetData(requireActivity()).otherReports("notShowAllReports")
-            //data.sortByDescending { it.lastChangeTime }
-            adapter = OtherRecyclerView(
-                requireActivity(),
-                requireActivity(),
-                requireActivity(),
-                requireActivity(),
-                requireActivity() as AppCompatActivity,
-                parentFragmentManager,
-                data as ArrayList<DataReport>
-            )
-            binding.recyclerViewOtherForm.layoutManager = LinearLayoutManager(
-                requireActivity(), RecyclerView.VERTICAL, false
-            )
-            binding.recyclerViewOtherForm.adapter = adapter
+            thread(true) {
+                val data = GetData(requireActivity()).otherReports("notShowAllReports")
+                //data.sortByDescending { it.lastChangeTime }
+                    adapter = OtherRecyclerView(
+                        requireActivity(),
+                        requireActivity(),
+                        requireActivity(),
+                        requireActivity(),
+                        requireActivity() as AppCompatActivity,
+                        parentFragmentManager,
+                        data as ArrayList<DataReport>
+                    )
+                activity?.runOnUiThread {
+                    binding.recyclerViewOtherForm.layoutManager = LinearLayoutManager(
+                        requireActivity(), RecyclerView.VERTICAL, false
+                    )
+                    binding.recyclerViewOtherForm.adapter = adapter
+                }
+            }
         })
     }
 

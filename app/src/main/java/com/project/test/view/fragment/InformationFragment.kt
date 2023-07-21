@@ -35,33 +35,8 @@ class InformationFragment : Fragment() {
 
         }
 
-//        model.message1.observe(viewLifecycleOwner) {
-//
-//            val dataInfo = GetData(requireActivity()).information1()
-//            adapter.differ.submitList(dataInfo)
-//        }
-
         return binding.root
     }
-
-//    private fun showReport() {
-//        val model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-//        model.message1.observe(viewLifecycleOwner, Observer {
-//            val dataInfo = GetData(requireActivity()).information1()
-//
-//            adapter = InformationRecyclerViewAdapter(
-//                requireActivity(),
-//                requireActivity(),
-//                requireActivity(),
-//                dataInfo as ArrayList<DataInfo>
-//            )
-//            binding.recyclerViewInfoRegister.layoutManager = LinearLayoutManager(
-//                requireActivity(), RecyclerView.VERTICAL, false
-//            )
-//            binding.recyclerViewInfoRegister.adapter = adapter
-//        })
-//    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -69,7 +44,6 @@ class InformationFragment : Fragment() {
             requireActivity(),
             requireActivity(),
             requireActivity(),
-//            dataInfo as ArrayList<DataInfo>
         )
 
         Thread {
@@ -84,8 +58,6 @@ class InformationFragment : Fragment() {
         )
         binding.recyclerViewInfoRegister.adapter = adapter
 
-
     }
-
 
 }

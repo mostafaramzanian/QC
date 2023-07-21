@@ -5,6 +5,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -39,6 +40,7 @@ class InsertReportFragment : Fragment() {
         val model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         model.showHide("show")
         model.showcase("InsertReportFragment")
+
         val nodes = GetData(requireActivity()).controlStation()
 
         val list = mutableListOf<String>()
@@ -181,7 +183,13 @@ class InsertReportFragment : Fragment() {
                 binding.arrowSpinner1.startAnimation(animUp1)
             }
         }
-
+        val btn = binding.btnAdd
+        btn.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                binding.loading.layoutParams.height = btn.height
+                btn.viewTreeObserver.removeOnGlobalLayoutListener(this)
+            }
+        })
         model.showLastFragment("InsertReportFragment")
         binding.btnAdd.setOnClickListener {
             if (binding.spinnerView.isShowing) {
@@ -196,8 +204,8 @@ class InsertReportFragment : Fragment() {
             if (!sharedPreferences.getBoolean("menuExit", false)) {
                 when {
                     cpValueSelected != null -> {
-                        val insertInfo = binding.btnAdd
-                        insertInfo.showLoading()
+                        binding.btnAdd.visibility=View.GONE
+                        binding.loading.visibility=View.VISIBLE
                         val model1 =
                             ViewModelProvider(requireActivity())[SharedViewModel::class.java]
                         model1.sendMessage1("start")
@@ -274,6 +282,7 @@ class InsertReportFragment : Fragment() {
                     }
                 }
             }
+          CustomToast(requireContext()).cancelAllToasts(1)
         }
         model.spinner.observe(viewLifecycleOwner, Observer {
             if (it == "hidden") {

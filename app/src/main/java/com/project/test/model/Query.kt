@@ -9,29 +9,22 @@ import com.project.test.utils.SharedPreferences
 class Query(private val context: Activity) {
     private val myDatabase =
         Database(context.application).companion.getInstance(context.application)
-    private val myDatabase1 =
-        Database(context.application).companion.getInstance(context.application)
     private val db = myDatabase.writableDatabase
     private val userId = SharedPreferences(context).getInt("userId", 0)
 
-    fun check() {
-        if (myDatabase === myDatabase1) {
-            Toast.makeText(context, "y", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(context, "n", Toast.LENGTH_SHORT).show()
-        }
-    }
-
     fun login(user: String): Cursor {
         val cursor = db.rawQuery(
-            "SELECT * FROM users JOIN user_types ON users.user_type = user_types.name JOIN user_processes ON users.id = user_processes.user_id  WHERE username ='$user' AND is_deleted = 0",
+            "SELECT users.*,user_types.*,user_processes.*,processes.*,processes.name AS process_name FROM users JOIN user_types ON users.user_type = user_types.name JOIN user_processes ON users.id = user_processes.user_id JOIN processes ON user_processes.process_id = processes.id WHERE username ='$user' AND is_deleted = 0",
             null
         )
         return (cursor)
     }
 
     fun userProcesses(userId: Int): Cursor {
-        val cursor = db.rawQuery("SELECT * FROM user_processes join processes ON user_processes.process_id = processes.id WHERE user_id ='$userId'", null)
+        val cursor = db.rawQuery(
+            "SELECT * FROM user_processes join processes ON user_processes.process_id = processes.id WHERE user_id ='$userId'",
+            null
+        )
         return (cursor)
     }
 

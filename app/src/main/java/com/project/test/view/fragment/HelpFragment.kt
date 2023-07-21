@@ -1,17 +1,10 @@
 package com.project.test.view.fragment
 
-import android.graphics.Color
-import android.graphics.Typeface
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
 import android.text.SpannableStringBuilder
-import android.text.style.ForegroundColorSpan
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -20,9 +13,6 @@ import com.project.test.R
 import com.project.test.databinding.HelpBinding
 import com.project.test.utils.SharedPreferences
 import com.project.test.utils.SharedViewModel
-import kotlin.math.pow
-import kotlin.math.roundToLong
-import kotlin.math.sqrt
 
 
 class HelpFragment : Fragment() {
@@ -67,7 +57,8 @@ class HelpFragment : Fragment() {
             val spannableString1 =
                 com.project.test.utils.SpannableString()
                     .spannableString(text2, station, color, null, null)
-            val spannableString2 = com.project.test.utils.SpannableString().spannableString(
+            val spannableString2 = com.project.test.utils.SpannableString()
+                .spannableString(
                 text3, quality, color, null,
                null
             )

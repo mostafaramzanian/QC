@@ -41,19 +41,12 @@ class InfoRegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val dataInfoRegister = GetData(requireActivity()).infoRegister(it)
-//        if (dataInfoRegister.size == 0) {
-//            binding.infoInnerLayout.visibility = View.VISIBLE
-//            binding.titleDoc2.visibility = View.GONE
-//        }
+        binding.infoInnerLayout.visibility = View.GONE
+        binding.titleDoc2.visibility = View.GONE
+
         adapter = InfoRegisterRecyclerViewAdapter(
             requireActivity()
         )
-//        Thread {
-//            val dataInfoRegister = GetData(requireActivity()).infoRegister(0)
-//            adapter.differ.submitList(dataInfoRegister)
-//        }.start()
-
         binding.recyclerViewInfoRegister.layoutManager = LinearLayoutManager(
             requireActivity(), RecyclerView.VERTICAL, false
         )
@@ -64,7 +57,6 @@ class InfoRegisterFragment : Fragment() {
         super.onResume()
         //binding.root.requestLayout();
     }
-
 
     private fun showReport() {
         val model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
@@ -82,18 +74,8 @@ class InfoRegisterFragment : Fragment() {
                     }
                 }
             }.start()
-
-
-////            adapter = InfoRegisterRecyclerViewAdapter(
-////                requireActivity(),
-////                dataInfoRegister as ArrayList<DataInfoRegister>
-////            )
-////            binding.recyclerViewInfoRegister.layoutManager = LinearLayoutManager(
-////                requireActivity(), RecyclerView.VERTICAL, false
-////            )
-////
-////            binding.recyclerViewInfoRegister.adapter = adapter
         }
+
     }
 
 }

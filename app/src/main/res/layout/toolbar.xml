@@ -38,6 +38,7 @@
             android:src="@drawable/icon"
             android:transitionName="profile"
             android:translationZ="20dp"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="7dp"

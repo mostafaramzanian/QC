@@ -2,6 +2,8 @@ package com.project.test.model
 
 import android.app.Activity
 import android.database.Cursor
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
@@ -375,7 +377,6 @@ class GetData(private val context: Activity) {
         val dataUser: DataUser
         try {
             if (cursor.moveToFirst()) {
-
                 dataUser = DataUser(
                     cursor.getInt(cursor.getColumnIndexOrThrow("id")),
                     cursor.getString(cursor.getColumnIndexOrThrow("code")),
@@ -386,7 +387,8 @@ class GetData(private val context: Activity) {
                     cursor.getString(cursor.getColumnIndexOrThrow("user_type")),
                     cursor.getString(cursor.getColumnIndexOrThrow("access_level")),
                     cursor.getString(cursor.getColumnIndexOrThrow("title")),
-                    cursor.getInt(cursor.getColumnIndexOrThrow("process_id"))
+                    cursor.getInt(cursor.getColumnIndexOrThrow("process_id")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("process_name"))
                 )
                 cursor.close()
                 return dataUser

@@ -1,7 +1,6 @@
 package com.project.test.view.activity
 
 
-//import com.erkutaras.showcaseview.ShowcaseManager
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Intent
@@ -9,6 +8,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+
 import android.os.StrictMode
 import android.os.StrictMode.VmPolicy
 import android.provider.Settings
@@ -16,7 +16,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityOptionsCompat
@@ -24,12 +23,10 @@ import androidx.core.view.ViewCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.erkutaras.showcaseview.ShowcaseManager
-import com.getkeepsafe.taptargetview.TapTarget
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.project.test.R
 import com.project.test.databinding.ActivityMainBinding
 import com.project.test.model.Database
-import com.project.test.utils.MyService
 import com.project.test.utils.NavigationApp
 import com.project.test.utils.SharedPreferences
 import com.project.test.utils.SharedViewModel
@@ -45,127 +42,66 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        @RequiresApi(Build.VERSION_CODES.M)
-        fun callBuilder() {
+        val model1 = ViewModelProvider(this)[SharedViewModel::class.java]
+
+        binding.customTitleLayout.showcase.setOnClickListener {
+
             val builder = ShowcaseManager.Builder()
             builder.context(this)
                 .key("TEST")
                 .developerMode(true)
-                // first view
-
                 .buttonText("")
                 .buttonVisibility(false)//To hide button
                 .cancelButtonVisibility(true)//To hide cancel button
                 .moveButtonsVisibility(true)
                 .gradientFocusEnabled(false)
-
-
-
-                .view(findViewById(R.id.nav_home))
-                .descriptionTitle("آیکن خانه")
-                .descriptionText("شما می توانید به وسیله ی این گزینه به صفحه خانه بروید.")
-                .radius(150f)
-                .add()
-
-                .view(findViewById(R.id.fab_options))
-                .descriptionTitle("آیکن اضافه کردن")
-                .descriptionText("")
+                .radiusFirst(150f)
                 .radius(60f)
-                .add()
+                .alphaBackground(240)
 
-                .view(findViewById(R.id.nav_more))
-                .descriptionTitle("آیکن بیشتر")
-                .descriptionText("")
-                .radius(60f)
-                .add()
+            model1.showcase.observe(this, Observer {
 
-                .build()
-                .show()
-        }
-        Handler(mainLooper).postDelayed({
-            callBuilder()
-        }, 1000)
-
-
-        val model = ViewModelProvider(this)[SharedViewModel::class.java]
-        Query(this).check()
-
-        binding.customTitleLayout.showcase.setOnClickListener {
-            var targets = arrayOf<TapTarget>()
-
-            var radius = arrayOf<Int>()
-            var index = arrayOf<Any>()
-
-            model.showcase.observe(this, Observer {
                 if (it == "HomeFragment") {
-                    targets = arrayOf(
-                        TapTarget.forView(
-                            findViewById(R.id.nav_home),
-                            "آیکن خانه",
-                            "شما می توانید به وسیله ی این گزینه به صفحه خانه بروید."
-                        ),
-                        TapTarget.forView(
-                            findViewById(R.id.fab_options),
-                            "آیکن اضافه کردن",
-                            "Description 2"
-                        ),
-                        TapTarget.forView(
-                            findViewById(R.id.nav_more),
-                            "آیکن بیشتر",
-                            "Description 3"
-                        ),
-                        TapTarget.forView(
-                            findViewById(R.id.active_reports_layout_parent),
-                            "جدول خلاصه گزارشات فعال",
-                            "شما می توانید به وسیله ی این گزینه به صفحه خانه بروید."
-                        ),
-                        TapTarget.forView(
-                            findViewById(R.id.count_report),
-                            "تعداد گزارشات ثبت شده فعال",
-                            "Description 2"
-                        ),
-                        TapTarget.forView(
-                            findViewById(R.id.title_last_report),
-                            " آخرین گزارش فعال برای ایستگاه",
-                            "Description 3"
-                        ),
-                        TapTarget.forView(
-                            findViewById(R.id.title_last_report_cp),
-                            " آخرین گزارش فعال برای طرح کیفیت",
-                            "Description 3"
-                        ),
-                        TapTarget.forView(
-                            findViewById(R.id.user),
-                            "ثبت کننده گزارش",
-                            "Description 3"
-                        ),
-                        TapTarget.forView(
-                            findViewById(R.id.time_last_report),
-                            "زمان ثبت آخرین گزارش",
-                            "Description 3"
-                        )
-                    )
-                    radius = arrayOf(70, 70, 70, 320, 90, 110, 110, 70, 100)
-                    index = arrayOf("null", 1, "null", 3, "null", "null", "null", "null", "null")
+
+                    builder.context(this)
+                        .view(findViewById(R.id.nav_home))
+                        .descriptionTitle("آیکن خانه")
+                        .descriptionText("شما می توانید به وسیله ی این گزینه به صفحه خانه بروید.")
+                        .roundedRectangle()
+                        .add()
+
+                        .view(findViewById(R.id.fab_options))
+                        .descriptionTitle("آیکن اضافه کردن")
+                        .descriptionText("")
+                        .circle()
+                        .add()
+
+                        .view(findViewById(R.id.nav_more))
+                        .descriptionTitle("آیکن بیشتر")
+                        .descriptionText("")
+                        .roundedRectangle()
+                        .add()
+
+                        .view(findViewById(R.id.showcase))
+                        .descriptionTitle("آیکن راهنما")
+                        .descriptionText("")
+                        .circle()
+                        .add()
+
                 } else if (it == "InsertReportFragment") {
-                    targets = arrayOf(
-                        TapTarget.forView(findViewById(R.id.nav_home), "Title 4", "Description 1"),
-                        TapTarget.forView(
-                            findViewById(R.id.fab_options),
-                            "Title 5",
-                            "Description 2"
-                        ),
-                        TapTarget.forView(findViewById(R.id.nav_more), "Title 6", "Description 3")
-                    )
+                    builder.context(this)
+                        .view(findViewById(R.id.spinnerView))
+                        .descriptionTitle("آیکن خانه")
+                        .descriptionText("شما می توانید به وسیله ی این گزینه به صفحه خانه بروید.")
+                        .roundedRectangle()
+                        .add()
                 }
 
             })
-            ShowCase().createShowCase(this, targets, radius, index)
+            builder.context(this)
+                .build()
+                .show()
         }
-
-
-
-
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 NavigationApp(
@@ -306,7 +242,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        stopService(Intent(this, MyService::class.java))
         super.onResume()
     }
 

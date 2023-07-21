@@ -1,20 +1,32 @@
 package com.erkutaras.showcaseview
 
+
+
+import android.animation.ObjectAnimator
 import android.content.Context
-import android.graphics.*
-import android.graphics.drawable.Icon
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffXfermode
+import android.graphics.RadialGradient
+import android.graphics.Rect
+import android.graphics.RectF
+import android.graphics.Shader
 import android.os.Build
-import androidx.annotation.RequiresApi
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
-import android.widget.ImageButton
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.marginRight
+
 
 /**
  * Created by erkut.aras on 23.02.2018.
@@ -47,6 +59,7 @@ open class ShowcaseView : RelativeLayout {
     private var type: ShowcaseType = ShowcaseType.CIRCLE
     private var gradientFocusEnabled: Boolean = false
     private var raduis: Float = 0.toFloat()
+    private var raduisFirst: Float = 0.toFloat()
 
     constructor(context: Context) : super(context) {
         init()
@@ -137,6 +150,7 @@ open class ShowcaseView : RelativeLayout {
         type = showcaseModel.type
         gradientFocusEnabled = showcaseModel.gradientFocusEnabled
         raduis=showcaseModel.raduis
+       raduisFirst=showcaseModel.radiusFirst
     }
 
     /**
@@ -403,7 +417,6 @@ open class ShowcaseView : RelativeLayout {
         this.onPreviousClickListener = onClickListener
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     override fun dispatchDraw(canvas: Canvas) {
         if (radiusFocusArea <= 0) {
             Log.d(TAG, "radius must be > 0. Use ShowcaseManager after view inflation.")
@@ -414,7 +427,6 @@ open class ShowcaseView : RelativeLayout {
             cyFocusArea = (descriptionView.y + descriptionView.height.toFloat() + radiusFocusArea
                 + ShowcaseUtils.convertDpToPx(marginInDp))
         }
-
         // background
         val rectF = RectF(0f, 0f, width.toFloat(), height.toFloat())
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -430,8 +442,8 @@ open class ShowcaseView : RelativeLayout {
         // shadow for focus area
         val shadowPaint = Paint()
         shadowPaint.color = colorBackground
-       shadowPaint.alpha = alphaBackground
-        //shadowPaint.alpha = 255
+        //shadowPaint.alpha = alphaBackground
+        shadowPaint.alpha = 255
         shadowPaint.strokeWidth = 1.0f
         shadowPaint.style = Paint.Style.FILL_AND_STROKE
         shadowPaint.shader = Shader()
@@ -449,27 +461,40 @@ open class ShowcaseView : RelativeLayout {
         } else {
             (bottomFocusArea + bottomMarginFocusArea).toInt()
         }
-        descriptionView.x = xDescView.toFloat()
+        val test = width - descriptionView.width
+        descriptionView.x = (test/2).toFloat()
+
         descriptionView.y = yDescView.toFloat()
         super.dispatchDraw(canvas)
     }
 
     private fun drawFocusArea(paint: Paint, canvas: Canvas) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            when (type) {
-               // ShowcaseType.CIRCLE -> canvas.drawCircle(cxFocusArea, cyFocusArea, radiusFocusArea, paint)
-               ShowcaseType.CIRCLE -> canvas.drawCircle(cxFocusArea, cyFocusArea, raduis, paint)
-                ShowcaseType.RECTANGLE -> canvas.drawRect(rect, paint)
-                ShowcaseType.ROUND_RECTANGLE -> {
-                    val radius = ShowcaseUtils.convertDpToPx(5f)
-                    canvas.drawRoundRect(rect.left.toFloat(), rect.top.toFloat(), rect.right.toFloat(), rect.bottom.toFloat(), radius, radius, paint)
-                }
+
+
+
+//        val view = descriptionView.findViewById<View>(R.id.layout_showcase)
+//        val params = view.layoutParams as ConstraintLayout.LayoutParams
+//        params.setMargins(316, 0, 0, 0)
+//        view.layoutParams = params
+
+        when (type) {
+            ShowcaseType.CIRCLE ->{
+                val paint1 = Paint()
+                paint1.color = Color.WHITE
+                paint1.style = Paint.Style.FILL
+                canvas.drawCircle(cxFocusArea, cyFocusArea, radiusFocusArea, paint1);
+                paint1.color = Color.RED;
+                paint1.xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR)
+                paint1.alpha = 0;
+                canvas.drawCircle(cxFocusArea, cyFocusArea, radiusFocusArea/2, paint1);
             }
-        } else {
-            when (type) {
-                ShowcaseType.CIRCLE -> canvas.drawCircle(cxFocusArea, cyFocusArea, radiusFocusArea, paint)
-                else -> canvas.drawRect(rect, paint)
+            ShowcaseType.RECTANGLE -> canvas.drawRect(rect, paint)
+            ShowcaseType.ROUND_RECTANGLE -> {
+                val radius = ShowcaseUtils.convertDpToPx(5f)
+                canvas.drawRoundRect(rect.left.toFloat(), rect.top.toFloat(), rect.right.toFloat(), rect.bottom.toFloat(), radius, radius, paint)
             }
+
+            else -> {}
         }
     }
 

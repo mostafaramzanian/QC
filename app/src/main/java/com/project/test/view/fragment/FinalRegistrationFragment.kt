@@ -32,6 +32,7 @@ import com.project.test.utils.SharedViewModel
 import com.project.test.utils.SpannableString
 import com.vicmikhailau.maskededittext.MaskedFormatter
 import com.vicmikhailau.maskededittext.MaskedWatcher
+import kotlin.concurrent.thread
 
 
 class FinalRegistrationFragment : Fragment() {
@@ -60,91 +61,98 @@ class FinalRegistrationFragment : Fragment() {
         })
         model.isDraft.observe(viewLifecycleOwner, Observer {
             if (it == 0) {
+                val thread = thread(true) {
                     val data = GetData(requireActivity()).finalRegister()
-                    if (data[0].product_tracking_code == "") {
+                    Handler(getMainLooper()).post {
+                        if (data[0].product_tracking_code == "") {
                             binding.editText1Final.text =
                                 Editable.Factory.getInstance()
                                     .newEditable("-")
-                    } else {
-                        binding.editText1Final.text = Editable.Factory.getInstance()
-                            .newEditable(data[0].product_tracking_code.toString())
-                    }
-                    if (data[0].operator_name == "") {
+                        } else {
+                            binding.editText1Final.text = Editable.Factory.getInstance()
+                                .newEditable(data[0].product_tracking_code.toString())
+                        }
+                        if (data[0].operator_name == "") {
                             binding.editText2Final.text =
                                 Editable.Factory.getInstance()
                                     .newEditable("-")
-                    } else {
-                        binding.editText2Final.text =
-                            Editable.Factory.getInstance()
-                                .newEditable(data[0].operator_name.toString())
-                    }
-                    if (data[0].production_count == 0) {
-                        Handler(getMainLooper()).post {
+                        } else {
+                            binding.editText2Final.text =
+                                Editable.Factory.getInstance()
+                                    .newEditable(data[0].operator_name.toString())
+                        }
+                        if (data[0].production_count == 0) {
                             binding.editText3Final.text =
                                 Editable.Factory.getInstance()
                                     .newEditable("-")
+                        } else {
+                            binding.editText3Final.text = Editable.Factory.getInstance()
+                                .newEditable(data[0].production_count.toString())
                         }
-                    } else {
-                        binding.editText3Final.text = Editable.Factory.getInstance()
-                            .newEditable(data[0].production_count.toString())
-                    }
-                    binding.inboundTrackingContainer.removeAllViews()
-                    binding.nonConformityContainer.removeAllViews()
+                        binding.inboundTrackingContainer.removeAllViews()
+                        binding.nonConformityContainer.removeAllViews()
+                        data.forEachIndexed { _, item ->
+                            if (item.parameter_type == "inbound_tracking_code") {
 
-                data.forEachIndexed { _, item ->
-                    if (item.parameter_type == "inbound_tracking_code") {
+                                val v = layoutInflater.inflate(
+                                    R.layout.layout_form_code,
+                                    binding.inboundTrackingContainer,
+                                    false
+                                )
+                                v.findViewById<AppCompatButton>(R.id.operator_button).visibility =
+                                    View.GONE
+                                v.findViewById<AppCompatEditText>(R.id.edit_text).run {
+                                    text =
+                                        Editable.Factory.getInstance()
+                                            .newEditable(item.parameter_value)
+                                    isEnabled = false
+                                }
+                                binding.inboundTrackingContainer.addView(v)
+                            }
+                            if (item.parameter_type == "non_conformity_code") {
+                                val v = layoutInflater.inflate(
+                                    R.layout.layout_form_code,
+                                    binding.inboundTrackingContainer,
+                                    false
+                                )
+                                v.findViewById<AppCompatButton>(R.id.operator_button).visibility =
+                                    View.GONE
+                                v.findViewById<AppCompatEditText>(R.id.edit_text).run {
+                                    text =
+                                        Editable.Factory.getInstance()
+                                            .newEditable(item.parameter_value)
+                                    isEnabled = false
+                                }
+                                v.findViewById<TextView>(R.id.title).text =
+                                    getString(R.string.Non_Code)
+                                binding.inboundTrackingContainer.addView(v)
+                            }
+                        }
 
-                        val v = layoutInflater.inflate(
-                            R.layout.layout_form_code,
-                            binding.inboundTrackingContainer,
-                            false
-                        )
-                        v.findViewById<AppCompatButton>(R.id.operator_button).visibility = View.GONE
-                        v.findViewById<AppCompatEditText>(R.id.edit_text).run {
-                            text =
-                                Editable.Factory.getInstance().newEditable(item.parameter_value)
-                            isEnabled = false
+                        when (data[0].shift) {
+                            1 -> {
+                                binding.radioShiftFirst.isChecked = true
+                            }
+
+                            2 -> {
+                                binding.radioShiftSecond.isChecked = true
+                            }
+
+                            else -> {
+                                binding.radioShiftThird.isChecked = true
+                            }
                         }
-                        binding.inboundTrackingContainer.addView(v)
-                    }
-                    if (item.parameter_type == "non_conformity_code") {
-                        val v = layoutInflater.inflate(
-                            R.layout.layout_form_code,
-                            binding.inboundTrackingContainer,
-                            false
-                        )
-                        v.findViewById<AppCompatButton>(R.id.operator_button).visibility = View.GONE
-                        v.findViewById<AppCompatEditText>(R.id.edit_text).run {
-                            text =
-                                Editable.Factory.getInstance().newEditable(item.parameter_value)
-                            isEnabled = false
-                        }
-                        v.findViewById<TextView>(R.id.title).text = getString(R.string.Non_Code)
-                        binding.inboundTrackingContainer.addView(v)
+                        binding.editText1Final.isFocusable = false
+                        binding.editText2Final.isFocusable = false
+                        binding.editText3Final.isFocusable = false
+                        binding.radioShiftFirst.isClickable = false
+                        binding.radioShiftSecond.isClickable = false
+                        binding.radioShiftThird.isClickable = false
+                        binding.editText4Final.isEnabled = false;
+                        binding.btnFinal.visibility = View.INVISIBLE
                     }
                 }
-                when (data[0].shift) {
-                    1 -> {
-                        binding.radioShiftFirst.isChecked = true
-                    }
-
-                        2 -> {
-                            binding.radioShiftSecond.isChecked = true
-                        }
-
-                        else -> {
-                            binding.radioShiftThird.isChecked = true
-                        }
-                    }
-                    binding.editText1Final.isFocusable = false
-                    binding.editText2Final.isFocusable = false
-                    binding.editText3Final.isFocusable = false
-                    binding.radioShiftFirst.isClickable = false
-                    binding.radioShiftSecond.isClickable = false
-                    binding.radioShiftThird.isClickable = false
-                    binding.editText4Final.isEnabled = false;
-                    binding.btnFinal.visibility = View.INVISIBLE
-
+                thread.interrupt()
             } else {
                 val model1 = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
                 model1.message1.observe(viewLifecycleOwner, Observer {
@@ -207,30 +215,31 @@ class FinalRegistrationFragment : Fragment() {
                                 currentTime
                             )
 
-                        binding.inboundTrackingContainer.children.forEach { view -> val tmp =
-                                view.findViewWithTag<AppCompatEditText>("input_code")?.text.toString()
-                            if (tmp != "" || tmp.isNotEmpty()) {
-                                listInboundTrackingCode1.add(tmp)
-                            }
-                        }
-                        binding.nonConformityContainer.children.forEach { view ->
-                            val tmp =
-                                view.findViewWithTag<AppCompatEditText>("input_code")?.text.toString()
-                            if (tmp != "" || tmp.isNotEmpty()) {
-                                if (tmp != "F") {
-                                    listNonConformityCode1.add(tmp)
+                            binding.inboundTrackingContainer.children.forEach { view ->
+                                val tmp =
+                                    view.findViewWithTag<AppCompatEditText>("input_code")?.text.toString()
+                                if (tmp != "" || tmp.isNotEmpty()) {
+                                    listInboundTrackingCode1.add(tmp)
                                 }
                             }
-                        }
+                            binding.nonConformityContainer.children.forEach { view ->
+                                val tmp =
+                                    view.findViewWithTag<AppCompatEditText>("input_code")?.text.toString()
+                                if (tmp != "" || tmp.isNotEmpty()) {
+                                    if (tmp != "F") {
+                                        listNonConformityCode1.add(tmp)
+                                    }
+                                }
+                            }
 
-                            val station =   model.cpValueSelectedName.value
-                            val quality =   model.csIndexSelectedName.value
+                            val station = model.cpValueSelectedName.value
+                            val quality = model.csIndexSelectedName.value
 
                             val text =
-                            "کاربر گرامی شما در حال ثبت نهایی گزارشات وارد شده برای ایستگاه کنترلی $station"
-                        val text5 =
-                            " و طرح کیفیت $quality می باشید. آیا از صحت گزارشات وارد شده اطمینان دارید؟ "
-                        val text6 = "زیرا پس از تایید امکان ویرایش اطلاعات وجود ندارد."
+                                "کاربر گرامی شما در حال ثبت نهایی گزارشات وارد شده برای ایستگاه کنترلی $station"
+                            val text5 =
+                                " و طرح کیفیت $quality می باشید. آیا از صحت گزارشات وارد شده اطمینان دارید؟ "
+                            val text6 = "زیرا پس از تایید امکان ویرایش اطلاعات وجود ندارد."
 
                             val color = ContextCompat.getColor(requireContext(), R.color.red)
                             val builder = SpannableStringBuilder()
@@ -267,29 +276,34 @@ class FinalRegistrationFragment : Fragment() {
                                     "لغو",
                                     "هشدار"
                                 )
-
                             alert.setOnClick {
-                                val check = SetData(requireActivity()).finalReport(dataInfo)
-                                val check1 = SetData(requireActivity()).finalReport1(
-                                    listInboundTrackingCode1,
-                                    listNonConformityCode1,
-                                    model.idReports.value!!
-                                )
-
-                                if (check > 0 && check1 == 0) {
-                                    CustomToast(requireContext()).toastValid(
-                                        null,
-                                        "اطلاعات وارد گردیده با موفقیت ثبت شدند.",
-                                        15f,
-                                        Gravity.CENTER
+                                val thread = thread(true) {
+                                    val check = SetData(requireActivity()).finalReport(dataInfo)
+                                    val check1 = SetData(requireActivity()).finalReport1(
+                                        listInboundTrackingCode1,
+                                        listNonConformityCode1,
+                                        model.idReports.value!!
                                     )
-                                    GoToOtherActivity(requireActivity()).mainActivity()
-                                } else {
-                                    CustomToast(requireContext()).toastAlert(
-                                        null,
-                                        "عدم موفقیت در ثبت اطلاعات!", 15f, Gravity.CENTER
-                                    )
+                                    if (check > 0 && check1 == 0) {
+                                        Handler(getMainLooper()).post {
+                                            CustomToast(requireContext()).toastValid(
+                                                null,
+                                                "اطلاعات وارد گردیده با موفقیت ثبت شدند.",
+                                                15f,
+                                                Gravity.CENTER
+                                            )
+                                            GoToOtherActivity(requireActivity()).mainActivity()
+                                        }
+                                    } else {
+                                        Handler(getMainLooper()).post {
+                                            CustomToast(requireContext()).toastAlert(
+                                                null,
+                                                "عدم موفقیت در ثبت اطلاعات!", 15f, Gravity.CENTER
+                                            )
+                                        }
+                                    }
                                 }
+                                thread.interrupt()
                             }
                             alert.setOnClick1(View.OnClickListener {
 

@@ -20,6 +20,7 @@ import com.project.test.model.GetData
 import com.project.test.utils.Alert
 import com.project.test.utils.SharedViewModel
 import com.project.test.view.adapter.ShowFormAdapter
+import kotlin.concurrent.thread
 
 
 class ShowFormReportFragment : Fragment() {
@@ -85,40 +86,50 @@ class ShowFormReportFragment : Fragment() {
                     0 -> {
                         val model =
                             ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-                        try {
-                            val sum = model.idReports.value?.let {
-                                GetData(requireActivity()).count(
-                                    requireActivity(),
-                                    requireActivity(),
-                                    requireActivity(),
-                                    it
-                                )
-                            }
-                            if (sum == 0) {
-                                val textAlert =
-                                    "کاربر گرامی برای استفاده از این قسمت باید حداقل یک گزارش ثبت شده داشته باشید!"
-                                val alert = Alert(
-                                    requireActivity(),
-                                    textAlert,
-                                    null,
-                                    null,
-                                    "متوجه شدم",
-                                    null,
-                                    "خطا"
-                                )
-                                alert.setOnClick(View.OnClickListener {
-                                    binding.tabLayout.setScrollPosition(2, 0f, true)
-                                    binding.viewPager.currentItem = 2
-                                    position = "2"
-                                })
-                                alert.alert()
-                            }
-                            tab.customView?.findViewById<TextView>(R.id.text_tab)?.setTextColor(
-                                ContextCompat.getColor(requireContext(), R.color.TabActive)
-                            )
-                            position = tab.position.toString()
-                        } catch (ex: Exception) {
+                        thread(true) {
+                            try {
+                                val sum = model.idReports.value?.let {
+                                    GetData(requireActivity()).count(
+                                        requireActivity(),
+                                        requireActivity(),
+                                        requireActivity(),
+                                        it
+                                    )
+                                }
+                                if (sum == 0) {
+                                    activity?.runOnUiThread {
+                                        val textAlert =
+                                            "کاربر گرامی برای استفاده از این قسمت باید حداقل یک گزارش ثبت شده داشته باشید!"
+                                        val alert = Alert(
+                                            requireActivity(),
+                                            textAlert,
+                                            null,
+                                            null,
+                                            "متوجه شدم",
+                                            null,
+                                            "خطا"
+                                        )
+                                        alert.setOnClick(View.OnClickListener {
+                                            binding.tabLayout.setScrollPosition(2, 0f, true)
+                                            binding.viewPager.currentItem = 2
+                                            position = "2"
+                                        })
+                                        alert.alert()
+                                    }
+                                }
+                                activity?.runOnUiThread {
+                                    tab.customView?.findViewById<TextView>(R.id.text_tab)
+                                        ?.setTextColor(
+                                            ContextCompat.getColor(
+                                                requireContext(),
+                                                R.color.TabActive
+                                            )
+                                        )
+                                    position = tab.position.toString()
+                                }
+                            } catch (_: Exception) {
 
+                            }
                         }
                     }
                 }

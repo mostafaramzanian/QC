@@ -11,26 +11,29 @@ import android.text.SpannableStringBuilder
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.text.style.ForegroundColorSpan
+import android.util.DisplayMetrics
 import android.view.View
+import android.view.ViewTreeObserver
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.widget.addTextChangedListener
-import com.kusu.loadingbutton.LoadingButton
+import com.github.ybq.android.spinkit.style.Wave
 import com.project.test.R
 import com.project.test.databinding.ActivityLoginBinding
 import com.project.test.dataclass.DataUser
 import com.project.test.model.Database
 import com.project.test.model.GetData
-import com.project.test.model.Query
 import com.project.test.utils.CustomToast
 import com.project.test.utils.GoToOtherActivity
-import com.project.test.utils.MyService
 import com.project.test.utils.SharedPreferences
 import com.project.test.utils.Utils
 import com.project.test.view.activity.usb_sync.SyncDataActivity
-import com.toxicbakery.bcrypt.Bcrypt
+import de.nycode.bcrypt.verify
 import java.util.Locale
 import kotlin.concurrent.thread
 
@@ -44,15 +47,16 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         Database(this.application).close()
+        CustomToast(this).cancelAllToasts(0)
         super.onDestroy()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        stopService(Intent(this, MyService::class.java))
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         val colorStateListAlertDisable =
             ColorStateList.valueOf(ContextCompat.getColor(binding.root.context, R.color.alert))
 
@@ -101,12 +105,26 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
-        val loginButton = findViewById<LoadingButton>(R.id.login)
+
+        val view = binding.login
+        view.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                binding.spinKit.layoutParams.height = view.height
+                view.viewTreeObserver.removeOnGlobalLayoutListener(this)
+            }
+        })
+        var check = true
+//        val mWaveDrawable = Wave()
+//        mWaveDrawable.color = resources.getColor(R.color.white)
+//        mWaveDrawable.setBounds(0, 0, 300, 70)
 
         binding.login.setOnClickListener {
+           // binding.login.text=""
+           // binding.login.setCompoundDrawables(mWaveDrawable, null, null, null)
 
+            binding.login.visibility=View.GONE
+            binding.spinKit.visibility=View.VISIBLE
             Utils.hideKeyboard(this@LoginActivity)
-
 
             var user = binding.edtInputUsername.text.toString()
             val password = binding.password.editText?.text.toString()
@@ -144,82 +162,115 @@ class LoginActivity : AppCompatActivity() {
                     it.lowercaseChar().toString()
                 }
             }
+            if (check) {
+             //   mWaveDrawable.start();
+                check = false
+                thread(true) {
 
-            loginButton.showLoading()
-            Thread {
+                    val userData: DataUser? = GetData(this).getUser(user)
 
-                val userData: DataUser? = GetData(this).getUser(user)
-                if (userData != null) {
+                    if (userData != null) {
 
-                    if (Bcrypt.verify(password, userData.passwd.toByteArray())) {
+                        if (verify(password, userData.passwd.toByteArray())) {
 
-                        val userType2 = userData.user_type_title
+                            val userType2 = userData.user_type_title
 
-                        if (userData.user_type == "QC_EXPERT" || userData.user_type == "QC_REVIEWER" || userData.user_type == "QUALITY_ASSURANCE_EXPERT") {
-                            sharedPreferences.putString("username", user)
-                            sharedPreferences.putInt("userId", userData.id)
-                            sharedPreferences.putString(
-                                "fullName", "${userData.firstname} ${userData.lastname}"
-                            )
-                            sharedPreferences.putString("userType", userData.user_type)
-                            sharedPreferences.putString("userTypeTitle", userData.user_type_title)
-                            sharedPreferences.putInt("process_id", userData.process_id)
-                            sharedPreferences.putString("process_name", userData.processName)
-
-                            Handler(mainLooper).post {
-                                loginButton.hideLoading()
-
-                                CustomToast(this).toastValid(
-                                    SpannableString(getString(R.string.success_login)),
-                                    null,
-                                    null,
-                                    null
+                            if (userData.user_type == "QC_EXPERT" || userData.user_type == "QC_REVIEWER" || userData.user_type == "QUALITY_ASSURANCE_EXPERT") {
+                                sharedPreferences.putString("username", user)
+                                sharedPreferences.putInt("userId", userData.id)
+                                sharedPreferences.putString(
+                                    "fullName", "${userData.firstname} ${userData.lastname}"
                                 )
-                                val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                                    this@LoginActivity,
-                                    binding.imageView2,
-                                    ViewCompat.getTransitionName(binding.imageView2)!!
+                                sharedPreferences.putString("userType", userData.user_type)
+                                sharedPreferences.putString(
+                                    "userTypeTitle",
+                                    userData.user_type_title
                                 )
+                                sharedPreferences.putInt("process_id", userData.process_id)
+                                sharedPreferences.putString("process_name", userData.process_name)
 
-                                startActivity(intent, options.toBundle())
-                                finish()
+                                runOnUiThread() {
+                                    check=true
+                               //     mWaveDrawable.stop()
+                                    //binding.login.text="ورود"
+                                  //  binding.login.setCompoundDrawables(null, null, null, null)
+                                    binding.login.visibility=View.VISIBLE
+                                    binding.spinKit.visibility=View.GONE
+                                    CustomToast(this).toastValid(
+                                        SpannableString(getString(R.string.success_login)),
+                                        null,
+                                        null,
+                                        null
+                                    )
+                                    val intent =
+                                        Intent(this@LoginActivity, MainActivity::class.java)
+                                    val options =
+                                        ActivityOptionsCompat.makeSceneTransitionAnimation(
+                                            this@LoginActivity,
+                                            binding.imageView2,
+                                            ViewCompat.getTransitionName(binding.imageView2)!!
+                                        )
+                                    startActivity(intent, options.toBundle())
+                                    finish()
+                                }
+                            } else {
+                                check=true
+                                val color = ContextCompat.getColor(this, R.color.black)
+                                val fullName = "${userData.firstname} ${userData.lastname}"
+                                val type = "بازرس"
+                                val text1 =
+                                    "کاربر گرامی $fullName از آن جا که نوع کاربری شما در سیستم اجازه ورود دارند."
+                                val text2 =
+                                    "$userType2 تعریف شده است امکان ورود به برنامه را ندارید! "
+                                val text3 =
+                                    "فقط کاربرانی که نوع کاربری آن ها $type می باشد اجازه ورود دارند."
+
+                                val spannableString: SpannableString?
+                                val spannableString1: SpannableString?
+                                val spannableString2: SpannableString?
+
+                                val builder = SpannableStringBuilder()
+
+                                spannableString = com.project.test.utils.SpannableString()
+                                    .spannableString(text1, fullName, color, null, null)
+                                spannableString1 = com.project.test.utils.SpannableString()
+                                    .spannableString(text2, userType2, color, null, null)
+                                spannableString2 = com.project.test.utils.SpannableString()
+                                    .spannableString(text3, type, color, null, null)
+                                builder.append(spannableString);
+                                builder.append(spannableString1);
+                                builder.append(spannableString2);
+                                val string = SpannableString.valueOf(builder)
+                                Handler(mainLooper).post {
+//                                    mWaveDrawable.stop()
+//                                    binding.login.text="ورود"
+//                                    binding.login.setCompoundDrawables(null, null, null, null)
+                                    binding.login.visibility=View.VISIBLE
+                                    binding.spinKit.visibility=View.GONE
+                                    CustomToast(this).toastAlert(string, null, null, null)
+                                }
                             }
                         } else {
-
-                            val color = ContextCompat.getColor(this, R.color.black)
-                            val fullName = "${userData.firstname} ${userData.lastname}"
-                            val type = "بازرس"
-                            val text1 =
-                                "کاربر گرامی $fullName از آن جا که نوع کاربری شما در سیستم اجازه ورود دارند."
-                            val text2 = "$userType2 تعریف شده است امکان ورود به برنامه را ندارید! "
-                            val text3 =
-                                "فقط کاربرانی که نوع کاربری آن ها $type می باشد اجازه ورود دارند."
-
-                            val spannableString: SpannableString?
-                            val spannableString1: SpannableString?
-                            val spannableString2: SpannableString?
-
-                            val builder = SpannableStringBuilder()
-
-                            spannableString = com.project.test.utils.SpannableString()
-                                .spannableString(text1, fullName, color, null, null)
-                            spannableString1 = com.project.test.utils.SpannableString()
-                                .spannableString(text2, userType2, color, null, null)
-                            spannableString2 = com.project.test.utils.SpannableString()
-                                .spannableString(text3, type, color, null, null)
-
-                            builder.append(spannableString);
-                            builder.append(spannableString1);
-                            builder.append(spannableString2);
-                            val string = SpannableString.valueOf(builder)
-
+                            check=true
+                            val text = "نام کاربری یا گذرواژه اشتباه است"
+                            val spannableString = SpannableString(text)
+                            spannableString.setSpan(
+                                ForegroundColorSpan(ContextCompat.getColor(this, R.color.white)),
+                                0,
+                                text.length,
+                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                            )
                             Handler(mainLooper).post {
-                                loginButton.hideLoading()
-                                CustomToast(this).toastAlert(string, null, null, null)
+//                                mWaveDrawable.stop()
+//                                binding.login.text="ورود"
+//                                binding.login.setCompoundDrawables(null, null, null, null)
+                                binding.login.visibility=View.VISIBLE
+                                binding.spinKit.visibility=View.GONE
+                                CustomToast(this).toastAlert(spannableString, null, null, null)
                             }
                         }
                     } else {
+                        check=true
                         val text = "نام کاربری یا گذرواژه اشتباه است"
                         val spannableString = SpannableString(text)
                         spannableString.setSpan(
@@ -229,25 +280,17 @@ class LoginActivity : AppCompatActivity() {
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                         )
                         Handler(mainLooper).post {
-                            loginButton.hideLoading()
+//                            mWaveDrawable.stop()
+//                            binding.login.text="ورود"
+//                            binding.login.setCompoundDrawables(null, null, null, null)
+                            binding.login.visibility=View.VISIBLE
+                            binding.spinKit.visibility=View.GONE
                             CustomToast(this).toastAlert(spannableString, null, null, null)
                         }
                     }
-                } else {
-                    val text = "نام کاربری یا گذرواژه اشتباه است"
-                    val spannableString = SpannableString(text)
-                    spannableString.setSpan(
-                        ForegroundColorSpan(ContextCompat.getColor(this, R.color.white)),
-                        0,
-                        text.length,
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                    )
-                    Handler(mainLooper).post {
-                        loginButton.hideLoading()
-                        CustomToast(this).toastAlert(spannableString, null, null, null)
-                    }
                 }
             }
+            CustomToast(this).cancelAllToasts(1)
         }
     }
 

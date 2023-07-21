@@ -17,7 +17,8 @@
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
 
 
     <application
@@ -44,26 +45,12 @@
 
 
         <uses-library android:name="com.android.future.usb.accessory" />
-
-        <receiver
-            android:name=".utils.AutoStart"
-            android:enabled="true"
-            android:exported="true"
-            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-
-            </intent-filter>
-        </receiver>
-
         <activity
             android:name=".view.activity.LoginActivity"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -75,11 +62,8 @@
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-
-        <service
-            android:name=".utils.MyService"
-            android:stopWithTask="false" />
+            android:isScrollContainer="true"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
 
 
         <activity

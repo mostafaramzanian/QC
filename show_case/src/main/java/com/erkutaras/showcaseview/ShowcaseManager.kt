@@ -110,6 +110,7 @@ class ShowcaseManager private constructor(private val builder: Builder) {
         private var type: ShowcaseType = ShowcaseType.CIRCLE
         private var gradientFocusEnabled: Boolean = false
         private var radius: Float =0f
+        private var radiusFirst: Float =0f
 
         init {
             showcaseModelList = ArrayList()
@@ -224,7 +225,10 @@ class ShowcaseManager private constructor(private val builder: Builder) {
             this.radius = value
             return this
         }
-
+        fun radiusFirst(value: Float): Builder {
+            this.radiusFirst = value
+            return this
+        }
         @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
         fun roundedRectangle(): Builder {
             this.type = ShowcaseType.ROUND_RECTANGLE
@@ -272,6 +276,8 @@ class ShowcaseManager private constructor(private val builder: Builder) {
             val circleCenterX = getCircleCenterX(viewPositionRect).toFloat()
             val circleCenterY = getCircleCenterY(viewPositionRect)
             val circleCenterRadius = calculateRadius(marginFocusArea)
+
+
             val rect = calculateRect(marginFocusArea, viewPositionRect)
 
             return ShowcaseModel(
@@ -298,7 +304,8 @@ class ShowcaseManager private constructor(private val builder: Builder) {
                 rect = rect,
                 type = type,
                 gradientFocusEnabled = gradientFocusEnabled,
-                raduis=radius
+                raduis=radius ,
+                radiusFirst=radiusFirst
             )
 
         }

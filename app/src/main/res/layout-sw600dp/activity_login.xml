@@ -55,7 +55,8 @@
         android:layout_marginTop="60dp"
         android:layout_marginRight="40dp"
         android:gravity="center"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:baselineAligned="false">
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -69,7 +70,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-
                 android:maxLines="1"
                 android:minHeight="48dp"
                 android:paddingTop="10dp"
@@ -191,8 +191,7 @@
                 android:visibility="visible"
                 tools:ignore="RtlHardcoded" />
 
-
-            <com.kusu.loadingbutton.LoadingButton
+            <Button
                 android:id="@+id/login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -202,15 +201,26 @@
                 android:layout_marginTop="60dp"
                 android:layout_marginRight="40dp"
                 android:background="@drawable/button_bg"
-                android:clickable="true"
-                android:focusable="true"
                 android:fontFamily="@font/vazirmatn_bold"
                 android:text="@string/Login"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:lb_isShadowEnable="false" />
-
+                android:visibility="visible"
+               />
+            <com.github.ybq.android.spinkit.SpinKitView
+                android:id="@+id/spin_kit"
+                style="@style/SpinKitView.Wave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginRight="40dp"
+                android:visibility="gone"
+                android:layout_below="@+id/show_password"
+                android:background="@drawable/button_bg"
+                app:SpinKit_Color="@color/white" />
         </RelativeLayout>
 
     </LinearLayout>

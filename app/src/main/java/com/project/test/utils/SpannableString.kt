@@ -7,7 +7,7 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
 
-class SpannableString {
+class SpannableString() {
      fun spannableString(text: String?, text3: String?, color: Int,size: Float?,typeface: Typeface?): SpannableString {
         val spannableString = SpannableString(text)
         val startIndex = spannableString.indexOf(text3!!)
@@ -36,4 +36,6 @@ class SpannableString {
          }
         return spannableString
     }
+
+
 }

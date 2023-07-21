@@ -190,13 +190,11 @@
                         tools:ignore="RtlHardcoded" />
                 </RelativeLayout>
 
-                <com.kusu.loadingbutton.LoadingButton
+                <Button
                     android:id="@+id/btn_add"
                     android:layout_width="320dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:clickable="true"
-                    android:focusable="true"
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/button_bg"
@@ -209,6 +207,19 @@
                     android:textSize="17sp"
                     android:textStyle="bold"
                     />
+                <com.github.ybq.android.spinkit.SpinKitView
+                    android:id="@+id/loading"
+                    style="@style/SpinKitView.Wave"
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:paddingLeft="80dp"
+                    android:paddingRight="80dp"
+                    android:visibility="gone"
+                    android:background="@drawable/button_bg"
+                    app:SpinKit_Color="@color/white" />
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatImageView

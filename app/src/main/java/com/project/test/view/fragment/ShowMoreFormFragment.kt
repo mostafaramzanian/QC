@@ -22,6 +22,7 @@ import com.project.test.databinding.ShowMoreFormBinding
 import com.project.test.model.GetData
 import com.project.test.utils.SharedViewModel
 import com.project.test.view.adapter.ShowMoreFormAdapter
+import kotlin.concurrent.thread
 
 
 class ShowMoreFormFragment : Fragment() {
@@ -52,49 +53,56 @@ class ShowMoreFormFragment : Fragment() {
             ShowMoreFormAdapter(tabTitle.size, childFragmentManager, lifecycle)
 
         binding.viewPagerMore.isUserInputEnabled = false
+        thread(true) {
+            val data = GetData(requireActivity()).otherReports("notShowAllReports")
+            val count1 = data.size
+            activity?.runOnUiThread {
+                TabLayoutMediator(binding.tabLayoutMore, binding.viewPagerMore) { tab, position ->
+                    when (position) {
+                        0 -> {
 
-        val data = GetData(requireActivity()).otherReports("notShowAllReports")
-        val count1 = data.size
-        TabLayoutMediator(binding.tabLayoutMore, binding.viewPagerMore) { tab, position ->
-            when (position) {
-                0 -> {
-
-                    tab.setCustomView(R.layout.custom_view)
-                    if (count1 > 0) {
-                        if (count1 < 100) {
-                            tab.customView?.findViewById<TextView>(R.id.counter)?.apply {
-                                text = count1.toString()
+                            tab.setCustomView(R.layout.custom_view)
+                            if (count1 > 0) {
+                                if (count1 < 100) {
+                                    tab.customView?.findViewById<TextView>(R.id.counter)?.apply {
+                                        text = count1.toString()
 //                                textSize = 16f // Change the text size here
 //                                size(50, 50)
 //                                setMargins(-50, 0, 0, 50)
-                            }
-                        } else {
+                                    }
+                                } else {
 //                        tab.customView?.findViewById<ImageView>(R.id.fabCounter1) ?.size(width2, height2)
-                            tab.customView?.findViewById<TextView>(R.id.counter)?.apply {
-                                text = "+99"
+                                    tab.customView?.findViewById<TextView>(R.id.counter)?.apply {
+                                        text = "+99"
 //                                textSize = 16f // Change the text size here
 //                                size(60, 60)
 //                                setMargins(-50, 0, 0, 50)
+                                    }
+                                }
+                            } else {
+                                tab.customView?.findViewById<TextView>(R.id.counter)?.visibility =
+                                    View.GONE
                             }
                         }
-                    } else {
-                        tab.customView?.findViewById<TextView>(R.id.counter)?.visibility = View.GONE
+
+                        1 -> {
+                            val v =
+                                layoutInflater.inflate(
+                                    R.layout.custom_view,
+                                    binding.tabLayoutMore,
+                                    false
+                                )
+                            v.findViewById<AppCompatTextView>(R.id.counter).visibility = View.GONE
+                            v.findViewById<TextView>(R.id.text_tab_1).text = "گزارش در حال تکمیل"
+                            v.findViewById<TextView>(R.id.text_tab_1).setTextColor(
+                                ContextCompat.getColor(requireContext(), R.color.TabActive)
+                            )
+                            tab.customView = v
+                        }
                     }
-                }
-
-                1 -> {
-                    val v =
-                        layoutInflater.inflate(R.layout.custom_view, binding.tabLayoutMore, false)
-                    v.findViewById<AppCompatTextView>(R.id.counter).visibility = View.GONE
-                    v.findViewById<TextView>(R.id.text_tab_1).text = "گزارش در حال تکمیل"
-                    v.findViewById<TextView>(R.id.text_tab_1).setTextColor(
-                        ContextCompat.getColor(requireContext(), R.color.TabActive)
-                    )
-                    tab.customView = v
-                }
+                }.attach()
             }
-        }.attach()
-
+        }
         binding.viewPagerMore.setCurrentItem(1, false)
         binding.tabLayoutMore.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
