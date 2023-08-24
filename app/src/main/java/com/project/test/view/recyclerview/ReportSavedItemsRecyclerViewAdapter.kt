@@ -16,9 +16,9 @@ import com.project.test.dataclass.DataInfoRegister
 import com.project.test.utils.CurrentTime
 
 
-class InfoRegisterRecyclerViewAdapter(
+class ReportSavedItemsRecyclerViewAdapter(
     private val context: Activity
-) : RecyclerView.Adapter<InfoRegisterRecyclerViewAdapter.InfoRegisterViewHolder>() {
+) : RecyclerView.Adapter<ReportSavedItemsRecyclerViewAdapter.InfoRegisterViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InfoRegisterViewHolder {
         val binding = RecyclerInforegisterBinding.inflate(context.layoutInflater, parent, false)

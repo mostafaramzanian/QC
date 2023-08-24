@@ -11,10 +11,9 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.project.test.databinding.RecyclerReportCardviewBinding
 import com.project.test.dataclass.DataReport
-import com.project.test.utils.SharedPreferences
 import com.project.test.utils.SharedViewModel
 
-class OtherRecyclerView(
+class OtherActiveReportsRecyclerViewAdapter(
     private val context: Activity,
     private val ViewModelStoreOwner: ViewModelStoreOwner,
     private val LifecycleOwner: LifecycleOwner,
@@ -22,7 +21,7 @@ class OtherRecyclerView(
     private val activity: AppCompatActivity,
     private val fragmentManager: FragmentManager,
     private val reports: ArrayList<DataReport>
-) : RecyclerView.Adapter<OtherRecyclerView.ProductViewHolder>() {
+) : RecyclerView.Adapter<OtherActiveReportsRecyclerViewAdapter.ProductViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val binding = RecyclerReportCardviewBinding.inflate(context.layoutInflater, parent, false)
         return ProductViewHolder(binding)
@@ -63,32 +62,6 @@ class OtherRecyclerView(
             data.cpId,
             data.idReports
         )
-
-//        val sharedPreferences = SharedPreferences(context)
-//        sharedPreferences.putString(
-//            "cpValueSelected",
-//            data.cpName
-//        )
-//        sharedPreferences.putString(
-//            "csValueSelected",
-//            data.csName
-//        )
-//        sharedPreferences.putInt(
-//            "csIdSelected",
-//            data.csId
-//        )
-//        sharedPreferences.putInt(
-//            "cpIdSelected",
-//            data.cpId
-//        )
-//        sharedPreferences.putString(
-//            "productName",
-//            data.nameProduct
-//        )
-//        sharedPreferences.putInt(
-//            "idReports",
-//            data.idReports
-//        )
         val model: SharedViewModel = ViewModelProvider(activity)[SharedViewModel::class.java]
         model.sendMessage1(data.cpId.toString())
         model.sum(data.sum.toString())

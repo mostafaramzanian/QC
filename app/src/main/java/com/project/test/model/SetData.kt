@@ -2,21 +2,28 @@ package com.project.test.model
 
 import android.app.Activity
 import android.content.ContentValues
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import com.project.test.dataclass.DataCpReports
 import com.project.test.dataclass.DataFinalRegister
 import com.project.test.dataclass.DataLab
 import com.project.test.dataclass.SetDataInfo
 import com.project.test.utils.SharedPreferences
+import com.project.test.utils.SharedViewModel
 
-class SetData(private val context: Activity) {
-    private val cpId = SharedPreferences(context).getInt(
-        "cpIdSelected",
-        0
-    )
-    private val csId = SharedPreferences(context).getInt(
-        "csIdSelected",
-        0
-    )
+class SetData(private val context: Activity , viewModelStoreOwner: ViewModelStoreOwner) {
+
+    val model = ViewModelProvider(viewModelStoreOwner)[SharedViewModel::class.java]
+    private val cpId = model.cpIndexSelectedID.value
+    private val csId=  model.csIndexSelectedID.value
+//    private val cpId = SharedPreferences(context).getInt(
+//        "cpIdSelected",
+//        0
+//    )
+//    private val csId = SharedPreferences(context).getInt(
+//        "csIdSelected",
+//        0
+//    )
 
     fun information(data: SetDataInfo?, dataLab: DataLab?): Long {
         if (data != null) {
@@ -78,7 +85,7 @@ class SetData(private val context: Activity) {
             put("completed_datetime", data.completed_datetime)
             put("is_draft", 0)
         }
-        return Query(context).updateCpReports(cpId, values)
+        return Query(context).updateCpReports(cpId!!, values)
     }
 
     fun finalReport1(data: MutableList<String>?, data1: MutableList<String>?, reportId: Int): Int {

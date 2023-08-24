@@ -1,4 +1,4 @@
-package com.project.test.view.fragment
+package com.project.test.view.fragment.report_page.sections
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,14 +9,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.project.test.databinding.InfoRegisterBinding
-import com.project.test.dataclass.DataInfo
 import com.project.test.model.GetData
 import com.project.test.utils.SharedViewModel
-import com.project.test.view.recyclerview.InformationRecyclerViewAdapter
+import com.project.test.view.recyclerview.ReportParametersRecyclerViewAdapter
 
-class InformationFragment : Fragment() {
+class ReportParametersFragment : Fragment() {
     private lateinit var binding: InfoRegisterBinding
-    private lateinit var adapter: InformationRecyclerViewAdapter
+    private lateinit var adapter: ReportParametersRecyclerViewAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -27,37 +26,26 @@ class InformationFragment : Fragment() {
 
 //                val dataInfo = GetData(requireActivity()).information1()
 //                adapter.differ.submitList(dataInfo)
-
                 binding.recyclerViewInfoRegister.visibility = View.VISIBLE
             } else {
                 binding.recyclerViewInfoRegister.visibility = View.GONE
             }
-
         }
-
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        adapter = InformationRecyclerViewAdapter(
+        adapter = ReportParametersRecyclerViewAdapter(
             requireActivity(),
             requireActivity(),
             requireActivity(),
         )
-
-        Thread {
-            val dataInfo = GetData(requireActivity()).information1()
-            activity?.runOnUiThread {
-                adapter.differ.submitList(dataInfo)
-            }
-        }.start()
-
+        val dataInfo = GetData(requireActivity(),requireActivity()).information1()
+        adapter.differ.submitList(dataInfo)
         binding.recyclerViewInfoRegister.layoutManager = LinearLayoutManager(
             requireActivity(), RecyclerView.VERTICAL, false
         )
         binding.recyclerViewInfoRegister.adapter = adapter
-
     }
-
 }

@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.project.test.R
 import com.project.test.databinding.InsertReportFragmentBinding
@@ -31,6 +31,16 @@ class InsertReportFragment : Fragment() {
     ): View {
         binding = InsertReportFragmentBinding.inflate(inflater)
 
+        val view = binding.btnAdd
+        view.viewTreeObserver.addOnGlobalLayoutListener(object :
+            ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                binding.loading.layoutParams.height = view.height
+                binding.loading.layoutParams.width = view.width
+                view.viewTreeObserver.removeOnGlobalLayoutListener(this)
+            }
+        })
+
         return binding.root
     }
 
@@ -41,15 +51,12 @@ class InsertReportFragment : Fragment() {
         model.showHide("show")
         model.showcase("InsertReportFragment")
 
-        val nodes = GetData(requireActivity()).controlStation()
+        val nodes = GetData(requireActivity(),requireActivity()).controlStation()
 
         val list = mutableListOf<String>()
         val set = HashSet<Int>()
         nodes.forEach { node ->
             buildStringRecursive(node, list, set)
-        }
-        val test = nodes.find { it.name.toString() == "111" }
-        if (test != null) {
         }
         binding.spinnerView.setItems(list)
         val animDown = AnimationUtils.loadAnimation(
@@ -89,22 +96,21 @@ class InsertReportFragment : Fragment() {
         val listName1 = mutableListOf<String>()
         val product = mutableListOf<String>()
         val listId = mutableListOf<Int>()
-
         binding.spinnerView.setOnSpinnerItemSelectedListener<String> { oldIndex, oldItem, newIndex, newItem ->
             binding.arrowSpinner.startAnimation(animUp)
             csValueSelected = newItem
             csIndexSelected = newIndex
-            var parent=""
+            var parent = ""
             for (i in newIndex downTo 0) {
                 if (nodes[i].parent == "#root") {
-                    parent=nodes[i].name
+                    parent = nodes[i].name
                     break
                 }
             }
             for (i in newIndex downTo 0) {
                 listName.clear()
                 listId.clear()
-                val listCp = GetData(requireActivity()).findNode1(
+                val listCp = GetData(requireActivity(),requireActivity()).findNode1(
                     requireActivity(),
                     nodes,
                     nodes[i].id.toString()
@@ -113,7 +119,7 @@ class InsertReportFragment : Fragment() {
                     listName1.add(cp.cp_code)
                     listId.add(cp.id)
                     product.add(cp.product)
-                    listName.add ("$parent >> ${cp.product} (${cp.cp_code})")
+                    listName.add("$parent >> ${cp.product} (${cp.cp_code})")
                 }
 
                 if (nodes[i].parent == "#root" || listCp.size > 0) {
@@ -121,34 +127,26 @@ class InsertReportFragment : Fragment() {
                 }
             }
             binding.spinnerViewQuality.setItems(listName)
-          //  listIdCp.addAll(listId)
+            //  listIdCp.addAll(listId)
             if (listName.size > 0) {
                 cpValue = listName[0]
                 binding.arrowSpinner1.visibility = View.VISIBLE
-                binding.spinnerViewQuality.setPadding(20, 20, 80, 20)
-                binding.spinnerViewQuality.hint = "انتخاب کنید"
-                if (binding.spinnerViewQuality.text != null) {
-                    binding.spinnerViewQuality.text = "انتخاب کنید"
-                }
-                if (binding.spinnerViewQuality.text == "انتخاب کنید" || binding.spinnerViewQuality.hint == "انتخاب کنید") {
+                binding.spinnerViewQuality.visibility = View.VISIBLE
+                binding.noItemCp.visibility = View.GONE
+                if (binding.spinnerViewQuality.visibility == View.VISIBLE) {
                     cpValueSelected = null
                     cpIndexSelected = null
-                    productName=null
+                    productName = null
                 }
             } else {
                 cpValue = null
                 cpValueSelected = null
                 cpIndexSelected = null
-                productName=null
+                productName = null
                 binding.arrowSpinner1.clearAnimation()
-                binding.spinnerViewQuality.setPadding(22, 22, 20, 22)
-                binding.arrowSpinner1.visibility = View.INVISIBLE
-                binding.spinnerViewQuality.hint =
-                    "برای ایستگاه کنترلی انتخاب شده، طرح کیفیتی یافت نشد!"
-                if (binding.spinnerViewQuality.text != null) {
-                    binding.spinnerViewQuality.text =
-                        "برای ایستگاه کنترلی انتخاب شده، طرح کیفیتی یافت نشد!"
-                }
+                binding.arrowSpinner1.visibility = View.GONE
+                binding.spinnerViewQuality.visibility = View.GONE
+                binding.noItemCp.visibility = View.VISIBLE
             }
         }
         binding.spinnerViewQuality.setOnClickListener {
@@ -170,7 +168,7 @@ class InsertReportFragment : Fragment() {
 
             cpValueSelected = listName1[newIndex]
             cpIndexSelected = listId[newIndex]
-            productName= product[newIndex]
+            productName = product[newIndex]
         }
 
         binding.constraintLayout1.setOnClickListener {
@@ -184,7 +182,8 @@ class InsertReportFragment : Fragment() {
             }
         }
         val btn = binding.btnAdd
-        btn.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        btn.viewTreeObserver.addOnGlobalLayoutListener(object :
+            ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 binding.loading.layoutParams.height = btn.height
                 btn.viewTreeObserver.removeOnGlobalLayoutListener(this)
@@ -200,12 +199,12 @@ class InsertReportFragment : Fragment() {
                 binding.spinnerViewQuality.dismiss()
                 binding.arrowSpinner1.startAnimation(animUp1)
             }
-            val sharedPreferences = SharedPreferences(requireContext())
-            if (!sharedPreferences.getBoolean("menuExit", false)) {
+         //   val sharedPreferences = SharedPreferences(requireContext())
+//            if (!sharedPreferences.getBoolean("menuExit", false)) {
                 when {
                     cpValueSelected != null -> {
-                        binding.btnAdd.visibility=View.GONE
-                        binding.loading.visibility=View.VISIBLE
+                        binding.btnAdd.visibility = View.GONE
+                        binding.loading.visibility = View.VISIBLE
                         val model1 =
                             ViewModelProvider(requireActivity())[SharedViewModel::class.java]
                         model1.sendMessage1("start")
@@ -215,96 +214,107 @@ class InsertReportFragment : Fragment() {
                             parentFragmentManager,
                             R.id.fragmentContainer
                         ).navigationForward(
-                           "ShowMoreFormFragment"
+                            "ShowMoreFormFragment"
                         )
-                        sharedPreferences.putString(
-                            "cpValueSelected",
-                            cpValueSelected!!
-                        )
-                        sharedPreferences.putString(
-                            "csValueSelected",
-                            nodes[csIndexSelected!!].name
-                        )
-                        sharedPreferences.putString(
-                            "productName",
-                            productName!!
-                        )
-                        sharedPreferences.putInt(
-                            "csIdSelected",
-                            nodes[csIndexSelected!!].id
-                        )
-                        sharedPreferences.putInt(
-                            "cpIdSelected",
-                            cpIndexSelected!!
-                        )
-                        val id = GetData(requireActivity()).insertReportFragment(cpIndexSelected!!)
+//                        sharedPreferences.putString(
+//                            "cpValueSelected",
+//                            cpValueSelected!!
+//                        )
+//                        sharedPreferences.putString(
+//                            "csValueSelected",
+//                            nodes[csIndexSelected!!].name
+//                        )
+//                        sharedPreferences.putString(
+//                            "productName",
+//                            productName!!
+//                        )
+//                        sharedPreferences.putInt(
+//                            "csIdSelected",
+//                            nodes[csIndexSelected!!].id
+//                        )
+//                        sharedPreferences.putInt(
+//                            "cpIdSelected",
+//                            cpIndexSelected!!
+//                        )
+                        val id = GetData(requireActivity(),requireActivity()).insertReportFragment(cpIndexSelected!!)
                         if (id > 0) {
-                            sharedPreferences.putInt(
-                                "idReports",
+//                            sharedPreferences.putInt(
+//                                "idReports",
+//                                id
+//                            )
+                            model1.insertInformationData(
+                                cpValueSelected!!,
+                                nodes[csIndexSelected!!].name,
+                                productName!!,
+                                nodes[csIndexSelected!!].id,
+                                cpIndexSelected!!,
                                 id
                             )
-                            model1.insertInformationData(cpValueSelected!!,nodes[csIndexSelected!!].name,  productName!!, nodes[csIndexSelected!!].id, cpIndexSelected!!,id)
                             CustomToast(requireContext()).toastAlert(
                                 null,
-                                "توجه: کاربری گرامی شما گزارش فعال برای این طرح کیفیت دارید!"
-                                ,15f, Gravity.CENTER
+                                "توجه: کاربر گرامی شما گزارش فعال برای این طرح کیفیت دارید!",
+                                15f,
+                                Gravity.CENTER
                             )
                         } else {
-                            sharedPreferences.putInt(
-                                "idReports",
+//                            sharedPreferences.putInt(
+//                                "idReports",
+//                                id
+//                            )
+                            model1.insertInformationData(
+                                cpValueSelected!!,
+                                nodes[csIndexSelected!!].name,
+                                productName!!,
+                                nodes[csIndexSelected!!].id,
+                                cpIndexSelected!!,
                                 id
                             )
-                            model1.insertInformationData(cpValueSelected!!,nodes[csIndexSelected!!].name,  productName!!, nodes[csIndexSelected!!].id, cpIndexSelected!!,id)
-
                         }
-                        GetData(requireActivity()).count(
-                            requireActivity(),
-                            requireActivity(),
-                            requireActivity(),
-                            sharedPreferences.getInt("idReports", 5)
-                        )
+//                        GetData(requireActivity()).count(
+//                            requireActivity(),
+//                            requireActivity(),
+//                            requireActivity(),
+//                            sharedPreferences.getInt("idReports", 5)
+//                        )
                     }
 
                     csValueSelected == null -> {
                         CustomToast(requireContext()).toastAlert(
                             null,
-                            "به دلیل عدم انتخاب ایستگاه کنترلی امکان ایجاد فرم گزارش وجود ندارد!"
-                            ,15f, Gravity.CENTER
+                            "به دلیل عدم انتخاب ایستگاه کنترلی امکان ایجاد فرم گزارش وجود ندارد!",
+                            15f,
+                            Gravity.CENTER
                         )
                     }
 
                     cpValueSelected == null -> {
                         CustomToast(requireContext()).toastAlert(
                             null,
-                            "به دلیل عدم انتخاب طرح کیفیت امکان ایجاد فرم گزارش وجود ندارد!"
-                            ,15f, Gravity.CENTER
+                            "به دلیل عدم انتخاب طرح کیفیت امکان ایجاد فرم گزارش وجود ندارد!",
+                            15f,
+                            Gravity.CENTER
                         )
                     }
                 }
-            }
-          CustomToast(requireContext()).cancelAllToasts(1)
+          //  }
+            CustomToast(requireContext()).cancelAllToasts(1)
         }
-        model.spinner.observe(viewLifecycleOwner, Observer {
-            if (it == "hidden") {
-                if (binding.spinnerView.isShowing) {
-                    binding.arrowSpinner.startAnimation(animUp)
-                    binding.spinnerView.dismiss()
-                }
-                if (binding.spinnerViewQuality.isShowing) {
-                    binding.arrowSpinner1.startAnimation(animUp1)
-                    binding.spinnerViewQuality.dismiss()
-                }
-            }
-        })
-
     }
+
     override fun onPause() {
         super.onPause()
         binding.spinnerViewQuality.dismiss()
         binding.spinnerView.dismiss()
 
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        CustomToast(requireContext()).cancelAllToasts(0)
+    }
 }
+
+
 private fun buildStringRecursive(node: DataNode, list: MutableList<String>, set: HashSet<Int>) {
     if (set.add(node.id)) {
         val string =
@@ -316,15 +326,4 @@ private fun buildStringRecursive(node: DataNode, list: MutableList<String>, set:
     }
 }
 
-private fun findNode(node: DataNode, id: Int): Int? {
-    if (node.id == id) {
-        return node.id
-    }
-    for (child in node.children) {
-        val foundNode = findNode(child, id)
-        if (foundNode != null) {
-            return foundNode
-        }
-    }
-    return null
-}
+

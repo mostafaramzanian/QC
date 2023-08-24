@@ -62,8 +62,7 @@
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:isScrollContainer="true"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustPan" />
 
 
         <activity

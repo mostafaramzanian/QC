@@ -12,6 +12,7 @@ class SharedViewModel : ViewModel() {
     val sum = MutableLiveData<String>()
     val isDraft = MutableLiveData<Int>()
     val showcase = MutableLiveData<String>()
+    val reportList = MutableLiveData<String>()
 
     val cpValueSelectedName = MutableLiveData<String>()
     val csIndexSelectedName = MutableLiveData<String>()
@@ -47,21 +48,23 @@ class SharedViewModel : ViewModel() {
     fun showcase(text: String) {
         showcase.value = text
     }
-
+    fun reportList1(text: String) {
+        reportList.value = text
+    }
     fun insertInformationData(
-        cpValueSelectedName_Value: String,
-        csIndexSelectedName_Value: String,
-        productName_Value: String,
-        csIndexSelectedID_Value: Int,
-        cpIndexSelectedID_Value: Int,
-        idReports_Value: Int
+        cpValueSelectedNameValue: String,
+        csIndexSelectedNameValue: String,
+        productNameValue: String,
+        csIndexSelectedIDValue: Int,
+        cpIndexSelectedIDValue: Int,
+        idReportsValue: Int
     ) {
-        csIndexSelectedID.value = csIndexSelectedID_Value
-        csIndexSelectedName.value = csIndexSelectedName_Value
-        cpValueSelectedName.value = cpValueSelectedName_Value
-        cpIndexSelectedID.value = cpIndexSelectedID_Value
-        productName.value = productName_Value
-        idReports.value = idReports_Value
+        csIndexSelectedID.value = csIndexSelectedIDValue
+        csIndexSelectedName.value = csIndexSelectedNameValue
+        cpValueSelectedName.value = cpValueSelectedNameValue
+        cpIndexSelectedID.value = cpIndexSelectedIDValue
+        productName.value = productNameValue
+        idReports.value = idReportsValue
 
     }
 }

@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 .gradientFocusEnabled(false)
                 .radiusFirst(150f)
                 .radius(60f)
-                .alphaBackground(240)
+                .alphaBackground(210)
 
             model1.showcase.observe(this, Observer {
 

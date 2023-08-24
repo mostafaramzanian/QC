@@ -1,4 +1,4 @@
-package com.project.test.view.fragment
+package com.project.test.view.fragment.report_page.sections
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.project.test.databinding.InfoRegisterBinding
 import com.project.test.model.GetData
 import com.project.test.utils.SharedViewModel
-import com.project.test.view.recyclerview.InfoRegisterRecyclerViewAdapter
+import com.project.test.view.recyclerview.ReportSavedItemsRecyclerViewAdapter
 
 
-class InfoRegisterFragment : Fragment() {
+class ReportSavedItemsFragment : Fragment() {
     private lateinit var binding: InfoRegisterBinding
-    private lateinit var adapter: InfoRegisterRecyclerViewAdapter
+    private lateinit var adapter: ReportSavedItemsRecyclerViewAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,7 +44,7 @@ class InfoRegisterFragment : Fragment() {
         binding.infoInnerLayout.visibility = View.GONE
         binding.titleDoc2.visibility = View.GONE
 
-        adapter = InfoRegisterRecyclerViewAdapter(
+        adapter = ReportSavedItemsRecyclerViewAdapter(
             requireActivity()
         )
         binding.recyclerViewInfoRegister.layoutManager = LinearLayoutManager(
@@ -62,7 +62,7 @@ class InfoRegisterFragment : Fragment() {
         val model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         model.isDraft.observe(viewLifecycleOwner) {
             Thread {
-                val dataInfoRegister = GetData(requireActivity()).infoRegister(it)
+                val dataInfoRegister = GetData(requireActivity(),requireActivity()).infoRegister(it)
                 if (dataInfoRegister.size == 0) {
                     activity?.runOnUiThread {
                         binding.infoInnerLayout.visibility = View.VISIBLE

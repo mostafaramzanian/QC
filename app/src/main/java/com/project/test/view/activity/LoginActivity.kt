@@ -110,6 +110,7 @@ class LoginActivity : AppCompatActivity() {
         view.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 binding.spinKit.layoutParams.height = view.height
+                binding.spinKit.layoutParams.width = view.width
                 view.viewTreeObserver.removeOnGlobalLayoutListener(this)
             }
         })
@@ -167,7 +168,7 @@ class LoginActivity : AppCompatActivity() {
                 check = false
                 thread(true) {
 
-                    val userData: DataUser? = GetData(this).getUser(user)
+                    val userData: DataUser? = GetData(this,this).getUser(user)
 
                     if (userData != null) {
 

@@ -1,4 +1,4 @@
-package com.project.test.view.fragment
+package com.project.test.view.fragment.report_page
 
 
 import android.os.Bundle
@@ -23,7 +23,7 @@ import com.project.test.view.adapter.ShowFormAdapter
 import kotlin.concurrent.thread
 
 
-class ShowFormReportFragment : Fragment() {
+class ActiveReportPageFragment : Fragment() {
     private lateinit var binding: ShowFormReportBinding
     lateinit var model: SharedViewModel
     override fun onCreateView(
@@ -58,6 +58,7 @@ class ShowFormReportFragment : Fragment() {
 
         binding.viewPager.adapter = ShowFormAdapter(5, childFragmentManager, lifecycle)
 
+
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
 
             val v = layoutInflater.inflate(
@@ -89,7 +90,7 @@ class ShowFormReportFragment : Fragment() {
                         thread(true) {
                             try {
                                 val sum = model.idReports.value?.let {
-                                    GetData(requireActivity()).count(
+                                    GetData(requireActivity(),requireActivity()).count(
                                         requireActivity(),
                                         requireActivity(),
                                         requireActivity(),

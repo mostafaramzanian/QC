@@ -7,13 +7,11 @@ plugins {
 group='com.erkutaras.showcaseview'
 
 android {
-    compileSdkVersion 33
+    compileSdk 34
 
     defaultConfig {
         targetSdkVersion 33
         minSdkVersion 21
-        versionCode 22
-        versionName "1.5.0"
     }
     namespace 'com.erkutaras.showcaseview'
     buildTypes {
@@ -33,13 +31,14 @@ android {
     kotlinOptions {
         jvmTarget = '11'
     }
+    buildToolsVersion '34.0.0 rc4'
 
 
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.appcompat:appcompat:1.7.0-alpha02'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.0-alpha10'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
 }

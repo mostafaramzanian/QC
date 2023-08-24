@@ -16,10 +16,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -37,10 +39,11 @@ import com.project.test.utils.Alert
 import com.project.test.utils.CurrentTime
 import com.project.test.utils.CustomToast
 import com.project.test.utils.SharedPreferences
+import com.project.test.utils.SharedViewModel
 import com.project.test.utils.Utils
 
 
-class InformationRecyclerViewAdapter(
+class ReportParametersRecyclerViewAdapter(
     private val context: Activity,
     private val context1: ViewModelStoreOwner,
     private val context2: LifecycleOwner
@@ -66,14 +69,6 @@ class InformationRecyclerViewAdapter(
             holder.setData(differ.currentList[position])
         }
         holder.setIsRecyclable(false)
-//
-//        if(Info[position].isLab == 0){
-//            (holder as InformationViewHolder).setData(Info[position])
-//
-//        }else{
-//            (holder as LabInformationViewHolder).setData(Info[position])
-////            holder.setData(Info[position])
-//        }
     }
 
     override fun getItemCount(): Int = differ.currentList.size
@@ -83,6 +78,9 @@ class InformationRecyclerViewAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun setData(data: DataInfo) {
+            val model = ViewModelProvider(context1)[SharedViewModel::class.java]
+            val cpName = model.csIndexSelectedName.value
+            val csName = model.cpValueSelectedName.value
             val sharedPreferences = SharedPreferences(context)
             binding.editText1.setText("L")
             binding.editText1.setSelection(binding.editText1.text!!.length)
@@ -143,7 +141,6 @@ class InformationRecyclerViewAdapter(
             binding.codeDoc1.text = time
             binding.txtTitleDoc1.text = range
             binding.btnInfo.setOnClickListener {
-
                 if (binding.editText1.text.toString() == "" || binding.editText1.text.toString() == "L") {
                     val textAlert =
                         "کاربر گرامی برای ثبت اطلاعات باید قسمت کد درخواست آزمایشگاه تکمیل گردد!"
@@ -151,14 +148,22 @@ class InformationRecyclerViewAdapter(
                     alert.setOnClick {
                     }
                     alert.alert()
+                }else if(binding.editText1.text!!.contains(" ") || binding.editText1.text!!.length<10){
+                    val textAlert =
+                        "کاربر گرامی مقدار وارد شده نمی تواند دارای فاصله باشد."
+                    val alert = Alert(context, textAlert, null, null, "متوجه شدم", null, "خطا")
+                    alert.setOnClick {
+                    }
+                    alert.alert()
                 } else {
+
                     val color = ContextCompat.getColor(context, R.color.red)
                     val observe = binding.editText1.text.toString().uppercase()
-                    val station = sharedPreferences.getString("csValueSelected", "")
-                    val quality = sharedPreferences.getString("cpValueSelected", "")
-                    val text = "کاربر گرامی شما در حال ثبت اطلاعات برای ایستگاه کنترلی $station"
+                    //val station = sharedPreferences.getString("csValueSelected", "")
+                   // val quality = sharedPreferences.getString("cpValueSelected", "")
+                    val text = "کاربر گرامی شما در حال ثبت اطلاعات برای ایستگاه کنترلی $csName"
                     val text5 =
-                        " و طرح کیفیت $quality می باشید. لطفا اطلاعات وارد شده را با دقت بررسی نمایید زیرا پس از تایید امکان ویرایش اطلاعات وجود ندارد!"
+                        " و طرح کیفیت $cpName می باشید. لطفا اطلاعات وارد شده را با دقت بررسی نمایید زیرا پس از تایید امکان ویرایش اطلاعات وجود ندارد!"
                     val text2 = " \n\nکد درخواست آزمایشگاه: $observe"
 
                     val spannableString: SpannableString?
@@ -167,8 +172,8 @@ class InformationRecyclerViewAdapter(
 
                     val builder = SpannableStringBuilder()
 
-                    spannableString = spannableString(text, station, color)
-                    spannableString1 = spannableString(text5, quality, color)
+                    spannableString = spannableString(text, csName, color)
+                    spannableString1 = spannableString(text5, cpName, color)
                     spannableString2 = spannableString(text2, observe, color)
 
                     builder.append(spannableString);
@@ -176,9 +181,9 @@ class InformationRecyclerViewAdapter(
                     builder.append(spannableString2);
 
                     val currentTime = CurrentTime().time()
-                    val dataCpReports: DataCpReports? = GetData(context).information().first
-                    val idCpReport = GetData(context).information().second
-                    val reportOrder = GetData(context).information().third
+                    val dataCpReports: DataCpReports? = GetData(context,context1).information().first
+                    val idCpReport = GetData(context,context1).information().second
+                    val reportOrder = GetData(context,context1).information().third
                     val alert = Alert(context, null, null, builder, "تایید", "لغو", "هشدار")
                     try {
                         val dataInfo = DataLab(
@@ -192,7 +197,7 @@ class InformationRecyclerViewAdapter(
                         )
                         alert.setOnClick {
                             if (dataCpReports != null) {
-                                val statusSet = SetData(context).information1(dataCpReports)
+                                val statusSet = SetData(context,context1).information1(dataCpReports)
                                 if (statusSet == -1L) {
                                     CustomToast(context).toastAlert(
                                         null,
@@ -201,7 +206,7 @@ class InformationRecyclerViewAdapter(
                                     )
                                 }
                             }
-                            val statusSet3 = SetData(context).information(null, dataInfo)
+                            val statusSet3 = SetData(context,context1).information(null, dataInfo)
                             if (statusSet3 == -1L) {
                                 CustomToast(context).toastAlert(
                                     null,
@@ -213,7 +218,7 @@ class InformationRecyclerViewAdapter(
                                     "اطلاعات وارد گردیده با موفقیت ثبت شدند.", 15f, Gravity.CENTER
                                 )
                                 emptyLab(binding)
-                                GetData(context).count(
+                                GetData(context,context1).count(
                                     context1,
                                     context2,
                                     context,
@@ -238,7 +243,11 @@ class InformationRecyclerViewAdapter(
         private val binding: RecyclerInfoBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun setData(data: DataInfo) {
-            val sharedPreferences = SharedPreferences(context)
+           // val sharedPreferences = SharedPreferences(context)
+            val model = ViewModelProvider(context1)[SharedViewModel::class.java]
+            val cpName = model.csIndexSelectedName.value
+            val csName = model.cpValueSelectedName.value
+
             val importanceLevel = "درجه اهمیت: (${data.importanceLevel})"
             val title = "مشخصه: ${data.name}"
             val time = "${data.samplingInterval} دقیقه"
@@ -249,9 +258,9 @@ class InformationRecyclerViewAdapter(
             binding.codeDoc1.text = time
             binding.txtTitleDoc1.text = range
 
-            val idTools = GetData(context).tools(data.toolType).first
-            val listTools = GetData(context).tools(data.toolType).second
-            val correctionFactor = GetData(context).tools(data.toolType).third
+            val idTools = GetData(context,context1).tools(data.toolType).first
+            val listTools = GetData(context,context1).tools(data.toolType).second
+            val correctionFactor = GetData(context,context1).tools(data.toolType).third
 
             binding.spinnerViewInfo.setItems(listTools)
             binding.spinnerViewInfo.selectItemByIndex(0)
@@ -375,22 +384,6 @@ class InformationRecyclerViewAdapter(
                     checkName = "رد"
                     state = 0
                 }
-                if (binding.editText1.text.toString() == "" && isChecked == 1) {
-                    val textAlert =
-                        "کاربر گرامی برای ثبت اطلاعات باید قسمت مقدار مشاهده شده تکمیل گردد."
-                    val alert = Alert(context, textAlert, null, null, "متوجه شدم", null, "خطا")
-                    alert.setOnClick(View.OnClickListener {
-                    })
-                    alert.alert()
-                }
-                if (binding.editText1.text.toString() != "" && isChecked != 1) {
-                    val textAlert =
-                        "کاربر گرامی برای ثبت اطلاعات باید قسمت وضعیت تکمیل گردد!"
-                    val alert = Alert(context, textAlert, null, null, "متوجه شدم", null, "خطا")
-                    alert.setOnClick(View.OnClickListener {
-                    })
-                    alert.alert()
-                }
                 if (binding.editText1.text.toString() == "" && isChecked != 1) {
                     val textAlert =
                         "کاربر گرامی برای ثبت اطلاعات باید قسمت های مقدار مشاهده شده و وضعیت تکمیل گردد!"
@@ -398,16 +391,37 @@ class InformationRecyclerViewAdapter(
                     alert.setOnClick(View.OnClickListener {
                     })
                     alert.alert()
-                }
-                if (binding.editText1.text.toString() != "" && isChecked == 1) {
+                }else if (binding.editText1.text.toString() == "" && isChecked == 1) {
+                    val textAlert =
+                        "کاربر گرامی برای ثبت اطلاعات باید قسمت مقدار مشاهده شده تکمیل گردد."
+                    val alert = Alert(context, textAlert, null, null, "متوجه شدم", null, "خطا")
+                    alert.setOnClick(View.OnClickListener {
+                    })
+                    alert.alert()
+                } else if(binding.editText1.text!!.contains(" ")){
+                    val textAlert =
+                        "کاربر گرامی مقدار وارد شده نمی تواند دارای فاصله باشد."
+                    val alert = Alert(context, textAlert, null, null, "متوجه شدم", null, "خطا")
+                    alert.setOnClick {
+                    }
+                    alert.alert()
+                } else if (binding.editText1.text.toString() != "" && isChecked != 1) {
+                    val textAlert =
+                        "کاربر گرامی برای ثبت اطلاعات باید قسمت وضعیت تکمیل گردد!"
+                    val alert = Alert(context, textAlert, null, null, "متوجه شدم", null, "خطا")
+                    alert.setOnClick(View.OnClickListener {
+                    })
+                    alert.alert()
+                }else{
+//                if (binding.editText1.text.toString() != "" && isChecked == 1) {
                     val color = ContextCompat.getColor(context, R.color.red)
                     val observe = binding.editText1.text.toString()
                     val observe1 = binding.editText3Observed.text
-                    val station = sharedPreferences.getString("csValueSelected", "")
-                    val quality = sharedPreferences.getString("cpValueSelected", "")
-                    val text = "کاربر گرامی شما در حال ثبت اطلاعات برای ایستگاه کنترلی $station"
+                 //   val station = sharedPreferences.getString("csValueSelected", "")
+                  //  val quality = sharedPreferences.getString("cpValueSelected", "")
+                    val text = "کاربر گرامی شما در حال ثبت اطلاعات برای ایستگاه کنترلی $csName"
                     val text5 =
-                        " و طرح کیفیت $quality می باشید. لطفا اطلاعات وارد شده را با دقت بررسی نمایید زیرا پس از تایید امکان ویرایش اطلاعات وجود ندارد!"
+                        " و طرح کیفیت $cpName می باشید. لطفا اطلاعات وارد شده را با دقت بررسی نمایید زیرا پس از تایید امکان ویرایش اطلاعات وجود ندارد!"
                     val text2 = " \n\nمقدار مشاهده شده: $observe"
                     val text3 = "\nوضعیت: $checkName"
 
@@ -421,8 +435,8 @@ class InformationRecyclerViewAdapter(
 
                     if (observe1 != null) {
                         text4 = "\nمقدار مشاهده شده پس از اعمال ضریب تصحیح: $observe1"
-                        spannableString = spannableString(text, station, color)
-                        spannableString1 = spannableString(text5, quality, color)
+                        spannableString = spannableString(text, csName, color)
+                        spannableString1 = spannableString(text5, cpName, color)
                         spannableString2 = spannableString(text2, observe, color)
                         spannableString3 = spannableString(
                             text4,
@@ -438,8 +452,8 @@ class InformationRecyclerViewAdapter(
                         builder.append(spannableString3);
                         builder.append(spannableString4);
                     } else {
-                        spannableString = spannableString(text, station, color)
-                        spannableString1 = spannableString(text5, quality, color)
+                        spannableString = spannableString(text, csName, color)
+                        spannableString1 = spannableString(text5, cpName, color)
                         spannableString2 = spannableString(text2, observe, color)
                         spannableString4 = spannableString(
                             text3,
@@ -451,9 +465,9 @@ class InformationRecyclerViewAdapter(
                         builder.append(spannableString4);
                     }
                     var statusSet: Long? = null
-                    val dataCpReports: DataCpReports? = GetData(context).information().first
-                    val idCpReport = GetData(context).information().second
-                    val reportOrder = GetData(context).information().third
+                    val dataCpReports: DataCpReports? = GetData(context,context1).information().first
+                    val idCpReport = GetData(context,context1).information().second
+                    val reportOrder = GetData(context,context1).information().third
                     val currentTime = CurrentTime().time()
                     val alert = Alert(context, null, null, builder, "تایید", "لغو", "هشدار")
                     try {
@@ -469,7 +483,7 @@ class InformationRecyclerViewAdapter(
                         )
                         alert.setOnClick(View.OnClickListener {
                             if (dataCpReports != null) {
-                                statusSet = SetData(context).information1(dataCpReports)
+                                statusSet = SetData(context,context1).information1(dataCpReports)
                                 if (statusSet == -1L) {
                                     CustomToast(context).toastAlert(
                                         null,
@@ -479,7 +493,7 @@ class InformationRecyclerViewAdapter(
                                     )
                                 }
                             }
-                            val statusSet3 = SetData(context).information(dataInfo, null)
+                            val statusSet3 = SetData(context,context1).information(dataInfo, null)
                             if (statusSet3 == -1L) {
                                 CustomToast(context).toastAlert(
                                     null,
@@ -493,11 +507,11 @@ class InformationRecyclerViewAdapter(
                                 empty(binding)
                                 idTool = idTools[0]
                                 cF = correctionFactor[0]
-                                GetData(context).count(
+                                GetData(context,context1).count(
                                     context1,
                                     context2,
                                     context,
-                                    sharedPreferences.getInt("idReports", 5)
+                                    model.idReports.value!!
                                 )
                             }
                         })
@@ -587,15 +601,18 @@ private fun emptyLab(binding: RecyclerLabBinding) {
 private fun empty(binding: RecyclerInfoBinding) {
     binding.editText1.text = null
     binding.editText2.text = null
-    binding.spinnerViewInfo.text = "انتخاب کنید"
+   // binding.spinnerViewInfo.text = "انتخاب کنید"
     binding.editText3Observed.text = "-"
     binding.radioConfirmation.isChecked = false;
     binding.radioRejection.isChecked = false
 
-    binding.editText5.layoutParams.height = binding.editText1.height
-    binding.editText1.isEnabled = false
-    binding.editText1.visibility = View.GONE
-    binding.editText5.visibility = View.VISIBLE
+    binding.editText1.clearFocus()
+    binding.editText2.clearFocus()
+
+//    binding.editText5.layoutParams.height = binding.editText1.height
+//    binding.editText1.isEnabled = false
+//    binding.editText1.visibility = View.GONE
+//    binding.editText5.visibility = View.VISIBLE
 }
 
 private fun spinner(binding: RecyclerInfoBinding, animUp: Animation) {

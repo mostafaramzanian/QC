@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/showReportNotRegisteredFragment"
-        android:name="com.project.test.view.fragment.ShowReportNotRegisteredFragment"
+        android:name="com.project.test.view.fragment.ReportsListPageFragment"
         android:label="ShowReportNotRegisteredFragment" >
         <action
             android:id="@+id/action_showReportNotRegisteredFragment_to_home_menu"
@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailsReportNotActiveFragment"
-        android:name="com.project.test.view.fragment.DetailsReportNotActiveFragment"
+        android:name="com.project.test.view.fragment.ShowCompletedReportsPageFragment"
         android:label="DetailsReportNotActiveFragment" >
         <action
             android:id="@+id/action_detailsReportNotActiveFragment_to_showReportRegisteredFragment"
@@ -68,7 +68,7 @@
     </fragment>
     <fragment
         android:id="@+id/showMoreFormFragment"
-        android:name="com.project.test.view.fragment.ShowMoreFormFragment"
+        android:name="com.project.test.view.fragment.report_page.ShowMoreFormFragment"
         android:label="ShowMoreFormFragment" >
         <action
             android:id="@+id/action_showMoreFormFragment_to_showReportNotRegisteredFragment"

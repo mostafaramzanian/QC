@@ -4,8 +4,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.project.test.view.fragment.OtherFormActiveFragment
-import com.project.test.view.fragment.ShowFormReportFragment
+import com.project.test.view.fragment.report_page.OtherActiveReportsPageFragment
+import com.project.test.view.fragment.report_page.ActiveReportPageFragment
 
 class ShowMoreFormAdapter(
     private val size:Int,
@@ -19,9 +19,9 @@ class ShowMoreFormAdapter(
 
         return when(position){
 
-            0 -> OtherFormActiveFragment()
-            1 -> ShowFormReportFragment()
-            else -> ShowFormReportFragment()
+            0 -> OtherActiveReportsPageFragment()
+            1 -> ActiveReportPageFragment()
+            else -> ActiveReportPageFragment()
         }
 
 

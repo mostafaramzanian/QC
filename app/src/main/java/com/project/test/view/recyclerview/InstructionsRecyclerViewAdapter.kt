@@ -10,9 +10,9 @@ import com.project.test.utils.FileHelperUtils
 import java.io.File
 
 
-class DocumentRecyclerViewAdapter(
+class InstructionsRecyclerViewAdapter(
     private val context: Activity, private val Doc: ArrayList<DataDocument>
-) : RecyclerView.Adapter<DocumentRecyclerViewAdapter.DocumentViewHolder>() {
+) : RecyclerView.Adapter<InstructionsRecyclerViewAdapter.DocumentViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DocumentViewHolder {
         val binding = RecyclerDocBinding.inflate(context.layoutInflater, parent, false)

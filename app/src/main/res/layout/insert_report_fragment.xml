@@ -188,11 +188,32 @@
                         android:layout_marginRight="20dp"
                         android:src="@drawable/arrow_down"
                         tools:ignore="RtlHardcoded" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:id="@+id/noItemCp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/spinner_down"
+                        android:paddingLeft="22dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="10dp"
+                        android:textSize="14.5sp"
+                        android:textColor="@color/black"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:visibility="gone"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:fontFamily="@font/vazirmatn_medium"
+                        android:text="برای ایستگاه کنترلی انتخاب شده طرح کیفیتی یافت نشد."
+                        />
+
                 </RelativeLayout>
 
                 <Button
                     android:id="@+id/btn_add"
-                    android:layout_width="320dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="30dp"
@@ -210,9 +231,9 @@
                 <com.github.ybq.android.spinkit.SpinKitView
                     android:id="@+id/loading"
                     style="@style/SpinKitView.Wave"
-                    android:layout_width="320dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="20dp"
                     android:paddingLeft="80dp"

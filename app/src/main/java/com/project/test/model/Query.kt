@@ -20,22 +20,22 @@ class Query(private val context: Activity) {
         return (cursor)
     }
 
-    fun userProcesses(userId: Int): Cursor {
-        val cursor = db.rawQuery(
-            "SELECT * FROM user_processes join processes ON user_processes.process_id = processes.id WHERE user_id ='$userId'",
-            null
-        )
-        return (cursor)
-    }
+//    fun userProcesses(userId: Int): Cursor {
+//        val cursor = db.rawQuery(
+//            "SELECT * FROM user_processes join processes ON user_processes.process_id = processes.id WHERE user_id ='$userId'",
+//            null
+//        )
+//        return (cursor)
+//    }
+//
+//    fun userTypes(userTypes: String): Cursor {
+//        val cursor = db.rawQuery("SELECT * FROM user_types WHERE name ='$userTypes'", null)
+//        return (cursor)
+//    }
 
-    fun userTypes(user_types: String): Cursor {
-        val cursor = db.rawQuery("SELECT * FROM user_types WHERE name ='$user_types'", null)
-        return (cursor)
-    }
-
-    fun controlStation(ProcessesId: Int): Cursor {
+    fun controlStation(processesId: Int): Cursor {
         val cursor = db.rawQuery(
-            "SELECT * FROM control_station WHERE process_id ='$ProcessesId' AND is_deleted = 0 ORDER BY order_id ASC",
+            "SELECT * FROM control_station WHERE process_id ='$processesId' AND is_deleted = 0 ORDER BY order_id ASC",
             null
         )
         return (cursor)
@@ -48,23 +48,23 @@ class Query(private val context: Activity) {
         return (cursor)
     }
 
-    fun selectFromCp(cp_code: String): Cursor {
+    fun selectFromCp(cpCode: String): Cursor {
         val cursor = db.rawQuery(
-            "SELECT cp.*,products.*,cp.id AS cpId FROM cp JOIN products ON cp.product_id = products.id WHERE cp_code ='$cp_code' AND is_active = 1 ORDER BY cp_version DESC LIMIT 1",
+            "SELECT cp.*,products.*,cp.id AS cpId FROM cp JOIN products ON cp.product_id = products.id WHERE cp_code ='$cpCode' AND is_active = 1 ORDER BY cp_version DESC LIMIT 1",
             null
         )
         return (cursor)
     }
 
 
-    fun cpStandardParameters(cp_Id: Int): Cursor {
-        val cursor = db.rawQuery("SELECT * FROM cp_standard_parameters WHERE cp_id ='$cp_Id'", null)
+    fun cpStandardParameters(cpId: Int): Cursor {
+        val cursor = db.rawQuery("SELECT * FROM cp_standard_parameters WHERE cp_id ='$cpId'", null)
         return (cursor)
     }
 
-    fun cpStandardParametersSelected(parameter_id: Int): Cursor {
+    fun cpStandardParametersSelected(parameterId: Int): Cursor {
         val cursor =
-            db.rawQuery("SELECT * FROM cp_standard_parameters WHERE id ='$parameter_id'", null)
+            db.rawQuery("SELECT * FROM cp_standard_parameters WHERE id ='$parameterId'", null)
         return (cursor)
     }
 
@@ -115,7 +115,6 @@ class Query(private val context: Activity) {
         val cursor = db.rawQuery("SELECT * FROM cp_reports_parameters WHERE report_id ='$id'", null)
         return (cursor)
     }
-
     fun reportActive(): Cursor {
         val cursor = db.rawQuery(
             "SELECT cp_reports_parameters.*,users.*, cp_reports.*,control_station.*,cp.*,cp_reports.created_by_user AS user_id,cp_reports.created_datetime AS time FROM cp_reports_parameters JOIN cp_reports ON cp_reports_parameters.report_id = cp_reports.id JOIN cp ON cp_reports.cp_id = cp.id JOIN control_station ON cp.control_station_id = control_station.id JOIN users ON users.id = cp_reports.created_by_user WHERE is_draft = 1  AND user_id='$userId'ORDER BY id DESC LIMIT 1",
@@ -172,7 +171,7 @@ class Query(private val context: Activity) {
         return (cursor)
     }
 
-    fun otherReportQuery1(cpId: Int): Cursor {
+    fun otherReportQuery1(): Cursor {
         val cursor = db.rawQuery(
             "SELECT cp.*,products.*,cp_reports.*,users.*,cp_reports.created_by_user AS user_id, control_station.*,products.name AS productName,cp_reports.created_datetime AS firstTime,cp_reports.id AS cp_report FROM products JOIN cp ON products.id=cp.product_id JOIN cp_reports ON cp.id = cp_reports.cp_id JOIN control_station ON cp_reports.station_id = control_station.id JOIN users ON users.id = cp_reports.created_by_user WHERE is_draft='1' AND user_id='$userId'",
             null
@@ -188,14 +187,14 @@ class Query(private val context: Activity) {
         return (cursor)
     }
 
-    fun toolsSelected(nameTool: String): Cursor {
-        val cursor = db.rawQuery("SELECT * FROM tools WHERE title ='$nameTool'", null)
-        return (cursor)
-    }
+//    fun toolsSelected(nameTool: String): Cursor {
+//        val cursor = db.rawQuery("SELECT * FROM tools WHERE title ='$nameTool'", null)
+//        return (cursor)
+//    }
 
 
-    fun count(table_name: String): Cursor {
-        val cursor = db.rawQuery("SELECT COUNT(*) FROM '$table_name'", null)
+    fun count(tableName: String): Cursor {
+        val cursor = db.rawQuery("SELECT COUNT(*) FROM '$tableName'", null)
         return (cursor)
     }
 
@@ -204,14 +203,15 @@ class Query(private val context: Activity) {
             "SELECT COUNT(*) FROM cp_reports WHERE is_draft ='$isDraft' AND created_by_user='$userId'",
             null
         )
+
         return (cursor)
     }
 
-    fun count1(tableName: String, reportId: Int): Cursor {
-        val cursor =
-            db.rawQuery("SELECT COUNT(*) FROM '$tableName' WHERE report_id = '$reportId'", null)
-        return (cursor)
-    }
+//    fun count1(tableName: String, reportId: Int): Cursor {
+//        val cursor =
+//            db.rawQuery("SELECT COUNT(*) FROM '$tableName' WHERE report_id = '$reportId'", null)
+//        return (cursor)
+//    }
 
 
     fun getLastRecord(): Cursor {
@@ -223,20 +223,20 @@ class Query(private val context: Activity) {
     }
 
 
-    fun delete(tableName: String, columnName: String, id1: Int) {
-        val selectionArgs = arrayOf(id1.toString())
-        val rowsDeleted = db.delete(tableName, "$columnName = ?", selectionArgs)
-        if (rowsDeleted > 0) {
-            Toast.makeText(context, "Row deleted successfully", Toast.LENGTH_LONG).show()
-        } else {
-            Toast.makeText(context, "No rows deleted", Toast.LENGTH_SHORT).show()
-        }
-    }
+//    fun delete(tableName: String, columnName: String, id1: Int) {
+//        val selectionArgs = arrayOf(id1.toString())
+//        val rowsDeleted = db.delete(tableName, "$columnName = ?", selectionArgs)
+//        if (rowsDeleted > 0) {
+//            Toast.makeText(context, "Row deleted successfully", Toast.LENGTH_LONG).show()
+//        } else {
+//            Toast.makeText(context, "No rows deleted", Toast.LENGTH_SHORT).show()
+//        }
+//    }
 
-    fun deleteAll(tableName: String) {
-        db.delete(tableName, null, null)
-        db.close()
-    }
+//    fun deleteAll(tableName: String) {
+//        db.delete(tableName, null, null)
+//        db.close()
+//    }
 
     fun allCpReports(): Cursor {
         val cursor = db.rawQuery(
@@ -246,32 +246,15 @@ class Query(private val context: Activity) {
         return (cursor)
     }
 
-    fun allCpReportsInfo(): Cursor {
-        val cursor = db.rawQuery("SELECT * FROM cp_reports_info", null)
-        return (cursor)
-    }
+//    fun allCpReportsInfo(): Cursor {
+//        val cursor = db.rawQuery("SELECT * FROM cp_reports_info", null)
+//        return (cursor)
+//    }
 
-    fun allCpReportsParameters(): Cursor {
-        val cursor = db.rawQuery("SELECT * FROM cp_reports_parameters", null)
-        return (cursor)
-    }
+//    fun allCpReportsParameters(): Cursor {
+//        val cursor = db.rawQuery("SELECT * FROM cp_reports_parameters", null)
+//        return (cursor)
+//    }
 
 
 }
-
-
-/*
-
-        if (cursor.moveToFirst()) {
-            val storedPasswordHash = cursor.getString(cursor.getColumnIndexOrThrow("passwd"))
-            /*
-            if (BCrypt.checkpw(password, storedPasswordHash)) {
-                Toast.makeText(this, "Password is correct", Toast.LENGTH_SHORT).show()
-            }
-
-             */
-        }else {
-            Toast.makeText(applicationContext, "Password is incorrect", Toast.LENGTH_SHORT).show()
-        }
-
- */

@@ -2,7 +2,6 @@ package com.project.test.model
 
 import android.app.Activity
 import android.database.Cursor
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
@@ -23,17 +22,14 @@ import com.project.test.utils.SharedPreferences
 import com.project.test.utils.SharedViewModel
 
 
-class GetData(private val context: Activity) {
+class GetData(private val context: Activity, viewModelStoreOwner: ViewModelStoreOwner) {
     private val sharedPreferences = SharedPreferences(context)
-    private val cpId = sharedPreferences.getInt(
-        "cpIdSelected", 0
-    )
-    private val csId = sharedPreferences.getInt(
-        "csIdSelected", 0
-    )
-    private val csName = sharedPreferences.getString(
-        "csValueSelected", ""
-    )
+
+//        private val cpId = sharedPreferences.getInt(
+//        "cpIdSelected", 0
+//    )
+    val model = ViewModelProvider(viewModelStoreOwner)[SharedViewModel::class.java]
+    private val cpId = model.cpIndexSelectedID.value
 
     fun controlStation(): MutableList<DataNode> {
         val processId = SharedPreferences(context).getInt("process_id", 0)
@@ -98,7 +94,7 @@ class GetData(private val context: Activity) {
 
     fun infoRegister(isDraft: Int): MutableList<DataInfoRegister> {
 
-        val cpReports = Query(context).cpSelectReports1(cpId, isDraft)
+        val cpReports = Query(context).cpSelectReports1(cpId!!, isDraft)
         val dataInfoRegister = mutableListOf<DataInfoRegister>()
         if (cpReports.moveToFirst()) {
             val id =
@@ -179,7 +175,7 @@ class GetData(private val context: Activity) {
 
 
     fun information1(): MutableList<DataInfo> {
-        val cpStandardParameters = Query(context).cpStandardParameters(cpId)
+        val cpStandardParameters = Query(context).cpStandardParameters(cpId!!)
         val dataInfo = mutableListOf<DataInfo>()
         try {
             if (cpStandardParameters.moveToFirst()) {
@@ -217,13 +213,16 @@ class GetData(private val context: Activity) {
         var reportOrder: Int? = null
         var dataCpReports: DataCpReports? = null
         val time = CurrentTime().time()
-        val cpReports = Query(context).cpSelectReports(cpId)
+        val cpReports = Query(context).cpSelectReports(cpId!!)
         if (cpReports.count == 0) {
             try {
                 dataCpReports = DataCpReports(
-                    sharedPreferences.getInt("cpIdSelected", 0),
-                    sharedPreferences.getInt("csIdSelected", 0),
+                    model.cpIndexSelectedID.value!!,
+                    model.csIndexSelectedID.value!!,
                     sharedPreferences.getInt("userId", 0),
+//                    sharedPreferences.getInt("cpIdSelected", 0),
+//                    sharedPreferences.getInt("csIdSelected", 0),
+
                     time,
                     "null",
                     1,
@@ -267,7 +266,7 @@ class GetData(private val context: Activity) {
     fun count(
         context: ViewModelStoreOwner, context1: LifecycleOwner, context2: Activity, reportId: Int
     ): Int {
-        val cpReports = Query(context2).cpSelectReports(cpId)
+        val cpReports = Query(context2).cpSelectReports(cpId!!)
         var sum = 0
         val model1 = ViewModelProvider(context)[SharedViewModel::class.java]
         if (cpReports.moveToFirst()) {
@@ -287,9 +286,9 @@ class GetData(private val context: Activity) {
 
     fun otherReports(status: String): MutableList<DataReport> {
         val cpReports: Cursor = if (status == "showAllReport") {
-            Query(context).otherReportQuery1(cpId)
+            Query(context).otherReportQuery1()
         } else {
-            Query(context).otherReportQuery(cpId)
+            Query(context).otherReportQuery(cpId!!)
         }
         val dataInfo = mutableListOf<DataReport>()
         if (cpReports.moveToFirst()) {
@@ -349,7 +348,7 @@ class GetData(private val context: Activity) {
     }
 
     fun doc(): MutableList<DataDocument> {
-        val cursor = Query(context).documents(cpId)
+        val cursor = Query(context).documents(cpId!!)
         val dataInfo = mutableListOf<DataDocument>()
         try {
             if (cursor.moveToFirst()) {
@@ -434,7 +433,6 @@ class GetData(private val context: Activity) {
         val cursor1 = Query(context).count2(1)
         cursor1.moveToFirst()
         count = cursor1.getInt(0)
-
         if (cursor.moveToFirst()) {
             val csName = cursor.getString(cursor.getColumnIndexOrThrow("name"))
             val cpName = cursor.getString(cursor.getColumnIndexOrThrow("cp_code"))
@@ -542,7 +540,7 @@ class GetData(private val context: Activity) {
     }
 
     fun finalRegister(): MutableList<DataFinalRegister1> {
-        val cpReports = Query(context).finalRegister(cpId)
+        val cpReports = Query(context).finalRegister(cpId!!)
         val dataInfo = mutableListOf<DataFinalRegister1>()
         if (cpReports.moveToFirst()) {
             do {

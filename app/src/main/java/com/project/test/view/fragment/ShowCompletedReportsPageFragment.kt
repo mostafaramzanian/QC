@@ -1,7 +1,6 @@
 package com.project.test.view.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
-import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.project.test.R
@@ -21,7 +18,7 @@ import com.project.test.utils.SharedViewModel
 import com.project.test.view.adapter.ShowFormAdapter
 
 
-class DetailsReportNotActiveFragment : Fragment() {
+class ShowCompletedReportsPageFragment : Fragment() {
     private lateinit var binding: ShowFormReportBinding
     lateinit var model: SharedViewModel
     override fun onCreateView(
