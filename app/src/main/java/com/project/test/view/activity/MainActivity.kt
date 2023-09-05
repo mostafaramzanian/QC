@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
 
 import android.os.StrictMode
 import android.os.StrictMode.VmPolicy
@@ -17,6 +18,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
@@ -26,10 +28,14 @@ import com.erkutaras.showcaseview.ShowcaseManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.project.test.R
 import com.project.test.databinding.ActivityMainBinding
+import com.project.test.dataclass.DataUser
 import com.project.test.model.Database
+import com.project.test.model.GetData
 import com.project.test.utils.NavigationApp
 import com.project.test.utils.SharedPreferences
 import com.project.test.utils.SharedViewModel
+import de.nycode.bcrypt.verify
+import kotlin.concurrent.thread
 
 
 class MainActivity : AppCompatActivity() {
@@ -129,7 +135,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.fabOptions.setOnClickListener {
             navigationApp.navigationForward("InsertFromFragment")
-
+         //  AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             /*
                 val bundle = Bundle()
                 bundle.putBoolean("hideTextView", true)
@@ -140,95 +146,59 @@ class MainActivity : AppCompatActivity() {
         }
         binding.navHome.setOnClickListener {
             navigationApp.navigationForward("HomeFragment")
+
+            thread(true) {
+                authentication()
+            }
+         // AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
 
         findViewById<TextView>(R.id.nav_more).setOnClickListener {
             val bottomSheetDialog = BottomSheetDialog(this)
             bottomSheetDialog.setContentView(R.layout.bottom_sheet_dialog_layout)
             bottomSheetDialog.findViewById<View>(R.id.exit)?.setOnClickListener {
-                SharedPreferences(this@MainActivity).clear()
-
-                finish()
-                val intent = Intent(this@MainActivity, LoginActivity::class.java)
-                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                    this@MainActivity,
-                    binding.customTitleLayout.imageView2,
-                    ViewCompat.getTransitionName(binding.customTitleLayout.imageView2)!!
-                )
-
-                startActivity(intent, options.toBundle())
-
-
+                clearSharedPreferences()
             }
             bottomSheetDialog.show()
         }
+    }
+    private fun authentication() {
+        val sharedPreferences = SharedPreferences(this)
+        val userName = sharedPreferences.getString("username", "")
+        val password = sharedPreferences.getString("password", "")
+        val userId = sharedPreferences.getInt("userId", -1)
+        val userType = sharedPreferences.getString("userType", "")
+        val userTypeTitle = sharedPreferences.getString("userTypeTitle", "")
+        val processId = sharedPreferences.getInt("process_id", -1)
+        val processName = sharedPreferences.getString("process_name", "")
+        val firstname = sharedPreferences.getString("firstname", "")
+        val lastname = sharedPreferences.getString("lastname", "")
+        val userData: DataUser? = GetData(this, this).getUser(userName)
+        if (userData != null) {
+            if (!verify(
+                    password,
+                    userData.passwd.toByteArray()
+                ) || userId != userData.id || userType != userData.user_type || userTypeTitle!= userData.user_type_title ||processId != userData.process_id || processName != userData.process_name || firstname != userData.firstname || lastname != userData.lastname
+            ) {
+                clearSharedPreferences()
+            }
 
-
-//        val fontSize = Size(this).fontSize(0.029f)
-
-//        val titleApp = Size(this).fontSize(0.045f)
-        //Size(this).changeSize(0.065f,0.03f,findViewById<ImageButton>(R.id.home_menu))
-//        val textView = findViewById<TextView>(R.id.title_home)
-//        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
-//        val textView1 = findViewById<TextView>(R.id.title_home1)
-//        textView1.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
-//        val textView2 = findViewById<TextView>(R.id.title_more)
-//        textView2.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
-//        val textView3 = findViewById<TextView>(R.id.title_more1)
-//        textView3.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
-//        val textView4 = findViewById<TextView>(R.id.text_exit)
-//        textView4.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
-
-//        binding.customTitleLayout.textTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleApp)
-
-
-//        val view = findViewById<LinearLayout>(R.id.constraint)
-//        view.viewTreeObserver.addOnGlobalLayoutListener {
-//            val height = binding.bottomAppBar.height
-//            binding.innerViewGroup.layoutParams.height = height
-//            binding.innerViewGroup.visibility = View.GONE;
-//            binding.innerViewGroup.visibility = View.VISIBLE;
-//        }
-
-        //click(binding.navHome, this, binding, supportFragmentManager, fragmentList)
-//        click(binding.background1, this, binding, supportFragmentManager, fragmentList)
-//        click(binding.homeMenu1, this, binding, supportFragmentManager, fragmentList)
-//        click(binding.titleHome1, this, binding, supportFragmentManager, fragmentList)
-//
-//        home(binding.navHome, binding, this)
-//        home(binding.homeMenu, binding, this)
-//        home(binding.titleHome, binding, this)
-//
-//        clickMore(binding.navMore, binding, this, this, this)
-//        clickMore(binding.more, binding, this, this, this)
-//        clickMore(binding.titleMore, binding, this, this, this)
-//
-//        clickMore1(binding.backgroundMore1, binding, this, this)
-//        clickMore1(binding.more1, binding, this, this)
-//        clickMore1(binding.titleMore1, binding, this, this)
-        /*
-        binding.image1.setOnClickListener {
-            binding.groupMore.visibility = View.GONE
-            binding.groupMore1.visibility = View.VISIBLE
-            binding.showMore.slideDown()
-            SharedPreferences(this).putBoolean("menuExit", false)
+        } else {
+            clearSharedPreferences()
         }
-        binding.image2.setOnClickListener {
+    }
+    private fun clearSharedPreferences() {
+        SharedPreferences(this@MainActivity).clear()
+        finish()
+        val intent = Intent(this@MainActivity, LoginActivity::class.java)
+        Handler(mainLooper).post {
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                this@MainActivity,
+                binding.customTitleLayout.imageView2,
+                ViewCompat.getTransitionName(binding.customTitleLayout.imageView2)!!
+            )
+            startActivity(intent, options.toBundle())
         }
-*/
-//        binding.background1.setOnClickListener {
-//            binding.groupNav.visibility = View.VISIBLE
-//            binding.groupNav1.visibility = View.GONE
-//            FragmentReplacer(supportFragmentManager).replaceFragments(
-//                fragmentList.getLastFragment(),
-//                HomeFragment(),
-//                R.id.fragmentsContainer
-//            )
-//        }
-
-//        exit(binding.exitIcon, this)
-//        exit(binding.textExit, this)
-        //defaultFragment(supportFragmentManager)
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -280,127 +250,3 @@ class MainActivity : AppCompatActivity() {
 
 }
 
-//fun startService(context: Activity) {
-//    context.startService(Intent(context, MyService::class.java))
-//}
-//
-//fun exit(
-//    view: View, context: Activity
-//) {
-//    view.setOnClickListener {
-//        SharedPreferences(context).clear()
-//        context.stopService(Intent(context, MyService::class.java))
-//        GoToOtherActivity(context).login()
-//    }
-//}
-//
-//fun home(
-//    view: View, binding: ActivityMainBinding, context: Context
-//) {
-//    view.setOnClickListener {
-////        binding.showMore.slideDown()
-//        SharedPreferences(context).putBoolean("menuExit", false)
-////        binding.groupMore.visibility = View.GONE
-////        binding.groupMore1.visibility = View.VISIBLE
-//    }
-//}
-
-//
-//fun click(
-//    view: View,
-//    context: Context,
-//    binding: ActivityMainBinding,
-//    fragmentManager: FragmentManager,
-//    fragmentList: Stack
-//) {
-//    view.setOnClickListener {
-////        binding.showMore.slideDown()
-//        SharedPreferences(context).putBoolean("menuExit", false)
-////        binding.groupNav.visibility = View.VISIBLE
-////        binding.groupNav1.visibility = View.GONE
-////        binding.groupMore.visibility = View.GONE
-////        binding.groupMore1.visibility = View.VISIBLE
-//
-//        FragmentReplacer(fragmentManager).replaceFragments(
-//            fragmentList.getLastFragment(), HomeFragment(), R.id.fragmentsContainer
-//        )
-//
-//
-//        val anim = AnimationUtils.loadAnimation(context, R.anim.arrow_anim)
-////        binding.arrow.startAnimation(anim)
-//    }
-//}
-//
-//fun clickMore(
-//    view: View,
-//    binding: ActivityMainBinding,
-//    context: ViewModelStoreOwner,
-//    context1: LifecycleOwner,
-//    context2: Context,
-//) {
-//    view.setOnClickListener {
-//        val model1 = ViewModelProvider(context)[SharedViewModel::class.java]
-//        model1.statusViewSpinner("show")
-//        SharedPreferences(context2).putBoolean("menuExit", false)
-////        binding.groupMore.visibility = View.GONE
-////        binding.groupMore1.visibility = View.VISIBLE
-////        binding.showMore.slideDown()
-//        model1.fragment.observe(context1, Observer {
-//            if (it == "HomeFragment") {
-////                binding.groupNav.visibility = View.VISIBLE
-////                binding.groupNav1.visibility = View.GONE
-//            }
-//        })
-//
-//    }
-//}
-//
-//fun clickMore1(
-//    view: View,
-//    binding: ActivityMainBinding,
-//    context: ViewModelStoreOwner,
-//    context1: Context,
-//) {
-//    view.setOnClickListener {
-//        val model1 = ViewModelProvider(context)[SharedViewModel::class.java]
-//        model1.statusViewSpinner("hidden")
-//        SharedPreferences(context1).putBoolean("menuExit", true)
-////        binding.groupMore.visibility = View.VISIBLE
-////        binding.groupMore1.visibility = View.GONE
-////        binding.groupNav.visibility = View.GONE
-////        binding.groupNav1.visibility = View.VISIBLE
-////        binding.showMore.slideUp()
-//    }
-//}
-
-//fun View.slideUp(duration: Int = 500) {
-//    if (visibility == View.INVISIBLE) {
-//        visibility = View.VISIBLE
-//        val animate = TranslateAnimation(0f, 0f, this.height.toFloat(), 0f)
-//        animate.duration = duration.toLong()
-//        animate.fillAfter = true
-//        this.startAnimation(animate)
-//    }
-//}
-
-//fun View.slideDown(duration: Int = 500) {
-//    if (visibility == View.VISIBLE) {
-//        visibility = View.INVISIBLE
-//        val animate = TranslateAnimation(0f, 0f, 0f, this.height.toFloat())
-//        animate.duration = duration.toLong()
-//        animate.fillAfter = false
-//        this.startAnimation(animate)
-//    }
-//}
-
-//fun homeFragment(fragmentManager: FragmentManager) {
-//    val transaction = fragmentManager.beginTransaction()
-//    transaction.add(R.id.fragmentContainer, HomeFragment())
-//    transaction.commit()
-//}
-//
-//fun insertReportFragment(fragmentManager: FragmentManager) {
-//    val transaction = fragmentManager.beginTransaction()
-//    transaction.add(R.id.fragmentsContainer, InsertReportFragment())
-//    transaction.commit()
-//}

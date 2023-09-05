@@ -437,7 +437,7 @@ public class SyncDataActivity extends Activity implements Callback, Runnable, Tr
                     syncPercent.setVisibility(View.GONE);
                     findViewById(R.id.close_window).setVisibility(View.VISIBLE);
                 });
-
+                
                 mDeviceHandler.postDelayed(this::disconnectFromAccessory, 1000);
                 break;
             }

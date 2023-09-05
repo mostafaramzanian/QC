@@ -77,8 +77,8 @@ class GetData(private val context: Activity, viewModelStoreOwner: ViewModelStore
                         selectCp.getString(selectCp.getColumnIndexOrThrow("access_user_group"))
                     val list = cpAccess.replace("'", "").split(",")
                         .map { it.trim().replace("[", "").replace("]", "") }
-                    // val index = list.indexOf( SharedPreferences(context).getString("userType", ""))
-                    val index = list.indexOf("MASTER_WORKER")
+                     val index = list.indexOf( SharedPreferences(context).getString("userType", ""))
+                    //val index = list.indexOf("MASTER_WORKER")
                     if (index != -1 && cpName != null) {
                         val data = DataCp(cpId, cpName, product)
                         listName.add(data)

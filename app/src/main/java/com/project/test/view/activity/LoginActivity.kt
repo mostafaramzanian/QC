@@ -178,9 +178,16 @@ class LoginActivity : AppCompatActivity() {
 
                             if (userData.user_type == "QC_EXPERT" || userData.user_type == "QC_REVIEWER" || userData.user_type == "QUALITY_ASSURANCE_EXPERT") {
                                 sharedPreferences.putString("username", user)
+                                sharedPreferences.putString("password", password)
                                 sharedPreferences.putInt("userId", userData.id)
                                 sharedPreferences.putString(
                                     "fullName", "${userData.firstname} ${userData.lastname}"
+                                )
+                                sharedPreferences.putString(
+                                    "firstname",userData.firstname
+                                )
+                                sharedPreferences.putString(
+                                    "lastname", userData.lastname
                                 )
                                 sharedPreferences.putString("userType", userData.user_type)
                                 sharedPreferences.putString(
